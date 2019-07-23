@@ -6,7 +6,9 @@ output:
     toc: false
 ---
 
-Explore functional/smoothed Matrix factorization.
+## Overview 
+
+Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y = LF+E$, and assume $L$ is sparse and $F$ has smooth rows.
 
 1. [Functional PCA](fpca.html)
 2. [Smoothed EBMF](SmoothMF.html)
