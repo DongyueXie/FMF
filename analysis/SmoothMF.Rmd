@@ -278,19 +278,8 @@ legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,
 
 ### Try PMD
 
-```{r}
-library(PMA)
-WavePMA = function(y,k,filter.number = 1,family = 'DaubExPhase'){
-  N=nrow(y)
-  p=ncol(y)
-  W = GenW(n=p,filter.number = filter.number,family = family)
-  y_tilde = y%*%W
-  f2 = flash(y_tilde,Kmax=k,var_type = 'constant',backfit = T,verbose=F)
-  f2_fitted = flash_get_ldf(f2)
-  f_hat = (W%*%f2_fitted$f)
-  return(list(f=f_hat,l=f2_fitted$l))
-}
-```
+[PMD](SmoothPMD.html)
+
 
 
 ## Summary

@@ -1,0 +1,134 @@
+---
+title: "Smoothed PMD"
+author: "Dongyue Xie"
+output: workflowr::wflow_html
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+## Introduction
+
+Penalized matrix decomposition finds sparse $L,F$ such that $Y \approx LF^T$. It also has the option to give smooth estimate of factors in $F$ using fused lasso. Here, we compare PMD-smooth, WaveletPMD and WaveletEBMF.
+
+```{r}
+library(wavethresh)
+library(flashr)
+library(PMA)
+# wavelet-based matrix factorization
+#'@ y: observed matrix
+#'@ k: number of factors
+#'@ filter.number, family: wavelet type
+
+WaveEBMF = function(y,k,filter.number = 1,family = 'DaubExPhase'){
+  N=nrow(y)
+  p=ncol(y)
+  W = GenW(n=p,filter.number = filter.number,family = family)
+  y_tilde = y%*%W
+  f2 = flash(y_tilde,Kmax=k,var_type = 'constant',backfit = T,verbose=F)
+  f2_fitted = flash_get_ldf(f2)
+  f_hat = (W%*%f2_fitted$f)
+  return(list(f=f_hat,l=f2_fitted$l))
+}
+
+WavePMD = function(y,k,filter.number = 1,family = 'DaubExPhase'){
+  N=nrow(y)
+  p=ncol(y)
+  W = GenW(n=p,filter.number = filter.number,family = family)
+  y_tilde = y%*%W
+  param = PMD.cv(y_tilde,type='standard')
+  f2 = PMD(y_tilde,type='standard',sumabs = param$bestsumabs,K=k)
+  f_hat = (W%*%f2$v)
+  return(list(f=f_hat,l=f2$u))
+}
+```
+
+## A single factor example
+
+Simulate $N=200$ and $p=256$ under single-factor model 
+\[l_i\sim \pi_0\delta_0+(1-\pi_0)\sum_{m=1}^5\frac{1}{5}N(0,\sigma^2_m)\]
+
+**Step function factor**
+
+$f$ is a step function. 
+
+```{r}
+rmse = function(x1,x2){sqrt(mean((x1-x2)^2))}
+set.seed(12345)
+N = 200
+p = 256
+pi0 = 0.3
+f = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
+l = c()
+for (i in 1:N) {
+  r = rbinom(1,1,pi0)
+  if(r==1){
+    l[i]=0
+  }else{
+      l[i] = mean(c(rnorm(1,0,sqrt(0.25)),rnorm(1,0,sqrt(0.5)),rnorm(1,0,sqrt(1)),
+                    rnorm(1,0,sqrt(2)),rnorm(1,0,sqrt(4))))
+      }
+}
+y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
+
+# apply flash directly
+f1 = WaveEBMF(y,k=1)
+f2 = WavePMD(y,k=1)
+f3 = PMD.cv(y,type='ordered')
+f3 = PMD(y,'ordered',sumabsu = f3$bestsumabsu, K=1)
+
+plot(f/norm(f,'2'),col='grey80',xlab='',ylab='',main='Estimate of factors',ylim=c(0,0.11))
+lines(f1$f,col=4)
+lines(-f2$f,col=2)
+lines(f3$v,col=3)
+legend('topleft',c('true f','WaveEBMF','WavePMD','PMD-smooth'),col=c('grey80',4,2,3),lty=c(1,1,1,1))
+
+```
+
+**HeavySine function factor**
+
+```{r}
+f=DJ.EX(p,signal = 2)$heavi
+y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
+
+# apply flash directly
+f1 = WaveEBMF(y,k=1,filter.number = 10,family = 'DaubLeAsymm')
+f2 = WavePMD(y,k=1,filter.number = 10,family = 'DaubLeAsymm')
+f3 = PMD.cv(y,type='ordered')
+f3 = PMD(y,'ordered',sumabsu = f3$bestsumabsu, K=1)
+
+plot(f/norm(f,'2'),col='grey80',xlab='',ylab='',main='Estimate of factors',ylim=c(-0.15,0.11))
+lines(f1$f,col=4)
+lines(f2$f,col=2)
+lines(f3$v,col=3)
+legend('topright',c('true f','WaveEBMF','WavePMD','PMD-smooth'),col=c('grey80',4,2,3),lty=c(1,1,1,1))
+```
+
+
+**Spike function factor**
+
+```{r}
+spike.f = function(x) (0.75 * exp(-500 * (x - 0.23)^2) + 1.5 * exp(-2000 * (x - 0.33)^2) + 3 * exp(-8000 * (x - 0.47)^2) + 2.25 * exp(-16000 * 
+    (x - 0.69)^2) + 0.5 * exp(-32000 * (x - 0.83)^2))
+
+t = 1:p/p
+f = 2*spike.f(t)
+
+y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
+
+# apply flash directly
+f1 = WaveEBMF(y,k=1,filter.number = 10,family = 'DaubLeAsymm')
+f2 = WavePMD(y,k=1,filter.number = 10,family = 'DaubLeAsymm')
+f3 = PMD.cv(y,type='ordered')
+f3 = PMD(y,'ordered',sumabsu = f3$bestsumabsu, K=1)
+
+plot(f/norm(f,'2'),col='grey80',xlab='',ylab='',main='Estimate of factors',ylim=c(-0.05,0.5))
+lines(f1$f,col=4)
+lines(-f2$f,col=2)
+lines(-f3$v,col=3)
+legend('topright',c('true f','WaveEBMF','WavePMD','PMD-smooth'),col=c('grey80',4,2,3),lty=c(1,1,1,1))
+```
+
+
+
