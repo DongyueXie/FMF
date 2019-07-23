@@ -1,0 +1,300 @@
+---
+title: "Smoothed Matrix Factorization using wavelet and EBMF"
+author: "Dongyue Xie"
+output: workflowr::wflow_html
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+## Introduction
+
+Consider a matrix factorization problem \[Y = LF+E,\]
+
+where $Y$ is a $N\times p$ matrix, $L$ is a $N\times K$ matrix, $F$ is a $K\times p$ matrix and $E$ is a $N\times p$ matrix of residuals. 
+
+We assume each row of $F$ is smooth or spatially-structured. Then each row of $Y$ is from a smooth function/curve with added noises. Matrix $L$ is assumed to be sparse.
+
+The question is how to estimate $L$ and $F$.
+
+This is very similar to functional principal component analysis, which considers finding weights and principal components of a collection of curves. A common approach is adding a roughness penalty of the weights to obtain smooth estimates. 
+
+Here, we consider using a specific basis to represent the smooth curves - wavelet. Let $W$ be the discrete wavelet transformation(DWT) matrix. We perform wavelet decomnposition on both sides then \[YW=LFW+EW,\]
+or 
+\[\tilde{Y} = L\tilde{F}+\tilde{E}.\]
+
+Now each row of $\tilde{F}$ is sparse. We can then apply any penalized matrix factorization algorithm to $\tilde{Y}$ to obtain sparse estimates of $L$ and $\tilde{F}$. Applying inverse DWT gives $\hat{F}$.
+
+## Simulation
+
+In this simulation study, we choose EBMF framework and compare it with the wavelet approach.
+
+```{r}
+library(wavethresh)
+library(flashr)
+# wavelet-based matrix factorization
+#'@ y: observed matrix
+#'@ k: number of factors
+#'@ filter.number, family: wavelet type
+
+WaveEBMF = function(y,k,filter.number = 1,family = 'DaubExPhase'){
+  N=nrow(y)
+  p=ncol(y)
+  W = GenW(n=p,filter.number = filter.number,family = family)
+  y_tilde = y%*%W
+  f2 = flash(y_tilde,Kmax=k,var_type = 'constant',backfit = T,verbose=F)
+  f2_fitted = flash_get_ldf(f2)
+  f_hat = (W%*%f2_fitted$f)
+  return(list(f=f_hat,l=f2_fitted$l))
+}
+
+```
+
+### A single factor example
+
+Simulate $N=200$ and $p=256$ under single-factor model 
+\[l_i\sim \pi_0\delta_0+(1-\pi_0)\sum_{m=1}^5\frac{1}{5}N(0,\sigma^2_m)\]
+
+**Step function factor**
+
+$f$ is a step function. 
+
+```{r}
+rmse = function(x1,x2){sqrt(mean((x1-x2)^2))}
+set.seed(12345)
+N = 200
+p = 256
+pi0 = 0.3
+f = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
+l = c()
+for (i in 1:N) {
+  r = rbinom(1,1,pi0)
+  if(r==1){
+    l[i]=0
+  }else{
+      l[i] = mean(c(rnorm(1,0,sqrt(0.25)),rnorm(1,0,sqrt(0.5)),rnorm(1,0,sqrt(1)),
+                    rnorm(1,0,sqrt(2)),rnorm(1,0,sqrt(4))))
+      }
+}
+y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
+
+# apply flash directly
+f1 = flash(y,Kmax=1,var_type = 'constant',backfit = T,verbose=F)
+f1 = flash_get_ldf(f1)
+
+# apply wavelet transform
+
+# use Haar wavelet
+
+f2 = WaveEBMF(y,k=1)
+
+paste('RMSE of l flash estimate:',round(rmse(f1$l,l/norm(l,'2')),5))
+paste('RMSE of l Waveflash estimate:',round(rmse(f2$l,l/norm(l,'2')),5))
+
+plot(f2$l,l/norm(l,'2'),xlab='Estimate',ylab='True l')
+lines(f2$l,f2$l)
+
+plot(f1$f,col = 2,type='l',xlab='',ylab='',main='Estimate of factors')
+lines(f/norm(f,'2'),col='grey80',type='p')
+lines(f2$f,col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+
+```
+
+**HeavySine function factor**
+
+```{r}
+f=DJ.EX(p,signal = 2)$heavi
+y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
+
+# apply flash directly
+f1 = flash(y,Kmax=1,var_type = 'constant',backfit = F,verbose=F)
+f1 = flash_get_ldf(f1)
+
+# apply wavelet transform
+
+# use symmlet10
+
+f2 = WaveEBMF(y,k=1,filter.number = 10,family = 'DaubLeAsymm')
+
+paste('RMSE of l flash estimate:',round(rmse(f1$l,l/norm(l,'2')),5))
+paste('RMSE of l Waveflash estimate:',round(rmse(f2$l,l/norm(l,'2')),5))
+
+plot(f2$l,l/norm(l,'2'),xlab='Estimate',ylab='True l')
+lines(f2$l,f2$l)
+
+plot(f1$f,col = 2,type='l',xlab='',ylab='',main='Estimate of factors')
+lines(f/norm(f,'2'),col='grey80',type='p')
+lines(f2$f,col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+```
+
+
+**Spike function factor**
+
+```{r}
+spike.f = function(x) (0.75 * exp(-500 * (x - 0.23)^2) + 1.5 * exp(-2000 * (x - 0.33)^2) + 3 * exp(-8000 * (x - 0.47)^2) + 2.25 * exp(-16000 * 
+    (x - 0.69)^2) + 0.5 * exp(-32000 * (x - 0.83)^2))
+
+t = 1:p/p
+f = 2*spike.f(t)
+
+y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
+
+# apply flash directly
+f1 = flash(y,Kmax=1,var_type = 'constant',backfit = F,verbose=F)
+f1 = flash_get_ldf(f1)
+
+# apply wavelet transform
+
+# use symmlet10
+
+f2 = WaveEBMF(y,k=1,filter.number = 10,family = 'DaubLeAsymm')
+
+paste('RMSE of l flash estimate:',round(rmse(f1$l,l/norm(l,'2')),5))
+paste('RMSE of l Waveflash estimate:',round(rmse(f2$l,l/norm(l,'2')),5))
+
+plot(f2$l,l/norm(l,'2'),xlab='Estimate',ylab='True l')
+lines(f2$l,f2$l)
+
+plot(f1$f,col = 2,type='l',xlab='',ylab='',main='Estimate of factors')
+lines(f/norm(f,'2'),col='grey80',type='p')
+lines(f2$f,col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+```
+
+
+
+### Three factors example
+
+Simulate $N=200$ and $p=256$ under the factor model 
+\[l_i\sim \pi_0\delta_0+(1-\pi_0)\sum_{m=1}^5\frac{1}{5}N(0,\sigma^2_m)\]
+
+We set $K=3$ and three factors are step function, Heavysine and spike functions.
+
+```{r}
+K=3
+set.seed(12345)
+L = matrix(nrow=N,ncol=K)
+for (i in 1:N) {
+  for(j in 1:K){
+    
+    r = rbinom(1,1,pi0)
+    if(r==1){
+       L[i,j]=0
+    }else{
+      L[i,j] = mean(c(rnorm(1,0,sqrt(0.25)),rnorm(1,0,sqrt(0.5)),rnorm(1,0,sqrt(1)),
+                    rnorm(1,0,sqrt(2)),rnorm(1,0,sqrt(4))))
+    }
+  }
+}
+
+f_1 = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
+f_2 = DJ.EX(p,signal = 2)$heavi
+f_3 = 2*spike.f(t)
+FF = rbind(f_1,f_2,f_3)
+E = matrix(rnorm(N*p,0,1),ncol=p)
+Y = L%*%FF + E
+
+# apply flash directly
+f1 = flash(Y,Kmax=3,var_type = 'constant',backfit = F,verbose=F)
+f1 = flash_get_ldf(f1)
+
+# apply wavelet transform
+
+# use symmlet10
+
+f2 = WaveEBMF(Y,k=3,filter.number = 10,family = 'DaubLeAsymm')
+
+
+plot(-f1$f[,1],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
+lines(f_1/norm(f_1,'2'),col='grey80',type='p')
+lines(-f2$f[,1],col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+
+plot(-f1$f[,2],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
+lines(f_2/norm(f_2,'2'),col='grey80',type='p')
+lines(-f2$f[,2],col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+
+plot(f1$f[,3],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
+lines(f_3/norm(f_3,'2'),col='grey80',type='p')
+lines(f2$f[,3],col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+
+```
+
+
+How about use Haar wavelet?
+
+```{r}
+f2 = WaveEBMF(Y,k=3,filter.number = 1,family = 'DaubExPhase')
+
+
+plot(-f1$f[,1],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
+lines(f_1/norm(f_1,'2'),col='grey80',type='p')
+lines(-f2$f[,1],col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+
+plot(-f1$f[,2],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
+lines(f_2/norm(f_2,'2'),col='grey80',type='p')
+lines(-f2$f[,2],col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+
+plot(f1$f[,3],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
+lines(f_3/norm(f_3,'2'),col='grey80',type='p')
+lines(f2$f[,3],col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+```
+
+How about change the order of three factors?
+
+```{r}
+FF = rbind(f_3,f_2,f_1)
+Y = L%*%FF + E
+
+# apply flash directly
+f1 = flash(Y,Kmax=3,var_type = 'constant',backfit = F,verbose=F)
+f1 = flash_get_ldf(f1)
+f2 = WaveEBMF(Y,k=3,filter.number = 1,family = 'DaubExPhase')
+
+
+plot(f1$f[,1],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
+lines(f_1/norm(f_1,'2'),col='grey80',type='p')
+lines(f2$f[,1],col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+
+plot(-f1$f[,2],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
+lines(f_2/norm(f_2,'2'),col='grey80',type='p')
+lines(-f2$f[,2],col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+
+plot(-f1$f[,3],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
+lines(f_3/norm(f_3,'2'),col='grey80',type='p')
+lines(-f2$f[,3],col=4)
+legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+```
+
+### Try PMD
+
+```{r}
+library(PMA)
+WavePMA = function(y,k,filter.number = 1,family = 'DaubExPhase'){
+  N=nrow(y)
+  p=ncol(y)
+  W = GenW(n=p,filter.number = filter.number,family = family)
+  y_tilde = y%*%W
+  f2 = flash(y_tilde,Kmax=k,var_type = 'constant',backfit = T,verbose=F)
+  f2_fitted = flash_get_ldf(f2)
+  f_hat = (W%*%f2_fitted$f)
+  return(list(f=f_hat,l=f2_fitted$l))
+}
+```
+
+
+## Summary
+
+1. The wavelet method gives smoother estimate of factors. The smoothness depends on the wavelet basis chosen. 
+2. The signs of loadings and factors are not identifiable.
+3. Smash uses non-decimated DWT to give better estimate. If using NDWT in flash, there would be a lot more computational cost.
