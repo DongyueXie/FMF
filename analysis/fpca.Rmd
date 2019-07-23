@@ -1,0 +1,82 @@
+---
+title: "Functional PCA"
+author: "Dongyue Xie"
+date: "2019-07-19"
+output: workflowr::wflow_html
+---
+
+## Introduction
+
+Let $x$ be $p-$dimensional random vector. For multivariate data, PCA finds weights $\beta$ s.t. $\beta^Tx$ has maximum variance. For functional data, $\beta$ and $x$ are functions $\beta(s)$ and $x(s)$, the summations become integration 
+
+\begin{equation}
+    f = \int \beta(s)x(s)ds
+\end{equation}
+
+Let $\beta_1$ denote the first weight function, which is chosen to maximize $N^{-1}\sum_i(\int \beta_1x_i)^2$ subject to $\int\beta_1(s)^2ds=1$.
+
+Another way to define PCA is to find a set of K orthonormal functions s.t. the expansion of each curve in terms of basis functions approximates the curve as closely as possible. The expansion can be written as 
+\begin{equation}
+    \hat{x}_i(t) = \sum_{k=1}^K f_{ik}\beta_k(t).
+\end{equation}
+
+A measure of fitting is the integrated squared error 
+\begin{equation}
+    ||x_i-\hat{x}_i||^2 = \int [x(s) - \hat{x}(s)]^2 ds
+\end{equation}
+
+## Computational methods
+
+Suppose we have a set of $N$ curves $x_i$ and column centered. Let $v(s,t)$ be the sample covariance function of observed data. 
+
+### Discretizing the functions
+
+Discretize the $x_i$ to a fine grid of $n$ equally spaced values $s_j$. Then we work with $N\times n$ matrix $X$.
+
+### Basis function expansion of the functions
+
+To reduce the eigenequation $\int v(s,t)\beta(t)dt = \rho\beta(s)$ to discrete or matrix form , we can express each $x_i$ as a linear combination of known basis functions $\phi_k$. Then each function can be written as 
+\begin{equation}
+    x_i(t) = \sum_{k=1}^K c_{ik}\phi_k(t),
+\end{equation}
+or in matrix form 
+\begin{equation}
+    x=C\phi,
+\end{equation}
+where $C$ is a $N\times K$ matrix, $\phi$ is a vector-valued function to have component $\phi_1,...,\phi_K$. 
+
+The covariance matrix is then 
+\begin{equation}
+    v(s,t) = N^{-1}\phi(s)^TC^TC\phi(t).
+\end{equation}
+
+Define the order $K$ symmetric matrix $W$ as 
+\begin{equation}
+    w_{k_1,k_2} = \int \phi_{k_1}\phi_{k_2}.
+\end{equation}
+
+Suppose an eigenfunction $\beta$ has expansion 
+\begin{equation}
+    \beta(s) = \phi(s)^Tb.
+\end{equation}
+
+Then we have 
+\begin{equation}
+    \int v(s,t)\beta(t)dt = \phi(s)^TN^{-1}C^TCWb = \rho\phi(s)^Tb.
+\end{equation}
+
+The above equation should hold for all $s$, so 
+\begin{equation}
+    N^{-1}C^TCWb = \rho b
+\end{equation}
+
+## Regularized principal components analysis
+
+### Smoothing approach
+
+Suppose $\beta$ is the leading principal component, we usually penalize the roughness of $\beta$, $PEN_2(\beta) = \int \beta^{''}(t)^2dt$. The penalized sample variance is given by 
+\begin{equation}
+    \frac{var \int \beta x_i}{||\beta||^2+\lambda*PEN_2(\beta)}.
+\end{equation}
+
+
