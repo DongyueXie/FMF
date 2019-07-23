@@ -1,7 +1,6 @@
 ---
 title: "Functional PCA"
 author: "Dongyue Xie"
-date: "2019-07-19"
 output: workflowr::wflow_html
 ---
 
@@ -79,4 +78,13 @@ Suppose $\beta$ is the leading principal component, we usually penalize the roug
     \frac{var \int \beta x_i}{||\beta||^2+\lambda*PEN_2(\beta)}.
 \end{equation}
 
+### In practice
 
+Suppose that $\phi_\nu$ is a suitable basis for the space of smooth functions S on $[0,1]$, for example B-splines. We can expand $x(s)$ as $x(s) = \sum_\nu c_\nux_\nu(s) = c'\phi(s)$. Let $c_i$ be the vector of coefficients of the data function $x_i(s)$ in the basis $\phi_\nu$. Let $V$ be the covariance matrix of the vectors $c_i$. Define $J$ to be the matrix $\int\phi\phi'$ whose elements are $\int \phi_j\phi_k$ and $K$ the matrix whose elements are are $\int D^2phi_jD^2\phi_k$, then the penalized sample variance is 
+\begin{equation}
+    PCAPSV = \frac{y'JVJy}{y'Jy+\lambda y'Ky}
+\end{equation}
+
+### Alternative approaches
+
+Instead of carrying out our smoothing step within the PCA, we smooth the data first, and then carry out an unsmoothed PCA. This approach to func- tional PCA was taken by Besse and Ramsay (1986), Ramsay and Dalzell (1991) and Besse, Cardot and Ferraty (1997). 
