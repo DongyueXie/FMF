@@ -11,7 +11,6 @@
 
 <meta name="author" content="Dongyue Xie" />
 
-<meta name="date" content="2019-07-19" />
 
 <title>Functional PCA</title>
 
@@ -295,9 +294,10 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jdblischak/workflowr">
+  <a href="https://github.com/DongyueXie/FMF">
     <span class="fa fa-github"></span>
      
+    Source code
   </a>
 </li>
       </ul>
@@ -318,7 +318,6 @@ div.section {
 
 <h1 class="title toc-ignore">Functional PCA</h1>
 <h4 class="author"><em>Dongyue Xie</em></h4>
-<h4 class="date"><em>2019-07-19</em></h4>
 
 </div>
 
@@ -374,23 +373,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong57856fd"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 57856fd </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree29c1207b026814776f4076661eeb5bd5462f03c6targetblank29c1207a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/29c1207b026814776f4076661eeb5bd5462f03c6" target="_blank">29c1207</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong57856fd" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree29c1207b026814776f4076661eeb5bd5462f03c6targetblank29c1207a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
-Untracked files:
-    Untracked:  analysis/SmoothMF.Rmd
-    Untracked:  analysis/SmoothPMD.Rmd
-    Untracked:  docs/figure/
-
-Unstaged changes:
-    Modified:   analysis/about.Rmd
-
+working directory clean
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
@@ -433,7 +425,41 @@ Message
 Rmd
 </td>
 <td>
-57856fd
+<a href="https://github.com/DongyueXie/FMF/blob/29c1207b026814776f4076661eeb5bd5462f03c6/analysis/fpca.Rmd" target="_blank">29c1207</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-07-23
+</td>
+<td>
+wflow_publish(“analysis/fpca.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/c69cc9c7987c8b7f8002864ed81ad6daaf386b9d/docs/fpca.html" target="_blank">c69cc9c</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-07-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/57856fd4327093478b4604bb7f043afe9d19afa2/analysis/fpca.Rmd" target="_blank">57856fd</a>
 </td>
 <td>
 Dongyue Xie
@@ -516,6 +542,17 @@ Suppose <span class="math inline">\(\beta\)</span> is the leading principal comp
 <span class="math display">\[\begin{equation}
     \frac{var \int \beta x_i}{||\beta||^2+\lambda*PEN_2(\beta)}.
 \end{equation}\]</span>
+</div>
+<div id="in-practice" class="section level3">
+<h3>In practice</h3>
+Suppose that <span class="math inline">\(\phi_\nu\)</span> is a suitable basis for the space of smooth functions S on <span class="math inline">\([0,1]\)</span>, for example B-splines. We can expand <span class="math inline">\(x(s)\)</span> as <span class="math inline">\(x(s) = \sum_\nu c_\nux_\nu(s) = c&#39;\phi(s)\)</span>. Let <span class="math inline">\(c_i\)</span> be the vector of coefficients of the data function <span class="math inline">\(x_i(s)\)</span> in the basis <span class="math inline">\(\phi_\nu\)</span>. Let <span class="math inline">\(V\)</span> be the covariance matrix of the vectors <span class="math inline">\(c_i\)</span>. Define <span class="math inline">\(J\)</span> to be the matrix <span class="math inline">\(\int\phi\phi&#39;\)</span> whose elements are <span class="math inline">\(\int \phi_j\phi_k\)</span> and <span class="math inline">\(K\)</span> the matrix whose elements are are <span class="math inline">\(\int D^2phi_jD^2\phi_k\)</span>, then the penalized sample variance is
+<span class="math display">\[\begin{equation}
+    PCAPSV = \frac{y&#39;JVJy}{y&#39;Jy+\lambda y&#39;Ky}
+\end{equation}\]</span>
+</div>
+<div id="alternative-approaches" class="section level3">
+<h3>Alternative approaches</h3>
+<p>Instead of carrying out our smoothing step within the PCA, we smooth the data first, and then carry out an unsmoothed PCA. This approach to func- tional PCA was taken by Besse and Ramsay (1986), Ramsay and Dalzell (1991) and Besse, Cardot and Ferraty (1997).</p>
 </div>
 </div>
 
