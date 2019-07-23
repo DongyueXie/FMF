@@ -5,4 +5,8 @@ output:
     toc: false
 ---
 
-Describe your project.
+Explore functional Matrix factorization.
+
+1. [Functional PCA](fpca.html)
+2. [Smoothed EBMF](SmoothMF.html)
+3. [Smoothed PMD](SmoothPMD.html)
