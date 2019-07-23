@@ -1,5 +1,5 @@
 ---
-title: "Home"
+title: "Smoothed Matrix Factorization"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
