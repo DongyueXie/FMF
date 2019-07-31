@@ -1,0 +1,180 @@
+---
+title: "SmoothMFpoisson2"
+author: "Dongyue Xie"
+date: "2019-07-31"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+
+## Introduction
+
+Consider a count matrix $Y\in$$R^{N\times p}$ whose underlying rows are smooth.  Each entry of the count matrix is assumed Poission distribution, $Y_{ij}\sim Pois(\lambda_{ij})$, where $\lambda_{ij} = \exp(m_{ij})$. Denote $\Lambda = \{\lambda_{ij}\}$, $M = \{m_{ij}\}$ and assume $M = LF$, where $L$ is a $N\times K$ matrix and $F$ is a $K\times p$ matrix.
+
+Using Taylor series expansion, we have $\log(Y_{ij})\approx \log(\lambda_{ij})+\frac{Y_{ij}-\lambda_{ij}}{\lambda_{ij}}$. Define $Z_{ij} = \log(\lambda_{ij})+\frac{Y_{ij}-\lambda_{ij}}{\lambda_{ij}}$, then $E(Z_{ij}|\lambda_{ij) = \log(\lambda_{ij})}$, $Var(Z_{ij}|\lambda_{ij}) = \frac{1}{\lambda_{ij}}$. So we have $Z = M+E = LF+E$, where $E_{ij}\sim N(0,\frac{1}{\lambda_{ij}})$
+
+
+Following the study from [smashgen](https://dongyuexie.github.io/smash-gen/poissonspike.html), we choose $\hat\lambda_{ij} = Y_{ij}$, then the pseusodata would be $Z_{ij} = \log(Y_{ij})$ for non-zero observations. For $0$s, we use the posterior mean from ash by applying ash to each row of $Y$.
+
+If following traditional glm theory, we can initialize $\lambda_{i\cdot}^{(0)} = E(Y_{i\cdot})$,then iterate: (1). Form $Z$, and $S$, the variance of the residuals. (2). Fit $Z = LF+E$. (3). Set $\lambda_{ij}^{new}$ = $\exp[(LF)_{ij}]$.
+
+We can also use variance stabilizing tranformation. For example, anscombe transform $Y_{ij}\rightarrow \sqrt{Y_{ij}+3/8}$ transforms possion data to approximately Gaussian $Z_{ij}\sim N(\sqrt{\lambda_{ij}+3/8},1/4)$. Let $\lambda_{ij} = m_{ij}^2-3/8$, then $Z = M+E$, where $M=LF$, $E_{ij}\sim N(0,1/4)$.
+
+## Example
+
+```{r}
+library(wavethresh)
+library(flashr)
+library(ashr)
+
+spike.f = function(x) (0.75 * exp(-500 * (x - 0.23)^2) + 1.5 * exp(-2000 * (x - 0.33)^2) + 3 * exp(-8000 * (x - 0.47)^2) + 2.25 * exp(-16000 * 
+    (x - 0.69)^2) + 0.5 * exp(-32000 * (x - 0.83)^2))
+
+set.seed(123)
+N = 200
+p = 256
+pi0 = 0.2
+K=3
+L = matrix(rnorm(N*K),nrow=N,ncol=K)
+# for (i in 1:N) {
+#   for(j in 1:K){
+#     
+#     r = rbinom(1,1,pi0)
+#     if(r==1){
+#        L[i,j]=0
+#     }else{
+#       L[i,j] = mean(c(rnorm(1,0,sqrt(0.25)),rnorm(1,0,sqrt(0.5)),rnorm(1,0,sqrt(1)),
+#                     rnorm(1,0,sqrt(2)),rnorm(1,0,sqrt(4))))
+#     }
+#   }
+# }
+
+range_adjust = function(x,ranges){
+  x1=(x-min(x))/(max(x)-min(x))
+  x1*(ranges[2]-ranges[1])+ranges[1]
+}
+
+f_1 = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
+f_1 = range_adjust(f_1,c(1,3))
+f_2 = DJ.EX(p,signal = 2)$heavi
+f_2 = range_adjust(f_2,c(1,3))
+t = 1:p/p
+f_3 = spike.f(t)
+f_3 = range_adjust(f_3,c(1,3))
+FF = rbind(f_1,f_2,f_3)
+
+M = L%*%FF
+
+Lambda = exp(M)
+
+Y = matrix(nrow=N,ncol=p)
+
+for(i in 1:N){
+  Y[i,] = rpois(p,Lambda[i,])
+}
+
+S = matrix(nrow=N,ncol = p)
+Y_tilde = matrix(nrow = N,ncol = p)
+
+for(i in 1:N){
+  x.ash=ash(rep(0,p),1,lik=lik_pois(Y[i,]))$result$PosteriorMean
+  m.hat=x.ash
+  m.hat[which(Y[i,]!=0)]=(Y[i,][which(Y[i,]!=0)])
+  Y_tilde[i,] = log(m.hat)+(Y[i,]-m.hat)/m.hat
+  S[i,] = sqrt(1/m.hat)
+}
+
+
+W = GenW(n=p,filter.number = 8,family = 'DaubLeAsymm')
+y_star = Y_tilde%*%W
+S_star = t(apply(S,1,function(x){diag(t(W)%*%diag(x)%*%W)}))
+datax = flash_set_data(y_star,S=sqrt(S))
+f2 = flash(datax,Kmax=3,var_type = 'zero',backfit = F,verbose=F)
+f2_fitted = flash_get_ldf(f2)
+f_hat = (W%*%f2_fitted$f)
+
+plot(f_hat[,1],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1',ylim = c(0,0.1))
+lines(f_1/norm(f_1,'2'),col='grey80',type='p')
+plot(f_hat[,2],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 2')
+lines(f_2/norm(f_2,'2'),col='grey80',type='p')
+plot(f_hat[,3],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 3')
+lines(f_3/norm(f_3,'2'),col='grey80',type='p')
+```
+
+Iterative glm 
+
+```{r,eval=F}
+# Intialize Lambda hat
+
+lambda_hat = t(apply(Y,1,function(x){rep(mean(x),length(x))}))
+
+W = GenW(n=p,filter.number = 8,family = 'DaubLeAsymm')
+
+niter=3
+for(i in 1:niter){
+  Z = log(lambda_hat)+(Y-lambda_hat)/lambda_hat
+  S = 1/lambda_hat
+  S_star = t(apply(S,1,function(x){diag(t(W)%*%diag(x)%*%W)}))
+  y_star = Z%*%W
+  datax = flash_set_data(y_star,S=sqrt(S_star))
+  fit = flash(datax,Kmax=3,var_type = 'zero',backfit = F,verbose=F)
+  lambda_hat = exp(flash_get_fitted_values(fit))
+}
+
+f_fitted = flash_get_ldf(fit)
+f_hat = (W%*%f_fitted$f)
+
+plot(f_hat[,1],type='l')
+plot(f_hat[,2],type='l')
+plot(-f_hat[,3],type='l')
+
+```
+
+
+VST approach.
+
+```{r}
+Lambda = M^2
+Y = matrix(nrow=N,ncol=p)
+for(i in 1:N){
+  Y[i,] = rpois(p,Lambda[i,])
+}
+
+
+S = matrix(rep(1,N*p),nrow=N,ncol = p)
+Y_tilde = sqrt(Y)
+
+W = GenW(n=p,filter.number = 1,family = 'DaubExPhase')
+y_star = Y_tilde%*%W
+datax = flash_set_data(y_star,S=sqrt(S))
+f2 = flash(datax,Kmax=3,var_type = 'zero',backfit = F,verbose=F)
+f2_fitted = flash_get_ldf(f2)
+f_hat = (W%*%f2_fitted$f)
+
+plot(f_hat[,1],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1',ylim = c(0,0.1))
+lines(f_1/norm(f_1,'2'),col='grey80',type='p')
+plot(f_hat[,2],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 2')
+lines(f_2/norm(f_2,'2'),col='grey80',type='p')
+plot(-f_hat[,3],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 3')
+lines(f_3/norm(f_3,'2'),col='grey80',type='p')
+```
+
+```{r}
+W = GenW(n=p,filter.number = 8,family = 'DaubLeAsymm')
+y_star = Y_tilde%*%W
+datax = flash_set_data(y_star,S=sqrt(S))
+f2 = flash(datax,Kmax=3,var_type = 'zero',backfit = F,verbose=F)
+f2_fitted = flash_get_ldf(f2)
+f_hat = (W%*%f2_fitted$f)
+
+plot(f_hat[,1],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1',ylim = c(0,0.1))
+lines(f_1/norm(f_1,'2'),col='grey80',type='p')
+plot(f_hat[,2],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 2')
+lines(f_2/norm(f_2,'2'),col='grey80',type='p')
+plot(-f_hat[,3],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 3')
+lines(f_3/norm(f_3,'2'),col='grey80',type='p')
+```
