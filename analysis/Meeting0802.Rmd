@@ -1,0 +1,96 @@
+---
+title: "Meeting0802"
+author: "Dongyue Xie"
+date: "2019-08-05"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+\section{Goal}
+
+To develop a method for smoothed count matrix factorization. Suppose we observe a count matrix $Y$ whose underlying rows(true row parameters) are smooth/spatially-structured and we are interested in finding a factorization/low-ranking approximation of the matrix. 
+
+Potential applications are to bulk data eg RNA-seq data from GTEX project. If data are from gene splicing, then we should take care of cuts that have overlaps on two exons. 
+
+It might not be a good application to single cell data as each sample is a cell. 
+
+## Method
+
+We discussed 3 possible methods.
+
+### Poisson to Gaussian data
+
+The first method is borrowing ideas from generalized linear model. 
+
+Suppose 
+\begin{equation}
+    Y\sim Poi(\Lambda),\Lambda = \exp(M), M=LF,
+\end{equation}
+where $Y$ is a $N\times p$ matrix, $L$ is a $N\times K$ matrix and $F$ is a $K\times p$ matrix.
+
+Using Taylor series expansion, we have 
+\begin{equation}
+\log(Y_{ij})\approx \log(\lambda_{ij})+\frac{Y_{ij}-\lambda_{ij}}{\lambda_{ij}}
+\end{equation}
+
+
+Define $Z_{ij} = \log(\lambda_{ij})+\frac{Y_{ij}-\lambda_{ij}}{\lambda_{ij}}$, then $E(Z_{ij}|\lambda_{ij}) = \log(\lambda_{ij})$, $Var(Z_{ij}|\lambda_{ij}) = \frac{1}{\lambda_{ij}}$. So we have $Z = M+E = LF+E$, where $E_{ij}\sim N(0,\frac{1}{\lambda_{ij}})$
+
+In my simulations, this method does not perform well. Possible reasons could be too many zeros in the matrix. So I'll try to some 'dense' example first.
+
+### Multiscale Poisson
+
+The multiscale approach utilizes the distribution of Poisson variable conditional on another Poisson distribution. Denote $Y_+$ as the sum of two Poisson variables and $Y_+^L, Y_+^R$ the left and right one. Then 
+\begin{equation}
+    Y^L_+|Y_+ \sim Binomial(Y_+,\frac{\Lambda_+^L}{\Lambda_+}).
+\end{equation}
+
+Let $p = \frac{\Lambda_+^L}{\Lambda_+}$. Define 
+\begin{equation}
+    \alpha = \log\frac{p}{1-p} = \log\frac{\Lambda_+^L}{\Lambda_+^R},
+\end{equation}
+then 
+\begin{equation}
+    \hat{\alpha} = \log\frac{Y_+^L}{Y_+^R}.
+\end{equation}
+
+Then we can use normal approximation to likelihood of $\alpha$. One choice is due to Gart and Zweifel(1967). 
+
+The $\hat{\alpha}$s obtained can be seen as wavelet coefficients of Poisson data.
+
+Further, we can assume $A = \{\alpha\}$ has low rank structure which might be more plausible for certain data type.
+
+### Topic model
+
+Topic model assumes each row of $Y$
+
+\begin{equation}
+    Y_i|n_i\sim MN(n_i,\sum_{k=1}^K l_{ik}f_k) ,
+\end{equation}
+where $n_i$ is the sum of $Y_i$ and $f_k$ is a vector of length $p$.
+
+Zhenrong Xing described a method to smooth $f_k$ in his PhD thesis, which utilizes EM algorithm. When updating $f_k$, the method first updates using EM, then multiply the updates by $c_k$ to make it be close to those of actual sequencing
+read counts(I'll look into these counts see how they are derived), then apply smash to the 'counts'. 
+
+The method uses smash which gives an approximate estimate of true smooth $f_k$. But there is no convergence guarantee. 
+
+Suppose there is only one factor, $Y=lf$, then $Y_i = l_if$. Given $l_i$, the log likelihood of $f$ is 
+
+\begin{equation}
+(\sum_{i=1}^n Y_i)\log f - f\sum_{i=1}^n l_i,
+\end{equation}
+
+which only require knowing the row sums of $Y$. So we can use 'exact' method to estimate $f$ in EM algorithm and obtain convergence guarantee. For example, the Poisson multiscale method by Kolaczyk and Nowak.
+
+Alternative fomulation of topic model:
+
+\begin{equation}
+Y \sim Poisson(\Lambda), \Lambda = LF, Y = \sum_k Z_k, Z_k\sim Poisson(l_kf_k').
+\end{equation}
+
+Then we can get $E(Z_k|l,f,Y)$ and use EM update $L,F$.
+
+
