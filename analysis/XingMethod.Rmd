@@ -1,0 +1,19 @@
+---
+title: "Xing's Method on smoothed topic model"
+author: "Dongyue Xie"
+date: "2019-09-19"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Xing describes a method in his thesis on smoothed topic model. When using EM algorithm, after 
+
+Need to determine if the wavelet method is 'convex' or not.
+
+```{r}
+
+```
+
