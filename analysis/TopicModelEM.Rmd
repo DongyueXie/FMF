@@ -1,0 +1,17 @@
+---
+title: "Topic Model EM algorithm"
+author: "Dongyue Xie"
+date: "2019-08-02"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+
+$x_i$, $i=1,2,...,n$ a vectoe of counts in $p$ categories. Given total counts $m_i = \sum_{j=1}^px_{ij}$, the K-topic model is $$x_i\sim Multinomial(\sum_{k=1}^K w_{ik}\theta_k,m_i)$$
+
+The natural exponential family parameterization of $\Omega$ is $$w_k = \frac{exp(\phi_{k-1})}{\sum_{h=1}^{K-1}exp(\phi_h)}$$
+
+

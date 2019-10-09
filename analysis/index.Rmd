@@ -16,3 +16,4 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 4. [Smoothed EBMF for Poisson data](SmoothMFpoisson2.html)
 
 [Summary of meeting on Aug 02](Meeting0802.html)
+

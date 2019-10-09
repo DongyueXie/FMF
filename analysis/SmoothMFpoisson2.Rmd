@@ -105,6 +105,13 @@ plot(f_hat[,3],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 3')
 lines(f_3/norm(f_3,'2'),col='grey80',type='p')
 ```
 
+
+How about running more iterations?
+
+```{r}
+
+```
+
 Iterative glm 
 
 ```{r,eval=F}

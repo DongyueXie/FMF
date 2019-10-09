@@ -9,9 +9,17 @@ editor_options:
 
 ## Introduction
 
-Xing describes a method in his thesis on smoothed topic model. When using EM algorithm, after 
+Xing describes a method in his thesis on smoothed topic model. In EM algorithm, after M step, the method applies a smoothing step to estimated F. Does the likelihood still increases(non-decreases actually) after each iteration with this additional smoothing?
+
+Let $\theta = \{L,F\}$ and $q(\cdot)$ be the introduced distribution on hidden variable. For tightness, $q(h) = p(h|D;\theta)$. Let $J(q,\theta)$ be the expected complete-data log likelihood, the the E-step is $q^{(t)} = argmax_q J(q,\theta^{(t)})$ and M-step is $\theta^{(t+1)} = argmax_\theta J(q^{(t)},\theta)$. 
+
+After E-step, $J(q^{(t)},\theta^{(t)})\geq J(q^{(t-1)},\theta^{(t)})$ and after M-step, $J(q^{(t)},\theta^{(t+1)})\geq J(q^{(t)},\theta^{(t)})$. Then $J(q^{(t+1)},\theta^{(t+1)})\geq J(q^{(t)},\theta^{(t)})$ and $l(\theta^{(t+1)})\geq l(\theta^{(t)})$. So the likelihood is gauranteed to be improved after each step. 
+
+Now at M-step, the additinoal smoothing step can be viewed as a penalty on $F$. So if the penalty is convex, then the likelihood is still improved after each iteration, while if not, we don't have this guarantee.
 
 Need to determine if the wavelet method is 'convex' or not.
+
+
 
 ```{r}
 
