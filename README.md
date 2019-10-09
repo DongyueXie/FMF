@@ -1,4 +1,4 @@
-# FMF
+# SMF
 
 A [workflowr][] project.
 
