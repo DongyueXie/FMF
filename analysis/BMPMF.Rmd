@@ -1,5 +1,5 @@
 ---
-title: "Bayesian Multiscale Poisson Matrix Factorization"
+title: "Empirical Bayes Multiscale Poisson Matrix Factorization"
 author: "Dongyue Xie"
 date: "2019-10-15"
 output: workflowr::wflow_html
