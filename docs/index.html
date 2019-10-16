@@ -332,7 +332,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-08
+<strong>Last updated:</strong> 2019-10-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -363,10 +363,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreea47d047522799db9ae766aa67b38bc745b58744etargetblanka47d047a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/a47d047522799db9ae766aa67b38bc745b58744e" target="_blank">a47d047</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree2da47b650317cc173536a1978d4cfba06221d956targetblank2da47b6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/2da47b650317cc173536a1978d4cfba06221d956" target="_blank">2da47b6</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreea47d047522799db9ae766aa67b38bc745b58744etargetblanka47d047a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree2da47b650317cc173536a1978d4cfba06221d956targetblank2da47b6a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -378,8 +378,8 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
 
-Unstaged changes:
-    Deleted:    analysis/SmoothMFpoisson.Rmd
+Untracked files:
+    Untracked:  analysis/SmoothPMF.Rmd
 
 </code></pre>
 <p>
@@ -418,6 +418,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/2da47b650317cc173536a1978d4cfba06221d956/analysis/index.Rmd" target="_blank">2da47b6</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-16
+</td>
+<td>
+wflow_publish(“analysis/index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/index.html" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -683,13 +717,44 @@ Start workflowr project.
 <div id="overview" class="section level2">
 <h2>Overview</h2>
 <p>Explore functional/smoothed matrix factorization(MF): consider the MF problem <span class="math inline">\(Y = LF+E\)</span>, and assume <span class="math inline">\(L\)</span> is sparse and <span class="math inline">\(F\)</span> has smooth rows.</p>
+</div>
+<div id="main-results" class="section level2">
+<h2>Main Results</h2>
+<ol style="list-style-type: decimal">
+<li><a href="SmoothMF.html">Smoothed EBMF</a>: Wavelet Smoothing + EBMF</li>
+<li><a href="SmoothPMD.html">Smoothed PMD</a>: Wavelet Smoothing + PMD, compared with 1.</li>
+<li><a href="SmoothMFpoisson2.html">Smoothed EBMF for Poisson data</a>: Wavelet Smoothing + Transformation + EBMF</li>
+<li><a href="SmoothPMF.html">Smoothed EBPMF</a>: Wavelet Smoothing + EBPMF (ad-hoc)</li>
+</ol>
+</div>
+<div id="derivations" class="section level2">
+<h2>Derivations</h2>
+<ol style="list-style-type: decimal">
+<li><a href="BMPMF.html">Bayesian Multiscale Poisson Matrix Factorization</a></li>
+</ol>
+</div>
+<div id="mis" class="section level2">
+<h2>Mis</h2>
 <ol style="list-style-type: decimal">
 <li><a href="fpca.html">Functional PCA</a></li>
-<li><a href="SmoothMF.html">Smoothed EBMF</a></li>
-<li><a href="SmoothPMD.html">Smoothed PMD</a></li>
-<li><a href="SmoothMFpoisson2.html">Smoothed EBMF for Poisson data</a></li>
+<li><a href="Meeting0802.html">Summary of meeting on Aug 02</a></li>
+<li><a href="GenomeAnnotation.html">Genome Annotation</a></li>
+<li><a href="TopicModelEM.html">EM algorithm for Topic Model</a></li>
+<li><a href="XingMethod.html">Analysis on Xing’s method</a></li>
 </ol>
-<p><a href="Meeting0802.html">Summary of meeting on Aug 02</a></p>
+</div>
+<div id="ref" class="section level2">
+<h2>Ref</h2>
+<ol style="list-style-type: decimal">
+<li><a href="http://www.cs.cmu.edu/~tom/10-702/Zoubin-702.pdf">Variational EM ppt</a>, <a href="http://mlg.eng.cam.ac.uk/zoubin/papers/valencia02.pdf">Variational EM paper</a></li>
+<li><a href="https://www.jstor.org/stable/pdf/1403855.pdf">A Comparative Simulation Study of Wavelet Shrinkage Estimators for Poisson Counts</a></li>
+<li><a href="http://www.cs.cmu.edu/~wcohen/postscript/topic-tomography-submitted.pdf">Multiscale Topic Tomography</a></li>
+<li><a href="https://www.jstor.org/stable/pdf/2670007.pdf">Bayesian Multiscale Models for Poisson Processes</a></li>
+</ol>
+</div>
+<div id="ideas" class="section level2">
+<h2>Ideas</h2>
+<p>Zero-inflated Poisson, EBBNP</p>
 </div>
 
 
