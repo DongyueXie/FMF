@@ -10,10 +10,33 @@ output:
 
 Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y = LF+E$, and assume $L$ is sparse and $F$ has smooth rows.
 
+## Main Results
+
+1. [Smoothed EBMF](SmoothMF.html): Wavelet Smoothing + EBMF
+2. [Smoothed PMD](SmoothPMD.html): Wavelet Smoothing + PMD, compared with 1.
+3. [Smoothed EBMF for Poisson data](SmoothMFpoisson2.html): Wavelet Smoothing + Transformation + EBMF
+4. [Smoothed EBPMF](SmoothPMF.html): Wavelet Smoothing + EBPMF (ad-hoc)
+
+## Derivations
+
+1. [Bayesian Multiscale Poisson Matrix Factorization](BMPMF.html)
+
+
+## Mis
+
 1. [Functional PCA](fpca.html)
-2. [Smoothed EBMF](SmoothMF.html)
-3. [Smoothed PMD](SmoothPMD.html)
-4. [Smoothed EBMF for Poisson data](SmoothMFpoisson2.html)
+2. [Summary of meeting on Aug 02](Meeting0802.html)
+3. [Genome Annotation](GenomeAnnotation.html)
+4. [EM algorithm for Topic Model](TopicModelEM.html)
+5. [Analysis on Xing's method](XingMethod.html)
 
-[Summary of meeting on Aug 02](Meeting0802.html)
+## Ref
 
+1. [Variational EM ppt](http://www.cs.cmu.edu/~tom/10-702/Zoubin-702.pdf), [Variational EM paper](http://mlg.eng.cam.ac.uk/zoubin/papers/valencia02.pdf)
+2. [A Comparative Simulation Study of Wavelet Shrinkage Estimators for Poisson Counts](https://www.jstor.org/stable/pdf/1403855.pdf)
+3. [Multiscale Topic Tomography](http://www.cs.cmu.edu/~wcohen/postscript/topic-tomography-submitted.pdf)
+4. [Bayesian Multiscale Models for Poisson Processes](https://www.jstor.org/stable/pdf/2670007.pdf)
+
+## Ideas
+
+Zero-inflated Poisson, EBBNP
