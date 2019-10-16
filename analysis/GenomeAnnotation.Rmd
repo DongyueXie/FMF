@@ -11,6 +11,11 @@ editor_options:
 
 The segmentation task involves finding segment boundaries while simultaneously assigning labels to the segments. One partitions the genome into nonoverlapping contiguous segments, assigning one of a finite set of labels (such as 'promoter' or 'enhancer') to each, such that regions sharing the same segment label have in common certain properties in observed data.
 
+[ChromeHMM method paper](https://www.nature.com/articles/nbt.1662)
+[Xing's thesis](http://stephenslab.uchicago.edu/assets/papers/xing-thesis.pdf)
+[Continuous chromatin state feature annotation](https://www.biorxiv.org/content/biorxiv/early/2018/11/18/473017.full.pdf)
+[Histon mark data](https://github.com/bgruening/galaxytools/tree/master/tools/epicseg/test-data)
+[FUN-LDA](https://www.cell.com/ajhg/pdfExtended/S0002-9297(18)30115-0)
 
 
 ```{r}
