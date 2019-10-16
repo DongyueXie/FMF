@@ -9,9 +9,37 @@ editor_options:
 
 ## Introduction
 
+Model 
 
-$x_i$, $i=1,2,...,n$ a vectoe of counts in $p$ categories. Given total counts $m_i = \sum_{j=1}^px_{ij}$, the K-topic model is $$x_i\sim Multinomial(\sum_{k=1}^K w_{ik}\theta_k,m_i)$$
+\[X_{ij}\sim Poisson(\Lambda_{ij})\]
+\[\Lambda =  LF\]
+\[\{\Lambda_{ij}\} = \sum_{k=1}^K L_{ik}F_{kj}\]
 
-The natural exponential family parameterization of $\Omega$ is $$w_k = \frac{exp(\phi_{k-1})}{\sum_{h=1}^{K-1}exp(\phi_h)}$$
+Or alternatively,
+\[Z_k \sim Poisson(l_kf_k^T)\]
+\[X = \sum_k Z_k\]
 
 
+Ali Taylan Cemgil(2009) showed that EM algorithm for above Poisson matrix factorization problem is equivalent to Lee and Seung(1999) NMF algorithm.
+
+E-step: Update $P(Z|X;L,F)=$
+\begin{equation}
+        \prod_{i}\prod_j Multinomial(Z_{1,i,j},...,Z_{K,i,j}|\sum_k Z_{k,i,j},(\frac{L_{i1}F_{1j}}{\sum_{k'}L_{ik'}F_{k'j}},...,\frac{L_{iK}F_{Kj}}{\sum_{k'}L_{ik'}F_{k'j}})) 
+\end{equation}
+
+M-step: $L^{(t)},F^{(t)} = argmax_{L,F}E_{Z|X;L^{(t-1)},F^{(t-1)}}(\log p (X,Z|L,F))$
+
+\begin{equation}
+        \log p(X,Z|L,F)  = \sum_i\sum_j\sum_k (Z_{k,i,j}\log {L_{ik}}F_{kj} - L_{ik}F_{kj}-\log Z_{k,i,j}!)
+\end{equation}
+\begin{equation}
+    E(\log p (X,Z|L,F)) = \sum_i\sum_j\sum_k (x_{ij}\frac{L_{ik}^{(t-1)F_{kj}^{(t-1)}}}{\sum_{k'}L_{ik'}^{(t-1)}F_{k'j}^{(t-1)}}\log L_{ik}F_{kj}-L_{ik}F_{kj})
+\end{equation}
+
+The updates in M step are 
+\begin{equation}
+    L_{ik}^{(t)} = L_{ik}^{(t-1)}\frac{\sum_jX_{ij}F_{kj}^{(t-1)}/\sum_{k'}L_{ik'}^{(t-1)}F_{k'j}^{(t-1)}}{\sum_j F_{kj}^{(t-1)}}
+\end{equation}
+\begin{equation}
+    F_{kj}^{(t)} = F_{kj}^{(t-1)}\frac{\sum_iX_{ij}L_{ik}^{(t-1)}/\sum_{k'}L_{ik'}^{(t-1)}F_{k'j}^{(t-1)}}{\sum_i L_{ik}^{(t-1)}}
+\end{equation}
