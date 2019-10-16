@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Dongyue Xie" />
+
+<meta name="date" content="2019-10-15" />
+
+<title>Bayesian Multiscale Poisson Matrix Factorization</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SMF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/DongyueXie/SMF">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Bayesian Multiscale Poisson Matrix Factorization</h1>
+<h4 class="author">Dongyue Xie</h4>
+<h4 class="date">2019-10-15</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-10-15
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreeceae2fcb19ce334259e1dd3a65978328536b6736targetblankceae2fca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/ceae2fcb19ce334259e1dd3a65978328536b6736" target="_blank">ceae2fc</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreeceae2fcb19ce334259e1dd3a65978328536b6736targetblankceae2fca" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/SmoothPMF.Rmd
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/ceae2fcb19ce334259e1dd3a65978328536b6736/analysis/BMPMF.Rmd" target="_blank">ceae2fc</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-16
+</td>
+<td>
+wflow_publish(“analysis/BMPMF.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="to-do" class="section level2">
+<h2>To-do</h2>
+<p>Connect F and R? For example <span class="math inline">\(p(z|f)p(f|R)p(R|\alpha)\)</span>, so <span class="math inline">\(f\)</span> is latent variable. Might make derivation easier.</p>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p><span class="math display">\[x_{ij}\sim Poisson(\Lambda_{ij}),i=1,2,...,N,j=1,2,...,p\]</span> <span class="math display">\[X = \{x\}_{ij},\]</span></p>
+<p>where <span class="math inline">\(\Lambda_{ij} = \sum_k L_{ik}F_{kj}\)</span>. A latent variable representation is <span class="math display">\[z_{k,i,j}\sim Poisson(l_{ik}f_{kj}),\]</span> <span class="math display">\[Z_k = \{z_k\}_{ij},\]</span> <span class="math display">\[X = \sum_k Z_k.\]</span> Each factor <span class="math inline">\(f_1,...,f_K\in R^{p}\)</span> follows a recursive dyadic partition(RDP): <span class="math display">\[f_{k,S,l} = f_{kl},\]</span> <span class="math display">\[f_{k,s,l} = f_{k,s+1,2l}+f_{k,s+1,2l+1},\]</span> where <span class="math inline">\(s = 0,1,...,S-1\)</span> denote scales and <span class="math inline">\(l=0,1,...,2^s-1\)</span> denote locations.</p>
+<p>Define <span class="math display">\[z_{k,j} = \sum_i z_{k,i,j},\]</span> then <span class="math display">\[z_{k,j}\sim Poisson(\lambda_{k,j}),\]</span> where <span class="math inline">\(\lambda_{k,j} = f_{kj}\sum_i l_{ik}\)</span>.</p>
+<p>Given the RDP of factors <span class="math inline">\(f\)</span>, <span class="math inline">\(z_k = \{z_{k,1},...,z_{k,p}\}\)</span> also follows RDP: <span class="math display">\[z_{k,S,l} = z_{kl},\]</span> <span class="math display">\[z_{k,s,l} = z_{k,s+1,2l} + z_{k,s+1,2l+1}.\]</span> Then <span class="math display">\[z_{k,s,l}\sim Poisson(\lambda_{k,s,l}),\]</span> where <span class="math inline">\(\lambda_{k,s,l} = \sum_i l_{ik}\times f_{k,s,l}\)</span>.</p>
+<p>Define <span class="math display">\[R_{k,s,l} = \frac{\lambda_{k,s+1,2l}}{\lambda_{k,s,l}},\]</span> then <span class="math display">\[z_{k,s+1,2l}|z_{k,s,l},R_{k,s,l}\sim Binomial(z_{k,s,l},R_{k,s,l}).\]</span></p>
+<p>Apparently, <span class="math inline">\(R_{k,s,l} = \frac{f_{k,s+1,2l}}{f_{k,s,l}}\)</span></p>
+<p>After above reparameterization, parameters are now <span class="math inline">\(\lambda_{k,0,0}\)</span> and <span class="math inline">\(R_{k,s,l}\)</span>. Prior of <span class="math inline">\(R_{k,s,l}\)</span> is <span class="math display">\[R_{k,s,l}\sim p_{k,s}\delta(\frac{1}{2})+(1-p_{k,s})Beta(\alpha_{k,s},\alpha_{k,s}).\]</span></p>
+<p>For <span class="math inline">\(\lambda_{k,0,0}\)</span>, a simple estimate is <span class="math inline">\(z_{k,0,0}\)</span>. This estimate preserves energy, which is preferable in wavelet shrinkage estimates. Or we can put a prior on it, <span class="math inline">\(\lambda_{k,0,0}\sim Gamma(\beta_{k,1},\beta_{k,2})\)</span>.</p>
+<p>Define <span class="math display">\[z_{i,k} = \sum_j z_{k,i,j},\]</span> then <span class="math display">\[z_{i,k}\sim Poisson(l_{ik}\sum_jf_{kj}).\]</span></p>
+<p>Now for simplicity, we assume <span class="math inline">\(\hat{\lambda}_{k,0,0} = z_{k,0,0}\)</span>, <span class="math inline">\(R_{k,s}\sim g_{R_{k,s}}(\cdot)\)</span> and <span class="math inline">\(l_k\sim g_{l_k}(\cdot)\)</span>.</p>
+<p>Empirical Bayes approach is first estimating hyperparameters in priors <span class="math display">\[\hat{g}_{R_{k,s}},\hat{g}_{l_k} = \argmax_g \log p(X|g_{R_{k,s}},g_{l_k}),\]</span> then posterior distribution <span class="math inline">\(p(R_{k,s},l_k|X,\hat{g}_{R_{k,s}},\hat{g}_{l_k})\)</span>.</p>
+<p>But evaluating the marginal likelihood <span class="math inline">\(\log p(X|g_{R_{k,s}},g_{l_k})\)</span> requires calculating two high dimensional integrals, which are intractable. So instead we pursuit variational approach.</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        \log p(X|g_R,g_L) &amp; = \log p(X,Z,R,L|g_R,g_L) \\&amp; =
+        \log\int\sum_Z p(X,Z,R,L|g_R,g_L) dRdL
+        \\&amp;= \log\int\sum_Z q(Z,R,L)\frac{p(X,Z,R,L|g_R,g_L)}{q(Z,R,L)}dRdL
+        \\&amp;\geq \int\sum_Z q(Z,R,L)\log\frac{p(X,Z,R,L|g_R,g_L)}{q(Z,R,L)}dRdL.
+    \end{split}
+\end{equation}\]</span></p>
+<p>Let <span class="math inline">\(q(Z,R,L) = q_Z(Z)q_R(R)q_L(L)\)</span>,</p>
+<p><span class="math display">\[F(q_Z(Z),q_R(R),q_L(L),g_R,g_L,X) = \int\sum_Z q_Z(Z)q_R(R)q_L(L)\log\frac{p(X,Z,R,L|g_R,g_L)}{q_Z(Z)q_R(R)q_L(L)}dRdL\]</span></p>
+<p>Maximizing <span class="math inline">\(F(\cdot)\)</span> is equivalent to minimizing KL divergence between approximate posterior <span class="math inline">\(q_Z(Z)q_R(R)q_L(L)\)</span> and true posterior <span class="math inline">\(p(Z,R,L|X,g_R,g_L)\)</span>: <span class="math display">\[ \log p(X|g_R,g_L) - F(\cdot) = KL(q||p).\]</span></p>
+<p><span class="math inline">\(F(\cdot)\)</span> is called variational lower bound or evidence lower bound.</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        F(q,g) &amp; = E_{q}\log p(X,Z,R,L|g_R,g_L)-E_{q_L}\log q_L(L) - E_{q_R}\log q_R(R) - E_{q_Z}\log q_Z(Z)
+        \\&amp;= E_q\log p(Z|R,L) + E_q\log \delta(X-\sum_k Z_k) + E_q\log\frac{g_R}{q_R} + E_q\log\frac{g_L}{q_L}-E_q\log q_Z
+        \\&amp;= \sum_k(E_q\log p(Z_k|R_k,l_k)+E_q\log\frac{g_{R_k}}{q_{R_k}}+E_q\log\frac{g_{L_k}}{q_{L_k}})+ E_q\log \delta(X-\sum_k Z_k)-E_q\log q_Z
+    \end{split}
+\end{equation}\]</span></p>
+<p>Update <span class="math inline">\(q_Z(Z)\)</span>: Take functional derivatives of the lower bound with respect to <span class="math inline">\(q_Z(Z)\)</span>, then <span class="math display">\[\begin{equation}
+    \begin{split}
+        q_Z(Z) &amp;\propto \exp (\int \int \log p(X,Z|R,L,g_R,g_L)q_R q_L dR dL) 
+        \\ &amp; \propto \exp(\int\int \log p(Z|X,R,L,g_R,g_L)q_Rq_L dR dL)
+        \\ &amp;\propto \exp (E_{q_R,q_L}\log p(Z|X,R,L,g_R,g_L)).
+    \end{split}
+\end{equation}\]</span></p>
+<p>This leads to</p>
+<p><span class="math display">\[q_Z(Z_{1:K,i,j})\sim Multinomial(X_{ij},\pi_{1:K,i,j}),\]</span> where <span class="math display">\[\pi_{k,i,j} = \frac{\exp(E\log l_{ik}+E\log f_{kj})}{\sum_k\exp(E\log l_{ik}+E\log f_{kj})}.\]</span></p>
+<p>But the parameters are <span class="math inline">\(R_k\)</span> instead of <span class="math inline">\(f_{kj}\)</span> so we can write <span class="math inline">\(f_{kj}\)</span> as a function of <span class="math inline">\(R_{k}\)</span>. Define <span class="math inline">\(\epsilon_l\)</span> as a length <span class="math inline">\(S\)</span> binary vector of <span class="math inline">\(l\)</span>, for <span class="math inline">\(l=0,1,...,p-1\)</span>, where <span class="math inline">\(\epsilon_l(s) = 1\)</span> if the <span class="math inline">\(l\)</span>th element of <span class="math inline">\(f_k\)</span> goes to left children node at scale <span class="math inline">\(s\)</span>. Then <span class="math inline">\(f_{kl} = f_{k,0,0}\prod_{s=0}^{S-1} R_{k,s,s(l)}^{\epsilon_l(s)}(1-R_{k,s,s(l)})^{1-\epsilon_l(s)}\)</span>, where <span class="math inline">\(f_{k,0,0}\)</span> ??????, and <span class="math inline">\(s(l)\)</span> is the location of <span class="math inline">\(l\)</span>th element of <span class="math inline">\(f_k\)</span> at scale <span class="math inline">\(s\)</span>.</p>
+<p>Update <span class="math inline">\(q_L(L),g_L(L)\)</span>: equivalent to <span class="math inline">\(K\)</span> rank-1 problems <span class="math inline">\(E_{q_Z}(Z_k) \sim Poisson(l_kf_k^T)\)</span>, which can be solved by iterating Poisson mean estimation.</p>
+<p>Update <span class="math inline">\(q_R(R),g_R(R)\)</span>:</p>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
