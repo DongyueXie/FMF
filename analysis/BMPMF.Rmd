@@ -1,0 +1,116 @@
+---
+title: "Bayesian Multiscale Poisson Matrix Factorization"
+author: "Dongyue Xie"
+date: "2019-10-15"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+
+## To-do
+
+Connect F and R? For example $p(z|f)p(f|R)p(R|\alpha)$, so $f$ is latent variable. Might make derivation easier.
+
+## Introduction
+
+
+\[x_{ij}\sim Poisson(\Lambda_{ij}),i=1,2,...,N,j=1,2,...,p\]
+\[X = \{x\}_{ij},\]
+
+where $\Lambda_{ij} = \sum_k L_{ik}F_{kj}$. A latent variable representation is 
+\[z_{k,i,j}\sim Poisson(l_{ik}f_{kj}),\]
+\[Z_k = \{z_k\}_{ij},\]
+\[X = \sum_k Z_k.\]
+Each factor $f_1,...,f_K\in R^{p}$ follows a recursive dyadic partition(RDP):
+\[f_{k,S,l} = f_{kl},\]
+\[f_{k,s,l} = f_{k,s+1,2l}+f_{k,s+1,2l+1},\]
+where $s = 0,1,...,S-1$ denote scales and $l=0,1,...,2^s-1$ denote locations.
+
+Define 
+\[z_{k,j} = \sum_i z_{k,i,j},\]
+then 
+\[z_{k,j}\sim Poisson(\lambda_{k,j}),\]
+where $\lambda_{k,j} = f_{kj}\sum_i l_{ik}$.
+
+Given the RDP of factors $f$, $z_k = \{z_{k,1},...,z_{k,p}\}$ also follows RDP:
+\[z_{k,S,l} = z_{kl},\]
+\[z_{k,s,l} = z_{k,s+1,2l} + z_{k,s+1,2l+1}.\]
+Then 
+\[z_{k,s,l}\sim Poisson(\lambda_{k,s,l}),\]
+where $\lambda_{k,s,l} = \sum_i l_{ik}\times f_{k,s,l}$.
+
+Define 
+\[R_{k,s,l} = \frac{\lambda_{k,s+1,2l}}{\lambda_{k,s,l}},\]
+then 
+\[z_{k,s+1,2l}|z_{k,s,l},R_{k,s,l}\sim Binomial(z_{k,s,l},R_{k,s,l}).\]
+
+Apparently, $R_{k,s,l} = \frac{f_{k,s+1,2l}}{f_{k,s,l}}$
+
+After above reparameterization, parameters are now $\lambda_{k,0,0}$ and $R_{k,s,l}$. Prior of $R_{k,s,l}$ is
+\[R_{k,s,l}\sim p_{k,s}\delta(\frac{1}{2})+(1-p_{k,s})Beta(\alpha_{k,s},\alpha_{k,s}).\]
+
+For $\lambda_{k,0,0}$, a simple estimate is $z_{k,0,0}$. This estimate preserves energy, which is preferable in wavelet shrinkage estimates. Or we can put a prior on it, $\lambda_{k,0,0}\sim Gamma(\beta_{k,1},\beta_{k,2})$.
+
+Define 
+\[z_{i,k} = \sum_j z_{k,i,j},\]
+then 
+\[z_{i,k}\sim Poisson(l_{ik}\sum_jf_{kj}).\]
+
+Now for simplicity, we assume $\hat{\lambda}_{k,0,0} = z_{k,0,0}$, $R_{k,s}\sim g_{R_{k,s}}(\cdot)$ and $l_k\sim g_{l_k}(\cdot)$.
+
+Empirical Bayes approach is first estimating hyperparameters in priors \[\hat{g}_{R_{k,s}},\hat{g}_{l_k} = \argmax_g \log p(X|g_{R_{k,s}},g_{l_k}),\]
+then posterior distribution $p(R_{k,s},l_k|X,\hat{g}_{R_{k,s}},\hat{g}_{l_k})$.
+
+But evaluating the marginal likelihood $\log p(X|g_{R_{k,s}},g_{l_k})$ requires calculating two high dimensional integrals, which are intractable. So instead we pursuit variational approach. 
+
+\begin{equation}
+    \begin{split}
+        \log p(X|g_R,g_L) & = \log p(X,Z,R,L|g_R,g_L) \\& =
+        \log\int\sum_Z p(X,Z,R,L|g_R,g_L) dRdL
+        \\&= \log\int\sum_Z q(Z,R,L)\frac{p(X,Z,R,L|g_R,g_L)}{q(Z,R,L)}dRdL
+        \\&\geq \int\sum_Z q(Z,R,L)\log\frac{p(X,Z,R,L|g_R,g_L)}{q(Z,R,L)}dRdL.
+    \end{split}
+\end{equation}
+
+Let $q(Z,R,L) = q_Z(Z)q_R(R)q_L(L)$, 
+
+\[F(q_Z(Z),q_R(R),q_L(L),g_R,g_L,X) = \int\sum_Z q_Z(Z)q_R(R)q_L(L)\log\frac{p(X,Z,R,L|g_R,g_L)}{q_Z(Z)q_R(R)q_L(L)}dRdL\]
+
+Maximizing $F(\cdot)$ is equivalent to minimizing KL divergence between approximate posterior $q_Z(Z)q_R(R)q_L(L)$ and true posterior $p(Z,R,L|X,g_R,g_L)$:
+\[ \log p(X|g_R,g_L) - F(\cdot) = KL(q||p).\]
+
+$F(\cdot)$ is called variational lower bound or evidence lower bound.
+
+\begin{equation}
+    \begin{split}
+        F(q,g) & = E_{q}\log p(X,Z,R,L|g_R,g_L)-E_{q_L}\log q_L(L) - E_{q_R}\log q_R(R) - E_{q_Z}\log q_Z(Z)
+        \\&= E_q\log p(Z|R,L) + E_q\log \delta(X-\sum_k Z_k) + E_q\log\frac{g_R}{q_R} + E_q\log\frac{g_L}{q_L}-E_q\log q_Z
+        \\&= \sum_k(E_q\log p(Z_k|R_k,l_k)+E_q\log\frac{g_{R_k}}{q_{R_k}}+E_q\log\frac{g_{L_k}}{q_{L_k}})+ E_q\log \delta(X-\sum_k Z_k)-E_q\log q_Z
+    \end{split}
+\end{equation}
+
+
+Update $q_Z(Z)$: Take functional derivatives of the lower bound with respect to $q_Z(Z)$, then 
+\begin{equation}
+    \begin{split}
+        q_Z(Z) &\propto \exp (\int \int \log p(X,Z|R,L,g_R,g_L)q_R q_L dR dL) 
+        \\ & \propto \exp(\int\int \log p(Z|X,R,L,g_R,g_L)q_Rq_L dR dL)
+        \\ &\propto \exp (E_{q_R,q_L}\log p(Z|X,R,L,g_R,g_L)).
+    \end{split}
+\end{equation}
+
+This leads to 
+
+\[q_Z(Z_{1:K,i,j})\sim Multinomial(X_{ij},\pi_{1:K,i,j}),\]
+where 
+\[\pi_{k,i,j} = \frac{\exp(E\log l_{ik}+E\log f_{kj})}{\sum_k\exp(E\log l_{ik}+E\log f_{kj})}.\]
+
+But the parameters are $R_k$ instead of $f_{kj}$ so we can write $f_{kj}$ as a function of $R_{k}$. Define $\epsilon_l$ as a length $S$ binary vector of $l$, for $l=0,1,...,p-1$, where $\epsilon_l(s) = 1$ if the $l$th element of $f_k$ goes to left children node at scale $s$. Then $f_{kl} = f_{k,0,0}\prod_{s=0}^{S-1} R_{k,s,s(l)}^{\epsilon_l(s)}(1-R_{k,s,s(l)})^{1-\epsilon_l(s)}$, where $f_{k,0,0}$ ??????,  and $s(l)$ is the location of $l$th element of $f_k$ at scale $s$. 
+
+
+
+Update $q_L(L),g_L(L)$: equivalent to $K$ rank-1 problems $E_{q_Z}(Z_k) \sim Poisson(l_kf_k^T)$, which can be solved by iterating Poisson mean estimation.
+
+Update $q_R(R),g_R(R)$: 
+
