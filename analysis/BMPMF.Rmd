@@ -12,6 +12,88 @@ editor_options:
 
 Connect F and R? For example $p(z|f)p(f|R)p(R|\alpha)$, so $f$ is latent variable. Might make derivation easier.
 
+Derivation: 
+
+\begin{equation}
+    \begin{split}
+        X = \sum_k Z_k ,
+        \\
+        Z_k\sim Poisson(l_k f_k^T), l_k\in R^N, f_k\in R^p,
+        \\
+        f_{kj} = \mu_{k}\prod_{s=0}^{S-1} (R_{k,s,s(j)})^{\epsilon_j(s)}(1-R_{k,s,s(j)})^{1-\epsilon_j(s)},
+        \\
+        l_k\sim g_{l_k}(\cdot),
+        \\
+        R_{k,s}\sim g_{R_{k,s}}(\cdot),
+        \\
+        \mu_k\sim g_{\mu_k}(\cdot),
+    \end{split}
+\end{equation}
+
+where $\epsilon_j(s) = 1$ if the $j$th element of $f_k$ goes to left children node at scale $s$, and $s(j)$ is the location of $j$th element of $f_k$ at scale $s$.
+
+Factorization of joint distribution is 
+\begin{equation}
+    p(X,Z,L,F,R,\mu|g) = p(X|Z)p(Z|L,F)p(F|R,\mu)p(R|g_R)p(\mu|g_\mu)p(L|g_L).
+\end{equation}
+
+Goal is to estimate $g$ and obtain posterior $p(L,R,\mu|X,\hat{g})$. Two ways to derive variational lower bound: Jensen's Inequality and KL divergence.
+
+Variational lower bound: 
+\begin{equation}
+    F = E_q \log p(X,Z,L,F,R,\mu|g)-E_q\log q(Z,L,F,R,\mu).
+\end{equation}
+
+Updates: 
+
+1. Update $q_Z(\cdot)$: Take functional derivatives of the lower bound with respect to $q_Z(Z)$, then 
+\begin{equation}
+    \begin{split}
+        q_Z(Z) & \propto \exp(\int\int \log p(Z|X,L,F)q_F q_L dF dL)
+        \\ &\propto \exp (E_{q_F,q_L}\log p(Z|X,F,L)).
+    \end{split}
+\end{equation}
+
+This leads to 
+
+\[q_Z(Z_{1:K,i,j}) = Multinomial(Z_{1:K,i,j} ; X_{ij},\pi_{1:K,i,j}),\]
+where 
+\[\pi_{k,i,j} = \frac{\exp(E\log l_{ik}+E\log f_{kj})}{\sum_k\exp(E\log l_{ik}+E\log f_{kj})}.\]
+
+2. Update $q_L(\cdot)$ and $g_L(\cdot)$:
+\begin{equation}
+    \begin{split}
+        q_L &\propto \exp(E_{q_F,q_Z}\log p(Z|L,F)p(L|g_L))
+        \\&\propto
+        \exp(\sum_k(E_q\log p(Z_k|L_k,F_k)p(L_k|g_{L_k}))).
+    \end{split}
+\end{equation}
+
+This reduces the problem to rank 1 problem, which updates $q_{L_k}$ for each topic $k$. The $q_{L_k}$ and $g_{L_k}$ can be updated by solving the following Empirical Bayes Poisson mean problem:
+
+\begin{equation}
+\begin{split}
+\sum_j E_{q_Z}(Z_{k,i,j}) \sim Poisson (l_{ik}\sum_j E_{q_F}f_{kj}),  i=1,2,...,N,
+\\
+l_{k}\sim g_{L_k}(\cdot).
+\end{split}
+\end{equation}
+
+Then update $q_{L_{k,i}} = p(l_{ik}|\sum_j E_{q_Z}(Z_{k,i,j}),\hat{g}_{L_k})$.
+
+3. Update $q_F(\cdot)$:
+
+\begin{equation}
+\begin{split}
+q_{f_k} &\propto \exp(E_q\log p(Z_k|l_k,f_k)p(f_k|R_k,\mu_k))
+\\ & \propto \exp(E_q\log (p(Z_k|l_k,f_k)\prod_{j=1}\delta(f_{kj} - \mu_{k}\prod_{s=0}^{S-1} (R_{k,s,s(j)})^{\epsilon_j(s)}(1-R_{k,s,s(j)})^{1-\epsilon_j(s)}))).
+\end{split}
+\end{equation}
+
+\textbf{Not sure how to evaluate expectation of  this indicator function. Maybe treat f as latent variable is redundant.}
+
+Since $\exp(E_q\log\delta(f_j-(*)))\leq E_q I(f_j = (*)))$ and $E_q I(f_j = (*))) = 1$ if $f_j = (*)$ always holds, then $q(f_k)\propto \exp(E_q\log (p(Z_k|l_k,f_k))$ if $f_j = (*)$ always holds. 
+
 ## Introduction
 
 
