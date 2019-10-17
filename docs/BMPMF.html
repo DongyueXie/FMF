@@ -437,10 +437,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree24858357338f3ba2b9a369d62b0757f1279ef195targetblank2485835a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/24858357338f3ba2b9a369d62b0757f1279ef195" target="_blank">2485835</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree31c115eddbc149a792c25e29ff98fd5744246d27targetblank31c115ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/31c115eddbc149a792c25e29ff98fd5744246d27" target="_blank">31c115e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree24858357338f3ba2b9a369d62b0757f1279ef195targetblank2485835a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree31c115eddbc149a792c25e29ff98fd5744246d27targetblank31c115ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -453,6 +453,12 @@ Ignored files:
     Ignored:    analysis/.DS_Store
 
 Untracked files:
+    Untracked:  analysis/EMMPMF.aux
+    Untracked:  analysis/EMMPMF.log
+    Untracked:  analysis/EMMPMF.out
+    Untracked:  analysis/EMMPMF.pdf
+    Untracked:  analysis/EMMPMF.synctex.gz
+    Untracked:  analysis/EMMPMF.tex
     Untracked:  analysis/SmoothPMF.Rmd
 
 Unstaged changes:
@@ -495,6 +501,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/31c115eddbc149a792c25e29ff98fd5744246d27/analysis/BMPMF.Rmd" target="_blank">31c115e</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-17
+</td>
+<td>
+wflow_publish(“analysis/BMPMF.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/582f35fad02e08b87a3122377da4ecd40e4837da/docs/BMPMF.html" target="_blank">582f35f</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -556,6 +596,70 @@ wflow_publish(“analysis/BMPMF.Rmd”)
 <div id="to-do" class="section level2">
 <h2>To-do</h2>
 <p>Connect F and R? For example <span class="math inline">\(p(z|f)p(f|R)p(R|\alpha)\)</span>, so <span class="math inline">\(f\)</span> is latent variable. Might make derivation easier.</p>
+<p>Derivation:</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        X = \sum_k Z_k ,
+        \\
+        Z_k\sim Poisson(l_k f_k^T), l_k\in R^N, f_k\in R^p,
+        \\
+        f_{kj} = \mu_{k}\prod_{s=0}^{S-1} (R_{k,s,s(j)})^{\epsilon_j(s)}(1-R_{k,s,s(j)})^{1-\epsilon_j(s)},
+        \\
+        l_k\sim g_{l_k}(\cdot),
+        \\
+        R_{k,s}\sim g_{R_{k,s}}(\cdot),
+        \\
+        \mu_k\sim g_{\mu_k}(\cdot),
+    \end{split}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\epsilon_j(s) = 1\)</span> if the <span class="math inline">\(j\)</span>th element of <span class="math inline">\(f_k\)</span> goes to left children node at scale <span class="math inline">\(s\)</span>, and <span class="math inline">\(s(j)\)</span> is the location of <span class="math inline">\(j\)</span>th element of <span class="math inline">\(f_k\)</span> at scale <span class="math inline">\(s\)</span>.</p>
+<p>Factorization of joint distribution is <span class="math display">\[\begin{equation}
+    p(X,Z,L,F,R,\mu|g) = p(X|Z)p(Z|L,F)p(F|R,\mu)p(R|g_R)p(\mu|g_\mu)p(L|g_L).
+\end{equation}\]</span></p>
+<p>Goal is to estimate <span class="math inline">\(g\)</span> and obtain posterior <span class="math inline">\(p(L,R,\mu|X,\hat{g})\)</span>. Two ways to derive variational lower bound: Jensen’s Inequality and KL divergence.</p>
+<p>Variational lower bound: <span class="math display">\[\begin{equation}
+    F = E_q \log p(X,Z,L,F,R,\mu|g)-E_q\log q(Z,L,F,R,\mu).
+\end{equation}\]</span></p>
+<p>Updates:</p>
+<ol style="list-style-type: decimal">
+<li>Update <span class="math inline">\(q_Z(\cdot)\)</span>: Take functional derivatives of the lower bound with respect to <span class="math inline">\(q_Z(Z)\)</span>, then <span class="math display">\[\begin{equation}
+ \begin{split}
+     q_Z(Z) &amp; \propto \exp(\int\int \log p(Z|X,L,F)q_F q_L dF dL)
+     \\ &amp;\propto \exp (E_{q_F,q_L}\log p(Z|X,F,L)).
+ \end{split}
+\end{equation}\]</span></li>
+</ol>
+<p>This leads to</p>
+<p><span class="math display">\[q_Z(Z_{1:K,i,j}) = Multinomial(Z_{1:K,i,j} ; X_{ij},\pi_{1:K,i,j}),\]</span> where <span class="math display">\[\pi_{k,i,j} = \frac{\exp(E\log l_{ik}+E\log f_{kj})}{\sum_k\exp(E\log l_{ik}+E\log f_{kj})}.\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Update <span class="math inline">\(q_L(\cdot)\)</span> and <span class="math inline">\(g_L(\cdot)\)</span>: <span class="math display">\[\begin{equation}
+ \begin{split}
+     q_L &amp;\propto \exp(E_{q_F,q_Z}\log p(Z|L,F)p(L|g_L))
+     \\&amp;\propto
+     \exp(\sum_k(E_q\log p(Z_k|L_k,F_k)p(L_k|g_{L_k}))).
+ \end{split}
+\end{equation}\]</span></li>
+</ol>
+<p>This reduces the problem to rank 1 problem, which updates <span class="math inline">\(q_{L_k}\)</span> for each topic <span class="math inline">\(k\)</span>. The <span class="math inline">\(q_{L_k}\)</span> and <span class="math inline">\(g_{L_k}\)</span> can be updated by solving the following Empirical Bayes Poisson mean problem:</p>
+<p><span class="math display">\[\begin{equation}
+\begin{split}
+\sum_j E_{q_Z}(Z_{k,i,j}) \sim Poisson (l_{ik}\sum_j E_{q_F}f_{kj}),  i=1,2,...,N,
+\\
+l_{k}\sim g_{L_k}(\cdot).
+\end{split}
+\end{equation}\]</span></p>
+<p>Then update <span class="math inline">\(q_{L_{k,i}} = p(l_{ik}|\sum_j E_{q_Z}(Z_{k,i,j}),\hat{g}_{L_k})\)</span>.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Update <span class="math inline">\(q_F(\cdot)\)</span>:</li>
+</ol>
+<p><span class="math display">\[\begin{equation}
+\begin{split}
+q_{f_k} &amp;\propto \exp(E_q\log p(Z_k|l_k,f_k)p(f_k|R_k,\mu_k))
+\\ &amp; \propto \exp(E_q\log (p(Z_k|l_k,f_k)\prod_{j=1}\delta(f_{kj} - \mu_{k}\prod_{s=0}^{S-1} (R_{k,s,s(j)})^{\epsilon_j(s)}(1-R_{k,s,s(j)})^{1-\epsilon_j(s)}))).
+\end{split}
+\end{equation}\]</span></p>
+<p></p>
+<p>Since <span class="math inline">\(\exp(E_q\log\delta(f_j-(*)))\leq E_q I(f_j = (*)))\)</span> and <span class="math inline">\(E_q I(f_j = (*))) = 1\)</span> if <span class="math inline">\(f_j = (*)\)</span> always holds, then <span class="math inline">\(q(f_k)\propto \exp(E_q\log (p(Z_k|l_k,f_k))\)</span> if <span class="math inline">\(f_j = (*)\)</span> always holds.</p>
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
