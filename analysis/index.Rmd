@@ -19,7 +19,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 
 ## Derivations
 
-1. [EmpiricalBayes Multiscale Poisson Matrix Factorization](BMPMF.html)
+1. [Empirical Bayes Multiscale Poisson Matrix Factorization](EBMPMF.pdf)
 
 
 ## Mis
