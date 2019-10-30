@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Dongyue Xie" />
+
+<meta name="date" content="2019-10-18" />
+
+<title>Poisson Trend Filtering</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SMF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/DongyueXie/SMF">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Poisson Trend Filtering</h1>
+<h4 class="author">Dongyue Xie</h4>
+<h4 class="date">2019-10-18</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-10-30
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreeccbc9151eb9ea27b08ea66ecf8947e217e8e1e85targetblankccbc915a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/ccbc9151eb9ea27b08ea66ecf8947e217e8e1e85" target="_blank">ccbc915</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreeccbc9151eb9ea27b08ea66ecf8947e217e8e1e85targetblankccbc915a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/SmoothPMF.Rmd
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/ccbc9151eb9ea27b08ea66ecf8947e217e8e1e85/analysis/PoissonTrendFiltering.Rmd" target="_blank">ccbc915</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-30
+</td>
+<td>
+wflow_publish(“analysis/PoissonTrendFiltering.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="trend-filtering" class="section level2">
+<h2>Trend Filtering</h2>
+<p>Steidl et al(2006) first introduced trend filtering idea as splines with high order TV regularization, though they did not come up with the name ‘trend filtering’. Later, Kim et al(2009) independently introduced trend filtering as a modified version(change of penalty) of HF filter and Tibshirani(2014) gave a more statistical and theoretical study of trend filtering.</p>
+<p>Extending trend filtering to exponential family likelihood is straight forward if using generalized linear model theory. Ramdas and Tibshirani(2016) presented an ADMM algorithm for trend filtering, and in the corresponding R package <code>glmgen</code>, they provide support of trend filtering for Poisson and binomial distributed data.</p>
+<p>The very original trend filtering is posed as an optimization problem with squared loss + penalty, which in Bayesian’s point of view, it’s a MAP estimator with normal likelihood and a shrinkage prior. One earliest Bayesian adaptation of trend filtering is from Roualdes(2015), with R package <code>btf</code>, in which the author borrowed ideas from Bayesian lasso. A more systematic Bayesian version can be found in Faulkne and Minin(2018), where general likelihood is allowed and a R package <code>spmrf</code> is developed. Kowal et al(2019) proposed dynamic shrinkage process and adapts it to trend filtering based on dynamic linear model.</p>
+<p>However, both methods use global-local shrinkage priors and Gibbs sampler to get the posterior. When sample size is large, they suffer from the high computational cost and low speed.</p>
+<p>Can we develop a fast, general trend filtering that gives point estimation and uncertainty quantification?</p>
+</div>
+<div id="detailed-review" class="section level2">
+<h2>Detailed review</h2>
+<div id="trend-filtering-review" class="section level3">
+<h3>Trend Filtering Review</h3>
+<p>In nonparametric regression setup, we assume the observations from the model <span class="math display">\[\begin{equation}
+ y_i = f_0(x_i) + \epsilon_i, i =1,2,...,n. 
+\end{equation}\]</span></p>
+<p>Kim et al(2009) proposed <span class="math inline">\(l_1\)</span> trend filtering for estimating <span class="math inline">\(f_0\)</span>. For a given integer <span class="math inline">\(k\)</span>, the <span class="math inline">\(k\)</span>th order trend filtering estimate <span class="math inline">\(\hat{\beta}\)</span> of <span class="math inline">\(f_0\)</span> is defined by<br />
+<span class="math display">\[\begin{equation}\label{TF}
+ \hat{\beta} = \argmin_{
+ \beta\in R^n}\frac{1}{2}||y-\beta||_2^2+\lambda ||D^{(k+1)}\beta||_1, 
+\end{equation}\]</span> where <span class="math inline">\(D^{(k+1)}\in R^{(n-k-1)\times n}\)</span> is the discrete difference operator of order <span class="math inline">\(k+1\)</span>. When <span class="math inline">\(k=0\)</span>, <span class="math display">\[\begin{equation}
+D^{(1)}=\left[\begin{array}{cccccc}{-1} &amp; {1} &amp; {0} &amp; {\dots} &amp; {0} &amp; {0} \\ {0} &amp; {-1} &amp; {1} &amp; {\dots} &amp; {0} &amp; {0} \\ {\vdots} &amp; {} &amp; {} &amp; {} &amp; {} &amp; {} \\ {0} &amp; {0} &amp; {0} &amp; {\dots} &amp; {-1} &amp; {1}\end{array}\right] \in \mathbb{R}^{(n-1) \times n}.
+\end{equation}\]</span></p>
+<p>For <span class="math inline">\(k\geq 1\)</span>, <span class="math display">\[\begin{equation}
+    D^{(k+1)} = D^{(1)}\cdot D^{(k)}.
+\end{equation}\]</span></p>
+<p>Tibshirani(2014) discussed trend filtering in more details. The trend filtering criterion is of generalized lasso form with <span class="math inline">\(X=I\)</span>. A formula for its degree of freedom is <span class="math display">\[\begin{equation}
+    df(\hat{\beta}) = \E(\text{number of knots in }\hat{\beta})+k+1,
+\end{equation}\]</span> where the number of knots is the number of nonzero entries in <span class="math inline">\(D^{(k+1)}\hat{\beta}\)</span>.</p>
+<p>The trend filtering problem in () is equivalent to the lasso problem <span class="math display">\[\begin{equation}
+    \hat{\alpha} = \argmin_\alpha \frac{1}{2}||y-H\alpha||_2^2 +\lambda\sum_{j=k+2}^n|\alpha_j|,
+\end{equation}\]</span> and <span class="math inline">\(\hat{\beta} = H\hat{\alpha}\)</span>. The predictor matrix <span class="math inline">\(H\in R^{n\times n}\)</span> is given by <span class="math display">\[\begin{equation}
+H_{i j}=\left\{\begin{array}{ll}{i^{j-1} / n^{j-1}} &amp; {\text { for } i=1, \ldots n, j=1, \ldots k+1,} \\ {0} &amp; {\text { for } i \leq j-1, j \geq k+2,} \\ {\sigma_{i-j+1}^{(k)} \cdot k ! / n^{k}} &amp; {\text { for } i&gt;j-1, j \geq k+2,}\end{array}\right.
+\end{equation}\]</span> where <span class="math inline">\(\sigma_i^{(0)} = 1\)</span> for all <span class="math inline">\(i\)</span> and <span class="math display">\[\begin{equation}
+    \sigma_i^{(k)} = \sum_{j=1}^i\sigma_j^{(k-1)},k=1,2,3,...,
+\end{equation}\]</span> <span class="math inline">\(\sigma_i^{(k)}\)</span> is the <span class="math inline">\(k\)</span>th order cumulative sum of <span class="math inline">\((1,1,...,1)\in R^i\)</span>.</p>
+<p>If <span class="math inline">\(k=0\)</span>, <span class="math display">\[\begin{equation}
+H=\left[\begin{array}{cccc}{1} &amp; {0} &amp; {\ldots} &amp; {0} \\ {1} &amp; {1} &amp; {\ldots} &amp; {0} \\ {\vdots} &amp; {} &amp; {} &amp; {} \\ {1} &amp; {1} &amp; {\ldots} &amp; {1}\end{array}\right]
+\end{equation}\]</span></p>
+<p>If <span class="math inline">\(k=1\)</span>, <span class="math display">\[\begin{equation}
+H=\frac{1}{n} \cdot\left[\begin{array}{cccccc}{n} &amp; {1} &amp; {0} &amp; {0} &amp; {\ldots} &amp; {0} \\ {n} &amp; {2} &amp; {0} &amp; {0} &amp; {\cdots} &amp; {0} \\ {n} &amp; {3} &amp; {1} &amp; {0} &amp; {\cdots} &amp; {0} \\ {n} &amp; {4} &amp; {2} &amp; {1} &amp; {\cdots} &amp; {0} \\ {\vdots} &amp; {} &amp; {} &amp; {} &amp; {} &amp; {} \\ {n} &amp; {n} &amp; {n-2} &amp; {n-3} &amp; {\ldots} &amp; {1}\end{array}\right] 
+\end{equation}\]</span></p>
+<p>Trend filtering achieves minimax convergence rate <span class="math inline">\(n^{-\frac{2k+2}{2k+3}}\)</span> over <span class="math display">\[\begin{equation}
+    \mathcal{F}_k(C) = \{f:[0,1]\to R: f \text{ is k times weakly differentiable and } TV(f^{(k)})\leq C\}
+\end{equation}\]</span></p>
+</div>
+<div id="bayesian-trend-filtering-review" class="section level3">
+<h3>Bayesian Trend Filtering Review</h3>
+<p>One direct way to develop Bayesian version of trend filtering is using conditional Laplace priors as in Park and Casella(2008), <span class="math inline">\(\pi(\beta|\sigma^2) = \prod_j \frac{\lambda}{2\sqrt{\sigma^2}}e^{-\lambda|\beta_j|/\sqrt{\sigma^2}}\)</span>. Laplace distribution has pdf <span class="math display">\[\begin{equation}
+    f(x|\mu,b) = \frac{1}{2b}\exp(-\frac{|x-\mu|}{b}),
+\end{equation}\]</span> and can be represented as a scale mixture of normals, i.e. let <span class="math inline">\(W\sim Exp(\frac{1}{2b^2})\)</span>, and <span class="math inline">\(X|W=w\sim N(0,w)\)</span>, then <span class="math inline">\(X\sim Laplace(0,b)\)</span>. The hierarchical representation of the Bayesian lasso is <span class="math display">\[\begin{equation}
+\begin{split}
+     y|\mu,X,\beta,\sigma^2 \sim N_n(\mu1_n+X\beta,\sigma^2I_n),
+     \\
+     \beta|\sigma^2,\tau^2_1,...,\tau^2_p\sim N(0,\sigma^2 D_\tau^2),
+     \\
+     D_\tau = diag(\tau^2_1,...,\tau^2_p),
+     \\
+     \sigma^2\sim \pi(\sigma^2)d\sigma^2,
+     \\
+     \tau^2_1,...,\tau^2_p\sim \prod_{j=1}^p\frac{\lambda^2}{2}e^{-\lambda^2\tau^2_j/2}d\tau^2_j.
+\end{split}
+\end{equation}\]</span></p>
+<p>Analogously, in Bayesian trend filtering, <span class="math display">\[\begin{equation}
+    \pi(\beta|\sigma^2)\propto e^{-\frac{\lambda}{\sigma}||D\beta||_1}.
+\end{equation}\]</span> Then a Bayesian trend filtering follows the hierarchical model, as described in Roualdes(2015), <span class="math display">\[\begin{equation}
+\begin{aligned} y | \beta, \sigma^{2} &amp; \sim \mathcal{N}_{n}\left(\beta, \sigma^{2} I_{n}\right) \\ \beta | \sigma^{2}, \tau^2_{1}, \ldots, \tau^2_{n-k-1} &amp; \sim \mathcal{N}_{n}\left(0, \sigma^{2} \Sigma_{f}\right) \\ \Sigma_{f}^{-1}&amp;=\left(D^{(k+1)}\right)^{T} \operatorname{diag}\left(\tau^2_{1}^{-1}, \ldots, \tau^2_{n-k-1}^{-1}\right) D^{( k+1)} \\ \tau^2_{1}, \ldots, \tau^2_{n-k-1} | \lambda &amp; \sim \prod_{j=1}^{n-k-1} \frac{\lambda^{2}}{2} \exp \left(-\lambda^{2} \tau^2_{j} / 2\right) d \tau^2_{j}, \quad \tau^2_{j}&gt;0, \forall j \\ \lambda | \alpha, \rho &amp; \sim \psi(\lambda | \alpha, \rho) d \lambda, \quad \lambda&gt;0 \\ \sigma^{2} &amp; \sim \pi\left(\sigma^{2}\right) d \sigma^{2}, \quad \sigma^{2}&gt;0. \end{aligned}
+\end{equation}\]</span></p>
+<p>Of course, apart from Laplace prior, we can use other shrinkage priors on <span class="math inline">\(D\beta\)</span>. Examples are the spike-and-slab prior, the normal-gamma (Griffin et al., 2010), generalized double-Pareto (Armagan et al., 2013), and the horseshoe (Carvalho et al., 2010).</p>
+<p>A general framework described in Faulkner and Minin(2018) for Bayesian trend filtering is then <span class="math display">\[\begin{equation}
+    y|\beta,\xi\sim p(y|\beta,\xi), D\beta|\lambda\sim p(D\beta|\lambda), \xi\sim p(\xi),\lambda\sim p(\lambda),
+\end{equation}\]</span> where <span class="math inline">\(\beta\)</span> is the parameter of interest and <span class="math inline">\(\xi\)</span> is nuisance parameter like the <span class="math inline">\(\sigma^2\)</span> in normal case.</p>
+<p>To ease the computation, we can restrict the <span class="math inline">\(p(D\beta|\lambda)\)</span> to be a scale mixture of normals. Then <span class="math display">\[\begin{equation}
+    (D\beta)_j|\tau_j\sim N(0,\tau_j^2), \tau_j|\lambda\sim p(\tau_j|\lambda).
+\end{equation}\]</span></p>
+<p>In Kowal et al(2019), a Bayesian trend filtering is proposed along with a dynamic shrinkage process. The model is based on a Gaussian dynamic linear mdoel(DLM), <span class="math display">\[\begin{equation}
+    \begin{split}
+        y_t = \beta_t+\epsilon_t, \epsilon_t|\sigma_t\sim N(0,\sigma_t^2)
+        \\
+        D^{(k+1)}\beta_{t+1} = \omega_t, \omega_t|\tau,\lambda_t\sim N(0,\tau^2\lambda_t^2).
+    \end{split}
+\end{equation}\]</span></p>
+<p>Global-local scale mixtures of Gaussian distributions: <span class="math inline">\(\tau\)</span> determines the global level of sparsity while large <span class="math inline">\(\lambda_t\)</span> allow large absolute deviations from its prior and small <span class="math inline">\(\lambda_t\)</span> provide extreme shrinkage to 0.</p>
+<p>Define <span class="math display">\[\begin{equation}
+    h_t = \log(\tau^2\lambda_t^2) = \mu+\phi_t+\eta_t. 
+\end{equation}\]</span> Then <span class="math inline">\(\lambda_t = \exp((\phi_t+\eta_t)/2)\)</span> has two components: <span class="math inline">\(\phi_t\)</span> models dependence and <span class="math inline">\(\eta_t\)</span> models the usual IID local scale parameter.</p>
+<p>Above approaches work with global-local scale mixtures of normal that have the following structure,</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+    \beta_i|\tau,\lambda_i^2\sim N(0,\tau^2\lambda_i^2)
+    \\
+    \lambda_i^2\sim\pi(\lambda_i^2)
+    \\
+    (\tau^2,\sigma^2)\sim \pi(\tau^2,\sigma^2).
+    \end{split}
+\end{equation}\]</span></p>
+<p>One of the most popular global-local priors is Horseshoe, in which <span class="math display">\[\begin{equation}
+    \lambda_i\sim C^(0,1).
+\end{equation}\]</span></p>
+<p>A more popular shrinkage prior is spike-slab prior ,</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        \beta_i|\lambda_i,c_1,c_2\sim \lambda_iN(0,c_1^2)+(1-\lambda_i)N(0,c_2^2)
+        \\
+        \lambda_i\sim Bernoulli(\pi).
+    \end{split}
+\end{equation}\]</span></p>
+<p>With choice of <span class="math inline">\(c_2=0\)</span>, the prior can be written as <span class="math display">\[\begin{equation}
+\begin{split}
+    \beta_i|\lambda_i,c_1 \sim N(0,\lambda_i^2 c_1^2)
+    \\
+    \lambda_i\sim Bernoulli(\pi).
+\end{split}
+\end{equation}\]</span></p>
+<p>so instead of giving continuous priors for <span class="math inline">\(\lambda_i\)</span> s as in the horseshoe, here only two values (0, 1) are allowed.</p>
+</div>
+<div id="other-formulation-of-bayesian-trend-filtering" class="section level3">
+<h3>Other formulation of Bayesian trend filtering</h3>
+<p>The methods above put priors directly on the difference operator of <span class="math inline">\(\beta\)</span>. Since trend filtering can be written in lasso form, we can also take advantage of this to develop Bayesian trend filtering via Bayesian sparse linear regression. In Wang(2019), susie is applied to solve trend filter and works well when <span class="math inline">\(k=0\)</span>. However, when <span class="math inline">\(k\geq 1\)</span>, the method seems break down.</p>
+</div>
+<div id="general-bayesian-trend-filtering" class="section level3">
+<h3>General Bayesian trend filtering</h3>
+<p>There are two approaches. The first is to put shrinkage prior on the difference operator directly. The second is to solve the general sparse linear regression.</p>
+</div>
+</div>
+<div id="reference" class="section level2">
+<h2>Reference</h2>
+<p>James R. Faulkner and Vladimir N. Minin(2018), <a href="https://projecteuclid.org/download/pdfview_1/euclid.ba/1487905413">Locally Adaptive Smoothing with Markov Random Fields and Shrinkage Priors</a></p>
+<p>Edward A. Roualdes(2015), <a href="https://arxiv.org/pdf/1505.07710.pdf">Bayesian Trend Filtering</a></p>
+<p>STEIDL et al(2006), <a href="https://link.springer.com/content/pdf/10.1007%2Fs11263-006-8066-7.pdf">Splines in Higher Order TV Regularization</a></p>
+<p>Kowal et al(2019), <a href="https://arxiv.org/pdf/1707.00763.pdf">dynamic shrinkage processes</a></p>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
