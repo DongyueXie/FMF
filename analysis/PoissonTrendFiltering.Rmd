@@ -1,0 +1,208 @@
+---
+title: "Poisson Trend Filtering"
+author: "Dongyue Xie"
+date: "2019-10-18"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Trend Filtering 
+
+Steidl et al(2006) first introduced trend filtering idea as splines with high order TV regularization, though they did not come up with the name 'trend filtering'. Later, Kim et al(2009) independently introduced trend filtering as a modified version(change of penalty) of HF filter and Tibshirani(2014) gave a more statistical and theoretical study of trend filtering. 
+
+
+Extending trend filtering to exponential family likelihood is straight forward if using generalized linear model theory. Ramdas and Tibshirani(2016) presented an ADMM algorithm for trend filtering, and in the corresponding R package `glmgen`, they provide support of trend filtering for Poisson and binomial distributed data. 
+
+The very original trend filtering is posed as an optimization problem with squared loss + penalty, which in Bayesian's point of view, it's a MAP estimator with normal likelihood and a shrinkage prior.  One earliest Bayesian adaptation of trend filtering is from Roualdes(2015), with R package `btf`, in which the author borrowed ideas from Bayesian lasso. A more systematic Bayesian version can be found in Faulkne and Minin(2018), where general likelihood is allowed and a R package `spmrf` is developed. Kowal et al(2019) proposed dynamic shrinkage process and adapts it to trend filtering based on dynamic linear model. 
+
+However, both methods use global-local shrinkage priors and Gibbs sampler to get the posterior. When sample size is large, they suffer from the high computational cost and low speed. 
+
+Can we develop a fast, general trend filtering that gives point estimation and uncertainty quantification?
+
+## Detailed review
+
+### Trend Filtering Review
+
+
+In nonparametric regression setup, we assume the observations from the model 
+\begin{equation}
+ y_i = f_0(x_i) + \epsilon_i, i =1,2,...,n. 
+\end{equation}
+
+Kim et al(2009) proposed $l_1$ trend filtering for estimating $f_0$. For a given integer $k$, the $k$th order trend filtering estimate $\hat{\beta}$ of $f_0$ is defined by  
+\begin{equation}\label{TF}
+ \hat{\beta} = \argmin_{
+ \beta\in R^n}\frac{1}{2}||y-\beta||_2^2+\lambda ||D^{(k+1)}\beta||_1, 
+\end{equation}
+where $D^{(k+1)}\in R^{(n-k-1)\times n}$ is the discrete difference operator of order $k+1$. When $k=0$, 
+\begin{equation}
+D^{(1)}=\left[\begin{array}{cccccc}{-1} & {1} & {0} & {\dots} & {0} & {0} \\ {0} & {-1} & {1} & {\dots} & {0} & {0} \\ {\vdots} & {} & {} & {} & {} & {} \\ {0} & {0} & {0} & {\dots} & {-1} & {1}\end{array}\right] \in \mathbb{R}^{(n-1) \times n}.
+\end{equation}
+
+For $k\geq 1$, 
+\begin{equation}
+    D^{(k+1)} = D^{(1)}\cdot D^{(k)}.
+\end{equation}
+
+Tibshirani(2014) discussed trend filtering in more details. The trend filtering criterion is of generalized lasso form with $X=I$. A formula for its degree of freedom is 
+\begin{equation}
+    df(\hat{\beta}) = \E(\text{number of knots in }\hat{\beta})+k+1,
+\end{equation}
+where the number of knots is the number of nonzero entries in $D^{(k+1)}\hat{\beta}$. 
+
+The trend filtering problem in (\ref{TF}) is equivalent to the lasso problem 
+\begin{equation}
+    \hat{\alpha} = \argmin_\alpha \frac{1}{2}||y-H\alpha||_2^2 +\lambda\sum_{j=k+2}^n|\alpha_j|,
+\end{equation}
+and $\hat{\beta} = H\hat{\alpha}$. The predictor matrix $H\in R^{n\times n}$ is given by 
+\begin{equation}
+H_{i j}=\left\{\begin{array}{ll}{i^{j-1} / n^{j-1}} & {\text { for } i=1, \ldots n, j=1, \ldots k+1,} \\ {0} & {\text { for } i \leq j-1, j \geq k+2,} \\ {\sigma_{i-j+1}^{(k)} \cdot k ! / n^{k}} & {\text { for } i>j-1, j \geq k+2,}\end{array}\right.
+\end{equation}
+where $\sigma_i^{(0)} = 1$ for all $i$ and 
+\begin{equation}
+    \sigma_i^{(k)} = \sum_{j=1}^i\sigma_j^{(k-1)},k=1,2,3,...,
+\end{equation}
+$\sigma_i^{(k)}$ is the $k$th order cumulative sum of $(1,1,...,1)\in R^i$.
+
+If $k=0$, 
+\begin{equation}
+H=\left[\begin{array}{cccc}{1} & {0} & {\ldots} & {0} \\ {1} & {1} & {\ldots} & {0} \\ {\vdots} & {} & {} & {} \\ {1} & {1} & {\ldots} & {1}\end{array}\right]
+\end{equation}
+
+If $k=1$,
+\begin{equation}
+H=\frac{1}{n} \cdot\left[\begin{array}{cccccc}{n} & {1} & {0} & {0} & {\ldots} & {0} \\ {n} & {2} & {0} & {0} & {\cdots} & {0} \\ {n} & {3} & {1} & {0} & {\cdots} & {0} \\ {n} & {4} & {2} & {1} & {\cdots} & {0} \\ {\vdots} & {} & {} & {} & {} & {} \\ {n} & {n} & {n-2} & {n-3} & {\ldots} & {1}\end{array}\right] 
+\end{equation}
+
+Trend filtering achieves minimax convergence rate $n^{-\frac{2k+2}{2k+3}}$ over 
+\begin{equation}
+    \mathcal{F}_k(C) = \{f:[0,1]\to R: f \text{ is k times weakly differentiable and } TV(f^{(k)})\leq C\}
+\end{equation}
+
+### Bayesian Trend Filtering Review
+
+One direct way to develop Bayesian version of trend filtering is using conditional Laplace priors as in Park and Casella(2008), $\pi(\beta|\sigma^2) = \prod_j \frac{\lambda}{2\sqrt{\sigma^2}}e^{-\lambda|\beta_j|/\sqrt{\sigma^2}}$. Laplace distribution has pdf 
+\begin{equation}
+    f(x|\mu,b) = \frac{1}{2b}\exp(-\frac{|x-\mu|}{b}),
+\end{equation}
+and can be represented as a scale mixture of normals, i.e. let $W\sim Exp(\frac{1}{2b^2})$, and $X|W=w\sim N(0,w)$, then $X\sim Laplace(0,b)$. The hierarchical representation of the Bayesian lasso is 
+\begin{equation}
+\begin{split}
+     y|\mu,X,\beta,\sigma^2 \sim N_n(\mu1_n+X\beta,\sigma^2I_n),
+     \\
+     \beta|\sigma^2,\tau^2_1,...,\tau^2_p\sim N(0,\sigma^2 D_\tau^2),
+     \\
+     D_\tau = diag(\tau^2_1,...,\tau^2_p),
+     \\
+     \sigma^2\sim \pi(\sigma^2)d\sigma^2,
+     \\
+     \tau^2_1,...,\tau^2_p\sim \prod_{j=1}^p\frac{\lambda^2}{2}e^{-\lambda^2\tau^2_j/2}d\tau^2_j.
+\end{split}
+\end{equation}
+
+Analogously, in Bayesian trend filtering, 
+\begin{equation}
+    \pi(\beta|\sigma^2)\propto e^{-\frac{\lambda}{\sigma}||D\beta||_1}.
+\end{equation}
+Then a Bayesian trend filtering follows the hierarchical model, as described in Roualdes(2015),
+\begin{equation}
+\begin{aligned} y | \beta, \sigma^{2} & \sim \mathcal{N}_{n}\left(\beta, \sigma^{2} I_{n}\right) \\ \beta | \sigma^{2}, \tau^2_{1}, \ldots, \tau^2_{n-k-1} & \sim \mathcal{N}_{n}\left(0, \sigma^{2} \Sigma_{f}\right) \\ \Sigma_{f}^{-1}&=\left(D^{(k+1)}\right)^{T} \operatorname{diag}\left(\tau^2_{1}^{-1}, \ldots, \tau^2_{n-k-1}^{-1}\right) D^{( k+1)} \\ \tau^2_{1}, \ldots, \tau^2_{n-k-1} | \lambda & \sim \prod_{j=1}^{n-k-1} \frac{\lambda^{2}}{2} \exp \left(-\lambda^{2} \tau^2_{j} / 2\right) d \tau^2_{j}, \quad \tau^2_{j}>0, \forall j \\ \lambda | \alpha, \rho & \sim \psi(\lambda | \alpha, \rho) d \lambda, \quad \lambda>0 \\ \sigma^{2} & \sim \pi\left(\sigma^{2}\right) d \sigma^{2}, \quad \sigma^{2}>0. \end{aligned}
+\end{equation}
+
+Of course, apart from Laplace prior, we can use other shrinkage priors on $D\beta$. Examples are the spike-and-slab prior, the normal-gamma (Griffin
+et al., 2010), generalized double-Pareto (Armagan et al., 2013), and the horseshoe (Carvalho
+et al., 2010).
+
+A general framework described in Faulkner and Minin(2018) for Bayesian trend filtering is then 
+\begin{equation}
+    y|\beta,\xi\sim p(y|\beta,\xi), D\beta|\lambda\sim p(D\beta|\lambda), \xi\sim p(\xi),\lambda\sim p(\lambda),
+\end{equation}
+where $\beta$ is the parameter of interest and $\xi$ is nuisance parameter like the $\sigma^2$ in normal case. 
+
+To ease the computation, we can restrict the $p(D\beta|\lambda)$ to be a scale mixture of normals. Then 
+\begin{equation}
+    (D\beta)_j|\tau_j\sim N(0,\tau_j^2), \tau_j|\lambda\sim p(\tau_j|\lambda).
+\end{equation}
+
+In Kowal et al(2019), a Bayesian trend filtering is proposed along with a dynamic shrinkage process. The model is based on a Gaussian dynamic linear mdoel(DLM), 
+\begin{equation}
+    \begin{split}
+        y_t = \beta_t+\epsilon_t, \epsilon_t|\sigma_t\sim N(0,\sigma_t^2)
+        \\
+        D^{(k+1)}\beta_{t+1} = \omega_t, \omega_t|\tau,\lambda_t\sim N(0,\tau^2\lambda_t^2).
+    \end{split}
+\end{equation}
+
+Global-local scale mixtures of Gaussian distributions: $\tau$ determines the global level of sparsity while large $\lambda_t$ allow large absolute deviations from its prior and small $\lambda_t$ provide extreme shrinkage to 0. 
+
+Define 
+\begin{equation}
+    h_t = \log(\tau^2\lambda_t^2) = \mu+\phi_t+\eta_t. 
+\end{equation}
+Then $\lambda_t = \exp((\phi_t+\eta_t)/2)$ has two components: $\phi_t$ models dependence and $\eta_t$ models the usual IID local scale parameter. 
+
+Above approaches work with global-local scale mixtures of normal that have the following structure,
+
+\begin{equation}
+    \begin{split}
+    \beta_i|\tau,\lambda_i^2\sim N(0,\tau^2\lambda_i^2)
+    \\
+    \lambda_i^2\sim\pi(\lambda_i^2)
+    \\
+    (\tau^2,\sigma^2)\sim \pi(\tau^2,\sigma^2).
+    \end{split}
+\end{equation}
+
+One of the most popular global-local priors is Horseshoe, in which 
+\begin{equation}
+    \lambda_i\sim C^(0,1).
+\end{equation}
+
+A more popular shrinkage prior is spike-slab prior ,
+
+\begin{equation}
+    \begin{split}
+        \beta_i|\lambda_i,c_1,c_2\sim \lambda_iN(0,c_1^2)+(1-\lambda_i)N(0,c_2^2)
+        \\
+        \lambda_i\sim Bernoulli(\pi).
+    \end{split}
+\end{equation}
+
+With choice of $c_2=0$, the prior can be written as 
+\begin{equation}
+\begin{split}
+    \beta_i|\lambda_i,c_1 \sim N(0,\lambda_i^2 c_1^2)
+    \\
+    \lambda_i\sim Bernoulli(\pi).
+\end{split}
+\end{equation}
+
+
+so instead of giving continuous priors for $\lambda_i$ s as in the horseshoe, here only two
+values (0, 1) are allowed. 
+
+
+### Other formulation of Bayesian trend filtering
+
+The methods above put priors directly on the difference operator of $\beta$. Since trend filtering can be written in lasso form, we can also take advantage of this to develop Bayesian trend filtering via Bayesian sparse linear regression. In Wang(2019), susie is applied to solve trend filter and works well when $k=0$. However, when $k\geq 1$, the method seems break down. 
+
+### General Bayesian trend filtering
+
+There are two approaches. The first is to put shrinkage prior on the difference operator directly. The second is to solve the general sparse linear regression. 
+
+## Reference
+
+James R. Faulkner and Vladimir N. Minin(2018), [Locally Adaptive Smoothing with Markov
+Random Fields and Shrinkage Priors](https://projecteuclid.org/download/pdfview_1/euclid.ba/1487905413)
+
+Edward A. Roualdes(2015), [Bayesian Trend Filtering](https://arxiv.org/pdf/1505.07710.pdf)
+
+STEIDL et al(2006), [Splines in Higher Order TV Regularization](https://link.springer.com/content/pdf/10.1007%2Fs11263-006-8066-7.pdf)
+
+Kowal et al(2019), [dynamic shrinkage processes](https://arxiv.org/pdf/1707.00763.pdf)
+
+
+
+
+
