@@ -1,0 +1,47 @@
+---
+title: "Trend filtering, generalized lasso, dynamic linear model and Markov Random field"
+author: "Dongyue Xie"
+date: "2019-10-30"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+In a previous [post](PoissonTrendFiltering.html), we mentioned that trend filtering is a special case of generalized lasso with $X=I$ and due to the special band structure of $D$, it can be refomularized into a lasso problem. 
+
+Here, I'll show the equivalence of 0-order trend filtering and random walk dynamic linear model. 
+
+To recap, $k$th order Trend filter can be written as 
+
+\begin{equation}
+    \hat{\alpha} = argmin_\alpha \frac{1}{2}||y-H\alpha||_2^2 +\lambda\sum_{j=k+2}^n|\alpha_j|,
+\end{equation}
+and $\hat{\beta} = H\hat{\alpha}$. When $k=0$, 
+\begin{equation}
+H=\left[\begin{array}{cccc}{1} & {0} & {\ldots} & {0} \\ {1} & {1} & {\ldots} & {0} \\ {\vdots} & {} & {} & {} \\ {1} & {1} & {\ldots} & {1}\end{array}\right]
+\end{equation}
+
+Random walk dynamic linear model is 
+\begin{equation}
+    \begin{split}
+        y_t = \beta_t+\epsilon_t, \epsilon_t|\sigma_t\sim N(0,\sigma^2)
+        \\
+        \beta_t-\beta_{t-1} = \alpha_t, \alpha_t\sim g(\cdot), t=2,3,...,n
+        \\
+        \beta_1\sim \pi(\cdot),
+    \end{split}
+\end{equation}
+where $g(\cdot)$ is sparsity-inducing prior and $\pi(\cdot)$ is a noninformative prior. 
+
+Hence, we can rewrite $y_t = \beta_1+\sum_{i=2}^t\alpha_i+\epsilon_t$. Posterior of $\beta_1$ and $\alpha:=\{\alpha_2,...,\alpha_n\}$ is \[p(\beta_1,\alpha|y,g,\pi)\propto p(y|\beta_1,\alpha)\pi(\beta_1)g(\alpha)\]
+
+The MAP estimator is then 
+\[\hat{\beta}_1,\hat{\alpha} = argmax \sum_{t=1}^n (y_t-\beta_1-\sum_{i=2}^t\alpha_i)^2+\log\pi(\beta_1)+\sum_{t=2}^n \log g(\alpha_t)\]
+
+The equivalence holds if we choose Laplace prior on $\alpha$. Of course, we can choose any sparsity-inducing prior. 
+
+Similarly, we can show the equivalence of order $k\geq 1$. 
+
+
