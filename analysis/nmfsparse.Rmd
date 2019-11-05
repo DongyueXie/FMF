@@ -11,7 +11,7 @@ editor_options:
 
 1. L1 penalty in NNLM::nnmf either put no/littlle thresholding or thresholds all entries to zero.
 
-2. nsNMF and snmf in NMF package can give reasonably good sparse estimate.
+2. nsNMF and snmf in NMF package give sparse estimate of loadings and factors.
 
 ## Data
 
@@ -80,7 +80,7 @@ for(i in 1:k){
 
 Non-smooth NMF. Uses a modified version of Lee and Seung’s multiplicative updates for Kullback-Leibler divergence to fit a extension of the standard NMF model. It is meant to give sparser results.
 
-Reference: (Pascual-Montano2006)
+Reference: [Pascual-Montano2006](https://ieeexplore.ieee.org/document/1580485)
 
 ```{r}
 
