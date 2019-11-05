@@ -20,6 +20,7 @@ Derivation of [Empirical Bayes Multiscale Poisson Matrix Factorization](EBMPMF.p
 2. [Smoothed PMD](SmoothPMD.html): Wavelet Smoothing + PMD, compared with 1.
 3. [Smoothed EBMF for Poisson data](SmoothMFpoisson2.html): Wavelet Smoothing + Transformation + EBMF
 4. [Smoothed EBPMF](SmoothPMF.html): Wavelet Smoothing + EBPMF (ad-hoc)
+5. [Sparse NMF methods](nmfsparse.html): Try some esixting sparse NMF methods.
 
 ### PTF
 
