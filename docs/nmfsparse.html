@@ -497,10 +497,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreecf54a3eff8efc4d0523b23211569e50a345d3c24targetblankcf54a3ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/cf54a3eff8efc4d0523b23211569e50a345d3c24" target="_blank">cf54a3e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree2434973e7f3cb94da955ec73376cd3fd71afa81etargetblank2434973a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/2434973e7f3cb94da955ec73376cd3fd71afa81e" target="_blank">2434973</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreecf54a3eff8efc4d0523b23211569e50a345d3c24targetblankcf54a3ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree2434973e7f3cb94da955ec73376cd3fd71afa81etargetblank2434973a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -562,6 +562,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2434973e7f3cb94da955ec73376cd3fd71afa81e/analysis/nmfsparse.Rmd" target="_blank">2434973</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+<td>
+wflow_publish(“analysis/nmfsparse.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/nmfsparse.html" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/cf54a3eff8efc4d0523b23211569e50a345d3c24/analysis/nmfsparse.Rmd" target="_blank">cf54a3e</a>
 </td>
 <td>
@@ -585,7 +619,7 @@ wflow_publish(“analysis/nmfsparse.Rmd”)
 <h2>Summary</h2>
 <ol style="list-style-type: decimal">
 <li><p>L1 penalty in NNLM::nnmf either put no/littlle thresholding or thresholds all entries to zero.</p></li>
-<li><p>nsNMF and snmf in NMF package can give reasonably good sparse estimate.</p></li>
+<li><p>nsNMF and snmf in NMF package give sparse estimate of loadings and factors.</p></li>
 </ol>
 </div>
 <div id="data" class="section level2">
@@ -612,6 +646,43 @@ lambda = L %*% t(F)
 X = matrix(rpois(n=length(lambda),lambda),nrow=n)
 image(X)</code></pre>
 <p><img src="figure/nmfsparse.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
+Past versions of unnamed-chunk-1-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-1-1.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="nnlm-nnmf" class="section level2">
 <h2>NNLM-nnmf</h2>
@@ -624,32 +695,636 @@ fit_scd_L1.1 = NNLM::nnmf(A = X, k = 4, loss = &quot;mse&quot;, method = &quot;s
 for(i in 1:k){
     plot(fit_scd_L1.1$W[,i],main=paste0(&quot;L1 penalty = 1: estimated loadings &quot;,i))
 }</code></pre>
-<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-1.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-2.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-3">
+Past versions of unnamed-chunk-2-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-3.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-4">
+Past versions of unnamed-chunk-2-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-4.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fit_scd_L1.10 = NNLM::nnmf(A = X, k = 4, loss = &quot;mse&quot;, method = &quot;scd&quot;, max.iter = 10000, alpha=c(0,0,10))
 
 for(i in 1:k){
     plot(fit_scd_L1.10$W[,i],main=paste0(&quot;L1 penalty = 10: estimated loadings &quot;,i))
 }</code></pre>
-<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-5">
+Past versions of unnamed-chunk-2-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-5.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-6">
+Past versions of unnamed-chunk-2-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-6.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-7">
+Past versions of unnamed-chunk-2-7.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-7.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-8">
+Past versions of unnamed-chunk-2-8.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-8.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fit_scd_L1.11 = NNLM::nnmf(A = X, k = 4, loss = &quot;mse&quot;, method = &quot;scd&quot;, max.iter = 10000, alpha=c(0,0,11))
 
 for(i in 1:k){
     plot(fit_scd_L1.11$W[,i],main=paste0(&quot;L1 penalty = 11: estimated loadings &quot;,i))
 }</code></pre>
-<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-10.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-11.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-9">
+Past versions of unnamed-chunk-2-9.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-9.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-10">
+Past versions of unnamed-chunk-2-10.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-10.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-11.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-11">
+Past versions of unnamed-chunk-2-11.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-11.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-12">
+Past versions of unnamed-chunk-2-12.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-12.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fit_scd_L1.100 = NNLM::nnmf(A = X, k = 4, loss = &quot;mse&quot;, method = &quot;scd&quot;, max.iter = 10000, alpha=c(0,0,100))
 
 for(i in 1:k){
     plot(fit_scd_L1.100$W[,i],main=paste0(&quot;L1 penalty = 100: estimated loadings &quot;,i))
 }</code></pre>
-<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-13.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-14.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-15.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-16.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-13.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-13">
+Past versions of unnamed-chunk-2-13.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-13.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-14.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-14">
+Past versions of unnamed-chunk-2-14.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-14" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-14.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-15.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-15">
+Past versions of unnamed-chunk-2-15.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-15" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-15.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-2-16.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-16">
+Past versions of unnamed-chunk-2-16.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-2-16.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="nmf-nmf" class="section level2">
 <h2>NMF-nmf</h2>
 <div id="non-smooth-nmf" class="section level3">
 <h3>Non-smooth NMF</h3>
 <p>Non-smooth NMF. Uses a modified version of Lee and Seung’s multiplicative updates for Kullback-Leibler divergence to fit a extension of the standard NMF model. It is meant to give sparser results.</p>
-<p>Reference: (Pascual-Montano2006)</p>
+<p>Reference: <a href="https://ieeexplore.ieee.org/document/1580485">Pascual-Montano2006</a></p>
 <pre class="r"><code>library(NMF)</code></pre>
 <pre><code>Loading required package: pkgmaker</code></pre>
 <pre><code>Loading required package: registry</code></pre>
@@ -669,11 +1344,313 @@ NMF
 for(i in 1:k){
     plot(fit_nsNMF@fit@W[,i],main=paste0(&quot;nsNMF: estimated loadings &quot;,i))
 }</code></pre>
-<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-3-1.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
+Past versions of unnamed-chunk-3-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-3-2.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-3">
+Past versions of unnamed-chunk-3-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-3-3.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-4">
+Past versions of unnamed-chunk-3-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-3-4.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>for(i in 1:k){
     plot(fit_nsNMF@fit@H[i,],main=paste0(&quot;nsNMF: estimated factors &quot;,i))
 }</code></pre>
-<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-5">
+Past versions of unnamed-chunk-3-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-3-5.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-6">
+Past versions of unnamed-chunk-3-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-3-6.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-7">
+Past versions of unnamed-chunk-3-7.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-3-7.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-3-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-8">
+Past versions of unnamed-chunk-3-8.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-3-8.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="sparse-nmf" class="section level2">
@@ -688,7 +1665,158 @@ for(i in 1:k){
 <pre class="r"><code>for(i in 1:k){
     plot(fit_snmfl@fit@W[,i],main=paste0(&quot;snmfl: estimated loadings &quot;,i))
 }</code></pre>
-<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-4-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-4-1.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
+Past versions of unnamed-chunk-4-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-4-2.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-3">
+Past versions of unnamed-chunk-4-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-4-3.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-4-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-4">
+Past versions of unnamed-chunk-4-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-4-4.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Sparse Factors:</p>
 <pre class="r"><code>fit_snmfr = nmf(X,4,method = &#39;snmf/r&#39;,beta=1)</code></pre>
 <pre><code>Warning in nmf_snmf(beta = 1, A = y, x = x, version = &quot;R&quot;, verbose
@@ -697,7 +1825,158 @@ for(i in 1:k){
 <pre class="r"><code>for(i in 1:k){
     plot(fit_snmfr@fit@H[i,],main=paste0(&quot;snmfr: estimated factors &quot;,i))
 }</code></pre>
-<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/nmfsparse.Rmd/unnamed-chunk-5-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-5-1.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-5-2.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-3">
+Past versions of unnamed-chunk-5-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-5-3.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/nmfsparse.Rmd/unnamed-chunk-5-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-4">
+Past versions of unnamed-chunk-5-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1aacdddbf32cf327686ea7ea34185fcb97ca0bb5/docs/figure/nmfsparse.Rmd/unnamed-chunk-5-4.png" target="_blank">1aacddd</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
