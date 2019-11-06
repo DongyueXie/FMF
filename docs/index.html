@@ -363,10 +363,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreeae7c5a29c1286e7eb1f68169a261da7ff411c796targetblankae7c5a2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/ae7c5a29c1286e7eb1f68169a261da7ff411c796" target="_blank">ae7c5a2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree1c5ae8ae70845330c9410ff8f4d2f64cbfb398fftargetblank1c5ae8aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/1c5ae8ae70845330c9410ff8f4d2f64cbfb398ff" target="_blank">1c5ae8a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreeae7c5a29c1286e7eb1f68169a261da7ff411c796targetblankae7c5a2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree1c5ae8ae70845330c9410ff8f4d2f64cbfb398fftargetblank1c5ae8aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -380,9 +380,12 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/SmoothPMF.Rmd
+    Untracked:  analysis/poissonmean.Rmd
     Untracked:  code/BMSM.R
+    Untracked:  code/EBMPMF.R
     Untracked:  code/ebbp_beta_mixture.R
     Untracked:  code/ebpm_exp_mixture.R
+    Untracked:  code/simulations.R
     Untracked:  code/update_f.R
     Untracked:  code/update_l.R
 
@@ -423,6 +426,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1c5ae8ae70845330c9410ff8f4d2f64cbfb398ff/analysis/index.Rmd" target="_blank">1c5ae8a</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-06
+</td>
+<td>
+wflow_publish(“analysis/index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/901c1aca552da594e005200340f970a1a396cc31/docs/index.html" target="_blank">901c1ac</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -948,7 +985,7 @@ Start workflowr project.
 <h2>Main Results</h2>
 <div id="ebmpmf" class="section level3">
 <h3>EBMPMF</h3>
-<p>Derivation of <a href="EBMPMF.pdf">Empirical Bayes Multiscale Poisson Matrix Factorization</a></p>
+<p>Derivation of <a href="BMPMF.html">Empirical Bayes Multiscale Poisson Matrix Factorization</a></p>
 <ol style="list-style-type: decimal">
 <li><a href="SmoothMF.html">Smoothed EBMF</a>: Wavelet Smoothing + EBMF</li>
 <li><a href="SmoothPMD.html">Smoothed PMD</a>: Wavelet Smoothing + PMD, compared with 1.</li>
@@ -960,7 +997,7 @@ Start workflowr project.
 <div id="ptf" class="section level3">
 <h3>PTF</h3>
 <ol style="list-style-type: decimal">
-<li><a href="PoissonTrendFiltering.html">Poisson Trend Filtering</a></li>
+<li><a href="PoissonTrendFiltering.html">Trend Filtering</a></li>
 <li><a href="trendfiltering.html">Trend filtering and dynamic linear model</a></li>
 </ol>
 </div>
