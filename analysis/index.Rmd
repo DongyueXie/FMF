@@ -14,7 +14,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 
 ### EBMPMF
 
-Derivation of [Empirical Bayes Multiscale Poisson Matrix Factorization](EBMPMF.pdf)
+Derivation of [Empirical Bayes Multiscale Poisson Matrix Factorization](BMPMF.html)
 
 1. [Smoothed EBMF](SmoothMF.html): Wavelet Smoothing + EBMF
 2. [Smoothed PMD](SmoothPMD.html): Wavelet Smoothing + PMD, compared with 1.
@@ -24,7 +24,7 @@ Derivation of [Empirical Bayes Multiscale Poisson Matrix Factorization](EBMPMF.p
 
 ### PTF
 
-1. [Poisson Trend Filtering](PoissonTrendFiltering.html)
+1. [Trend Filtering](PoissonTrendFiltering.html)
 2. [Trend filtering and dynamic linear model](trendfiltering.html)
 
 
