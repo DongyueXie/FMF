@@ -388,7 +388,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -397,7 +397,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -406,10 +406,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-16
+<strong>Last updated:</strong> 2019-10-17
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -425,22 +425,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree31c115eddbc149a792c25e29ff98fd5744246d27targetblank31c115ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/31c115eddbc149a792c25e29ff98fd5744246d27" target="_blank">31c115e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreedded0dd4138676aaf4a22b332382c4c9e998972dtargetblankdded0dda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/dded0dd4138676aaf4a22b332382c4c9e998972d" target="_blank">dded0dd</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree31c115eddbc149a792c25e29ff98fd5744246d27targetblank31c115ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreedded0dd4138676aaf4a22b332382c4c9e998972dtargetblankdded0dda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -462,7 +462,7 @@ Untracked files:
     Untracked:  analysis/SmoothPMF.Rmd
 
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/BMPMF.Rmd
 
 </code></pre>
 <p>
@@ -501,6 +501,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/32334245045352e92838364f3fffa74aadb81af9/docs/BMPMF.html" target="_blank">3233424</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -593,10 +610,81 @@ wflow_publish(“analysis/BMPMF.Rmd”)
 </div>
 </div>
 </div>
-<div id="to-do" class="section level2">
-<h2>To-do</h2>
-<p>Connect F and R? For example <span class="math inline">\(p(z|f)p(f|R)p(R|\alpha)\)</span>, so <span class="math inline">\(f\)</span> is latent variable. Might make derivation easier.</p>
-<p>Derivation:</p>
+
+
+<p>Suppose we observe a Poisson sequence <span class="math inline">\(X\in R^n\)</span>, <span class="math inline">\(n=2^S\)</span> and <span class="math inline">\(X_i\sim Poisson(\lambda_i)\)</span>. A Haar wavelet like decomposition of <span class="math inline">\(X\)</span> is defined as follows. Let <span class="math inline">\(s = 0,1,...,S-1\)</span> denote scale and <span class="math inline">\(l = 0,1,..., 2^s-1\)</span> denote location. <span class="math inline">\(X\)</span> follows a recursive dyadic partition(RDP): <span class="math display">\[X_{S,l} = X_{kl},\]</span> <span class="math display">\[X_{s,l} = X_{s+1,2l}+X_{s+1,2l+1}.\]</span></p>
+<p>Similarly, RDP also holds for <span class="math inline">\(\lambda\)</span>.</p>
+<p>Define <span class="math display">\[R_{s,l} = \frac{\lambda_{s+1,2l}}{\lambda_{s,l}},\]</span> then <span class="math display">\[X_{s+1,2l}|X_{s,l},R_{s,l}\sim Binomial(X_{s,l},R_{s,l}).\]</span></p>
+<p>This multiscale decomposition reparameterizes <span class="math inline">\(\lambda\)</span> to <span class="math inline">\(\mu:=\lambda_{0,0}\)</span> and <span class="math inline">\(R:=\{R\}_{s,l}\)</span></p>
+<p>Following this decomposition, the likelihood of <span class="math inline">\(X\)</span> is <span class="math display">\[\begin{equation}
+    p(X|\lambda) = \prod_{i=0}^{n-1} p(X_i|\lambda_i) = p(X_{0,0}|\mu)\times \prod_{s=0}^{S-1}\prod_{l=0}^{2^s-1} p(X_{s+1,2l}|X_{s,l},R_{s,l}).
+\end{equation}\]</span></p>
+<p>Further we put priors on <span class="math inline">\(\lambda_{0,0}\)</span> and <span class="math inline">\(R_{s,l}\)</span>: <span class="math inline">\(\mu\sim g_\mu(\cdot)\)</span> and <span class="math inline">\(R_{s,l}\sim g_{R_s}(\cdot)\)</span>.</p>
+<p>An empirical procedure first estimates <span class="math inline">\(g_\mu(\cdot)\)</span> and <span class="math inline">\(g_{R_s}(\cdot)\)</span> by maximizing the marginal likelihood, then obtains posterior <span class="math inline">\(p(R,\mu|X,\hat{g})\)</span>.</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{split}
+        \log p(X|g_\mu,g_R) &amp; = \E_{q_Rq_\mu}\log p(X|g_\mu,g_R)
+        \\ &amp; = \E_{q_Rq_\mu}\log \frac{p(X,\mu,R|g_\mu,g_R)}{p(R,\mu|X,g_\mu,g_R)}
+        \\ &amp; = \E_{q_Rq_\mu}(\log\frac{p(X,\mu,R|g_\mu,g_R)}{q_Rq_\mu}+\log\frac{q_Rq_\mu}{p(R,\mu|X,g_\mu,g_R)})
+        \\ &amp; = \E_{q_Rq_\mu}\log p(X|R,\mu) + \E_{q_Rq_\mu}\log \frac{g_\mu g_R}{q_Rq_\mu} + KL(q_Rq_\mu||p(R,\mu|g_\mu,g_R))
+        \\ &amp; = \mathcal{F}(q_R,q_\mu,g_\mu,g_R; X) + KL(q_Rq_\mu||p(R,\mu|g_\mu,g_R))
+        \\ &amp; \geq \mathcal{F}(q_R,q_\mu,g_\mu,g_R; X).
+    \end{split}
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}\label{elboPS}
+\begin{split}
+    \mathcal{F}(q_R,q_\mu,g_\mu,g_R; X) &amp;= \E_{q_Rq_\mu}(\sum_{s=0}^{S-1}\sum_{l=0}^{2^s-1}\log p(X_{s+1,2l}|X_{s,l},R_{s,l})+\log p(X_{0,0}|\mu,c)) 
+    \\ &amp; + \E_{q_R}\log\frac{g_R}{q_R} + \E_{q_\mu}\log\frac{g_\mu}{q_\mu}.
+\end{split}
+\end{equation}\]</span></p>
+
+<p>Let <span class="math inline">\(Z_{ij}\sim Poisson(l_if_j)\)</span>, <span class="math inline">\(i=1,2,...,N\)</span>, <span class="math inline">\(j=1,2,...,p\)</span>. Priors: <span class="math inline">\(l\sim g_l(\cdot)\)</span>. Assume <span class="math inline">\(f\in R^p\)</span> has RDP defined in section 1 and <span class="math inline">\(R_{s,l}\sim g_{R_{s}}(\cdot)\)</span>, <span class="math inline">\(\mu\sim g_\mu(\cdot)\)</span>.</p>
+<p>Using variational method, the evidence lower bound(ELBO) is <span class="math display">\[\begin{equation}\label{elbo}
+\begin{split}
+    ELBO &amp;= \E_q\log p(Z,l,R,\mu|g_l,g_\mu,g_R) - \E_q\log q(l,R,\mu)
+    \\&amp;= \E_q \log p(Z|l,R,\mu) + \E_q\log\frac{g_l}{q_l} + \E_q\log\frac{g_R}{q_R} + \E_q\log\frac{g_\mu}{q_\mu}
+\end{split}
+\end{equation}\]</span></p>
+<ol style="list-style-type: decimal">
+<li>Update <span class="math inline">\(q_R, g_R,q_\mu,g_\mu\)</span>: given <span class="math inline">\(q_l,g_l\)</span>, <span class="math display">\[\begin{equation}\label{elboR}
+\begin{split}
+ ELBO(q_R, g_R) &amp;  = \E_q(\sum_{i=1}^N\sum_{s=0}^{S-1}\sum_{l=1}^{2^s-1}\log p(Z_{i,s+1,2l}|Z_{i,s,l},R_{s,l})+\sum_{i=1}^N\log 
+ p(Z_{i,0,0}|\mu,l_i) )
+ \\ &amp;  + \E_q\log\frac{g_R}{q_R} + \E_q\log\frac{g_\mu}{q_\mu} + Constant
+\end{split}
+\end{equation}\]</span></li>
+</ol>
+<p>This first line of ELBO in () is <span class="math display">\[\begin{equation}\label{elboR1}
+\begin{split}
+    \sum_s\sum_l \E_{q_R q_\mu,g_R, g_\mu}( (\Sigma_i Z_i)_{s+1,2l}\log R_{s,l} + (\Sigma_i Z_i)_{s+1,2l+1}\log (1-R_{s,l})  \\
+   + \sum_i Z_{i,0,0}\log\mu -\mu\sum_i \E_{q_l}l_i )+ Constant
+\end{split}
+\end{equation}\]</span></p>
+<p>Combine (), () and (), and compare with (), we can conclude that updating <span class="math inline">\(q_R, g_R,q_\mu,g_\mu\)</span> in rank-1 case is equivalent to solve Empirical Bayes Multiscale Poisson Smoothing with sequence <span class="math inline">\(\sum_i Z_i\)</span> and an extra scale factor <span class="math inline">\(c = \sum_i \E_{q_l} l_i\)</span>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Update <span class="math inline">\(q_l,g_l\)</span>: given <span class="math inline">\(q_R, g_R,q_\mu,g_\mu\)</span>,</li>
+</ol>
+<p>We can write <span class="math inline">\(f_{j} = \mu\prod_{s=0}^{S-1} (R_{s,s(j)})^{\epsilon_j(s)}(1-R_{s,s(j)})^{1-\epsilon_j(s)}\)</span>, where <span class="math inline">\(\epsilon_j(s) = 1\)</span> if the <span class="math inline">\(j\)</span>th element of <span class="math inline">\(f\)</span> goes to left children node at scale <span class="math inline">\(s\)</span>, and <span class="math inline">\(s(j)\)</span> is the location of <span class="math inline">\(j\)</span>th element of <span class="math inline">\(f\)</span> at scale <span class="math inline">\(s\)</span>.</p>
+<p>Intuitively, this should be equivalent to solve EBPM with sequence <span class="math inline">\(\sum_j Z_j\)</span> and a scale factor <span class="math inline">\(\E_{q_\mu}(\mu)\sum_j \prod_s \E_{q_{R_s}}((R_{s,s(j)})^{\epsilon_j(s)}(1-R_{s,s(j)})^{1-\epsilon_j(s)})\)</span>. The derivations below show the equivalence.</p>
+<p>ELBO for rank-1 case:</p>
+<p><span class="math display">\[\begin{equation}\label{elbol}
+\begin{split}
+ELBO(q_l,g_l) &amp; = \E_{q_R q_\mu q_l} \sum_{i}\sum_j(Z_{ij}\log(l_i\mu\prod_s (R_{s,s(j)})^{\epsilon_j(s)}(1-R_{s,s(j)})^{1-\epsilon_j(s)})
+\\ &amp; - l_i \mu \prod_s (R_{s,s(j)})^{\epsilon_j(s)}(1-R_{s,s(j)})^{1-\epsilon_j(s)} ) + \E_q\log\frac{g_l}{q_l} + C_1
+\\ &amp; = \E_{q_l}(\sum_i (\sum_j Z_{ij}\log l_i - l_i \E_{q_R q_\mu}\sum_j(\mu\prod_{s=0}^{S-1} (R_{s,s(j)})^{\epsilon_j(s)}(1-R_{s,s(j)})^{1-\epsilon_j(s)})) + \E_q\log\frac{g_l}{q_l} + C_2.
+\end{split}
+\end{equation}\]</span></p>
+<p>Solve Empirical Bayes Poisson mean given sequence <span class="math inline">\(\sum_j Z_j\)</span> and a scale factor <span class="math inline">\(f_j = \E_{q_\mu}(\mu)\sum_j \prod_s \E_{q_{R_s}}((R_{s,s(j)})^{\epsilon_j(s)}(1-R_{s,s(j)})^{1-\epsilon_j(s)})\)</span>:</p>
+<p><span class="math display">\[\begin{equation}\label{ebpml}
+\begin{split}
+\E_{q_l}\log p(\sum_jZ_j|l,f_j)  &amp; = \E_{q_l} \sum_i (\sum_jZ_j \log l_i - l_if_j)  + C_1
+\\&amp;=  \E_{q_l} \sum_i (\sum_jZ_j \log l_i - l_i\times  \E_{q_\mu}(\mu)\sum_j \prod_s \E_{q_{R_s}}((R_{s,s(j)})^{\epsilon_j(s)}(1-R_{s,s(j)})^{1-\epsilon_j(s)})  + C_1
+\\
+\mathcal{F}(q_l,g_l)  &amp; = \E_{q_l}\log p(\sum_jZ_j|l,f_j)  + \E_q\log\frac{g_l}{q_l} + C_1
+\end{split}
+\end{equation}\]</span></p>
+<p>The equivalence holds since <span class="math inline">\(ELBO(q_l,g_l)\)</span> and <span class="math inline">\(\mathcal{F}(q_l,g_l)\)</span> are equivalent.</p>
+
 <p><span class="math display">\[\begin{equation}
     \begin{split}
         X = \sum_k Z_k ,
@@ -612,101 +700,72 @@ wflow_publish(“analysis/BMPMF.Rmd”)
         \mu_k\sim g_{\mu_k}(\cdot),
     \end{split}
 \end{equation}\]</span></p>
-<p>where <span class="math inline">\(\epsilon_j(s) = 1\)</span> if the <span class="math inline">\(j\)</span>th element of <span class="math inline">\(f_k\)</span> goes to left children node at scale <span class="math inline">\(s\)</span>, and <span class="math inline">\(s(j)\)</span> is the location of <span class="math inline">\(j\)</span>th element of <span class="math inline">\(f_k\)</span> at scale <span class="math inline">\(s\)</span>.</p>
 <p>Factorization of joint distribution is <span class="math display">\[\begin{equation}
-    p(X,Z,L,F,R,\mu|g) = p(X|Z)p(Z|L,F)p(F|R,\mu)p(R|g_R)p(\mu|g_\mu)p(L|g_L).
+    p(X,Z,L,R,\mu|g) = p(X|Z)p(Z|L,R,\mu)p(R|g_R)p(\mu|g_\mu)p(L|g_L).
 \end{equation}\]</span></p>
 <p>Goal is to estimate <span class="math inline">\(g\)</span> and obtain posterior <span class="math inline">\(p(L,R,\mu|X,\hat{g})\)</span>. Two ways to derive variational lower bound: Jensen’s Inequality and KL divergence.</p>
-<p>Variational lower bound: <span class="math display">\[\begin{equation}
-    F = E_q \log p(X,Z,L,F,R,\mu|g)-E_q\log q(Z,L,F,R,\mu).
+<p>Variational lower bound: <span class="math display">\[\begin{equation}\label{elbok}
+\begin{split}
+ \mathcal{F}(q,g) &amp; = \E_q \log p(X,Z,L,R,\mu|g)-\E_q\log q(Z,L,R,\mu)
+ \\&amp;=\E_{q}\log p(X,Z,R,L,\mu|g_R,g_\mu,g_L)-\E_{q_L}\log q_L(L) - \E_{q_R}\log q_R(R) - \E_{q_Z}\log q_Z(Z) - \E_q\log q_\mu
+        \\&amp;= \E_q\log p(Z|R,L,\mu) + \E_q\log \delta(X-\sum_k Z_k) + \E_q\log\frac{g_R}{q_R} + \E_q\log\frac{g_L}{q_L}+\E_q\log\frac{g_\mu}{q_\mu}-\E_q\log q_Z
+        \\&amp;= \sum_k(\E_q\log p(Z_k|R_k,l_k,\mu_k)+\E_q\log\frac{g_{R_k}}{q_{R_k}}+\E_q\log\frac{g_{L_k}}{q_{L_k}}+\E_q\log\frac{g_{\mu_k}}{q_{\mu_k}})+ \E_q\log \delta(X-\sum_k Z_k)-\E_q\log q_Z.
+\end{split}
 \end{equation}\]</span></p>
-<p>Updates:</p>
 <ol style="list-style-type: decimal">
-<li>Update <span class="math inline">\(q_Z(\cdot)\)</span>: Take functional derivatives of the lower bound with respect to <span class="math inline">\(q_Z(Z)\)</span>, then <span class="math display">\[\begin{equation}
+<li>Update <span class="math inline">\(q_Z(Z)\)</span>: Take functional derivatives of the lower bound with respect to <span class="math inline">\(q_Z(Z)\)</span>, then <span class="math display">\[\begin{equation}
  \begin{split}
-     q_Z(Z) &amp; \propto \exp(\int\int \log p(Z|X,L,F)q_F q_L dF dL)
-     \\ &amp;\propto \exp (E_{q_F,q_L}\log p(Z|X,F,L)).
+     q_Z(Z) &amp;\propto \exp (\int \int \log p(X,Z|R,L,\mu,g_R,g_L,g_\mu)q_R q_L q_\mu dR dLd\mu) 
+     \\ &amp; \propto \exp(\int\int \log p(Z|X,R,\mu,L,g_R,g_L,g_\mu)q_Rq_L q_\mu dR dLd\mu)
+     \\ &amp;\propto \exp (\E_{q_R,q_L,q_\mu}\log p(Z|X,R,L,\mu,g_R,g_L,g_\mu)).
  \end{split}
 \end{equation}\]</span></li>
 </ol>
 <p>This leads to</p>
-<p><span class="math display">\[q_Z(Z_{1:K,i,j}) = Multinomial(Z_{1:K,i,j} ; X_{ij},\pi_{1:K,i,j}),\]</span> where <span class="math display">\[\pi_{k,i,j} = \frac{\exp(E\log l_{ik}+E\log f_{kj})}{\sum_k\exp(E\log l_{ik}+E\log f_{kj})}.\]</span></p>
+<p><span class="math display">\[q_Z(Z_{1:K,i,j})\sim Multinomial(X_{ij},\pi_{1:K,i,j}),\]</span> where <span class="math display">\[\pi_{k,i,j} = \frac{\exp(\E\log l_{ik}+\E\log f_{kj})}{\sum_k\exp(\E\log l_{ik}+\E\log f_{kj})},\]</span> <span class="math display">\[f_{kj} =  \mu_k\prod_{s=0}^{S-1} R_{k,s,s(j)}^{\epsilon_j(s)}(1-R_{k,s,s(j)})^{1-\epsilon_j(s)}.\]</span></p>
+<p>The expectation <span class="math inline">\(\E\log f_{kj}\)</span> is then <span class="math display">\[\begin{equation}
+\E\log f_{kj} = \E_{q_{\mu_k}}\log\mu_k + \sum_{s=0}^{S-1}\E_{R_{k,s}}({\epsilon_j(s)}\log R_{k,s,s(j)}+(1-\epsilon_j(s))\log(1-R_{k,s,s(j)})).
+\end{equation}\]</span></p>
+<p>From the ELBO formula (), updating distributions related to <span class="math inline">\(R,\mu,L\)</span> in rank-K problem reduces to solving K rank-1 problems.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Update <span class="math inline">\(q_L(\cdot)\)</span> and <span class="math inline">\(g_L(\cdot)\)</span>: <span class="math display">\[\begin{equation}
+<li>Update <span class="math inline">\(q_{l_k}(\cdot)\)</span> and <span class="math inline">\(g_{l_k}(\cdot)\)</span>: <span class="math display">\[\begin{equation}
  \begin{split}
-     q_L &amp;\propto \exp(E_{q_F,q_Z}\log p(Z|L,F)p(L|g_L))
+     q_L &amp;\propto \exp(\E_{q_R,q_\mu,q_Z}\log p(Z|L,R,\mu)p(L|g_L))
      \\&amp;\propto
-     \exp(\sum_k(E_q\log p(Z_k|L_k,F_k)p(L_k|g_{L_k}))).
+     \exp(\sum_k(\E_q\log p(Z_k|L_k,R_k,\mu_k)p(L_k|g_{L_k}))).
  \end{split}
 \end{equation}\]</span></li>
 </ol>
-<p>This reduces the problem to rank 1 problem, which updates <span class="math inline">\(q_{L_k}\)</span> for each topic <span class="math inline">\(k\)</span>. The <span class="math inline">\(q_{L_k}\)</span> and <span class="math inline">\(g_{L_k}\)</span> can be updated by solving the following Empirical Bayes Poisson mean problem:</p>
+<p>We update <span class="math inline">\(q_{l_k}\)</span> for each topic <span class="math inline">\(k\)</span>. The <span class="math inline">\(q_{l_k}\)</span> and <span class="math inline">\(g_{l_k}\)</span> can be updated by solving the following Empirical Bayes Poisson mean problem:</p>
 <p><span class="math display">\[\begin{equation}
 \begin{split}
-\sum_j E_{q_Z}(Z_{k,i,j}) \sim Poisson (l_{ik}\sum_j E_{q_F}f_{kj}),  i=1,2,...,N,
+\sum_j \E_{q_Z}(Z_{k,i,j}) \sim Poisson (l_{ik}\sum_j \E_{q_{R_k},q_{\mu_k}}(f_{kj})),  i=1,2,...,N,
 \\
-l_{k}\sim g_{L_k}(\cdot).
+\E_{q_{R_k},q_{\mu_k}}(f_{kj}) = \E_{q_{\mu_k}}\mu_k \times \prod_{s=0}^{S-1}\E_{R_{k,s}}(R_{k,s,s(j)}^{\epsilon_j(s)}(1-R_{k,s,s(j)})^{1-\epsilon_j(s)}),
+\\
+l_{k}\sim g_{l_k}(\cdot).
 \end{split}
 \end{equation}\]</span></p>
-<p>Then update <span class="math inline">\(q_{L_{k,i}} = p(l_{ik}|\sum_j E_{q_Z}(Z_{k,i,j}),\hat{g}_{L_k})\)</span>.</p>
 <ol start="3" style="list-style-type: decimal">
-<li>Update <span class="math inline">\(q_F(\cdot)\)</span>:</li>
+<li>Update <span class="math inline">\(q_{R_k}, q_{\mu_k},g_{R_k}, g_{\mu_k}\)</span>:</li>
 </ol>
-<p><span class="math display">\[\begin{equation}
-\begin{split}
-q_{f_k} &amp;\propto \exp(E_q\log p(Z_k|l_k,f_k)p(f_k|R_k,\mu_k))
-\\ &amp; \propto \exp(E_q\log (p(Z_k|l_k,f_k)\prod_{j=1}\delta(f_{kj} - \mu_{k}\prod_{s=0}^{S-1} (R_{k,s,s(j)})^{\epsilon_j(s)}(1-R_{k,s,s(j)})^{1-\epsilon_j(s)}))).
-\end{split}
-\end{equation}\]</span></p>
-<p></p>
-<p>Since <span class="math inline">\(\exp(E_q\log\delta(f_j-(*)))\leq E_q I(f_j = (*)))\)</span> and <span class="math inline">\(E_q I(f_j = (*))) = 1\)</span> if <span class="math inline">\(f_j = (*)\)</span> always holds, then <span class="math inline">\(q(f_k)\propto \exp(E_q\log (p(Z_k|l_k,f_k))\)</span> if <span class="math inline">\(f_j = (*)\)</span> always holds.</p>
-</div>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p><span class="math display">\[x_{ij}\sim Poisson(\Lambda_{ij}),i=1,2,...,N,j=1,2,...,p\]</span> <span class="math display">\[X = \{x\}_{ij},\]</span></p>
-<p>where <span class="math inline">\(\Lambda_{ij} = \sum_k L_{ik}F_{kj}\)</span>. A latent variable representation is <span class="math display">\[z_{k,i,j}\sim Poisson(l_{ik}f_{kj}),\]</span> <span class="math display">\[Z_k = \{z_k\}_{ij},\]</span> <span class="math display">\[X = \sum_k Z_k.\]</span> Each factor <span class="math inline">\(f_1,...,f_K\in R^{p}\)</span> follows a recursive dyadic partition(RDP): <span class="math display">\[f_{k,S,l} = f_{kl},\]</span> <span class="math display">\[f_{k,s,l} = f_{k,s+1,2l}+f_{k,s+1,2l+1},\]</span> where <span class="math inline">\(s = 0,1,...,S-1\)</span> denote scales and <span class="math inline">\(l=0,1,...,2^s-1\)</span> denote locations.</p>
-<p>Define <span class="math display">\[z_{k,j} = \sum_i z_{k,i,j},\]</span> then <span class="math display">\[z_{k,j}\sim Poisson(\lambda_{k,j}),\]</span> where <span class="math inline">\(\lambda_{k,j} = f_{kj}\sum_i l_{ik}\)</span>.</p>
-<p>Given the RDP of factors <span class="math inline">\(f\)</span>, <span class="math inline">\(z_k = \{z_{k,1},...,z_{k,p}\}\)</span> also follows RDP: <span class="math display">\[z_{k,S,l} = z_{kl},\]</span> <span class="math display">\[z_{k,s,l} = z_{k,s+1,2l} + z_{k,s+1,2l+1}.\]</span> Then <span class="math display">\[z_{k,s,l}\sim Poisson(\lambda_{k,s,l}),\]</span> where <span class="math inline">\(\lambda_{k,s,l} = \sum_i l_{ik}\times f_{k,s,l}\)</span>.</p>
-<p>Define <span class="math display">\[R_{k,s,l} = \frac{\lambda_{k,s+1,2l}}{\lambda_{k,s,l}},\]</span> then <span class="math display">\[z_{k,s+1,2l}|z_{k,s,l},R_{k,s,l}\sim Binomial(z_{k,s,l},R_{k,s,l}).\]</span></p>
-<p>Apparently, <span class="math inline">\(R_{k,s,l} = \frac{f_{k,s+1,2l}}{f_{k,s,l}}\)</span></p>
-<p>After above reparameterization, parameters are now <span class="math inline">\(\lambda_{k,0,0}\)</span> and <span class="math inline">\(R_{k,s,l}\)</span>. Prior of <span class="math inline">\(R_{k,s,l}\)</span> is <span class="math display">\[R_{k,s,l}\sim p_{k,s}\delta(\frac{1}{2})+(1-p_{k,s})Beta(\alpha_{k,s},\alpha_{k,s}).\]</span></p>
-<p>For <span class="math inline">\(\lambda_{k,0,0}\)</span>, a simple estimate is <span class="math inline">\(z_{k,0,0}\)</span>. This estimate preserves energy, which is preferable in wavelet shrinkage estimates. Or we can put a prior on it, <span class="math inline">\(\lambda_{k,0,0}\sim Gamma(\beta_{k,1},\beta_{k,2})\)</span>.</p>
-<p>Define <span class="math display">\[z_{i,k} = \sum_j z_{k,i,j},\]</span> then <span class="math display">\[z_{i,k}\sim Poisson(l_{ik}\sum_jf_{kj}).\]</span></p>
-<p>Now for simplicity, we assume <span class="math inline">\(\hat{\lambda}_{k,0,0} = z_{k,0,0}\)</span>, <span class="math inline">\(R_{k,s}\sim g_{R_{k,s}}(\cdot)\)</span> and <span class="math inline">\(l_k\sim g_{l_k}(\cdot)\)</span>.</p>
-<p>Empirical Bayes approach is first estimating hyperparameters in priors <span class="math display">\[\hat{g}_{R_{k,s}},\hat{g}_{l_k} = \argmax_g \log p(X|g_{R_{k,s}},g_{l_k}),\]</span> then posterior distribution <span class="math inline">\(p(R_{k,s},l_k|X,\hat{g}_{R_{k,s}},\hat{g}_{l_k})\)</span>.</p>
-<p>But evaluating the marginal likelihood <span class="math inline">\(\log p(X|g_{R_{k,s}},g_{l_k})\)</span> requires calculating two high dimensional integrals, which are intractable. So instead we pursuit variational approach.</p>
-<p><span class="math display">\[\begin{equation}
-    \begin{split}
-        \log p(X|g_R,g_L) &amp; = \log p(X,Z,R,L|g_R,g_L) \\&amp; =
-        \log\int\sum_Z p(X,Z,R,L|g_R,g_L) dRdL
-        \\&amp;= \log\int\sum_Z q(Z,R,L)\frac{p(X,Z,R,L|g_R,g_L)}{q(Z,R,L)}dRdL
-        \\&amp;\geq \int\sum_Z q(Z,R,L)\log\frac{p(X,Z,R,L|g_R,g_L)}{q(Z,R,L)}dRdL.
-    \end{split}
-\end{equation}\]</span></p>
-<p>Let <span class="math inline">\(q(Z,R,L) = q_Z(Z)q_R(R)q_L(L)\)</span>,</p>
-<p><span class="math display">\[F(q_Z(Z),q_R(R),q_L(L),g_R,g_L,X) = \int\sum_Z q_Z(Z)q_R(R)q_L(L)\log\frac{p(X,Z,R,L|g_R,g_L)}{q_Z(Z)q_R(R)q_L(L)}dRdL\]</span></p>
-<p>Maximizing <span class="math inline">\(F(\cdot)\)</span> is equivalent to minimizing KL divergence between approximate posterior <span class="math inline">\(q_Z(Z)q_R(R)q_L(L)\)</span> and true posterior <span class="math inline">\(p(Z,R,L|X,g_R,g_L)\)</span>: <span class="math display">\[ \log p(X|g_R,g_L) - F(\cdot) = KL(q||p).\]</span></p>
-<p><span class="math inline">\(F(\cdot)\)</span> is called variational lower bound or evidence lower bound.</p>
-<p><span class="math display">\[\begin{equation}
-    \begin{split}
-        F(q,g) &amp; = E_{q}\log p(X,Z,R,L|g_R,g_L)-E_{q_L}\log q_L(L) - E_{q_R}\log q_R(R) - E_{q_Z}\log q_Z(Z)
-        \\&amp;= E_q\log p(Z|R,L) + E_q\log \delta(X-\sum_k Z_k) + E_q\log\frac{g_R}{q_R} + E_q\log\frac{g_L}{q_L}-E_q\log q_Z
-        \\&amp;= \sum_k(E_q\log p(Z_k|R_k,l_k)+E_q\log\frac{g_{R_k}}{q_{R_k}}+E_q\log\frac{g_{L_k}}{q_{L_k}})+ E_q\log \delta(X-\sum_k Z_k)-E_q\log q_Z
-    \end{split}
-\end{equation}\]</span></p>
-<p>Update <span class="math inline">\(q_Z(Z)\)</span>: Take functional derivatives of the lower bound with respect to <span class="math inline">\(q_Z(Z)\)</span>, then <span class="math display">\[\begin{equation}
-    \begin{split}
-        q_Z(Z) &amp;\propto \exp (\int \int \log p(X,Z|R,L,g_R,g_L)q_R q_L dR dL) 
-        \\ &amp; \propto \exp(\int\int \log p(Z|X,R,L,g_R,g_L)q_Rq_L dR dL)
-        \\ &amp;\propto \exp (E_{q_R,q_L}\log p(Z|X,R,L,g_R,g_L)).
-    \end{split}
-\end{equation}\]</span></p>
-<p>This leads to</p>
-<p><span class="math display">\[q_Z(Z_{1:K,i,j})\sim Multinomial(X_{ij},\pi_{1:K,i,j}),\]</span> where <span class="math display">\[\pi_{k,i,j} = \frac{\exp(E\log l_{ik}+E\log f_{kj})}{\sum_k\exp(E\log l_{ik}+E\log f_{kj})}.\]</span></p>
-<p>But the parameters are <span class="math inline">\(R_k\)</span> instead of <span class="math inline">\(f_{kj}\)</span> so we can write <span class="math inline">\(f_{kj}\)</span> as a function of <span class="math inline">\(R_{k}\)</span>. Define <span class="math inline">\(\epsilon_l\)</span> as a length <span class="math inline">\(S\)</span> binary vector of <span class="math inline">\(l\)</span>, for <span class="math inline">\(l=0,1,...,p-1\)</span>, where <span class="math inline">\(\epsilon_l(s) = 1\)</span> if the <span class="math inline">\(l\)</span>th element of <span class="math inline">\(f_k\)</span> goes to left children node at scale <span class="math inline">\(s\)</span>. Then <span class="math inline">\(f_{kl} = f_{k,0,0}\prod_{s=0}^{S-1} R_{k,s,s(l)}^{\epsilon_l(s)}(1-R_{k,s,s(l)})^{1-\epsilon_l(s)}\)</span>, where <span class="math inline">\(f_{k,0,0}\)</span> ??????, and <span class="math inline">\(s(l)\)</span> is the location of <span class="math inline">\(l\)</span>th element of <span class="math inline">\(f_k\)</span> at scale <span class="math inline">\(s\)</span>.</p>
-<p>Update <span class="math inline">\(q_L(L),g_L(L)\)</span>: equivalent to <span class="math inline">\(K\)</span> rank-1 problems <span class="math inline">\(E_{q_Z}(Z_k) \sim Poisson(l_kf_k^T)\)</span>, which can be solved by iterating Poisson mean estimation.</p>
-<p>Update <span class="math inline">\(q_R(R),g_R(R)\)</span>:</p>
-</div>
+<p>Solve the following Empirical Bayes Multiscale Poisson Smoothing problem: given a Poisson sequence <span class="math inline">\(\sum_i\E_{q_Z}(Z_{k,i,j}), j=1,2,...,p\)</span> and an extra scale factor <span class="math inline">\(c = \sum_{i}E_{q_{l_k}}l_{ik}\)</span>.</p>
+
+<ol style="list-style-type: decimal">
+<li>Empirical Bayes Poisson Smoothing.</li>
+</ol>
+<p>We have at least two methods, all of which depend on the multiscale decomposition of Poisson sequence. The first one is the standard BMSM models in Kolaczyk(1999). Another one is in Xing et al(2019).</p>
+<p>For <span class="math inline">\(\mu_k\)</span>, the simplest way is to set <span class="math inline">\(\hat{\mu}_k = \sum_i\sum_j\E_{q_Z}(Z_{k,i,j}) / \sum_i(l_{ik})\)</span>. This retains the property of preservation of energy and results in an estimate relatively unaffected by perturbations in the data at their original scale.</p>
+<p>For <span class="math inline">\(R_{k,s}\)</span>, one way is to put a mixture of Beta distribution prior separately for each scale <span class="math display">\[R_{k,s,l}\sim \sum_h p_{k,s,h}Beta(\alpha_{k,s,h},\alpha_{k,s,h}).\]</span></p>
+<p>To force smoothness in each <span class="math inline">\(f\)</span>, we can also put a point mass on <span class="math inline">\(\frac{1}{2}\)</span>. Another way is reparameterize <span class="math inline">\(R_{k,s,l}\)</span> to its logit form <span class="math inline">\(\log\frac{R_{k,s,l}}{1-R_{k,s,l}}\)</span>, then use normal approximation hence standard ash prior to achieve shrinkage estimate.</p>
+<p>A common practice in wavelet shrinkage estimation is to use ‘cycle spinning’ or Non-decimated WT to get translation-invariant property.</p>
+<p>To use the mixture of beta distribution, or more generally shrinking the probability directly, we need to develop Empirical Bayes Binomial probability .</p>
+
+<p>Build code based on EBPMF implementations.</p>
+<p>How to deal with many 0’s? Is zero-inflated model possible?</p>
+<p>Run some simulation examples.</p>
+<p>Potential applications.</p>
+<p>Other modifications to the model</p>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
