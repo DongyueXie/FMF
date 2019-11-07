@@ -1,0 +1,104 @@
+---
+title: "Poisson Mean"
+author: "Dongyue Xie"
+date: "2019-11-05"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Empirical Bayes Poisson Mean Problem
+
+Empirical Bayes Poisson Mean problem dates back to mid-20th centrary. Robbins(1956) introduced empirical Bayes and took Poisson distribution as an example. 
+
+Efron's paper Bayes, Oracle Bayes and Empirical Bayes is an interesting read. Corbet’s butterfly data mentioned in the paper is an very early example of Poisson mean and Poisson smoothing!
+
+```{r}
+library(ebmpmf)
+set.seed(12345)
+pi0=0.8
+lamda=c()
+n=100
+for(i in 1:100){
+  idx = rbinom(1,1,pi0)
+  if(idx){
+    lamda[i] = rgamma(1,0.1,1)
+  }else{
+    lamda[i]=rgamma(1,10,2)
+  }
+}
+
+x = rpois(n,lamda)
+
+# robbins method
+marginal_x = function(xi,x){
+  mean(x==xi)
+}
+
+robbins_est = function(x){
+  est = c()
+  for(i in 1:length(x)){
+    est[i] = (x[i]+1)*marginal_x(x[i]+1,x)/marginal_x(x[i],x)
+  }
+  est
+}
+
+fit_robbins = robbins_est(x)
+
+fit = ebpm_exp_mixture(x,scale='estimate',shape=0.1)
+
+plot(x,fit$posterior$mean)
+abline(0,1)
+
+plot(x,col='grey80')
+lines(fit$posterior$mean,type='p',pch=3,col=2)
+
+
+x = x + runif(n,0,0.1)
+fit = ebpm_exp_mixture(x,scale='estimate',shape=0.1)
+plot(x,col='grey80')
+lines(fit$posterior$mean,type='p',pch=3,col=2)
+
+x = round(x)
+fit = ebpm_exp_mixture(x,scale='estimate',shape=0.1)
+plot(x,col='grey80')
+lines(fit$posterior$mean,type='p',pch=3,col=2)
+
+ss = 300
+x = rpois(n,ss*lamda) + runif(n,0,0.1)
+
+fit = ebpm_exp_mixture(x,ss,scale=c(1e-3,1e3),shape=0.1)
+plot(x/ss,col='grey80')
+lines(fit$posterior$mean,type='p',pch=3,col=2)
+
+```
+
+
+
+
+```{r}
+
+library(gsl)
+Gauss2F1b <- function(a,b,c,x){
+    if(x>=0 & x<1){
+        hyperg_2F1(a,b,c,x)
+    }else{
+        hyperg_2F1(a,c-b,c,1-1/(1-x))/(1-x)^a
+    }
+}
+
+
+PoissonMean_DD = function(y,alpha,tau,gama){
+  n=length(y)
+  pmean_k = c()
+  for(i in 1:n){
+    pmean_k[i] = beta(1+alpha+1/2,y[i]+1/2)*Gauss2F1b(gama,1+alpha+1/2,y[i]+alpha+1+1,1-tau^2)/beta(alpha+1/2,y[i]+1/2)/Gauss2F1b(gama,alpha+1/2,y[i]+alpha+1,1-tau^2)
+  }
+  (1-pmean_k)*(y+alpha)
+}
+
+fit = PoissonMean_DD(x,1,0.5,0.5)
+
+plot(x,col='grey80')
+lines(fit,type='p',pch=3,col=2)
+```
