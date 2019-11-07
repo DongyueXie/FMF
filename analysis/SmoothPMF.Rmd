@@ -1,0 +1,85 @@
+---
+title: "Smooth PMF"
+author: "Dongyue Xie"
+date: "2019-10-15"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Step
+
+A simple example.
+
+```{r}
+# generate matrix X with 3 topics
+set.seed(123)
+n = 120
+p = 300
+K= 3
+L = matrix(0, nrow=n, ncol=K)
+FF = matrix(0, nrow=K, ncol=p)
+
+L[1:(n/3),1] = 1
+L[((n/3)+1):(2*n/3),2] = 1
+L[((2*n/3)+1):n,3] = 1
+
+
+FF[1,1:(p/3)] = 1+10
+FF[2,((p/3)+1):(2*p/3)] = 1+10
+FF[3,((2*p/3)+1):p] = 1+10
+
+lambda = L %*% FF
+X = matrix(rpois(n=length(lambda),lambda),nrow=n)
+image(X)
+```
+
+```{r}
+library(ebmpmf)
+fit_ebmpmf = EBMPMF(X,K,init='uniform',smooth_f = T,smooth_l = T)
+summary_ebmpmf(fit_ebmpmf,typel = 'l')
+```
+
+### Add variation to L
+
+Add Uniform(0,0.3) noise
+
+```{r}
+L2 = L + matrix(runif(n*K,0,0.3),nrow=n)
+lambda = L2 %*% FF
+X = matrix(rpois(n=length(lambda),lambda),nrow=n)
+image(X)
+
+fit_ebmpmf = EBMPMF(X,K,init='uniform',smooth_f = T,smooth_l = F)
+summary_ebmpmf(fit_ebmpmf,typel = 'p')
+```
+
+
+Add Uniform(0,1) noise
+
+```{r}
+L3 = L + matrix(runif(n*K,0,1),nrow=n)
+lambda = L3 %*% FF
+X = matrix(rpois(n=length(lambda),lambda),nrow=n)
+image(X)
+
+fit_ebmpmf = EBMPMF(X,K,init='uniform',smooth_f = T,smooth_l = F)
+summary_ebmpmf(fit_ebmpmf,typel = 'p')
+```
+
+
+### K misspecification
+
+Set K=6 while truth is 3.
+
+```{r}
+fit_ebmpmf = EBMPMF(X,6,init='uniform',smooth_f = T,smooth_l = F)
+summary_ebmpmf(fit_ebmpmf,typel = 'p')
+```
+
+
+
+
+
+
+
