@@ -26,6 +26,9 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 1. [Trend Filtering](PoissonTrendFiltering.html)
 2. [Trend filtering and dynamic linear model](trendfiltering.html)
 
+### EBPM
+
+1. [Empirical Bayes Poisson Mean large scale](poissonmeanscale.html)
 
 ## Mis
 
