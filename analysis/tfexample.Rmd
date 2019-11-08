@@ -1,0 +1,199 @@
+---
+title: "Trend Filtering Examples"
+author: "Dongyue Xie"
+date: "2019-11-08"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Normal likelihood: Trend filtering from `genlasso`, `glmgen`, lasso form fitted using `glmnet`, `susie-trendfiltering`, Bayesian trend filtering from `btf`, `spmrf`.
+
+Poisson likelihood: `glmgen`, `spmrf`, likelihood expansion, VST.
+
+## Normal likelihood
+
+```{r}
+library(genlasso)
+library(glmgen)
+library(glmnet)
+library(susieR)
+library(btf)
+library(spmrf)
+library(rstan)
+
+GenH = function(n,k){
+  H = matrix(nrow=n,ncol=n)
+  for(i in 1:n){
+    for(j in 1:(k+1)){
+      H[i,j] = i^(j-1)/n^(j-1)
+    }
+  }
+  for(j in (k+2):n){
+    for(i in 1:(j-1)){
+      H[i,j] = 0
+    }
+    sigmak = Kcusum(n,j,k)
+    for(i in j:n){
+      H[i,j] = sigmak[i-j+1]*factorial(k)/n^k
+    }
+  }
+  H
+  
+}
+
+Kcusum = function(n,j,k){
+  sigma = rep(1,n-j+1)
+  if(k==0){
+    return(rep(1,n-j+1))
+  }else{
+    for(t in 1:k){
+      sigma = cumsum(sigma)
+    }
+    return(sigma)
+  }
+  
+}
+
+TF_lasso = function(y,k){
+  n = length(y)
+  H = GenH(n,k)
+  fit = cv.glmnet(H,y,penalty.factor = c(rep(0,k+1),rep(1,n-k-1)),intercept = F,standardize=F)
+  H%*%coef(fit,s='lambda.min')[-1]
+}
+```
+
+Generate date from $y = f + \epsilon$, $\epsilon\sim N(0,\sigma^2)$. SNR = 1
+
+Step function.
+
+```{r}
+n = 100
+x = (1:n)/n
+sigma = 1
+f = c(rep(3,n/4),rep(5,n/4),rep(8,n/4),rep(4,n/4))
+snr = 1
+f = f/sqrt(var(f)/sigma^2/snr)
+y = f + rnorm(n,0,sigma)
+
+#trend filtering
+t1_tf=Sys.time()
+fit_tf = genlasso::trendfilter(y,ord=0)
+fit_tf_cv = cv.trendfilter(fit_tf)
+fit_tf = fit_tf$beta[,fit_tf$lambda==fit_tf_cv$lambda.min]
+t2_tf=Sys.time()
+#lasso form 
+t1_lasso=Sys.time()
+fit_lasso = TF_lasso(y,0)
+t2_lasso=Sys.time()
+#susie
+t1_susie=Sys.time()
+fit_susie = susie_trendfilter(y,0)
+t2_susie=Sys.time()
+#btf
+t1_btf=Sys.time()
+fit_btf = btf(y,k=0)
+t2_btf=Sys.time()
+#spmrf
+t1_spmrf=Sys.time()
+spmrf_obj = spmrf(data=list(y=y),prior="horseshoe", likelihood="normal", order=1,zeta=0.01,chains=0)
+nchain <- 2
+ntotsamp <- 1000
+nthin <- 1
+nburn <- 500
+niter <- (ntotsamp/nchain)*nthin + nburn
+pars.H <- c("theta", "tau", "gam", "sigma") 
+spmrf_draw = spmrf(prior="horseshoe", likelihood="normal", order=1,  fit=spmrf_obj,data=list(y=y),
+                  par=pars.H, chains=nchain, warmup=nburn, thin=nthin, iter=niter,
+                            control=list(adapt_delta=0.995, max_treedepth=12))
+#fit_spmrf = as.array(spmrf_draw)
+fit_spmrf_ci = extract_theta(spmrf_draw,obstype = 'normal',alpha=0.05)
+fit_spmrf = fit_spmrf_ci$postmed
+t2_spmrf=Sys.time()
+
+
+plot(y,col = 'grey80')
+lines(f,col='grey80')
+lines(fit_tf,col=1)
+lines(c(fit_lasso),col=2)
+lines(fit_susie$fitted,col=3)
+lines(apply(fit_btf$f,2,mean),col=4)
+lines(fit_spmrf,col=7)
+legend('topleft',c('truth','tf','lasso tf','susie','btf','spmrf'),lty=c(1,1,1,1,1,1),col=c('grey80',1,2,3,4,7))
+```
+
+run time
+
+```{r}
+paste0('tf run time:',round(t2_tf-t1_tf,2))
+paste0('tf_lasso run time:',round(t2_lasso-t1_lasso,2))
+paste0('susie run time:',round(t2_susie-t1_susie,2))
+paste0('btf run time:',round(t2_btf-t1_btf,2))
+paste0('spmrf run time:',round(t2_spmrf-t1_spmrf,2))
+```
+
+
+### Poisson likelihood
+
+```{r}
+n = 200
+x = (1:n)/n
+f = c(rep(2,n/4),rep(5,n/4),rep(8,n/4),rep(3,n/4))
+y = rpois(n,f)
+
+#trend filtering
+t1_tf=Sys.time()
+fit_tf = glmgen::trendfilter(x,y,k=0,family = 'poisson')
+t2_tf=Sys.time()
+# #lasso form 
+# t1_lasso=Sys.time()
+# fit_lasso = TF_lasso(y,0)
+# t2_lasso=Sys.time()
+# #susie
+# t1_susie=Sys.time()
+# fit_susie = susie_trendfilter(y,0)
+# t2_susie=Sys.time()
+# #btf
+# t1_btf=Sys.time()
+# fit_btf = btf(y,k=0)
+# t2_btf=Sys.time()
+#spmrf
+t1_spmrf=Sys.time()
+spmrf_obj = spmrf(data=list(y=y),prior="horseshoe", likelihood="poisson",order=1,zeta=0.01,chains=0)
+nchain <- 2
+ntotsamp <- 1000
+nthin <- 1
+nburn <- 500
+niter <- (ntotsamp/nchain)*nthin + nburn
+pars.H <- c("theta", "tau", "gam") 
+spmrf_draw = spmrf(prior="horseshoe", likelihood="poisson", order=1,  fit=spmrf_obj,data=list(y=y),
+                  par=pars.H, chains=nchain, warmup=nburn, thin=nthin, iter=niter,
+                            control=list(adapt_delta=0.995, max_treedepth=12))
+#fit_spmrf = as.array(spmrf_draw)
+fit_spmrf_ci = extract_theta(spmrf_draw,obstype = 'poisson',alpha=0.05)
+fit_spmrf = fit_spmrf_ci$postmed
+t2_spmrf=Sys.time()
+
+
+plot(y,col = 'grey80')
+lines(f,col='grey80')
+lines(fit_tf$beta[,12],col=1)
+#lines(c(fit_lasso),col=2)
+#lines(fit_susie$fitted,col=3)
+#lines(apply(fit_btf$f,2,mean),col=4)
+lines(fit_spmrf,col=7)
+legend('topleft',c('truth','tf','spmrf'),lty=c(1,1,1),col=c('grey80',1,7))
+```
+
+
+run time
+
+```{r}
+paste0('tf run time:',round(t2_tf-t1_tf,2))
+#paste0('tf_lasso run time:',round(t2_lasso-t1_lasso,2))
+#paste0('susie run time:',round(t2_susie-t1_susie,2))
+#paste0('btf run time:',round(t2_btf-t1_btf,2))
+paste0('spmrf run time:',round(t2_spmrf-t1_spmrf,2))
+```
