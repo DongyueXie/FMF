@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Dongyue Xie" />
+
+<meta name="date" content="2019-11-08" />
+
+<title>Trend Filtering Examples</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SMF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/DongyueXie/SMF">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Trend Filtering Examples</h1>
+<h4 class="author">Dongyue Xie</h4>
+<h4 class="date">2019-11-08</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-11-08
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.5.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190719code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190719)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190719code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190719)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreef12ab55b7ac239f3950523d5d5b5af434d2707a7targetblankf12ab55a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/f12ab55b7ac239f3950523d5d5b5af434d2707a7" target="_blank">f12ab55</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreef12ab55b7ac239f3950523d5d5b5af434d2707a7targetblankf12ab55a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/poissonmeanscale.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/f12ab55b7ac239f3950523d5d5b5af434d2707a7/analysis/tfexample.Rmd" target="_blank">f12ab55</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-08
+</td>
+<td>
+wflow_publish(“analysis/tfexample.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Normal likelihood: Trend filtering from <code>genlasso</code>, <code>glmgen</code>, lasso form fitted using <code>glmnet</code>, <code>susie-trendfiltering</code>, Bayesian trend filtering from <code>btf</code>, <code>spmrf</code>.</p>
+<p>Poisson likelihood: <code>glmgen</code>, <code>spmrf</code>, likelihood expansion, VST.</p>
+</div>
+<div id="normal-likelihood" class="section level2">
+<h2>Normal likelihood</h2>
+<pre class="r"><code>library(genlasso)</code></pre>
+<pre><code>Loading required package: MASS</code></pre>
+<pre><code>Loading required package: Matrix</code></pre>
+<pre><code>Loading required package: igraph</code></pre>
+<pre><code>
+Attaching package: &#39;igraph&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    decompose, spectrum</code></pre>
+<pre><code>The following object is masked from &#39;package:base&#39;:
+
+    union</code></pre>
+<pre class="r"><code>library(glmgen)</code></pre>
+<pre><code>
+Attaching package: &#39;glmgen&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:genlasso&#39;:
+
+    trendfilter</code></pre>
+<pre class="r"><code>library(glmnet)</code></pre>
+<pre><code>Loading required package: foreach</code></pre>
+<pre><code>Loaded glmnet 2.0-18</code></pre>
+<pre class="r"><code>library(susieR)
+library(btf)
+library(spmrf)
+library(rstan)</code></pre>
+<pre><code>Loading required package: StanHeaders</code></pre>
+<pre><code>Loading required package: ggplot2</code></pre>
+<pre><code>rstan (Version 2.19.2, GitRev: 2e1f913d3ca3)</code></pre>
+<pre><code>For execution on a local, multicore CPU with excess RAM we recommend calling
+options(mc.cores = parallel::detectCores()).
+To avoid recompilation of unchanged Stan programs, we recommend calling
+rstan_options(auto_write = TRUE)</code></pre>
+<pre class="r"><code>GenH = function(n,k){
+  H = matrix(nrow=n,ncol=n)
+  for(i in 1:n){
+    for(j in 1:(k+1)){
+      H[i,j] = i^(j-1)/n^(j-1)
+    }
+  }
+  for(j in (k+2):n){
+    for(i in 1:(j-1)){
+      H[i,j] = 0
+    }
+    sigmak = Kcusum(n,j,k)
+    for(i in j:n){
+      H[i,j] = sigmak[i-j+1]*factorial(k)/n^k
+    }
+  }
+  H
+  
+}
+
+Kcusum = function(n,j,k){
+  sigma = rep(1,n-j+1)
+  if(k==0){
+    return(rep(1,n-j+1))
+  }else{
+    for(t in 1:k){
+      sigma = cumsum(sigma)
+    }
+    return(sigma)
+  }
+  
+}
+
+TF_lasso = function(y,k){
+  n = length(y)
+  H = GenH(n,k)
+  fit = cv.glmnet(H,y,penalty.factor = c(rep(0,k+1),rep(1,n-k-1)),intercept = F,standardize=F)
+  H%*%coef(fit,s=&#39;lambda.min&#39;)[-1]
+}</code></pre>
+<p>Generate date from <span class="math inline">\(y = f + \epsilon\)</span>, <span class="math inline">\(\epsilon\sim N(0,\sigma^2)\)</span>. SNR = 1</p>
+<p>Step function.</p>
+<pre class="r"><code>n = 100
+x = (1:n)/n
+sigma = 1
+f = c(rep(3,n/4),rep(5,n/4),rep(8,n/4),rep(4,n/4))
+snr = 1
+f = f/sqrt(var(f)/sigma^2/snr)
+y = f + rnorm(n,0,sigma)
+
+#trend filtering
+t1_tf=Sys.time()
+fit_tf = genlasso::trendfilter(y,ord=0)
+fit_tf_cv = cv.trendfilter(fit_tf)</code></pre>
+<pre><code>Fold 1 ... Fold 2 ... Fold 3 ... Fold 4 ... Fold 5 ... </code></pre>
+<pre class="r"><code>fit_tf = fit_tf$beta[,fit_tf$lambda==fit_tf_cv$lambda.min]
+t2_tf=Sys.time()
+#lasso form 
+t1_lasso=Sys.time()
+fit_lasso = TF_lasso(y,0)
+t2_lasso=Sys.time()
+#susie
+t1_susie=Sys.time()
+fit_susie = susie_trendfilter(y,0)
+t2_susie=Sys.time()
+#btf
+t1_btf=Sys.time()
+fit_btf = btf(y,k=0)
+t2_btf=Sys.time()
+#spmrf
+t1_spmrf=Sys.time()
+spmrf_obj = spmrf(data=list(y=y),prior=&quot;horseshoe&quot;, likelihood=&quot;normal&quot;, order=1,zeta=0.01,chains=0)</code></pre>
+<pre><code>the number of chains is less than 1; sampling not done</code></pre>
+<pre class="r"><code>nchain &lt;- 2
+ntotsamp &lt;- 1000
+nthin &lt;- 1
+nburn &lt;- 500
+niter &lt;- (ntotsamp/nchain)*nthin + nburn
+pars.H &lt;- c(&quot;theta&quot;, &quot;tau&quot;, &quot;gam&quot;, &quot;sigma&quot;) 
+spmrf_draw = spmrf(prior=&quot;horseshoe&quot;, likelihood=&quot;normal&quot;, order=1,  fit=spmrf_obj,data=list(y=y),
+                  par=pars.H, chains=nchain, warmup=nburn, thin=nthin, iter=niter,
+                            control=list(adapt_delta=0.995, max_treedepth=12))</code></pre>
+<pre><code>
+SAMPLING FOR MODEL &#39;horseshoe_normal_1&#39; NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 8.1e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.81 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 12.3621 seconds (Warm-up)
+Chain 1:                13.2683 seconds (Sampling)
+Chain 1:                25.6305 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL &#39;horseshoe_normal_1&#39; NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 3.6e-05 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.36 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 13.2592 seconds (Warm-up)
+Chain 2:                13.3923 seconds (Sampling)
+Chain 2:                26.6515 seconds (Total)
+Chain 2: </code></pre>
+<pre><code>Warning: There were 1 divergent transitions after warmup. Increasing adapt_delta above 0.995 may help. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</code></pre>
+<pre><code>Warning: Examine the pairs() plot to diagnose sampling problems</code></pre>
+<pre class="r"><code>#fit_spmrf = as.array(spmrf_draw)
+fit_spmrf_ci = extract_theta(spmrf_draw,obstype = &#39;normal&#39;,alpha=0.05)
+fit_spmrf = fit_spmrf_ci$postmed
+t2_spmrf=Sys.time()
+
+
+plot(y,col = &#39;grey80&#39;)
+lines(f,col=&#39;grey80&#39;)
+lines(fit_tf,col=1)
+lines(c(fit_lasso),col=2)
+lines(fit_susie$fitted,col=3)
+lines(apply(fit_btf$f,2,mean),col=4)
+lines(fit_spmrf,col=7)
+legend(&#39;topleft&#39;,c(&#39;truth&#39;,&#39;tf&#39;,&#39;lasso tf&#39;,&#39;susie&#39;,&#39;btf&#39;,&#39;spmrf&#39;),lty=c(1,1,1,1,1,1),col=c(&#39;grey80&#39;,1,2,3,4,7))</code></pre>
+<p><img src="figure/tfexample.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>run time</p>
+<pre class="r"><code>paste0(&#39;tf run time:&#39;,round(t2_tf-t1_tf,2))</code></pre>
+<pre><code>[1] &quot;tf run time:0.77&quot;</code></pre>
+<pre class="r"><code>paste0(&#39;tf_lasso run time:&#39;,round(t2_lasso-t1_lasso,2))</code></pre>
+<pre><code>[1] &quot;tf_lasso run time:0.1&quot;</code></pre>
+<pre class="r"><code>paste0(&#39;susie run time:&#39;,round(t2_susie-t1_susie,2))</code></pre>
+<pre><code>[1] &quot;susie run time:0.1&quot;</code></pre>
+<pre class="r"><code>paste0(&#39;btf run time:&#39;,round(t2_btf-t1_btf,2))</code></pre>
+<pre><code>[1] &quot;btf run time:6.08&quot;</code></pre>
+<pre class="r"><code>paste0(&#39;spmrf run time:&#39;,round(t2_spmrf-t1_spmrf,2))</code></pre>
+<pre><code>[1] &quot;spmrf run time:1.54&quot;</code></pre>
+<div id="poisson-likelihood" class="section level3">
+<h3>Poisson likelihood</h3>
+<pre class="r"><code>n = 200
+x = (1:n)/n
+f = c(rep(2,n/4),rep(5,n/4),rep(8,n/4),rep(3,n/4))
+y = rpois(n,f)
+
+#trend filtering
+t1_tf=Sys.time()
+fit_tf = glmgen::trendfilter(x,y,k=0,family = &#39;poisson&#39;)
+t2_tf=Sys.time()
+# #lasso form 
+# t1_lasso=Sys.time()
+# fit_lasso = TF_lasso(y,0)
+# t2_lasso=Sys.time()
+# #susie
+# t1_susie=Sys.time()
+# fit_susie = susie_trendfilter(y,0)
+# t2_susie=Sys.time()
+# #btf
+# t1_btf=Sys.time()
+# fit_btf = btf(y,k=0)
+# t2_btf=Sys.time()
+#spmrf
+t1_spmrf=Sys.time()
+spmrf_obj = spmrf(data=list(y=y),prior=&quot;horseshoe&quot;, likelihood=&quot;poisson&quot;,order=1,zeta=0.01,chains=0)</code></pre>
+<pre><code>the number of chains is less than 1; sampling not done</code></pre>
+<pre class="r"><code>nchain &lt;- 2
+ntotsamp &lt;- 1000
+nthin &lt;- 1
+nburn &lt;- 500
+niter &lt;- (ntotsamp/nchain)*nthin + nburn
+pars.H &lt;- c(&quot;theta&quot;, &quot;tau&quot;, &quot;gam&quot;) 
+spmrf_draw = spmrf(prior=&quot;horseshoe&quot;, likelihood=&quot;poisson&quot;, order=1,  fit=spmrf_obj,data=list(y=y),
+                  par=pars.H, chains=nchain, warmup=nburn, thin=nthin, iter=niter,
+                            control=list(adapt_delta=0.995, max_treedepth=12))</code></pre>
+<pre><code>
+SAMPLING FOR MODEL &#39;horseshoe_poisson_1&#39; NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 8.3e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.83 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 41.7724 seconds (Warm-up)
+Chain 1:                53.7048 seconds (Sampling)
+Chain 1:                95.4772 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL &#39;horseshoe_poisson_1&#39; NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 7.3e-05 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.73 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 39.6983 seconds (Warm-up)
+Chain 2:                25.3519 seconds (Sampling)
+Chain 2:                65.0502 seconds (Total)
+Chain 2: </code></pre>
+<pre><code>Warning: There were 3 divergent transitions after warmup. Increasing adapt_delta above 0.995 may help. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</code></pre>
+<pre><code>Warning: Examine the pairs() plot to diagnose sampling problems</code></pre>
+<pre><code>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
+<pre class="r"><code>#fit_spmrf = as.array(spmrf_draw)
+fit_spmrf_ci = extract_theta(spmrf_draw,obstype = &#39;poisson&#39;,alpha=0.05)
+fit_spmrf = fit_spmrf_ci$postmed
+t2_spmrf=Sys.time()
+
+
+plot(y,col = &#39;grey80&#39;)
+lines(f,col=&#39;grey80&#39;)
+lines(fit_tf$beta[,12],col=1)
+#lines(c(fit_lasso),col=2)
+#lines(fit_susie$fitted,col=3)
+#lines(apply(fit_btf$f,2,mean),col=4)
+lines(fit_spmrf,col=7)
+legend(&#39;topleft&#39;,c(&#39;truth&#39;,&#39;tf&#39;,&#39;spmrf&#39;),lty=c(1,1,1),col=c(&#39;grey80&#39;,1,7))</code></pre>
+<p><img src="figure/tfexample.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>run time</p>
+<pre class="r"><code>paste0(&#39;tf run time:&#39;,round(t2_tf-t1_tf,2))</code></pre>
+<pre><code>[1] &quot;tf run time:0&quot;</code></pre>
+<pre class="r"><code>#paste0(&#39;tf_lasso run time:&#39;,round(t2_lasso-t1_lasso,2))
+#paste0(&#39;susie run time:&#39;,round(t2_susie-t1_susie,2))
+#paste0(&#39;btf run time:&#39;,round(t2_btf-t1_btf,2))
+paste0(&#39;spmrf run time:&#39;,round(t2_spmrf-t1_spmrf,2))</code></pre>
+<pre><code>[1] &quot;spmrf run time:3.29&quot;</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] rstan_2.19.2       ggplot2_3.2.1      StanHeaders_2.19.0
+ [4] spmrf_1.2          btf_1.2            susieR_0.8.0      
+ [7] glmnet_2.0-18      foreach_1.4.7      glmgen_0.0.3      
+[10] genlasso_1.4       igraph_1.2.4.1     Matrix_1.2-17     
+[13] MASS_7.3-51.4     
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_0.2.5   xfun_0.10          purrr_0.3.2       
+ [4] lattice_0.20-38    colorspace_1.4-1   htmltools_0.4.0   
+ [7] stats4_3.6.1       loo_2.1.0          yaml_2.2.0        
+[10] rlang_0.4.0        pkgbuild_1.0.5     later_1.0.0       
+[13] pillar_1.4.2       glue_1.3.1         withr_2.1.2       
+[16] matrixStats_0.55.0 stringr_1.4.0      munsell_0.5.0     
+[19] gtable_0.3.0       workflowr_1.5.0    codetools_0.2-16  
+[22] coda_0.19-3        evaluate_0.14      inline_0.3.15     
+[25] knitr_1.25         callr_3.3.2        ps_1.3.0          
+[28] httpuv_1.5.2       parallel_3.6.1     Rcpp_1.0.2        
+[31] promises_1.1.0     backports_1.1.5    scales_1.0.0      
+[34] fs_1.3.1           gridExtra_2.3      digest_0.6.21     
+[37] stringi_1.4.3      processx_3.4.1     dplyr_0.8.3       
+[40] grid_3.6.1         rprojroot_1.3-2    cli_1.1.0         
+[43] tools_3.6.1        magrittr_1.5       lazyeval_0.2.2    
+[46] tibble_2.1.3       crayon_1.3.4       whisker_0.4       
+[49] pkgconfig_2.0.3    prettyunits_1.0.2  assertthat_0.2.1  
+[52] rmarkdown_1.16     iterators_1.0.12   R6_2.4.0          
+[55] git2r_0.26.1       compiler_3.6.1    </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
