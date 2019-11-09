@@ -15,7 +15,7 @@ Poisson likelihood: `glmgen`, `spmrf`, likelihood expansion, VST.
 
 ## Normal likelihood
 
-```{r}
+```{r,message=F,warning=F}
 library(genlasso)
 library(glmgen)
 library(glmnet)
@@ -24,45 +24,6 @@ library(btf)
 library(spmrf)
 library(rstan)
 
-GenH = function(n,k){
-  H = matrix(nrow=n,ncol=n)
-  for(i in 1:n){
-    for(j in 1:(k+1)){
-      H[i,j] = i^(j-1)/n^(j-1)
-    }
-  }
-  for(j in (k+2):n){
-    for(i in 1:(j-1)){
-      H[i,j] = 0
-    }
-    sigmak = Kcusum(n,j,k)
-    for(i in j:n){
-      H[i,j] = sigmak[i-j+1]*factorial(k)/n^k
-    }
-  }
-  H
-  
-}
-
-Kcusum = function(n,j,k){
-  sigma = rep(1,n-j+1)
-  if(k==0){
-    return(rep(1,n-j+1))
-  }else{
-    for(t in 1:k){
-      sigma = cumsum(sigma)
-    }
-    return(sigma)
-  }
-  
-}
-
-TF_lasso = function(y,k){
-  n = length(y)
-  H = GenH(n,k)
-  fit = cv.glmnet(H,y,penalty.factor = c(rep(0,k+1),rep(1,n-k-1)),intercept = F,standardize=F)
-  H%*%coef(fit,s='lambda.min')[-1]
-}
 ```
 
 Generate date from $y = f + \epsilon$, $\epsilon\sim N(0,\sigma^2)$. SNR = 1
@@ -85,9 +46,9 @@ fit_tf_cv = cv.trendfilter(fit_tf)
 fit_tf = fit_tf$beta[,fit_tf$lambda==fit_tf_cv$lambda.min]
 t2_tf=Sys.time()
 #lasso form 
-t1_lasso=Sys.time()
-fit_lasso = TF_lasso(y,0)
-t2_lasso=Sys.time()
+#t1_lasso=Sys.time()
+#fit_lasso = TF_lasso(y,0)
+#t2_lasso=Sys.time()
 #susie
 t1_susie=Sys.time()
 fit_susie = susie_trendfilter(y,0)
@@ -117,21 +78,22 @@ t2_spmrf=Sys.time()
 plot(y,col = 'grey80')
 lines(f,col='grey80')
 lines(fit_tf,col=1)
-lines(c(fit_lasso),col=2)
+#lines(c(fit_lasso),col=2)
 lines(fit_susie$fitted,col=3)
 lines(apply(fit_btf$f,2,mean),col=4)
-lines(fit_spmrf,col=7)
-legend('topleft',c('truth','tf','lasso tf','susie','btf','spmrf'),lty=c(1,1,1,1,1,1),col=c('grey80',1,2,3,4,7))
+lines(fit_spmrf,col=2)
+legend('topleft',c('truth','tf','susie','btf','spmrf'),lty=c(1,1,1,1,1),col=c('grey80',1,3,4,2))
 ```
 
 run time
 
 ```{r}
 paste0('tf run time:',round(t2_tf-t1_tf,2))
-paste0('tf_lasso run time:',round(t2_lasso-t1_lasso,2))
+#paste0('tf_lasso run time:',round(t2_lasso-t1_lasso,2))
 paste0('susie run time:',round(t2_susie-t1_susie,2))
 paste0('btf run time:',round(t2_btf-t1_btf,2))
-paste0('spmrf run time:',round(t2_spmrf-t1_spmrf,2))
+paste0('spmrf run time:')
+round(t2_spmrf-t1_spmrf,2)
 ```
 
 
@@ -179,7 +141,7 @@ t2_spmrf=Sys.time()
 
 plot(y,col = 'grey80')
 lines(f,col='grey80')
-lines(fit_tf$beta[,12],col=1)
+lines(exp(fit_tf$beta[,12]),col=1)
 #lines(c(fit_lasso),col=2)
 #lines(fit_susie$fitted,col=3)
 #lines(apply(fit_btf$f,2,mean),col=4)
@@ -191,9 +153,11 @@ legend('topleft',c('truth','tf','spmrf'),lty=c(1,1,1),col=c('grey80',1,7))
 run time
 
 ```{r}
-paste0('tf run time:',round(t2_tf-t1_tf,2))
+paste0('tf run time:')
+round(t2_tf-t1_tf,2)
 #paste0('tf_lasso run time:',round(t2_lasso-t1_lasso,2))
 #paste0('susie run time:',round(t2_susie-t1_susie,2))
 #paste0('btf run time:',round(t2_btf-t1_btf,2))
-paste0('spmrf run time:',round(t2_spmrf-t1_spmrf,2))
+paste0('spmrf run time:')
+round(t2_spmrf-t1_spmrf,2)
 ```
