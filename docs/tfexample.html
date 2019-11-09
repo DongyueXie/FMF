@@ -406,7 +406,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-08
+<strong>Last updated:</strong> 2019-11-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -497,10 +497,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreef12ab55b7ac239f3950523d5d5b5af434d2707a7targetblankf12ab55a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/f12ab55b7ac239f3950523d5d5b5af434d2707a7" target="_blank">f12ab55</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree986b961acd477232f7738fc2f8e27e229a29a3aatargetblank986b961a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/986b961acd477232f7738fc2f8e27e229a29a3aa" target="_blank">986b961</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreef12ab55b7ac239f3950523d5d5b5af434d2707a7targetblankf12ab55a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree986b961acd477232f7738fc2f8e27e229a29a3aatargetblank986b961a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -558,6 +558,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/986b961acd477232f7738fc2f8e27e229a29a3aa/analysis/tfexample.Rmd" target="_blank">986b961</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-09
+</td>
+<td>
+wflow_publish(“analysis/tfexample.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/528036a5675f478bfee171dbdc3a2762485ac95e/docs/tfexample.html" target="_blank">528036a</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/f12ab55b7ac239f3950523d5d5b5af434d2707a7/analysis/tfexample.Rmd" target="_blank">f12ab55</a>
 </td>
 <td>
@@ -584,77 +618,13 @@ wflow_publish(“analysis/tfexample.Rmd”)
 </div>
 <div id="normal-likelihood" class="section level2">
 <h2>Normal likelihood</h2>
-<pre class="r"><code>library(genlasso)</code></pre>
-<pre><code>Loading required package: MASS</code></pre>
-<pre><code>Loading required package: Matrix</code></pre>
-<pre><code>Loading required package: igraph</code></pre>
-<pre><code>
-Attaching package: &#39;igraph&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    decompose, spectrum</code></pre>
-<pre><code>The following object is masked from &#39;package:base&#39;:
-
-    union</code></pre>
-<pre class="r"><code>library(glmgen)</code></pre>
-<pre><code>
-Attaching package: &#39;glmgen&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:genlasso&#39;:
-
-    trendfilter</code></pre>
-<pre class="r"><code>library(glmnet)</code></pre>
-<pre><code>Loading required package: foreach</code></pre>
-<pre><code>Loaded glmnet 2.0-18</code></pre>
-<pre class="r"><code>library(susieR)
+<pre class="r"><code>library(genlasso)
+library(glmgen)
+library(glmnet)
+library(susieR)
 library(btf)
 library(spmrf)
 library(rstan)</code></pre>
-<pre><code>Loading required package: StanHeaders</code></pre>
-<pre><code>Loading required package: ggplot2</code></pre>
-<pre><code>rstan (Version 2.19.2, GitRev: 2e1f913d3ca3)</code></pre>
-<pre><code>For execution on a local, multicore CPU with excess RAM we recommend calling
-options(mc.cores = parallel::detectCores()).
-To avoid recompilation of unchanged Stan programs, we recommend calling
-rstan_options(auto_write = TRUE)</code></pre>
-<pre class="r"><code>GenH = function(n,k){
-  H = matrix(nrow=n,ncol=n)
-  for(i in 1:n){
-    for(j in 1:(k+1)){
-      H[i,j] = i^(j-1)/n^(j-1)
-    }
-  }
-  for(j in (k+2):n){
-    for(i in 1:(j-1)){
-      H[i,j] = 0
-    }
-    sigmak = Kcusum(n,j,k)
-    for(i in j:n){
-      H[i,j] = sigmak[i-j+1]*factorial(k)/n^k
-    }
-  }
-  H
-  
-}
-
-Kcusum = function(n,j,k){
-  sigma = rep(1,n-j+1)
-  if(k==0){
-    return(rep(1,n-j+1))
-  }else{
-    for(t in 1:k){
-      sigma = cumsum(sigma)
-    }
-    return(sigma)
-  }
-  
-}
-
-TF_lasso = function(y,k){
-  n = length(y)
-  H = GenH(n,k)
-  fit = cv.glmnet(H,y,penalty.factor = c(rep(0,k+1),rep(1,n-k-1)),intercept = F,standardize=F)
-  H%*%coef(fit,s=&#39;lambda.min&#39;)[-1]
-}</code></pre>
 <p>Generate date from <span class="math inline">\(y = f + \epsilon\)</span>, <span class="math inline">\(\epsilon\sim N(0,\sigma^2)\)</span>. SNR = 1</p>
 <p>Step function.</p>
 <pre class="r"><code>n = 100
@@ -673,9 +643,9 @@ fit_tf_cv = cv.trendfilter(fit_tf)</code></pre>
 <pre class="r"><code>fit_tf = fit_tf$beta[,fit_tf$lambda==fit_tf_cv$lambda.min]
 t2_tf=Sys.time()
 #lasso form 
-t1_lasso=Sys.time()
-fit_lasso = TF_lasso(y,0)
-t2_lasso=Sys.time()
+#t1_lasso=Sys.time()
+#fit_lasso = TF_lasso(y,0)
+#t2_lasso=Sys.time()
 #susie
 t1_susie=Sys.time()
 fit_susie = susie_trendfilter(y,0)
@@ -700,8 +670,8 @@ spmrf_draw = spmrf(prior=&quot;horseshoe&quot;, likelihood=&quot;normal&quot;, o
 <pre><code>
 SAMPLING FOR MODEL &#39;horseshoe_normal_1&#39; NOW (CHAIN 1).
 Chain 1: 
-Chain 1: Gradient evaluation took 8.1e-05 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.81 seconds.
+Chain 1: Gradient evaluation took 7.5e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.75 seconds.
 Chain 1: Adjust your expectations accordingly!
 Chain 1: 
 Chain 1: 
@@ -718,15 +688,15 @@ Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 1: 
-Chain 1:  Elapsed Time: 12.3621 seconds (Warm-up)
-Chain 1:                13.2683 seconds (Sampling)
-Chain 1:                25.6305 seconds (Total)
+Chain 1:  Elapsed Time: 10.9515 seconds (Warm-up)
+Chain 1:                6.58406 seconds (Sampling)
+Chain 1:                17.5356 seconds (Total)
 Chain 1: 
 
 SAMPLING FOR MODEL &#39;horseshoe_normal_1&#39; NOW (CHAIN 2).
 Chain 2: 
-Chain 2: Gradient evaluation took 3.6e-05 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.36 seconds.
+Chain 2: Gradient evaluation took 2.8e-05 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.28 seconds.
 Chain 2: Adjust your expectations accordingly!
 Chain 2: 
 Chain 2: 
@@ -743,13 +713,16 @@ Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 2: 
-Chain 2:  Elapsed Time: 13.2592 seconds (Warm-up)
-Chain 2:                13.3923 seconds (Sampling)
-Chain 2:                26.6515 seconds (Total)
+Chain 2:  Elapsed Time: 14.173 seconds (Warm-up)
+Chain 2:                13.2257 seconds (Sampling)
+Chain 2:                27.3987 seconds (Total)
 Chain 2: </code></pre>
-<pre><code>Warning: There were 1 divergent transitions after warmup. Increasing adapt_delta above 0.995 may help. See
+<pre><code>Warning: There were 11 divergent transitions after warmup. Increasing adapt_delta above 0.995 may help. See
 http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</code></pre>
 <pre><code>Warning: Examine the pairs() plot to diagnose sampling problems</code></pre>
+<pre><code>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
 <pre class="r"><code>#fit_spmrf = as.array(spmrf_draw)
 fit_spmrf_ci = extract_theta(spmrf_draw,obstype = &#39;normal&#39;,alpha=0.05)
 fit_spmrf = fit_spmrf_ci$postmed
@@ -759,23 +732,61 @@ t2_spmrf=Sys.time()
 plot(y,col = &#39;grey80&#39;)
 lines(f,col=&#39;grey80&#39;)
 lines(fit_tf,col=1)
-lines(c(fit_lasso),col=2)
+#lines(c(fit_lasso),col=2)
 lines(fit_susie$fitted,col=3)
 lines(apply(fit_btf$f,2,mean),col=4)
-lines(fit_spmrf,col=7)
-legend(&#39;topleft&#39;,c(&#39;truth&#39;,&#39;tf&#39;,&#39;lasso tf&#39;,&#39;susie&#39;,&#39;btf&#39;,&#39;spmrf&#39;),lty=c(1,1,1,1,1,1),col=c(&#39;grey80&#39;,1,2,3,4,7))</code></pre>
+lines(fit_spmrf,col=2)
+legend(&#39;topleft&#39;,c(&#39;truth&#39;,&#39;tf&#39;,&#39;susie&#39;,&#39;btf&#39;,&#39;spmrf&#39;),lty=c(1,1,1,1,1),col=c(&#39;grey80&#39;,1,3,4,2))</code></pre>
 <p><img src="figure/tfexample.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/528036a5675f478bfee171dbdc3a2762485ac95e/docs/figure/tfexample.Rmd/unnamed-chunk-2-1.png" target="_blank">528036a</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>run time</p>
 <pre class="r"><code>paste0(&#39;tf run time:&#39;,round(t2_tf-t1_tf,2))</code></pre>
-<pre><code>[1] &quot;tf run time:0.77&quot;</code></pre>
-<pre class="r"><code>paste0(&#39;tf_lasso run time:&#39;,round(t2_lasso-t1_lasso,2))</code></pre>
-<pre><code>[1] &quot;tf_lasso run time:0.1&quot;</code></pre>
-<pre class="r"><code>paste0(&#39;susie run time:&#39;,round(t2_susie-t1_susie,2))</code></pre>
-<pre><code>[1] &quot;susie run time:0.1&quot;</code></pre>
+<pre><code>[1] &quot;tf run time:0.8&quot;</code></pre>
+<pre class="r"><code>#paste0(&#39;tf_lasso run time:&#39;,round(t2_lasso-t1_lasso,2))
+paste0(&#39;susie run time:&#39;,round(t2_susie-t1_susie,2))</code></pre>
+<pre><code>[1] &quot;susie run time:0.11&quot;</code></pre>
 <pre class="r"><code>paste0(&#39;btf run time:&#39;,round(t2_btf-t1_btf,2))</code></pre>
-<pre><code>[1] &quot;btf run time:6.08&quot;</code></pre>
-<pre class="r"><code>paste0(&#39;spmrf run time:&#39;,round(t2_spmrf-t1_spmrf,2))</code></pre>
-<pre><code>[1] &quot;spmrf run time:1.54&quot;</code></pre>
+<pre><code>[1] &quot;btf run time:5.74&quot;</code></pre>
+<pre class="r"><code>paste0(&#39;spmrf run time:&#39;)</code></pre>
+<pre><code>[1] &quot;spmrf run time:&quot;</code></pre>
+<pre class="r"><code>round(t2_spmrf-t1_spmrf,2)</code></pre>
+<pre><code>Time difference of 1.44 mins</code></pre>
 <div id="poisson-likelihood" class="section level3">
 <h3>Poisson likelihood</h3>
 <pre class="r"><code>n = 200
@@ -815,8 +826,8 @@ spmrf_draw = spmrf(prior=&quot;horseshoe&quot;, likelihood=&quot;poisson&quot;, 
 <pre><code>
 SAMPLING FOR MODEL &#39;horseshoe_poisson_1&#39; NOW (CHAIN 1).
 Chain 1: 
-Chain 1: Gradient evaluation took 8.3e-05 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.83 seconds.
+Chain 1: Gradient evaluation took 8.2e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.82 seconds.
 Chain 1: Adjust your expectations accordingly!
 Chain 1: 
 Chain 1: 
@@ -833,15 +844,15 @@ Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 1: 
-Chain 1:  Elapsed Time: 41.7724 seconds (Warm-up)
-Chain 1:                53.7048 seconds (Sampling)
-Chain 1:                95.4772 seconds (Total)
+Chain 1:  Elapsed Time: 42.7543 seconds (Warm-up)
+Chain 1:                25.4867 seconds (Sampling)
+Chain 1:                68.241 seconds (Total)
 Chain 1: 
 
 SAMPLING FOR MODEL &#39;horseshoe_poisson_1&#39; NOW (CHAIN 2).
 Chain 2: 
-Chain 2: Gradient evaluation took 7.3e-05 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.73 seconds.
+Chain 2: Gradient evaluation took 5e-05 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.5 seconds.
 Chain 2: Adjust your expectations accordingly!
 Chain 2: 
 Chain 2: 
@@ -858,16 +869,22 @@ Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 2: 
-Chain 2:  Elapsed Time: 39.6983 seconds (Warm-up)
-Chain 2:                25.3519 seconds (Sampling)
-Chain 2:                65.0502 seconds (Total)
+Chain 2:  Elapsed Time: 42.4101 seconds (Warm-up)
+Chain 2:                25.4277 seconds (Sampling)
+Chain 2:                67.8378 seconds (Total)
 Chain 2: </code></pre>
-<pre><code>Warning: There were 3 divergent transitions after warmup. Increasing adapt_delta above 0.995 may help. See
+<pre><code>Warning: There were 5 divergent transitions after warmup. Increasing adapt_delta above 0.995 may help. See
 http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</code></pre>
 <pre><code>Warning: Examine the pairs() plot to diagnose sampling problems</code></pre>
+<pre><code>Warning: The largest R-hat is 1.08, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#r-hat</code></pre>
 <pre><code>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 Running the chains for more iterations may help. See
 http://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
+<pre><code>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
 <pre class="r"><code>#fit_spmrf = as.array(spmrf_draw)
 fit_spmrf_ci = extract_theta(spmrf_draw,obstype = &#39;poisson&#39;,alpha=0.05)
 fit_spmrf = fit_spmrf_ci$postmed
@@ -876,21 +893,62 @@ t2_spmrf=Sys.time()
 
 plot(y,col = &#39;grey80&#39;)
 lines(f,col=&#39;grey80&#39;)
-lines(fit_tf$beta[,12],col=1)
+lines(exp(fit_tf$beta[,12]),col=1)
 #lines(c(fit_lasso),col=2)
 #lines(fit_susie$fitted,col=3)
 #lines(apply(fit_btf$f,2,mean),col=4)
 lines(fit_spmrf,col=7)
 legend(&#39;topleft&#39;,c(&#39;truth&#39;,&#39;tf&#39;,&#39;spmrf&#39;),lty=c(1,1,1),col=c(&#39;grey80&#39;,1,7))</code></pre>
 <p><img src="figure/tfexample.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/528036a5675f478bfee171dbdc3a2762485ac95e/docs/figure/tfexample.Rmd/unnamed-chunk-4-1.png" target="_blank">528036a</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>run time</p>
-<pre class="r"><code>paste0(&#39;tf run time:&#39;,round(t2_tf-t1_tf,2))</code></pre>
-<pre><code>[1] &quot;tf run time:0&quot;</code></pre>
+<pre class="r"><code>paste0(&#39;tf run time:&#39;)</code></pre>
+<pre><code>[1] &quot;tf run time:&quot;</code></pre>
+<pre class="r"><code>round(t2_tf-t1_tf,2)</code></pre>
+<pre><code>Time difference of 0.01 secs</code></pre>
 <pre class="r"><code>#paste0(&#39;tf_lasso run time:&#39;,round(t2_lasso-t1_lasso,2))
 #paste0(&#39;susie run time:&#39;,round(t2_susie-t1_susie,2))
 #paste0(&#39;btf run time:&#39;,round(t2_btf-t1_btf,2))
-paste0(&#39;spmrf run time:&#39;,round(t2_spmrf-t1_spmrf,2))</code></pre>
-<pre><code>[1] &quot;spmrf run time:3.29&quot;</code></pre>
+paste0(&#39;spmrf run time:&#39;)</code></pre>
+<pre><code>[1] &quot;spmrf run time:&quot;</code></pre>
+<pre class="r"><code>round(t2_spmrf-t1_spmrf,2)</code></pre>
+<pre><code>Time difference of 2.87 mins</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
