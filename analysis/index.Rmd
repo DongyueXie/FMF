@@ -25,6 +25,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 
 1. [Trend Filtering](PoissonTrendFiltering.html)
 2. [Trend filtering and dynamic linear model](trendfiltering.html)
+3. [Examples](tfexample.html)
 
 ### EBPM
 
