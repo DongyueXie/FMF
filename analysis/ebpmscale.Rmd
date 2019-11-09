@@ -1,0 +1,85 @@
+---
+title: "EBPM Scale issue"
+author: "Dongyue Xie"
+date: "2019-11-09"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+In EBPM, the posterior mean is 
+\begin{equation}
+\begin{split}
+    E(\lambda|x,s) &= \tilde{\pi}_0\frac{x+a}{b+\delta+s}+(1-\tilde{\pi}_0)\frac{x+a}{b+s}
+    \\ & = [\tilde{\pi}_0\frac{s}{b+\delta+s}+(1-\tilde{\pi}_0)\frac{s}{b+s}]\frac{x+a}{s},
+\end{split}
+\end{equation}
+where 
+\begin{equation}
+    \tilde{\pi}_0 = \frac{\pi_0 NB(x;a,\frac{b+\delta}{b+\delta+s})}{\pi_0 NB(x;a,\frac{b+\delta}{b+\delta+s}) + (1-\pi_0) NB(x;a,\frac{b}{b+s})}.
+\end{equation}
+
+Plugging in the pmf of Negative Binomial distribution, we have 
+\begin{equation}
+    \tilde{\pi}_0 = \frac{1}{1+\frac{1-\pi_0}{\pi_0}(1+\frac{\delta}{b+s})^a(1+\frac{\delta s}{b(b+\delta+s)})^{-x}}.
+\end{equation}
+
+```{r}
+ebpm_pm = function(a,b,delta,pi0,s,x){
+  pi0_pm = 1/(1+(1-pi0)/pi0*(1+delta/(b+s))^a*(1+(delta*s)/(b^2+b*delta+b*s))^(-x))
+  shrink_factor = pi0_pm*(s/(b+delta+s))+(1-pi0_pm)*(s/(b+s))
+  lambda_pm = shrink_factor*((x+a)/s)
+  return(list(pi0_pm=pi0_pm,shrink_factor=shrink_factor,lambda_pm=lambda_pm))
+}
+
+```
+
+Now assume $b=0.01$, $\delta=100$, $a=1$, $\pi_0=0.8$,
+
+let $s=1$ and $x$ range from 0 to 10, compare $\tilde{\pi}_0$, $E(\lambda|y,s)$ and shrinkage factor.
+
+```{r}
+a=1
+b=0.01
+delta=100
+pi0=0.8
+s=1
+x=seq(0,20)
+sf=c()
+lp=c()
+pp=c()
+for(i in 1:length(x)){
+  fit = ebpm_pm(a,b,delta,pi0,s,x[i])
+  sf=c(sf,fit$shrink_factor)
+  lp = c(lp,fit$lambda_pm)
+  pp = c(pp,fit$pi0_pm)
+}
+plot(x,sf,main='shrinkage factor',xlab='x',ylab='shrinkage factor',ylim=c(0,1))
+plot(x,pp,main='Pi0 tilde',xlab='x',ylab='Pi0 tilde',ylim=c(0,1))
+plot(x,lp,main='Posterior Mean',xlab='x',ylab='Posterior mean of lambda',ylim=c(0,10))
+```
+
+
+```{r}
+a=1
+b=0.01
+delta=100
+pi0=0.8
+s=100
+x=seq(0,20)
+sf=c()
+lp=c()
+pp=c()
+for(i in 1:length(x)){
+  fit = ebpm_pm(a,b,delta,pi0,s,x[i])
+  sf=c(sf,fit$shrink_factor)
+  lp = c(lp,fit$lambda_pm)
+  pp = c(pp,fit$pi0_pm)
+}
+plot(x,sf,main='shrinkage factor',xlab='x',ylab='shrinkage factor',ylim=c(0,1))
+plot(x,pp,main='Pi tilde',xlab='x',ylab='Pi0 tilde',ylim=c(0,1))
+plot(x,lp,main='Posterior Mean',xlab='x',ylab='Posterior mean of lambda',ylim=c(0,10))
+```
+
