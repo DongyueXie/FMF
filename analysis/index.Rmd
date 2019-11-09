@@ -30,6 +30,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 ### EBPM
 
 1. [Empirical Bayes Poisson Mean large scale](poissonmeanscale.html)
+2. [Compare ebpm estimate from different scales](ebpmscale.html)
 
 ## Mis
 
