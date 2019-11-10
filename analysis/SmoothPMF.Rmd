@@ -70,6 +70,14 @@ summary_ebmpmf(fit_ebmpmf,typel = 'p')
 
 ### K misspecification
 
+
+Set K=2 while truth is 3.
+
+```{r}
+fit_ebmpmf = EBMPMF(X,2,init='uniform',smooth_f = T,smooth_l = F)
+summary_ebmpmf(fit_ebmpmf,typel = 'p')
+```
+
 Set K=6 while truth is 3.
 
 ```{r}
