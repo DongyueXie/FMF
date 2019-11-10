@@ -23,12 +23,14 @@ where
 
 Plugging in the pmf of Negative Binomial distribution, we have 
 \begin{equation}
-    \tilde{\pi}_0 = \frac{1}{1+\frac{1-\pi_0}{\pi_0}(1+\frac{\delta}{b+s})^a(1+\frac{\delta s}{b(b+\delta+s)})^{-x}}.
+\tilde{\pi}_0 = \frac{1}{1+\frac{1-\pi_0}{\pi_0}(1+\frac{\delta s}{b(b+\delta+s)})^{-a}(1+\frac{\delta}{b+s})^{x}}.
 \end{equation}
 
 ```{r}
 ebpm_pm = function(a,b,delta,pi0,s,x){
-  pi0_pm = 1/(1+(1-pi0)/pi0*(1+delta/(b+s))^a*(1+(delta*s)/(b^2+b*delta+b*s))^(-x))
+  pi0_pm = pi0*dnbinom(x,a,(b+delta)/(b+delta+s))
+  pi1_pm = (1-pi0)*dnbinom(x,a,(b)/(b+s))
+  pi0_pm = pi0_pm/(pi0_pm+pi1_pm)
   shrink_factor = pi0_pm*(s/(b+delta+s))+(1-pi0_pm)*(s/(b+s))
   lambda_pm = shrink_factor*((x+a)/s)
   return(list(pi0_pm=pi0_pm,shrink_factor=shrink_factor,lambda_pm=lambda_pm))
@@ -38,7 +40,7 @@ ebpm_pm = function(a,b,delta,pi0,s,x){
 
 Now assume $b=0.01$, $\delta=100$, $a=1$, $\pi_0=0.8$,
 
-let $s=1$ and $x$ range from 0 to 10, compare $\tilde{\pi}_0$, $E(\lambda|y,s)$ and shrinkage factor.
+Let $s=1$ and $x$ range from 0 to 20, compare $\tilde{\pi}_0$, and $E(\lambda|y,s)$.
 
 ```{r}
 a=1
@@ -46,7 +48,7 @@ b=0.01
 delta=100
 pi0=0.8
 s=1
-x=seq(0,20)
+x=seq(0,50)
 sf=c()
 lp=c()
 pp=c()
@@ -56,11 +58,15 @@ for(i in 1:length(x)){
   lp = c(lp,fit$lambda_pm)
   pp = c(pp,fit$pi0_pm)
 }
-plot(x,sf,main='shrinkage factor',xlab='x',ylab='shrinkage factor',ylim=c(0,1))
-plot(x,pp,main='Pi0 tilde',xlab='x',ylab='Pi0 tilde',ylim=c(0,1))
-plot(x,lp,main='Posterior Mean',xlab='x',ylab='Posterior mean of lambda',ylim=c(0,10))
+par(mfrow=c(1,2))
+#plot(x,sf,main='shrinkage factor',xlab='x',ylab='shrinkage factor',ylim=c(0,1),pch=16)
+plot(x,pp,main='Pi0 tilde',xlab='x',ylab='Pi0 tilde',ylim=c(0,1),pch=16)
+plot(x,lp,main='Posterior Mean',xlab='x',ylab='Posterior mean of lambda',pch=16)
+abline(0,1)
 ```
 
+
+Let $s=100$.
 
 ```{r}
 a=1
@@ -68,7 +74,7 @@ b=0.01
 delta=100
 pi0=0.8
 s=100
-x=seq(0,20)
+x=seq(0,100)
 sf=c()
 lp=c()
 pp=c()
@@ -78,8 +84,34 @@ for(i in 1:length(x)){
   lp = c(lp,fit$lambda_pm)
   pp = c(pp,fit$pi0_pm)
 }
-plot(x,sf,main='shrinkage factor',xlab='x',ylab='shrinkage factor',ylim=c(0,1))
-plot(x,pp,main='Pi tilde',xlab='x',ylab='Pi0 tilde',ylim=c(0,1))
-plot(x,lp,main='Posterior Mean',xlab='x',ylab='Posterior mean of lambda',ylim=c(0,10))
+par(mfrow=c(1,2))
+#plot(x,sf,main='shrinkage factor',xlab='x',ylab='shrinkage factor',ylim=c(0,1),pch=16)
+plot(x,pp,main='Pi0 tilde',xlab='x',ylab='Pi0 tilde',ylim=c(0,1),pch=16)
+plot(x/s,lp,main='Posterior Mean',xlab='x',ylab='Posterior mean of lambda',pch=16)
+abline(0,1)
 ```
 
+Let $s=300$.
+
+```{r}
+a=1
+b=0.01
+delta=100
+pi0=0.8
+s=300
+x=seq(0,100)
+sf=c()
+lp=c()
+pp=c()
+for(i in 1:length(x)){
+  fit = ebpm_pm(a,b,delta,pi0,s,x[i])
+  sf=c(sf,fit$shrink_factor)
+  lp = c(lp,fit$lambda_pm)
+  pp = c(pp,fit$pi0_pm)
+}
+par(mfrow=c(1,2))
+#plot(x,sf,main='shrinkage factor',xlab='x',ylab='shrinkage factor',ylim=c(0,1),pch=16)
+plot(x,pp,main='Pi0 tilde',xlab='x',ylab='Pi0 tilde',ylim=c(0,1),pch=16)
+plot(x/s,lp,main='Posterior Mean',xlab='x',ylab='Posterior mean of lambda',pch=16)
+abline(0,1)
+```

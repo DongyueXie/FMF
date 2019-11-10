@@ -13,6 +13,8 @@ In poisson mean model, $x\sim Poisson(s\lambda)$, when $s$ is large, the posteri
 
 This is probably why we can not get sparsity in ebpmf. The scale is typically $300-500$ in ebpmf.
 
+
+
 ### $s=1$
 
 ```{r}
@@ -32,14 +34,18 @@ for(i in 1:100){
 
 x = rpois(n,lamda)
 
-fit = ebpm_exp_mixture(x,scale='estimate',shape=0.1)
+#x = seq(0,50)
 
-plot(fit$posterior$mean,x,xlab = 'MLE',ylab = 'Posterior mean')
+fit = ebpm_exp_mixture(x,scale=c(0.01,100),shape=1,nullweight = 100)
+
+fit$fitted_g
+
+plot(x,fit$posterior$mean,xlab = 'MLE',ylab = 'Posterior mean',pch=16)
 abline(0,1)
 
-plot(x,col='grey80')
+plot(x,col='grey80',pch=16)
 lines(fit$posterior$mean,type='p',pch=3,col=2)
-legend('topright',c('MLE','Posterior mean'),col=c(1,2),pch=c(1,3))
+legend('topleft',c('MLE','Posterior mean'),col=c(1,2),pch=c(16,3))
 ```
 
 ### $s=100$
@@ -48,26 +54,32 @@ legend('topright',c('MLE','Posterior mean'),col=c(1,2),pch=c(1,3))
 s=100
 x = rpois(n,s*lamda)
 
-fit = ebpm_exp_mixture(x,s,scale='estimate',shape=0.1)
+fit = ebpm_exp_mixture(x,s,scale=c(0.0001,10000),shape=1,nullweight = 1000)
 
-plot(fit$posterior$mean,x/s,xlab = 'MLE',ylab = 'Posterior mean')
+fit$fitted_g
+
+par(mfrow=c(1,2))
+
+plot(x/s,fit$posterior$mean,xlab = 'MLE',ylab = 'Posterior mean',pch=16)
 abline(0,1)
 
-plot(x/s,col='grey80')
+plot(x/s,col='grey80',pch=16)
 lines(fit$posterior$mean,type='p',pch=3,col=2)
-legend('topright',c('MLE','Posterior mean'),col=c(1,2),pch=c(1,3))
+legend('topleft',c('MLE','Posterior mean'),col=c(1,2),pch=c(16,3))
 ```
 
 
 If we treat $x/s$ as observation, then 
 
 ```{r}
-fit = ebpm_exp_mixture(x/s,scale='estimate',shape=0.1)
+fit = ebpm_exp_mixture(x/s,scale=c(0.01,100),shape=1)
 
-plot(fit$posterior$mean,x/s,xlab = 'MLE',ylab = 'Posterior mean')
+par(mfrow=c(1,2))
+
+plot(x/s,fit$posterior$mean,xlab = 'MLE',ylab = 'Posterior mean',pch=16)
 abline(0,1)
 
-plot(x/s,col='grey80')
+plot(x/s,col='grey80',pch=16)
 lines(fit$posterior$mean,type='p',pch=3,col=2)
-legend('topright',c('MLE','Posterior mean'),col=c(1,2),pch=c(1,3))
+legend('topright',c('MLE','Posterior mean'),col=c(1,2),pch=c(16,3))
 ```
