@@ -1,0 +1,58 @@
+---
+title: "Smooth PMF Examples 2"
+author: "Dongyue Xie"
+date: "2019-11-11"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Mimic generative topic model. We set $K=4$, membership proportion = (0.7,0.1,0.1,0.1), step factors. 
+
+```{r}
+library(ebmpmf)
+set.seed(123)
+K=4
+n=30
+p=500
+
+L = matrix(nrow=n,ncol=K)
+
+for(i in 1:n){
+  k = which(rmultinom(1,1,rep(1/K,K))==1)
+  L[i,k]=0.7
+  L[i,-k]=0.1
+}
+
+FF = matrix(nrow=K,ncol=p)
+FF[1,(p/10):(p/5)] = 5
+FF[1,-((p/10):(p/5))] = 0.1
+FF[2,(p*0.3):(p/2.5)] = 5
+FF[2,-((p*0.3):(p/2.5))] = 0.1
+FF[3, (p/2):(p*0.6)] = 5
+FF[3, -((p/2):(p*0.6))] = 0.1
+FF[4, (p*0.7):(p*0.8)] = 5
+FF[4, -((p*0.7):(p*0.8))] = 0.1
+
+lambda = L%*%FF
+
+X = matrix(rpois(n=length(lambda),lambda),nrow=n)
+
+fit = EBMPMF(X,4,init = 'uniform')
+
+summary_ebmpmf(fit,lambda)
+
+```
+
+
+Another run 
+
+```{r}
+X = matrix(rpois(n=length(lambda),lambda),nrow=n)
+
+fit = EBMPMF(X,4,init = 'uniform')
+
+summary_ebmpmf(fit,lambda)
+```
