@@ -18,7 +18,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 1. [Smoothed EBMF](SmoothMF.html): Wavelet Smoothing + EBMF
 2. [Smoothed PMD](SmoothPMD.html): Wavelet Smoothing + PMD, compared with 1.
 3. [Smoothed EBMF for Poisson data](SmoothMFpoisson2.html): Wavelet Smoothing + Transformation + EBMF
-4. [Smoothed EBPMF](SmoothPMF.html): EBMPMF simple example.
+4. [EBMPMF](SmoothPMF.html), [EBMPMF2](SmoothPMF2.html): EBMPMF simple examples.
 5. [Sparse NMF methods](nmfsparse.html): Try some esixting sparse NMF methods.
 
 ### PTF
