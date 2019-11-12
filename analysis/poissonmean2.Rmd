@@ -22,9 +22,13 @@ for(i in 1:100){
   if(idx){
     lamda[i] = rgamma(1,0.1,1)
   }else{
-    lamda[i]=rgamma(1,10,2)
+    lamda[i]=rgamma(1,50,1)
   }
 }
+
+lamda = sort(lamda)
+
+hist(lamda,hist=20)
 
 x = rpois(n,lamda)
 s=1
@@ -43,13 +47,19 @@ No shrinkage estimate when $x=0,1,2$.
 How about $\exp(E\log\lambda)$?
 
 ```{r}
-plot(x/s,col='grey80',pch=16)
+plot((x/s),col='grey80',pch=16)
 lines(exp(fit$posterior$mean_log),type='p',pch=3,col=2)
 legend('topleft',c('MLE','exp(Posterior mean log)'),col=c(1,2),pch=c(16,3))
 ```
 
-It shrinks $E\log\lambda$.
+It shrinks $E\log\lambda$ when $x$ is large.
 
+Look at estimated values from 70 to 80
+
+```{r}
+(x/s)[70:80]
+round(exp(fit$posterior$mean_log[70:80]),3)
+```
 Look at fitted prior
 
 ```{r}
@@ -73,6 +83,10 @@ lines(fit$posterior$mean,type='p',pch=3,col=2)
 legend('topleft',c('MLE','Posterior mean'),col=c(1,2),pch=c(16,3))
 ```
 
+```{r}
+(x/s)[60]
+round(fit$posterior$mean[60],3)
+```
 No shrinkage estimate of $\lambda$.
 
 How about $\exp(E\log\lambda)$?
@@ -87,7 +101,12 @@ lines(exp(fit$posterior$mean_log),type='p',pch=3,col=2)
 legend('topleft',c('MLE','exp(Posterior mean log)'),col=c(1,2),pch=c(16,3))
 ```
 
-No shrinkage.
+```{r}
+(x/s)[60]
+round(exp(fit$posterior$mean_log)[60],3)
+```
+
+Some shrinkage, roughly $2\%-5\%$ for some values. Maybe this is the reason why 
 
 Look at fitted prior
 
