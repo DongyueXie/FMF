@@ -33,6 +33,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 1. [Empirical Bayes Poisson Mean large scale](poissonmeanscale.html)
 2. [Compare ebpm estimate from different scales](ebpmscale.html)
 3. [EBPM scale invariant version](poissonmean2.html): when $s$ is large, no shrinkage compared with MLE.
+4. [EBPM mixture of two gamma distributions](poissonmean3.html): fix prior grid at truth.
 
 ## Mis
 
