@@ -1,0 +1,96 @@
+---
+title: "Poisson mean scale invariant"
+author: "Dongyue Xie"
+date: "2019-11-11"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+See if scale-invariant version could handle large scale case.
+
+```{r}
+library(ebpm)
+set.seed(12345)
+pi0=0.8
+lamda=c()
+n=100
+for(i in 1:100){
+  idx = rbinom(1,1,pi0)
+  if(idx){
+    lamda[i] = rgamma(1,0.1,1)
+  }else{
+    lamda[i]=rgamma(1,10,2)
+  }
+}
+
+x = rpois(n,lamda)
+s=1
+fit = ebpm_gamma_mixture_single_scale(x,s)
+
+plot(x/s,fit$posterior$mean,xlab = 'MLE',ylab = 'Posterior mean',pch=16)
+abline(0,1)
+
+plot(x/s,col='grey80',pch=16)
+lines(fit$posterior$mean,type='p',pch=3,col=2)
+legend('topleft',c('MLE','Posterior mean'),col=c(1,2),pch=c(16,3))
+```
+
+No shrinkage estimate when $x=0,1,2$.
+
+How about $\exp(E\log\lambda)$?
+
+```{r}
+plot(x/s,col='grey80',pch=16)
+lines(exp(fit$posterior$mean_log),type='p',pch=3,col=2)
+legend('topleft',c('MLE','exp(Posterior mean log)'),col=c(1,2),pch=c(16,3))
+```
+
+It shrinks $E\log\lambda$.
+
+Look at fitted prior
+
+```{r}
+fit$fitted_g
+```
+
+
+Let's increase scale to $s=100$.
+
+```{r}
+set.seed(12345)
+s = 100
+x = rpois(n,s*lamda)
+fit = ebpm_gamma_mixture_single_scale(x,s)
+
+plot(x/s,fit$posterior$mean,xlab = 'MLE',ylab = 'Posterior mean',pch=16)
+abline(0,1)
+
+plot(x/s,col='grey80',pch=16)
+lines(fit$posterior$mean,type='p',pch=3,col=2)
+legend('topleft',c('MLE','Posterior mean'),col=c(1,2),pch=c(16,3))
+```
+
+No shrinkage estimate of $\lambda$.
+
+How about $\exp(E\log\lambda)$?
+
+```{r}
+plot(x/s,exp(fit$posterior$mean_log),xlab = 'MLE',ylab = 'exp(Posterior mean log)',pch=16)
+abline(0,1)
+
+
+plot(x/s,col='grey80',pch=16)
+lines(exp(fit$posterior$mean_log),type='p',pch=3,col=2)
+legend('topleft',c('MLE','exp(Posterior mean log)'),col=c(1,2),pch=c(16,3))
+```
+
+No shrinkage.
+
+Look at fitted prior
+
+```{r}
+fit$fitted_g
+```
