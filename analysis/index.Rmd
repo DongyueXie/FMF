@@ -34,6 +34,8 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 2. [Compare ebpm estimate from different scales](ebpmscale.html)
 3. [EBPM scale invariant version](poissonmean2.html): when $s$ is large, little shrinkage compared with MLE.
 4. [EBPM mixture of two gamma distributions](poissonmean3.html): fix prior grid at truth.
+5. [EBPM mixture of two gamma distributions](poissonmean4.html): closer priors make it harder to shrink.
+6. [EBPM mixture of two gamma distributions](poissonmean5.html): same shape diff rate in priors.
 
 ## Mis
 
