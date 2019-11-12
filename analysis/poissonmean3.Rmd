@@ -159,7 +159,7 @@ hist(lamda,breaks =20)
 s=1
 x = rpois(n,s*lamda)
 
-fit = ebpm_gamma_mixture(x,s,shape = c(0.1,50), rate=c(1,1),nullweight = 1)
+fit = ebpm_gamma_mixture(x,s,shape = c(0.1,50), rate=c(1,1),nullweight = 20)
 
 plot(x/s,fit$posterior$mean,xlab = 'MLE',ylab = 'Posterior mean',pch=16)
 abline(0,1)
@@ -172,8 +172,11 @@ fit$fitted_g
 ```
 
 ```{r}
-(x/s)[70:80]
-round((fit$posterior$mean)[70:80],3)
+tt = rbind((x/s)[70:80],
+round((fit$posterior$mean)[70:80],3),round(exp(fit$posterior$mean_log),2)[70:80])
+rownames(tt) = c('MLE',c('PosteriorMean','Exp(Elog)'))
+colnames(tt) = 70:80
+tt
 ```
 
 
@@ -183,7 +186,7 @@ set.seed(12345)
 s=100
 x = rpois(n,s*lamda)
 
-fit = ebpm_gamma_mixture(x,s,shape = c(0.1,50), rate=c(1,1),nullweight = 1)
+fit = ebpm_gamma_mixture(x,s,shape = c(0.1,50), rate=c(1,1),nullweight = 20)
 
 plot(x/s,fit$posterior$mean,xlab = 'MLE',ylab = 'Posterior mean',pch=16)
 abline(0,1)
@@ -196,6 +199,9 @@ fit$fitted_g
 ```
 
 ```{r}
-(x/s)[60:70]
-round((fit$posterior$mean)[60:70],3)
+tt = rbind((x/s)[60:70],
+round((fit$posterior$mean)[60:70],3),round(exp(fit$posterior$mean_log),2)[60:70])
+rownames(tt) = c('MLE',c('PosteriorMean','Exp(Elog)'))
+colnames(tt) = 60:70
+tt
 ```
