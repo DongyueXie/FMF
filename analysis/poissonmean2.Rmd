@@ -28,7 +28,7 @@ for(i in 1:100){
 
 lamda = sort(lamda)
 
-hist(lamda,hist=20)
+hist(lamda,breaks =20)
 
 x = rpois(n,lamda)
 s=1
