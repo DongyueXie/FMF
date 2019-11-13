@@ -1,0 +1,68 @@
+---
+title: "VST NMF"
+author: "Dongyue Xie"
+date: "2019-11-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(flashr)
+library(PMA)
+astnmf = function(X,K,const=3/8,method='flash'){
+  n = nrow(X)
+  p = ncol(X)
+  X_tilde = sqrt(X+const)
+  Sd = matrix(1/2,nrow=n,ncol=p)
+  if(method=='flash'){
+    datax = flash_set_data(Y = X_tilde, S = Sd)
+    fit = flash(datax,Kmax=K,var_type = 'zero',verbose = F)
+    d = fit$ldf$d^2
+    L = fit$ldf$l^2
+    FF = fit$ldf$f^2
+  }
+  if(method=='PMD'){
+    fit = PMD(X_tilde,K=K,trace=F)
+    d = fit$d^2
+    L = fit$u^2
+    FF = fit$v^2
+  }
+  return(list(d=d,L=L,FF=FF))
+}
+```
+
+```{r}
+set.seed(123)
+n = 120
+p = 300
+K= 3
+L = matrix(0, nrow=n, ncol=K)
+FF = matrix(0, nrow=K, ncol=p)
+
+L[1:(n/3),1] = 1
+L[((n/3)+1):(2*n/3),2] = 1
+L[((2*n/3)+1):n,3] = 1
+
+
+FF[1,1:(p/3)] = 1+10
+FF[2,((p/3)+1):(2*p/3)] = 1+10
+FF[3,((2*p/3)+1):p] = 1+10
+
+lambda = L %*% FF
+X = matrix(rpois(n=length(lambda),lambda),nrow=n)
+
+
+fit = astnmf(X,3,method = 'flash')
+
+plot(fit$L[,1])
+plot(fit$L[,2])
+plot(fit$L[,3])
+
+fit = astnmf(X,3,method = 'PMD')
+plot(fit$L[,1])
+plot(fit$L[,2])
+plot(fit$L[,3])
+```
