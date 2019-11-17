@@ -1,0 +1,68 @@
+---
+title: "TF misspecifies order"
+author: "Dongyue Xie"
+date: "2019-11-17"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Check if the estimates are still valid if misspecifying the smoothness of underlying function.
+
+## Step function
+
+True order = 0
+
+```{r}
+library(genlasso)
+tf = function(x,ord){
+  fit = trendfilter(x,ord=ord)
+  fit.cv = cv.trendfilter(fit)
+  fit$beta[,fit$lambda == fit.cv$lambda.min]
+}
+n=100
+mu = c(rep(0,n/2),rep(5,n/2))
+set.seed(12345)
+x = mu + rnorm(n)
+fit0 = tf(x,0)
+fit1 = tf(x,1)
+fit2 = tf(x,2)
+
+plot(x,col='grey80')
+lines(mu,col='grey80')
+lines(fit0)
+lines(fit1,col=2)
+lines(fit2,col=4)
+legend('topleft',c('truth','order 0','order 1','order 2'), lty= c(1,1,1,1),col=c('grey80',1,2,4))
+```
+
+
+Can we give TF all Difference matrices upto a order so that it could select optimal order by itself?
+
+```{r}
+tf2 = function(x,ord=c(0,1,2),lambda=NULL){
+  n=length(x)
+  
+  D = c()
+  
+  for(k in ord){
+    D = rbind(D,getDtf(n,k))
+  }
+  
+  fit = genlasso(x,diag(n),D)
+  if(is.null(lambda)){lambda = sqrt(n*log(n))}
+  coef(fit, lambda=lambda)$beta
+}
+
+fit = tf2(x,lambda = 1)
+plot(x,col='grey80')
+lines(mu,col='grey80')
+lines(fit0,col=1)
+lines(fit,col=4)
+legend('topleft',c('truth','tf0','tf_apt'),lty=c(1,1,1),col=c('grey80',1,4))
+
+```
+
+Not bad, but selection of lambda is not trivial.
