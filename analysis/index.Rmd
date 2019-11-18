@@ -46,6 +46,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 3. [Genome Annotation](GenomeAnnotation.html)
 4. [EM algorithm for Topic Model](TopicModelEM.html)
 5. [Analysis on Xing's method](XingMethod.html)
+6. [command line and github tips](tips.html)
 
 ## Ref
 
@@ -54,6 +55,3 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 3. [Multiscale Topic Tomography](http://www.cs.cmu.edu/~wcohen/postscript/topic-tomography-submitted.pdf)
 4. [Bayesian Multiscale Models for Poisson Processes](https://www.jstor.org/stable/pdf/2670007.pdf)
 
-## Ideas
-
-ZIP, EBBNP
