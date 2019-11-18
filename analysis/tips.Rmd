@@ -1,0 +1,39 @@
+---
+title: "tips"
+author: "Dongyue Xie"
+date: "2019-11-18"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+1. If I want to pull(clone) a repository to my local computer, do : `git clone https://github.com/stephenslab/smashr.git`
+
+Then it clones the repository to the current path.
+
+2. check the status of branch, know what are not committed: `git status`
+
+If there are files end with `-`, for example, 
+
+Untracked files:(use "git add <file>..." to include in what will be committed)
+
+	ashsmooth.R~
+
+Then type `rm *~` to delete it. It's temporary file. 
+
+3. If want to see what has changed in the file, type `git diff`.
+
+4. If satisfied with the change, commit it by `git commit -a -m "message"`
+
+5. Then `git push` to github.
+
+6. If want to test modified file with out re-install the package, do `devtools::load_all()`.
+
+7. If want to test the functions before commit the changes, do `devtools::test()`. 
+
+```{r}
+
+```
+
