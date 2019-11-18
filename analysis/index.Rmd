@@ -28,7 +28,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 2. [Trend filtering and dynamic linear model](trendfiltering.html)
 3. [Examples](tfexample.html)
 4. [Poisson Trend Filtering](ptfopt.html): first try of the ptf method, implemented optimization-based method to see if it works.
-5. [Basis selection in TF](ptfopt.html)
+5. [Basis selection in TF](tforder.html)
 
 ### EBPM
 
