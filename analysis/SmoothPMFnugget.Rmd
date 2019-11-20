@@ -1,0 +1,73 @@
+---
+title: "SmoothPMF with nugget effect"
+author: "Dongyue Xie"
+date: "2019-11-19"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+# generate matrix X with 3 topics
+set.seed(123)
+n = 120
+p = 300
+K= 3
+L = matrix(0, nrow=n, ncol=K)
+FF = matrix(0, nrow=K, ncol=p)
+
+L[1:(n/3),1] = 10
+L[((n/3)+1):(2*n/3),2] = 10
+L[((2*n/3)+1):n,3] = 10
+
+#L = L + matrix(runif(n*K,0,1),nrow=n)
+
+sigma=1
+
+FF[1,1:(p/3)] = exp(log(30))
+FF[2,((p/3)+1):(2*p/3)] = exp(log(30))
+FF[3,((2*p/3)+1):p] = exp(log(30))
+
+lambda = L %*% FF
+
+#FF = FF + matrix(rnorm(p*K,0,sigma),nrow=K)
+
+FF[1,] = exp(c(rep(log(30),p/3),rep(0,p-p/3))+rnorm(p,0,sigma))
+FF[2,] = exp(c(rep(0,p/3),rep(log(30),p/3),rep(0,p/3))+rnorm(p,0,sigma))
+FF[3,] = exp(c(rep(0,p-p/3),rep(log(30),p/3))+rnorm(p,0,sigma))
+
+
+X = matrix(rpois(n=length(lambda),L %*% FF),nrow=n)
+image(X)
+```
+
+## PMF
+
+```{r}
+library(ebmpmf)
+fit_nsmooth = stm(X,K,smooth_l = F,smooth_f = F,printevery = 1)
+
+summary_stm(fit_nsmooth,lambda)
+```
+
+## PMF-BMSM
+
+```{r}
+
+fit_smooth = stm(X,K,smooth_l = F,smooth_f = T,nugget = F,printevery = 1)
+
+summary_stm(fit_smooth,lambda)
+```
+
+## PMF-smash-gen
+
+```{r}
+fit_smooth_nugget = suppressWarnings(stm(X,K,smooth_l = F,smooth_f = T,nugget = T,printevery = 10,maxiter = 200)) 
+summary_stm(fit_smooth_nugget,lambda)
+```
+
+```{r}
+fit_smooth_nugget$nugget
+```
