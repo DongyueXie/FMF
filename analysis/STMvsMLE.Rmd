@@ -1,0 +1,48 @@
+---
+title: "STM vs NSTM"
+author: "Dongyue Xie"
+date: "2019-11-20"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Compare smoothed vs non-smoothed NMF.
+
+```{r}
+library(ebmpmf)
+library(NNLM)
+set.seed(123)
+n = 120
+p = 300
+K= 3
+L = matrix(0, nrow=n, ncol=K)
+FF = matrix(0, nrow=K, ncol=p)
+
+L[1:(n/3),1] = 1
+L[((n/3)+1):(2*n/3),2] = 1
+L[((2*n/3)+1):n,3] = 1
+
+L = L + matrix(runif(n*K,0,0.5),nrow=n)
+
+FF[1,1:(p/3)] = 1+10
+FF[2,((p/3)+1):(2*p/3)] = 1+10
+FF[3,((2*p/3)+1):p] = 1+10
+
+lambda = L %*% FF
+X = matrix(rpois(n=length(lambda),lambda),nrow=n)
+image(X)
+```
+
+```{r}
+fit_smooth = stm(X,K,smooth_l = FALSE,smooth_f = TRUE)
+summary_stm(fit_smooth,lambda)
+```
+
+
+```{r}
+fit_nonsmooth = stm(X,K,smooth_l = FALSE,smooth_f = FALSE)
+summary_stm(fit_nonsmooth,lambda)
+```
