@@ -1,0 +1,121 @@
+---
+title: "Apply stm to GTEx data"
+author: "DongyueXie"
+date: "2019-12-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Gtex Data from Yang Li. Data consist of per-base read counts from "GeuvadisLCL", "GTEXAdipose", "WholeBlood". 
+
+Gene: RPS13. It has 6 exons and 10 splicing variants. 
+
+```{r}
+load('~/RPS13fit.RData')
+library(stm)
+```
+
+## Full Data
+
+Fit stm to the full dataset with $K=3$.
+
+```{r}
+lf = poisson2multinom(t(fit_stm_bmsm_RPS13$qf$Ef),fit_stm_bmsm_RPS13$ql$El)
+for(i in 1:3){
+  barplot(lf$L[,i],main=paste0('Estimate of loading ',i),xlab='',ylab = '',ylim = c(0,max(lf$L)),col=c(rep(2,88),rep(3,226),rep(4,927)))
+}
+for(i in 1:3){
+  barplot(lf$FF[,i],main=paste0('Estimate of factor ',i),xlab='',ylab = '',ylim = c(0,max(lf$FF)))
+}
+```
+
+## Remove WholeBlood
+
+Fit stm to the dataset removing "WholeBlood" tissue with $K=3$.
+
+```{r}
+lf = poisson2multinom(t(fit_stm_bmsm_RPS13_2$qf$Ef),fit_stm_bmsm_RPS13_2$ql$El)
+plot(lf$FF[,1],ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors')
+lines(lf$FF[,2],col=2)
+lines(lf$FF[,3],col=4)
+
+
+for(i in 1:3){
+  barplot(lf$L[,i],main=paste0('Estimated loading ',i),ylab = '',ylim = c(0,max(lf$L)))
+}
+```
+
+
+Fit Xing's stm method to the dataset removing "WholeBlood" tissue with $K=3$.
+
+```{r}
+plot(xing_rps13$phi[1,],type='l',ylim = range(xing_rps13$phi),xlab = 'base',ylab='Intensity',main='Factors')
+lines(xing_rps13$phi[2,],type='l',col=2)
+lines(xing_rps13$phi[3,],type='l',col=4)
+```
+
+
+Fit stm to the dataset removing "WholeBlood" tissue with $K=10$.
+
+```{r}
+lf = poisson2multinom(t(fit_stm_bmsm_RPS13_3$qf$Ef),fit_stm_bmsm_RPS13_3$ql$El)
+
+
+for(i in 1:10){
+  barplot(lf$L[,i],main=paste0('Estimate of loading ',i),xlab='',ylab = '',ylim = c(0,max(lf$L)),col=c(rep(2,88),rep(3,226)))
+}
+for(i in 1:10){
+  barplot(lf$FF[,i],main=paste0('Estimate of factor ',i),xlab='',ylab = '',ylim = c(0,max(lf$FF)))
+}
+```
+
+## GTEx adipose tissue
+
+Fit stm to the dataset using only adipose tissue with $K=5$.
+
+```{r}
+lf = poisson2multinom(t(fit_stm_bmsm_RPS13_4$qf$Ef),fit_stm_bmsm_RPS13_4$ql$El)
+plot(lf$FF[,1],ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors')
+lines(lf$FF[,2],col=2)
+lines(lf$FF[,3],col=4)
+lines(lf$FF[,4],col=3)
+lines(lf$FF[,5],col=6)
+```
+
+```{r}
+for(i in 1:5){
+  barplot(lf$L[,i],main=paste0('Estimate of loading ',i),xlab='',ylab = '',ylim = c(0,max(lf$L)))
+}
+for(i in 1:5){
+  barplot(lf$FF[,i],main=paste0('Estimate of factor ',i),xlab='',ylab = '',ylim = c(0,max(lf$FF)))
+}
+```
+
+
+Fit stm with smashgen using only adipose tissue with $K=3$.
+
+```{r}
+lf = poisson2multinom(t(fit_stm_sg_RPS13_4$qf$Ef),fit_stm_sg_RPS13_4$ql$El)
+plot(lf$FF[,1],ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors')
+lines(lf$FF[,2],col=2)
+lines(lf$FF[,3],col=4)
+```
+
+
+```{r}
+for(i in 1:3){
+  barplot(lf$L[,i],main=paste0('Estimate of loading ',i),xlab='',ylab = '',ylim = c(0,max(lf$L)))
+}
+for(i in 1:3){
+  barplot(lf$FF[,i],main=paste0('Estimate of factor ',i),xlab='',ylab = '',ylim = c(0,max(lf$FF)))
+}
+```
+
+Estimated Nugget effect:
+
+```{r}
+fit_stm_sg_RPS13_4$nugget$nugget_f
+```
