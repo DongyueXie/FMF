@@ -44,7 +44,7 @@ lines(lf$FF[,3],col=4)
 
 
 for(i in 1:3){
-  barplot(lf$L[,i],main=paste0('Estimated loading ',i),ylab = '',ylim = c(0,max(lf$L)))
+  barplot(lf$L[,i],main=paste0('Estimated loading ',i),ylab = '',ylim = c(0,max(lf$L)),col=c(rep(2,88),rep(3,226)))
 }
 ```
 
