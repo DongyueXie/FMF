@@ -524,6 +524,22 @@ data/PSAP_NMF_mkl_lee_K3.RData
 data/PSAP_stm_nugget_K3.RData
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_NMF_mkl_lee_K4.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_NMF_mkl_lee_K4.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_nugget_K4.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_nugget_K4.RData
+</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -532,10 +548,10 @@ data/PSAP_stm_nugget_K3.RData
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree6479c3e281c61834ad0c9a4e82a64f4423fa207atargetblank6479c3ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/6479c3e281c61834ad0c9a4e82a64f4423fa207a" target="_blank">6479c3e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreeab3ce5c7890cf5f3eed9139ead6ad23395527917targetblankab3ce5ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/ab3ce5c7890cf5f3eed9139ead6ad23395527917" target="_blank">ab3ce5c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree6479c3e281c61834ad0c9a4e82a64f4423fa207atargetblank6479c3ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreeab3ce5c7890cf5f3eed9139ead6ad23395527917targetblankab3ce5ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -551,7 +567,9 @@ Untracked files:
     Untracked:  data/GPX3_stm_bmsm_K3.RData
     Untracked:  data/GPX3_stm_nugget_K3.RData
     Untracked:  data/PSAP_NMF_mkl_lee_K3.RData
+    Untracked:  data/PSAP_NMF_mkl_lee_K4.RData
     Untracked:  data/PSAP_stm_nugget_K3.RData
+    Untracked:  data/PSAP_stm_nugget_K4.RData
     Untracked:  data/RPS13_NMF_mkl_lee_K3.RData
     Untracked:  data/RPS13_stm_bmsm_K3.RData
     Untracked:  data/RPS13_stm_nugget_K3.RData
@@ -599,6 +617,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/ab3ce5c7890cf5f3eed9139ead6ad23395527917/analysis/GTExSplicing.Rmd" target="_blank">ab3ce5c</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+<td>
+wflow_publish(“analysis/GTExSplicing.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/901e63e40a76c39eddfeb0bae0408d0365435503/docs/GTExSplicing.html" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/6479c3e281c61834ad0c9a4e82a64f4423fa207a/analysis/GTExSplicing.Rmd" target="_blank">6479c3e</a>
 </td>
 <td>
@@ -627,7 +679,7 @@ wflow_publish(“analysis/GTExSplicing.Rmd”)
 <li><p>The structure stm finds is similar to the one by NMF since stm uses NMF fit as initialization.</p></li>
 <li><p>stm + smash-gen gives smoother fit and clearer structures</p></li>
 <li><p>Simply using Poisson smoothing seems to give very similar estimates to the ones from NMF. But using smash-gen can reveal some potential alternative splicing patterns.</p></li>
-<li><p>True nugget effect is usually around <span class="math inline">\(\sigma=\)</span> 0.4 to 0.7.</p></li>
+<li><p>True nugget effect is usually around <span class="math inline">\(\sigma=\)</span> 0.04 to 0.07.</p></li>
 </ol>
 </div>
 </div>
@@ -668,6 +720,43 @@ plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,yl
 lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-2-1.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
 
 sep_lines = c(226)
@@ -679,6 +768,43 @@ mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
 mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)
 abline(v = sep_lines, lwd = 2)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-2-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-2-2.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="stm---smooth" class="section level2">
 <h2>STM - Smooth</h2>
@@ -691,6 +817,43 @@ plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,yl
 lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-3-1.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
 
 sep_lines = c(226)
@@ -702,6 +865,43 @@ mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
 mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)
 abline(v = sep_lines, lwd = 2)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-3-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
+Past versions of unnamed-chunk-3-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-3-2.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="stm---nugget" class="section level2">
 <h2>STM - Nugget</h2>
@@ -714,6 +914,43 @@ plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,yl
 lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-4-1.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
 
 sep_lines = c(226)
@@ -726,6 +963,43 @@ axis(1, at = sep_lines_mid, labels = tissue_name, cex = 2, padj = -1, tick = FAL
 mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
 mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-4-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
+Past versions of unnamed-chunk-4-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-4-2.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fit_stm_nugget$nugget</code></pre>
 <pre><code>$nugget_l
 [1] 0 0 0
@@ -750,6 +1024,43 @@ plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,yl
 lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-5-1.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
 
 sep_lines = c(226)
@@ -761,6 +1072,43 @@ mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
 mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)
 abline(v = sep_lines, lwd = 2)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-5-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-5-2.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="stm---smooth-1" class="section level2">
 <h2>STM - Smooth</h2>
@@ -773,6 +1121,43 @@ plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,yl
 lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-6-1.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
 
 sep_lines = c(226)
@@ -784,6 +1169,43 @@ mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
 mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)
 abline(v = sep_lines, lwd = 2)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-6-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-2">
+Past versions of unnamed-chunk-6-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-6-2.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="stm---nugget-1" class="section level2">
 <h2>STM - Nugget</h2>
@@ -796,6 +1218,43 @@ plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,yl
 lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-7-1.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
 
 sep_lines = c(226)
@@ -807,6 +1266,43 @@ mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
 mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)
 abline(v = sep_lines, lwd = 2)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-7-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
+Past versions of unnamed-chunk-7-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-7-2.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fit_stm_nugget$nugget</code></pre>
 <pre><code>$nugget_l
 [1] 0 0 0
@@ -818,8 +1314,8 @@ $nugget_f
 <div id="psap" class="section level1">
 <h1>PSAP</h1>
 <p>6 splicing variants, 15 exons</p>
-<div id="nmf-2" class="section level2">
-<h2>NMF</h2>
+<div id="nmf-k3" class="section level2">
+<h2>NMF, K=3</h2>
 <pre class="r"><code>K=3
 load(&#39;~/SMF/data/PSAP_NMF_mkl_lee_K3.RData&#39;)
 
@@ -829,6 +1325,43 @@ plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,yl
 lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-8-1.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
 
 sep_lines = c(226)
@@ -840,9 +1373,46 @@ mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
 mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)
 abline(v = sep_lines, lwd = 2)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-8-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
+Past versions of unnamed-chunk-8-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-8-2.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="stm---nugget-2" class="section level2">
-<h2>STM - Nugget</h2>
+</div>
+</div>
+<div id="stm---nugget-k3" class="section level2">
+<h2>STM - Nugget, K=3</h2>
 <pre class="r"><code>load(&#39;~/SMF/data/PSAP_stm_nugget_K3.RData&#39;)
 
 lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
@@ -851,6 +1421,43 @@ plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,yl
 lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-9-1.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
 
 sep_lines = c(226)
@@ -862,12 +1469,102 @@ mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
 mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)
 abline(v = sep_lines, lwd = 2)</code></pre>
 <p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
+Past versions of unnamed-chunk-9-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/901e63e40a76c39eddfeb0bae0408d0365435503/docs/figure/GTExSplicing.Rmd/unnamed-chunk-9-2.png" target="_blank">901e63e</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fit_stm_nugget$nugget</code></pre>
 <pre><code>$nugget_l
 [1] 0 0 0
 
 $nugget_f
 [1] 0.06671526 0.07175778 0.04846421</code></pre>
+</div>
+<div id="nmf-k4" class="section level2">
+<h2>NMF, K=4</h2>
+<pre class="r"><code>K=4
+load(&#39;~/SMF/data/PSAP_NMF_mkl_lee_K4.RData&#39;)
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+lines(lf$FF[,4],col=5)</code></pre>
+<p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
+
+sep_lines = c(226)
+sep_lines_mid = c(113,341)
+tissue_name=c(&#39;Adipose&#39;,&#39;Skin&#39;)
+
+axis(1, at = sep_lines_mid, labels = tissue_name, cex = 2, padj = -1, tick = FALSE)
+mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
+mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)
+abline(v = sep_lines, lwd = 2)</code></pre>
+<p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-10-2.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="stm---nugget-k4" class="section level2">
+<h2>STM - Nugget, K=4</h2>
+<pre class="r"><code>load(&#39;~/SMF/data/PSAP_stm_nugget_K4.RData&#39;)
+
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+lines(lf$FF[,4],col=5)</code></pre>
+<p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>barplot(t(lf$L),col=2:(K+1),axisnames = F, space = 0, border = NA, las = 1, ylim = c(0, 1), cex.axis = 1.5, cex.main = 1.4)
+
+sep_lines = c(226)
+sep_lines_mid = c(113,341)
+tissue_name=c(&#39;Adipose&#39;,&#39;Skin&#39;)
+
+axis(1, at = sep_lines_mid, labels = tissue_name, cex = 2, padj = -1, tick = FALSE)
+mtext(&quot;tissue&quot;, 1, line = 2, cex = 1.2)
+mtext(&quot;membership proportion&quot;, 2, line = 3, cex = 1.2)
+abline(v = sep_lines, lwd = 2)</code></pre>
+<p><img src="figure/GTExSplicing.Rmd/unnamed-chunk-11-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit_stm_nugget$nugget</code></pre>
+<pre><code>$nugget_l
+[1] 0 0 0 0
+
+$nugget_f
+[1] 0.06999425 0.05084868 0.06090485 0.06112265</code></pre>
 <p>Other findings:</p>
 <ol style="list-style-type: decimal">
 <li><p>Initialize stm from random cannot find structures</p></li>
