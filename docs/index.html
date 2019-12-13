@@ -242,7 +242,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-01
+<strong>Last updated:</strong> 2019-12-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -273,17 +273,30 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreec18d943bc02c62feb1a2f90dda15f9ddf714fc9etargetblankc18d943a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/c18d943bc02c62feb1a2f90dda15f9ddf714fc9e" target="_blank">c18d943</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreef99e171aa372f2dbed433118ad2520566bc9e653targetblankf99e171a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/f99e171aa372f2dbed433118ad2520566bc9e653" target="_blank">f99e171</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreec18d943bc02c62feb1a2f90dda15f9ddf714fc9etargetblankc18d943a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreef99e171aa372f2dbed433118ad2520566bc9e653targetblankf99e171a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  code/GTEx Splicing.R
+    Untracked:  data/GPX3_NMF_mkl_lee_K3.RData
+    Untracked:  data/GPX3_stm_bmsm_K3.RData
+    Untracked:  data/GPX3_stm_nugget_K3.RData
+    Untracked:  data/PSAP_NMF_mkl_lee_K3.RData
+    Untracked:  data/PSAP_stm_nugget_K3.RData
+    Untracked:  data/RPS13_NMF_mkl_lee_K3.RData
+    Untracked:  data/RPS13_stm_bmsm_K3.RData
+    Untracked:  data/RPS13_stm_nugget_K3.RData
+    Untracked:  data/RPS13_stm_smooth_K3.RData
 
 </code></pre>
 <p>
@@ -322,6 +335,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f99e171aa372f2dbed433118ad2520566bc9e653/analysis/index.Rmd" target="_blank">f99e171</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-13
+</td>
+<td>
+wflow_publish(“analysis/index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/5d5cae563ea18210118c09cde436f48c3c4fe9e0/docs/index.html" target="_blank">5d5cae5</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1502,7 +1549,8 @@ Start workflowr project.
 <li><a href="nmfsparse.html">Sparse NMF methods</a>: Try some esixting sparse NMF methods.</li>
 <li><a href="VSTNMF.html">VST NMF</a>: does VST work well for NMF?</li>
 <li><a href="SmoothPMFnugget.html">EBMPMF and nugget effect</a></li>
-<li><a href="stmGTEx.html">Apply stm to GTEx data, gene splicing</a></li>
+<li><a href="stmGTEx.html">Apply stm to gene splicing</a></li>
+<li><a href="GTExSplicing.html">GTEx gene splcing</a></li>
 </ol>
 </div>
 <div id="ptf" class="section level3">
