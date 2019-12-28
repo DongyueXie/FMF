@@ -1,0 +1,48 @@
+---
+title: "Principal Curves"
+author: "DongyueXie"
+date: "2019-12-27"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## PCA and Principal Curves
+
+PCA solves $\min_{\mu,\lambda_i,V_q} \sum_i ||x_i-f(\lambda_i)||^2$, where $f(\lambda_i) = \mu+V_q\lambda_i$, $V_q\in R^{p\times q}$ has othogonal columns, $\lambda_i\in R^q$ and $\mu\in R^p$. The model can be written as $x_i = \mu+V_q\lambda_i+e_i$, where $e_i$ is the random error. Let $q=1$, then $V_1$ is the first principal component direction and $\lambda = \{\lambda_i\}$ is the first principal component. 
+
+A non-linear generalization of PCA is the principal curves, which do not assume the linear form of $f(\lambda)$.
+
+A 1d curve in p-dim space is a vector $f(\lambda)$ of p functions of a single variable $\lambda$. If each function is smooth then $f$ is a smooth curve. Let $f$ be a smooth curve in $R^p$ parameterized over $\Lambda\in R^1$. Define $\lambda_f(x):R^p\to R^1$ as the value of $\lambda$  that $f(\lambda)$ is closet to $x$. The curve is called a pricipal curve if $E(X|\lambda_f(X) = \lambda) = f(\lambda)$.
+
+$f(\lambda)$ is the reconstructed X in lower dimension.  
+
+Now consider we have bivariate data $X\in R^{n\times 2}$ and we are interested finding the principal curve.  1. $\lambda$; 2. $f(\lambda)$. $f(\lambda) = (f_1(\lambda),f_2(\lambda))$ is a smooth curve. Algorithm: First initalize $\lambda$, $f(\lambda)$ and $\lambda_f(x)$ using the 1st PC, i.e. $\lambda = U_1d_1$, $f(\lambda) = U_1d_1V_1^T$ and $\lambda_f(x) = x^TV_1$.
+
+```{r}
+
+set.seed(12345)
+
+x <- runif(100,-1,1)
+x <- cbind(x, x ^ 2 + rnorm(100, sd = 0.1))
+
+plot(x)
+
+x = scale(x,center=T,scal=F)
+
+x_svd = svd(x)
+
+f_lambda = x_svd$u[,1,drop=F]%*%x_svd$d[1]%*%t(x_svd$v[,1,drop=F])
+
+lines(f_lambda,type='p',col=4)
+
+legend('top',c('data','reconstructed data'),col=c(1,4),pch=c(1,1))
+
+lambda_fx = x%*%x_svd$v[,1]
+
+```
+
+
+Conditional expectation step: goal is to estimate $f^{(t+1)}(\lambda) = E(X|\lambda_{f^{(t)}} = \lambda)$. The variable to be smoothed is $p$ dimensional so we simply smooth each coordinate separately. 
+
+Projection step: given $f^{(t)}(\lambda_i)$, find $\lambda_{f^{(t)}}(x_i)$. Let $d_{ik}$ be the distance between $x_i$ and line segment $(f(\lambda_k),f(\lambda_k+1))$, for $k=1,...,n-1$. For each $d_{ik}$, there is one corresponding $\lambda_{ik}\in[\lambda_k,\lambda_{k+1}]$. Then set $\lambda_i = \lambda_{ik^*}$, where $k^*$ is the index of smallest $d_{ik}$.
