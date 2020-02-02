@@ -1,0 +1,208 @@
+---
+title: "Outlier in Wavelet smoothing"
+author: "Dongyue Xie"
+date: "2020-02-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Investigate how the outlier will influecne the wavelet smoothing and how to automatically account for outliers.
+
+Generate outliers from Huber's contamination model:
+
+```{r}
+set.seed(12345)
+n = 256
+x = seq(-2*pi,2*pi,length.out = n)
+f = 1.5*sin(x) + sin(2*x)
+e_z = rbinom(n,1,0.05)
+e = e_z*rnorm(n,0,1) + (1-e_z)*rnorm(n,0,0.2)
+y = f+e
+library(smashr)
+out = smash.gaus(y)
+plot(y,col='grey80')
+lines(out)
+plot(y,col='grey80')
+lines(ti.thresh(y))
+```
+
+Try robust scatter plot smoothing
+
+```{r}
+plot(y,col='grey80')
+lines(runmed(y,11))
+```
+
+
+Let's see the outliers
+
+```{r}
+plot(x,y)
+points(x[which(e_z==1)],y[which(e_z==1)],pch=16,col=4)
+```
+
+Running mad estimate of variance:
+
+```{r}
+library(wavethresh)
+library(caTools)
+J = log2(n)
+x.w = wd(y, filter.number=1,family='DaubExPhase', type = "station")
+win.size = 25
+sigma.est = runmad(accessD(x.w, J - 1), win.size, endrule = "func")
+
+
+plot(x,sigma.est,col='grey80')
+points(x[which(e_z==1)],sigma.est[which(e_z==1)],pch=16,col=4)
+
+plot(abs(y[which(e_z==1)] - f[which(e_z==1)]),sigma.est[which(e_z==1)])
+abline(0,1)
+
+# reduce window size
+
+win.size = 10
+sigma.est = runmad(accessD(x.w, J - 1), win.size, endrule = "func")
+
+
+plot(x,sigma.est,col='grey80')
+points(x[which(e_z==1)],sigma.est[which(e_z==1)],pch=16,col=4)
+
+plot(abs(y[which(e_z==1)] - f[which(e_z==1)]),sigma.est[which(e_z==1)])
+abline(0,1)
+
+plot(y,col='grey80')
+lines(smash.gaus(y,sigma.est))
+
+
+# 
+
+win.size = 3
+sigma.est = runmad(accessD(x.w, J - 1), win.size, endrule = "func")
+
+
+plot(x,sigma.est,col='grey80')
+points(x[which(e_z==1)],sigma.est[which(e_z==1)],pch=16,col=4)
+
+plot(abs(y[which(e_z==1)] - f[which(e_z==1)]),sigma.est[which(e_z==1)])
+abline(0,1)
+
+plot(x,y,col='grey80')
+lines(x,smash.gaus(y,sigma.est))
+lines(x,f,col=4)
+```
+
+## Summary 1
+
+can not achieve robustness via change running MAD window size
+
+Let's look at the finest level NDWT coefficients
+
+```{r}
+plot(x,accessD(x.w, J - 1))
+points(x[which(e_z==1)],accessD(x.w, J - 1)[which(e_z==1)],pch=16,col=4)
+```
+
+Let's directly use the absolute deviation as the sigma.est. Much better....
+
+```{r}
+plot(y,col='grey80')
+lines(smash.gaus(y,abs(accessD(x.w, J - 1)-median(accessD(x.w, J - 1)))))
+```
+
+```{r}
+plot(y,col='grey80')
+lines(ti.thresh(y,abs(accessD(x.w, J - 1)-median(accessD(x.w, J - 1)))))
+```
+
+
+Let's increase the number of outliers
+
+```{r}
+set.seed(12345)
+e_z = rbinom(n,1,0.1)
+e = e_z*rnorm(n,0,1) + (1-e_z)*rnorm(n,0,0.2)
+y = f+e
+x.w = wd(y, filter.number=1,family='DaubExPhase', type = "station")
+```
+
+```{r}
+plot(y,col='grey80')
+lines(smash.gaus(y,abs(accessD(x.w, J - 1)-median(accessD(x.w, J - 1)))))
+```
+
+```{r}
+plot(y,col='grey80')
+lines(ti.thresh(y,abs(accessD(x.w, J - 1)-median(accessD(x.w, J - 1)))))
+```
+
+
+Let's increase the variance of outliers
+
+```{r}
+set.seed(12345)
+e_z = rbinom(n,1,0.1)
+e = e_z*rnorm(n,0,3) + (1-e_z)*rnorm(n,0,0.2)
+y = f+e
+x.w = wd(y, filter.number=1,family='DaubExPhase', type = "station")
+```
+
+```{r}
+plot(y,col='grey80')
+lines(smash.gaus(y,abs(accessD(x.w, J - 1)-median(accessD(x.w, J - 1)))))
+```
+
+```{r}
+plot(y,col='grey80')
+lines(ti.thresh(y,abs(accessD(x.w, J - 1)-median(accessD(x.w, J - 1)))))
+```
+
+Let's increase the variance of outliers and variance of random errors
+
+```{r}
+set.seed(12345)
+e_z = rbinom(n,1,0.1)
+e = e_z*rnorm(n,0,4) + (1-e_z)*rnorm(n,0,1)
+y = f+e
+x.w = wd(y, filter.number=1,family='DaubExPhase', type = "station")
+```
+
+```{r}
+plot(y,col='grey80')
+lines(smash.gaus(y,abs(accessD(x.w, J - 1)-median(accessD(x.w, J - 1)))))
+```
+
+```{r}
+plot(y,col='grey80')
+lines(ti.thresh(y,abs(accessD(x.w, J - 1)-median(accessD(x.w, J - 1)))))
+```
+
+
+## Pseudo-data approach
+
+http://stat.snu.ac.kr/heeseok/html/paper/robusttech.pdf
+
+```{r}
+smooth_outlier = function(y,maxiter=10,tol=1e-4){
+  f_hat = ti.thresh(y)
+  niter = 1
+  while(niter<=maxiter){
+    niter = niter + 1
+    y_tilde = f_hat + tanh(y-f_hat)/2
+    f_hat_new = ti.thresh(y_tilde)
+    if(norm(f_hat-f_hat_new,'2')<=tol){
+      break
+    }else{
+      f_hat = f_hat_new
+    }
+  }
+  f_hat_new
+}
+
+plot(y,col='grey80')
+lines(smooth_outlier(y))
+```
+
+Too slow. Does not work well.
