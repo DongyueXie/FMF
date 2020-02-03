@@ -52,6 +52,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 4. [EM algorithm for Topic Model](TopicModelEM.html)
 5. [Analysis on Xing's method](XingMethod.html)
 6. [command line and github tips](tips.html)
+7. [Outlier in wavelet smoothing](outlierWavelet.html)
 
 ## Ref
 
