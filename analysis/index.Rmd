@@ -53,6 +53,8 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 5. [Analysis on Xing's method](XingMethod.html)
 6. [command line and github tips](tips.html)
 7. [Principal Curves](princurves.html)
+8. [Outlier in wavelet smoothing](outlierWavelet.html)
+
 
 ## Ref
 
