@@ -23,8 +23,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 6. [Sparse NMF methods](nmfsparse.html): Try some esixting sparse NMF methods.
 7. [VST NMF](VSTNMF.html): does VST work well for NMF?
 8. [EBMPMF and nugget effect](SmoothPMFnugget.html)
-9. [Apply stm to gene splicing](stmGTEx.html)
-10. [GTEx gene splcing](GTExSplicing.html)
+9. [GTEx gene splcing](GTExSplicing.html)
 
 
 ### PTF
@@ -54,6 +53,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 6. [command line and github tips](tips.html)
 7. [Principal Curves](princurves.html)
 8. [Outlier in wavelet smoothing](outlierWavelet.html)
+9. [Robust smashgen](outlierSmashgen.html)
 
 
 ## Ref
