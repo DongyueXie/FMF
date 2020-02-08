@@ -1,0 +1,66 @@
+---
+title: "outlier Smashgen"
+author: "Dongyue Xie"
+date: "2020-02-08"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Using likelihood expnasion is automatically robust?!
+
+```{r}
+library(smashrgen)
+library(smashr)
+set.seed(12345)
+n = 512
+x = seq(-2*pi, 2*pi,length.out = n)
+f = 1.5*sin(x) + sin(2*x)
+f=f-min(f)
+f=f*2+0.3
+sigma=0.5
+y=rpois(n,exp(log(f)+rnorm(n,sd=sigma)))
+plot(y,col='grey80')
+fit = smash.gen.pois(y)
+lines(fit$lambda.est)
+lines(f,col='grey80')
+
+idx_out=sample(1:n,round(n*0.01))
+
+y[idx_out]=y[idx_out]+50
+
+plot(y,col='grey80')
+fit = smash.gen.pois(y,robust = F,transformation = 'vst')
+lines(fit$lambda.est)
+lines(f,col='grey80')
+
+plot(y,col='grey80')
+fit = smash.gen.pois(y,robust = T,transformation = 'vst')
+lines(fit$lambda.est)
+lines(f,col='grey80')
+
+plot(y,col='grey80')
+fit = smash.gen.pois(y,robust = F,transformation = 'lik_expansion')
+lines(fit$lambda.est)
+lines(f,col='grey80')
+
+y[idx_out]=y[idx_out]+50
+
+plot(y,col='grey80')
+fit = smash.gen.pois(y,robust = F,transformation = 'vst')
+lines(fit$lambda.est)
+lines(f,col='grey80')
+
+plot(y,col='grey80')
+fit = smash.gen.pois(y,robust = T,transformation = 'vst')
+lines(fit$lambda.est)
+lines(f,col='grey80')
+
+plot(y,col='grey80')
+fit = smash.gen.pois(y,robust = F,transformation = 'lik_expansion')
+lines(fit$lambda.est)
+lines(f,col='grey80')
+```
+
