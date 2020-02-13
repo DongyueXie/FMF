@@ -25,6 +25,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
@@ -170,6 +171,14 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 
@@ -315,6 +324,14 @@ div.section {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Apply stm to GTEx data</h1>
@@ -326,7 +343,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -335,7 +352,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -344,17 +361,17 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-01
+<strong>Last updated:</strong> 2020-02-12
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.5.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -423,29 +440,550 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_hals_runmed_K3.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_hals_runmed_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_hals_wavelet_K3.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_hals_wavelet_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_stm_nugget_robust_K3.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_stm_nugget_robust_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_stm_nugget_K3.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_stm_nugget_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_stm_bmsm_K3.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_stm_bmsm_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_NMF_mkl_scd_K3.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_NMF_mkl_scd_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_hals_runmed_K3.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_hals_runmed_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_hals_wavelet_K3.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_hals_wavelet_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_stm_nugget_robust_K3.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_stm_nugget_robust_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_stm_nugget_K3.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_stm_nugget_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_stm_bmsm_K3.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_stm_bmsm_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_NMF_mkl_scd_K3.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_NMF_mkl_scd_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_hals_runmed_K3.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_hals_runmed_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_hals_wavelet_K3.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_hals_wavelet_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_nugget_robust_K3.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_nugget_robust_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_nugget_K3.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_nugget_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_bmsm_K3.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_bmsm_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_NMF_mkl_scd_K3.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_NMF_mkl_scd_K3.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_hals_runmed_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_hals_runmed_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_hals_wavelet_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_hals_wavelet_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_stm_nugget_robust_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_stm_nugget_robust_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_stm_nugget_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_stm_nugget_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_stm_bmsm_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_stm_bmsm_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_NMF_mkl_scd_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_NMF_mkl_scd_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_hals_runmed_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_hals_runmed_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_hals_wavelet_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_hals_wavelet_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_stm_nugget_robust_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_stm_nugget_robust_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_stm_nugget_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_stm_nugget_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_stm_bmsm_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_stm_bmsm_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_NMF_mkl_scd_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_NMF_mkl_scd_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_hals_runmed_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_hals_runmed_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_hals_wavelet_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_hals_wavelet_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_nugget_robust_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_nugget_robust_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_nugget_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_nugget_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_bmsm_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_bmsm_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_NMF_mkl_scd_K3_base5.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_NMF_mkl_scd_K3_base5.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_hals_runmed_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_hals_runmed_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_hals_wavelet_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_hals_wavelet_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_stm_nugget_robust_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_stm_nugget_robust_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_stm_nugget_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_stm_nugget_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_stm_bmsm_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_stm_bmsm_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/RPS13_NMF_mkl_scd_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/RPS13_NMF_mkl_scd_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_hals_runmed_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_hals_runmed_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_hals_wavelet_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_hals_wavelet_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_stm_nugget_robust_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_stm_nugget_robust_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_stm_nugget_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_stm_nugget_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_stm_bmsm_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_stm_bmsm_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/GPX3_NMF_mkl_scd_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/GPX3_NMF_mkl_scd_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_hals_runmed_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_hals_runmed_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_hals_wavelet_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_hals_wavelet_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_nugget_robust_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_nugget_robust_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_nugget_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_nugget_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_stm_bmsm_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_stm_bmsm_K3_base10.RData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~/SMF/data/PSAP_NMF_mkl_scd_K3_base10.RData
+</td>
+<td style="text-align:left;">
+data/PSAP_NMF_mkl_scd_K3_base10.RData
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree03553debb0409d04d0871eb3b8e6751aff54fe0btargetblank03553dea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/03553debb0409d04d0871eb3b8e6751aff54fe0b" target="_blank">03553de</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree1106b97f7b331f407a9b20f40494ee53c779f268targetblank1106b97a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/1106b97f7b331f407a9b20f40494ee53c779f268" target="_blank">1106b97</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree03553debb0409d04d0871eb3b8e6751aff54fe0btargetblank03553dea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree1106b97f7b331f407a9b20f40494ee53c779f268targetblank1106b97a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  code/GTEx_Splicing.R
+    Untracked:  code/gene_splicing_study.R
+    Untracked:  code/genome_annotation.R
+    Untracked:  code/smash_gen_binom.R
+    Untracked:  data/GPX3_NMF_mkl_scd_K3.RData
+    Untracked:  data/GPX3_NMF_mkl_scd_K3_base10.RData
+    Untracked:  data/GPX3_NMF_mkl_scd_K3_base5.RData
+    Untracked:  data/GPX3_hals_runmed_K3.RData
+    Untracked:  data/GPX3_hals_runmed_K3_base10.RData
+    Untracked:  data/GPX3_hals_runmed_K3_base5.RData
+    Untracked:  data/GPX3_hals_wavelet_K3.RData
+    Untracked:  data/GPX3_hals_wavelet_K3_base10.RData
+    Untracked:  data/GPX3_hals_wavelet_K3_base5.RData
+    Untracked:  data/GPX3_stm_bmsm_K3.RData
+    Untracked:  data/GPX3_stm_bmsm_K3_base10.RData
+    Untracked:  data/GPX3_stm_bmsm_K3_base5.RData
+    Untracked:  data/GPX3_stm_nugget_K3.RData
+    Untracked:  data/GPX3_stm_nugget_K3_base10.RData
+    Untracked:  data/GPX3_stm_nugget_K3_base5.RData
+    Untracked:  data/GPX3_stm_nugget_robust_K3.RData
+    Untracked:  data/GPX3_stm_nugget_robust_K3_base10.RData
+    Untracked:  data/GPX3_stm_nugget_robust_K3_base5.RData
+    Untracked:  data/PSAP_NMF_mkl_scd_K3.RData
+    Untracked:  data/PSAP_NMF_mkl_scd_K3_base10.RData
+    Untracked:  data/PSAP_NMF_mkl_scd_K3_base5.RData
+    Untracked:  data/PSAP_hals_runmed_K3.RData
+    Untracked:  data/PSAP_hals_runmed_K3_base10.RData
+    Untracked:  data/PSAP_hals_runmed_K3_base5.RData
+    Untracked:  data/PSAP_hals_wavelet_K3.RData
+    Untracked:  data/PSAP_hals_wavelet_K3_base10.RData
+    Untracked:  data/PSAP_hals_wavelet_K3_base5.RData
+    Untracked:  data/PSAP_stm_bmsm_K3.RData
+    Untracked:  data/PSAP_stm_bmsm_K3_base10.RData
+    Untracked:  data/PSAP_stm_bmsm_K3_base5.RData
+    Untracked:  data/PSAP_stm_nugget_K3.RData
+    Untracked:  data/PSAP_stm_nugget_K3_base10.RData
+    Untracked:  data/PSAP_stm_nugget_K3_base5.RData
+    Untracked:  data/PSAP_stm_nugget_robust_K3.RData
+    Untracked:  data/PSAP_stm_nugget_robust_K3_base10.RData
+    Untracked:  data/PSAP_stm_nugget_robust_K3_base5.RData
+    Untracked:  data/RPS13_NMF_mkl_scd_K3.RData
+    Untracked:  data/RPS13_NMF_mkl_scd_K3_base10.RData
+    Untracked:  data/RPS13_NMF_mkl_scd_K3_base5.RData
+    Untracked:  data/RPS13_hals_runmed_K3.RData
+    Untracked:  data/RPS13_hals_runmed_K3_base10.RData
+    Untracked:  data/RPS13_hals_runmed_K3_base5.RData
+    Untracked:  data/RPS13_hals_wavelet_K3.RData
+    Untracked:  data/RPS13_hals_wavelet_K3_base10.RData
+    Untracked:  data/RPS13_hals_wavelet_K3_base5.RData
+    Untracked:  data/RPS13_stm_bmsm_K3.RData
+    Untracked:  data/RPS13_stm_bmsm_K3_base10.RData
+    Untracked:  data/RPS13_stm_bmsm_K3_base5.RData
+    Untracked:  data/RPS13_stm_nugget_K3.RData
+    Untracked:  data/RPS13_stm_nugget_K3_base10.RData
+    Untracked:  data/RPS13_stm_nugget_K3_base5.RData
+    Untracked:  data/RPS13_stm_nugget_robust_K3.RData
+    Untracked:  data/RPS13_stm_nugget_robust_K3_base10.RData
+    Untracked:  data/RPS13_stm_nugget_robust_K3_base5.RData
+    Untracked:  example.sbatch
+    Untracked:  slurm-65782790.out
+
+Unstaged changes:
+    Modified:   analysis/GTExSplicing.Rmd
+    Modified:   analysis/index.Rmd
+    Deleted:    code/BMSM.R
+    Deleted:    code/EBMPMF.R
+    Deleted:    code/ebbp_beta_mixture.R
+    Modified:   code/ebpm_exp_mixture.R
+    Deleted:    code/update_f.R
+    Deleted:    code/update_l.R
 
 </code></pre>
 <p>
@@ -489,13 +1027,47 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/1106b97f7b331f407a9b20f40494ee53c779f268/analysis/stmGTEx.Rmd" target="_blank">1106b97</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-12
+</td>
+<td>
+wflow_publish(“analysis/stmGTEx.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/2fee3454b9210ad249e202a42c929e21069456d2/docs/stmGTEx.html" target="_blank">2fee345</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-01
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/03553debb0409d04d0871eb3b8e6751aff54fe0b/analysis/stmGTEx.Rmd" target="_blank">03553de</a>
 </td>
 <td>
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 <td>
 wflow_publish(“analysis/stmGTEx.Rmd”)
@@ -512,7 +1084,7 @@ html
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 <td>
 Build site.
@@ -529,7 +1101,7 @@ Rmd
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 <td>
 wflow_publish(“analysis/stmGTEx.Rmd”)
@@ -542,21 +1114,58 @@ wflow_publish(“analysis/stmGTEx.Rmd”)
 </div>
 </div>
 </div>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>Gtex Data from Yang Li. Data consist of per-base read counts from “GeuvadisLCL”, “GTEXAdipose”, “WholeBlood”.</p>
-<p>Gene: RPS13. It has 6 exons and 10 splicing variants.</p>
-<pre class="r"><code>load(&#39;~/RPS13fit.RData&#39;)
-library(stm)</code></pre>
+<div id="per-base-read-count" class="section level1">
+<h1>per base read count</h1>
+<div id="rps13" class="section level2">
+<h2>RPS13</h2>
+<pre class="r"><code>library(stm)
+load(&quot;~/SMF/data/RPS13_hals_runmed_K3.RData&quot;)
+load(&quot;~/SMF/data/RPS13_hals_wavelet_K3.RData&quot;)
+load(&quot;~/SMF/data/RPS13_stm_nugget_robust_K3.RData&quot;)
+load(&quot;~/SMF/data/RPS13_stm_nugget_K3.RData&quot;)
+load(&quot;~/SMF/data/RPS13_stm_bmsm_K3.RData&quot;)
+load(&quot;~/SMF/data/RPS13_NMF_mkl_scd_K3.RData&quot;)
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - NMF scd mKL&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-1-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smooth&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-1-2.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.008),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS runmed&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-1-3.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-1-4.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen robust&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-1-5.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
-<div id="full-data" class="section level2">
-<h2>Full Data</h2>
-<p>Fit stm to the full dataset with <span class="math inline">\(K=3\)</span>.</p>
-<pre class="r"><code>lf = poisson2multinom(t(fit_stm_bmsm_RPS13$qf$Ef),fit_stm_bmsm_RPS13$ql$El)
-for(i in 1:3){
-  barplot(lf$L[,i],main=paste0(&#39;Estimate of loading &#39;,i),xlab=&#39;&#39;,ylab = &#39;&#39;,ylim = c(0,max(lf$L)),col=c(rep(2,88),rep(3,226),rep(4,927)))
-}</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="gpx3" class="section level2">
+<h2>GPX3</h2>
+<pre class="r"><code>load(&quot;~/SMF/data/GPX3_hals_runmed_K3.RData&quot;)
+load(&quot;~/SMF/data/GPX3_hals_wavelet_K3.RData&quot;)
+load(&quot;~/SMF/data/GPX3_stm_nugget_robust_K3.RData&quot;)
+load(&quot;~/SMF/data/GPX3_stm_nugget_K3.RData&quot;)
+load(&quot;~/SMF/data/GPX3_stm_bmsm_K3.RData&quot;)
+load(&quot;~/SMF/data/GPX3_NMF_mkl_scd_K3.RData&quot;)
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - NMF scd mKL&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
 Past versions of unnamed-chunk-2-1.png
@@ -587,14 +1196,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smooth&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-2.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
 Past versions of unnamed-chunk-2-2.png
@@ -625,14 +1238,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.005),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS runmed&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-3.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-3">
 Past versions of unnamed-chunk-2-3.png
@@ -663,17 +1280,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<pre class="r"><code>for(i in 1:3){
-  barplot(lf$FF[,i],main=paste0(&#39;Estimate of factor &#39;,i),xlab=&#39;&#39;,ylab = &#39;&#39;,ylim = c(0,max(lf$FF)))
-}</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-4.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-4">
 Past versions of unnamed-chunk-2-4.png
@@ -704,14 +1322,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen robust&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-5.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-5">
 Past versions of unnamed-chunk-2-5.png
@@ -742,45 +1364,7 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-2-6.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-6">
-Past versions of unnamed-chunk-2-6.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-2-6" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-2-6.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
@@ -788,14 +1372,20 @@ DongyueXie
 </div>
 </div>
 </div>
-<div id="remove-wholeblood" class="section level2">
-<h2>Remove WholeBlood</h2>
-<p>Fit stm to the dataset removing “WholeBlood” tissue with <span class="math inline">\(K=3\)</span>.</p>
-<pre class="r"><code>lf = poisson2multinom(t(fit_stm_bmsm_RPS13_2$qf$Ef),fit_stm_bmsm_RPS13_2$ql$El)
-plot(lf$FF[,1],ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors&#39;)
-lines(lf$FF[,2],col=2)
+<div id="psap" class="section level2">
+<h2>PSAP</h2>
+<pre class="r"><code>load(&quot;~/SMF/data/PSAP_hals_runmed_K3.RData&quot;)
+load(&quot;~/SMF/data/PSAP_hals_wavelet_K3.RData&quot;)
+load(&quot;~/SMF/data/PSAP_stm_nugget_robust_K3.RData&quot;)
+load(&quot;~/SMF/data/PSAP_stm_nugget_K3.RData&quot;)
+load(&quot;~/SMF/data/PSAP_stm_bmsm_K3.RData&quot;)
+load(&quot;~/SMF/data/PSAP_NMF_mkl_scd_K3.RData&quot;)
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - NMF scd mKL&#39;)
+lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-3-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
 Past versions of unnamed-chunk-3-1.png
@@ -826,17 +1416,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<pre class="r"><code>for(i in 1:3){
-  barplot(lf$L[,i],main=paste0(&#39;Estimated loading &#39;,i),ylab = &#39;&#39;,ylim = c(0,max(lf$L)),col=c(rep(2,88),rep(3,226)))
-}</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smooth&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-3-2.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
 Past versions of unnamed-chunk-3-2.png
@@ -861,20 +1452,35 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/2fee3454b9210ad249e202a42c929e21069456d2/docs/figure/stmGTEx.Rmd/unnamed-chunk-3-2.png" target="_blank">2fee345</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-01
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-3-2.png" target="_blank">83dd0db</a>
 </td>
 <td>
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.002),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS runmed&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-3-3.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-3">
 Past versions of unnamed-chunk-3-3.png
@@ -899,20 +1505,35 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/2fee3454b9210ad249e202a42c929e21069456d2/docs/figure/stmGTEx.Rmd/unnamed-chunk-3-3.png" target="_blank">2fee345</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-01
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-3-3.png" target="_blank">83dd0db</a>
 </td>
 <td>
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-3-4.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-4">
 Past versions of unnamed-chunk-3-4.png
@@ -937,24 +1558,53 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/2fee3454b9210ad249e202a42c929e21069456d2/docs/figure/stmGTEx.Rmd/unnamed-chunk-3-4.png" target="_blank">2fee345</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2019-12-01
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-3-4.png" target="_blank">83dd0db</a>
 </td>
 <td>
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Fit Xing’s stm method to the dataset removing “WholeBlood” tissue with <span class="math inline">\(K=3\)</span>.</p>
-<pre class="r"><code>plot(xing_rps13$phi[1,],type=&#39;l&#39;,ylim = range(xing_rps13$phi),xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors&#39;)
-lines(xing_rps13$phi[2,],type=&#39;l&#39;,col=2)
-lines(xing_rps13$phi[3,],type=&#39;l&#39;,col=4)</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen robust&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-3-5.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="per-5-base-count-sum" class="section level1">
+<h1>per 5 base count sum</h1>
+<div id="rps13-1" class="section level2">
+<h2>RPS13</h2>
+<pre class="r"><code>load(&quot;~/SMF/data/RPS13_hals_runmed_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/RPS13_hals_wavelet_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/RPS13_stm_nugget_robust_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/RPS13_stm_nugget_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/RPS13_stm_bmsm_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/RPS13_NMF_mkl_scd_K3_base5.RData&quot;)
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - NMF scd mKL&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-4-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
 Past versions of unnamed-chunk-4-1.png
@@ -985,21 +1635,56 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Fit stm to the dataset removing “WholeBlood” tissue with <span class="math inline">\(K=10\)</span>.</p>
-<pre class="r"><code>lf = poisson2multinom(t(fit_stm_bmsm_RPS13_3$qf$Ef),fit_stm_bmsm_RPS13_3$ql$El)
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smooth&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-4-2.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS runmed&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-4-3.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS wavelet&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-4-4.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-4-5.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen robust&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-4-6.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(lf$FF[,3])</code></pre>
+<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.001387 0.001460 0.001528 0.001524 0.001597 0.001626 </code></pre>
+</div>
+<div id="gpx3-1" class="section level2">
+<h2>GPX3</h2>
+<pre class="r"><code>load(&quot;~/SMF/data/GPX3_hals_runmed_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/GPX3_hals_wavelet_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/GPX3_stm_nugget_robust_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/GPX3_stm_nugget_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/GPX3_stm_bmsm_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/GPX3_NMF_mkl_scd_K3_base5.RData&quot;)
 
-
-for(i in 1:10){
-  barplot(lf$L[,i],main=paste0(&#39;Estimate of loading &#39;,i),xlab=&#39;&#39;,ylab = &#39;&#39;,ylim = c(0,max(lf$L)),col=c(rep(2,88),rep(3,226)))
-}</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - NMF scd mKL&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
 Past versions of unnamed-chunk-5-1.png
@@ -1030,14 +1715,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smooth&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-2.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
 Past versions of unnamed-chunk-5-2.png
@@ -1068,14 +1757,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS runmed&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-3.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-3">
 Past versions of unnamed-chunk-5-3.png
@@ -1106,14 +1799,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS wavelet&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-4.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-4">
 Past versions of unnamed-chunk-5-4.png
@@ -1144,14 +1841,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-5.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-5">
 Past versions of unnamed-chunk-5-5.png
@@ -1182,14 +1883,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen robust&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-6.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-6">
 Past versions of unnamed-chunk-5-6.png
@@ -1220,542 +1925,7 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-7.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-7">
-Past versions of unnamed-chunk-5-7.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-7" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-7.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-8.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-8">
-Past versions of unnamed-chunk-5-8.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-8" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-8.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-9.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-9">
-Past versions of unnamed-chunk-5-9.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-9" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-9.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-10.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-10">
-Past versions of unnamed-chunk-5-10.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-10" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-10.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>for(i in 1:10){
-  barplot(lf$FF[,i],main=paste0(&#39;Estimate of factor &#39;,i),xlab=&#39;&#39;,ylab = &#39;&#39;,ylim = c(0,max(lf$FF)))
-}</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-11.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-11">
-Past versions of unnamed-chunk-5-11.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-11" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-11.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-12.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-12">
-Past versions of unnamed-chunk-5-12.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-12" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-12.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-13.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-13">
-Past versions of unnamed-chunk-5-13.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-13" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-13.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-14.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-14">
-Past versions of unnamed-chunk-5-14.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-14" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-14.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-15.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-15">
-Past versions of unnamed-chunk-5-15.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-15" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-15.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-16.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-16">
-Past versions of unnamed-chunk-5-16.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-16" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-16.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-17.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-17">
-Past versions of unnamed-chunk-5-17.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-17" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-17.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-18.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-18">
-Past versions of unnamed-chunk-5-18.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-18" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-18.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-19.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-19">
-Past versions of unnamed-chunk-5-19.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-19" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-19.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-5-20.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-20">
-Past versions of unnamed-chunk-5-20.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-20" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-5-20.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
@@ -1763,16 +1933,20 @@ DongyueXie
 </div>
 </div>
 </div>
-<div id="gtex-adipose-tissue" class="section level2">
-<h2>GTEx adipose tissue</h2>
-<p>Fit stm to the dataset using only adipose tissue with <span class="math inline">\(K=5\)</span>.</p>
-<pre class="r"><code>lf = poisson2multinom(t(fit_stm_bmsm_RPS13_4$qf$Ef),fit_stm_bmsm_RPS13_4$ql$El)
-plot(lf$FF[,1],ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors&#39;)
-lines(lf$FF[,2],col=2)
-lines(lf$FF[,3],col=4)
-lines(lf$FF[,4],col=3)
-lines(lf$FF[,5],col=6)</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="psap-1" class="section level2">
+<h2>PSAP</h2>
+<pre class="r"><code>load(&quot;~/SMF/data/PSAP_hals_runmed_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/PSAP_hals_wavelet_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/PSAP_stm_nugget_robust_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/PSAP_stm_nugget_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/PSAP_stm_bmsm_K3_base5.RData&quot;)
+load(&quot;~/SMF/data/PSAP_NMF_mkl_scd_K3_base5.RData&quot;)
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - NMF scd mKL&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
 Past versions of unnamed-chunk-6-1.png
@@ -1803,17 +1977,57 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<pre class="r"><code>for(i in 1:5){
-  barplot(lf$L[,i],main=paste0(&#39;Estimate of loading &#39;,i),xlab=&#39;&#39;,ylab = &#39;&#39;,ylim = c(0,max(lf$L)))
-}</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smooth&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-6-2.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.03),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS runmed&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-6-3.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS wavelet&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-6-4.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-6-5.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen robust&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-6-6.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="per-10-base-count-sum" class="section level1">
+<h1>per 10 base count sum</h1>
+<div id="rps13-2" class="section level2">
+<h2>RPS13</h2>
+<pre class="r"><code>library(stm)
+load(&quot;~/SMF/data/RPS13_hals_runmed_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/RPS13_hals_wavelet_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/RPS13_stm_nugget_robust_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/RPS13_stm_nugget_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/RPS13_stm_bmsm_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/RPS13_NMF_mkl_scd_K3_base10.RData&quot;)
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - NMF scd mKL&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
 Past versions of unnamed-chunk-7-1.png
@@ -1844,14 +2058,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smooth&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-2.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
 Past versions of unnamed-chunk-7-2.png
@@ -1882,14 +2100,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.4),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS runmed&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-3.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-3">
 Past versions of unnamed-chunk-7-3.png
@@ -1920,14 +2142,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS wavelet&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-4.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-4">
 Past versions of unnamed-chunk-7-4.png
@@ -1958,14 +2184,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-5.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-5">
 Past versions of unnamed-chunk-7-5.png
@@ -1996,17 +2226,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<pre class="r"><code>for(i in 1:5){
-  barplot(lf$FF[,i],main=paste0(&#39;Estimate of factor &#39;,i),xlab=&#39;&#39;,ylab = &#39;&#39;,ylim = c(0,max(lf$FF)))
-}</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen robust&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-6.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-6">
 Past versions of unnamed-chunk-7-6.png
@@ -2037,171 +2268,28 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-7.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-7">
-Past versions of unnamed-chunk-7-7.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-7" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-7-7.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
 </div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-8.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-8">
-Past versions of unnamed-chunk-7-8.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-8" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-7-8.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-9.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-9">
-Past versions of unnamed-chunk-7-9.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-9" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-7-9.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-7-10.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-10">
-Past versions of unnamed-chunk-7-10.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-10" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/SMF/blob/83dd0dbfe5ec7958c8f4fe2eeeee4f2fb693e1c0/docs/figure/stmGTEx.Rmd/unnamed-chunk-7-10.png" target="_blank">83dd0db</a>
-</td>
-<td>
-DongyueXie
-</td>
-<td>
-2019-12-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Fit stm with smashgen using only adipose tissue with <span class="math inline">\(K=3\)</span>.</p>
-<pre class="r"><code>lf = poisson2multinom(t(fit_stm_sg_RPS13_4$qf$Ef),fit_stm_sg_RPS13_4$ql$El)
-plot(lf$FF[,1],ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors&#39;)
-lines(lf$FF[,2],col=2)
+<div id="gpx3-2" class="section level2">
+<h2>GPX3</h2>
+<pre class="r"><code>load(&quot;~/SMF/data/GPX3_hals_runmed_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/GPX3_hals_wavelet_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/GPX3_stm_nugget_robust_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/GPX3_stm_nugget_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/GPX3_stm_bmsm_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/GPX3_NMF_mkl_scd_K3_base10.RData&quot;)
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - NMF scd mKL&#39;)
+lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-8-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
 Past versions of unnamed-chunk-8-1.png
@@ -2232,17 +2320,53 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<pre class="r"><code>for(i in 1:3){
-  barplot(lf$L[,i],main=paste0(&#39;Estimate of loading &#39;,i),xlab=&#39;&#39;,ylab = &#39;&#39;,ylim = c(0,max(lf$L)))
-}</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smooth&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-8-2.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.15),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS runmed&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-8-3.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.05),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS wavelet&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-8-4.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-8-5.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen robust&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-8-6.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+<div id="psap-2" class="section level2">
+<h2>PSAP</h2>
+<pre class="r"><code>load(&quot;~/SMF/data/PSAP_hals_runmed_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/PSAP_hals_wavelet_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/PSAP_stm_nugget_robust_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/PSAP_stm_nugget_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/PSAP_stm_bmsm_K3_base10.RData&quot;)
+load(&quot;~/SMF/data/PSAP_NMF_mkl_scd_K3_base10.RData&quot;)
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - NMF scd mKL&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
 Past versions of unnamed-chunk-9-1.png
@@ -2273,14 +2397,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smooth&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-2.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
 Past versions of unnamed-chunk-9-2.png
@@ -2311,14 +2439,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS runmed&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-3.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-3">
 Past versions of unnamed-chunk-9-3.png
@@ -2349,17 +2481,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<pre class="r"><code>for(i in 1:3){
-  barplot(lf$FF[,i],main=paste0(&#39;Estimate of factor &#39;,i),xlab=&#39;&#39;,ylab = &#39;&#39;,ylim = c(0,max(lf$FF)))
-}</code></pre>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - HALS wavelet&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-4.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-4">
 Past versions of unnamed-chunk-9-4.png
@@ -2390,14 +2523,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-5.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-5">
 Past versions of unnamed-chunk-9-5.png
@@ -2428,14 +2565,18 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type=&#39;l&#39;,xlab = &#39;base&#39;,ylab=&#39;Intensity&#39;,main=&#39;Factors - smashgen robust&#39;)
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)</code></pre>
+<p><img src="figure/stmGTEx.Rmd/unnamed-chunk-9-6.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-6">
 Past versions of unnamed-chunk-9-6.png
@@ -2466,16 +2607,13 @@ Date
 DongyueXie
 </td>
 <td>
-2019-12-02
+2019-12-01
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Estimated Nugget effect:</p>
-<pre class="r"><code>fit_stm_sg_RPS13_4$nugget$nugget_f</code></pre>
-<pre><code>[1] 0.03478134 0.12772478 0.04643110</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2507,20 +2645,23 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.2        compiler_3.5.1    later_0.7.5      
- [4] git2r_0.26.1      workflowr_1.5.0   bitops_1.0-6     
- [7] iterators_1.0.10  tools_3.5.1       digest_0.6.18    
-[10] evaluate_0.12     lattice_0.20-38   Matrix_1.2-15    
-[13] foreach_1.4.4     yaml_2.2.0        parallel_3.5.1   
-[16] smashr_1.2-7      stringr_1.3.1     knitr_1.20       
-[19] fs_1.3.1          caTools_1.17.1.1  rprojroot_1.3-2  
-[22] grid_3.5.1        data.table_1.12.0 glue_1.3.0       
-[25] R6_2.3.0          rmarkdown_1.10    mixsqp_0.2-2     
-[28] ashr_2.2-39       magrittr_1.5      whisker_0.3-2    
-[31] backports_1.1.2   promises_1.0.1    codetools_0.2-15 
-[34] htmltools_0.3.6   MASS_7.3-51.1     httpuv_1.4.5     
-[37] wavethresh_4.6.8  stringi_1.2.4     doParallel_1.0.14
-[40] pscl_1.5.2        truncnorm_1.0-8   NNLM_0.4.2       
-[43] SQUAREM_2017.10-1 logitnorm_0.8.37 </code></pre>
+ [4] git2r_0.26.1      highr_0.7         workflowr_1.6.0  
+ [7] bitops_1.0-6      iterators_1.0.10  tools_3.5.1      
+[10] digest_0.6.18     evaluate_0.12     lattice_0.20-38  
+[13] pkgconfig_2.0.2   igraph_1.2.2      Matrix_1.2-15    
+[16] foreach_1.4.4     yaml_2.2.0        parallel_3.5.1   
+[19] smashr_1.2-7      stringr_1.3.1     knitr_1.20       
+[22] caTools_1.17.1.1  fs_1.3.1          gtools_3.8.1     
+[25] rprojroot_1.3-2   grid_3.5.1        data.table_1.12.0
+[28] glue_1.3.0        R6_2.3.0          rmarkdown_1.10   
+[31] genlasso_1.4      mixsqp_0.2-2      ashr_2.2-39      
+[34] magrittr_1.5      whisker_0.3-2     backports_1.1.2  
+[37] promises_1.0.1    codetools_0.2-15  htmltools_0.3.6  
+[40] MASS_7.3-51.1     httpuv_1.4.5      wavethresh_4.6.8 
+[43] stringi_1.2.4     doParallel_1.0.14 pscl_1.5.2       
+[46] truncnorm_1.0-8   NNLM_0.4.2        SQUAREM_2017.10-1
+[49] ebpm_0.0.0.9004  </code></pre>
+</div>
 </div>
 </div>
 
