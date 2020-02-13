@@ -2,120 +2,389 @@
 title: "Apply stm to GTEx data"
 author: "DongyueXie"
 date: "2019-12-01"
-output: workflowr::wflow_html
+output:
+  workflowr::wflow_html:
+    code_folding: hide
 editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
+# per base read count
 
-Gtex Data from Yang Li. Data consist of per-base read counts from "GeuvadisLCL", "GTEXAdipose", "WholeBlood". 
+## RPS13
 
-Gene: RPS13. It has 6 exons and 10 splicing variants. 
-
-```{r}
-load('~/RPS13fit.RData')
+```{r,fig.width=12,fig.height=5}
 library(stm)
+load("~/SMF/data/RPS13_hals_runmed_K3.RData")
+load("~/SMF/data/RPS13_hals_wavelet_K3.RData")
+load("~/SMF/data/RPS13_stm_nugget_robust_K3.RData")
+load("~/SMF/data/RPS13_stm_nugget_K3.RData")
+load("~/SMF/data/RPS13_stm_bmsm_K3.RData")
+load("~/SMF/data/RPS13_NMF_mkl_scd_K3.RData")
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - NMF scd mKL')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smooth')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.008),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS runmed')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen robust')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
 ```
 
-## Full Data
 
-Fit stm to the full dataset with $K=3$.
+## GPX3
 
-```{r}
-lf = poisson2multinom(t(fit_stm_bmsm_RPS13$qf$Ef),fit_stm_bmsm_RPS13$ql$El)
-for(i in 1:3){
-  barplot(lf$L[,i],main=paste0('Estimate of loading ',i),xlab='',ylab = '',ylim = c(0,max(lf$L)),col=c(rep(2,88),rep(3,226),rep(4,927)))
-}
-for(i in 1:3){
-  barplot(lf$FF[,i],main=paste0('Estimate of factor ',i),xlab='',ylab = '',ylim = c(0,max(lf$FF)))
-}
+```{r,fig.width=12,fig.height=5}
+load("~/SMF/data/GPX3_hals_runmed_K3.RData")
+load("~/SMF/data/GPX3_hals_wavelet_K3.RData")
+load("~/SMF/data/GPX3_stm_nugget_robust_K3.RData")
+load("~/SMF/data/GPX3_stm_nugget_K3.RData")
+load("~/SMF/data/GPX3_stm_bmsm_K3.RData")
+load("~/SMF/data/GPX3_NMF_mkl_scd_K3.RData")
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - NMF scd mKL')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smooth')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.005),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS runmed')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen robust')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
 ```
 
-## Remove WholeBlood
+## PSAP
 
-Fit stm to the dataset removing "WholeBlood" tissue with $K=3$.
+```{r,fig.width=12,fig.height=5}
+load("~/SMF/data/PSAP_hals_runmed_K3.RData")
+load("~/SMF/data/PSAP_hals_wavelet_K3.RData")
+load("~/SMF/data/PSAP_stm_nugget_robust_K3.RData")
+load("~/SMF/data/PSAP_stm_nugget_K3.RData")
+load("~/SMF/data/PSAP_stm_bmsm_K3.RData")
+load("~/SMF/data/PSAP_NMF_mkl_scd_K3.RData")
 
-```{r}
-lf = poisson2multinom(t(fit_stm_bmsm_RPS13_2$qf$Ef),fit_stm_bmsm_RPS13_2$ql$El)
-plot(lf$FF[,1],ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors')
-lines(lf$FF[,2],col=2)
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - NMF scd mKL')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smooth')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.002),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS runmed')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen robust')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+```
+
+# per 5 base count sum
+
+## RPS13
+
+```{r,fig.width=12,fig.height=5}
+load("~/SMF/data/RPS13_hals_runmed_K3_base5.RData")
+load("~/SMF/data/RPS13_hals_wavelet_K3_base5.RData")
+load("~/SMF/data/RPS13_stm_nugget_robust_K3_base5.RData")
+load("~/SMF/data/RPS13_stm_nugget_K3_base5.RData")
+load("~/SMF/data/RPS13_stm_bmsm_K3_base5.RData")
+load("~/SMF/data/RPS13_NMF_mkl_scd_K3_base5.RData")
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - NMF scd mKL')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smooth')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS runmed')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS wavelet')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen robust')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+summary(lf$FF[,3])
+
+```
+
+
+## GPX3
+
+```{r,fig.width=12,fig.height=5}
+load("~/SMF/data/GPX3_hals_runmed_K3_base5.RData")
+load("~/SMF/data/GPX3_hals_wavelet_K3_base5.RData")
+load("~/SMF/data/GPX3_stm_nugget_robust_K3_base5.RData")
+load("~/SMF/data/GPX3_stm_nugget_K3_base5.RData")
+load("~/SMF/data/GPX3_stm_bmsm_K3_base5.RData")
+load("~/SMF/data/GPX3_NMF_mkl_scd_K3_base5.RData")
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - NMF scd mKL')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smooth')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS runmed')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS wavelet')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen robust')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+```
+
+## PSAP
+
+```{r,fig.width=12,fig.height=5}
+load("~/SMF/data/PSAP_hals_runmed_K3_base5.RData")
+load("~/SMF/data/PSAP_hals_wavelet_K3_base5.RData")
+load("~/SMF/data/PSAP_stm_nugget_robust_K3_base5.RData")
+load("~/SMF/data/PSAP_stm_nugget_K3_base5.RData")
+load("~/SMF/data/PSAP_stm_bmsm_K3_base5.RData")
+load("~/SMF/data/PSAP_NMF_mkl_scd_K3_base5.RData")
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - NMF scd mKL')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smooth')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.03),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS runmed')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS wavelet')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen robust')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+```
+
+
+# per 10 base count sum
+
+
+## RPS13
+
+```{r,fig.width=12,fig.height=5}
+library(stm)
+load("~/SMF/data/RPS13_hals_runmed_K3_base10.RData")
+load("~/SMF/data/RPS13_hals_wavelet_K3_base10.RData")
+load("~/SMF/data/RPS13_stm_nugget_robust_K3_base10.RData")
+load("~/SMF/data/RPS13_stm_nugget_K3_base10.RData")
+load("~/SMF/data/RPS13_stm_bmsm_K3_base10.RData")
+load("~/SMF/data/RPS13_NMF_mkl_scd_K3_base10.RData")
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - NMF scd mKL')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smooth')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.4),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS runmed')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS wavelet')
+lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)
 
 
-for(i in 1:3){
-  barplot(lf$L[,i],main=paste0('Estimated loading ',i),ylab = '',ylim = c(0,max(lf$L)),col=c(rep(2,88),rep(3,226)))
-}
-```
-
-
-Fit Xing's stm method to the dataset removing "WholeBlood" tissue with $K=3$.
-
-```{r}
-plot(xing_rps13$phi[1,],type='l',ylim = range(xing_rps13$phi),xlab = 'base',ylab='Intensity',main='Factors')
-lines(xing_rps13$phi[2,],type='l',col=2)
-lines(xing_rps13$phi[3,],type='l',col=4)
-```
-
-
-Fit stm to the dataset removing "WholeBlood" tissue with $K=10$.
-
-```{r}
-lf = poisson2multinom(t(fit_stm_bmsm_RPS13_3$qf$Ef),fit_stm_bmsm_RPS13_3$ql$El)
-
-
-for(i in 1:10){
-  barplot(lf$L[,i],main=paste0('Estimate of loading ',i),xlab='',ylab = '',ylim = c(0,max(lf$L)),col=c(rep(2,88),rep(3,226)))
-}
-for(i in 1:10){
-  barplot(lf$FF[,i],main=paste0('Estimate of factor ',i),xlab='',ylab = '',ylim = c(0,max(lf$FF)))
-}
-```
-
-## GTEx adipose tissue
-
-Fit stm to the dataset using only adipose tissue with $K=5$.
-
-```{r}
-lf = poisson2multinom(t(fit_stm_bmsm_RPS13_4$qf$Ef),fit_stm_bmsm_RPS13_4$ql$El)
-plot(lf$FF[,1],ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors')
-lines(lf$FF[,2],col=2)
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen')
+lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)
-lines(lf$FF[,4],col=3)
-lines(lf$FF[,5],col=6)
-```
 
-```{r}
-for(i in 1:5){
-  barplot(lf$L[,i],main=paste0('Estimate of loading ',i),xlab='',ylab = '',ylim = c(0,max(lf$L)))
-}
-for(i in 1:5){
-  barplot(lf$FF[,i],main=paste0('Estimate of factor ',i),xlab='',ylab = '',ylim = c(0,max(lf$FF)))
-}
-```
-
-
-Fit stm with smashgen using only adipose tissue with $K=3$.
-
-```{r}
-lf = poisson2multinom(t(fit_stm_sg_RPS13_4$qf$Ef),fit_stm_sg_RPS13_4$ql$El)
-plot(lf$FF[,1],ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors')
-lines(lf$FF[,2],col=2)
+lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen robust')
+lines(lf$FF[,2],col=3)
 lines(lf$FF[,3],col=4)
+
 ```
 
 
-```{r}
-for(i in 1:3){
-  barplot(lf$L[,i],main=paste0('Estimate of loading ',i),xlab='',ylab = '',ylim = c(0,max(lf$L)))
-}
-for(i in 1:3){
-  barplot(lf$FF[,i],main=paste0('Estimate of factor ',i),xlab='',ylab = '',ylim = c(0,max(lf$FF)))
-}
+## GPX3
+
+```{r,fig.width=12,fig.height=5}
+load("~/SMF/data/GPX3_hals_runmed_K3_base10.RData")
+load("~/SMF/data/GPX3_hals_wavelet_K3_base10.RData")
+load("~/SMF/data/GPX3_stm_nugget_robust_K3_base10.RData")
+load("~/SMF/data/GPX3_stm_nugget_K3_base10.RData")
+load("~/SMF/data/GPX3_stm_bmsm_K3_base10.RData")
+load("~/SMF/data/GPX3_NMF_mkl_scd_K3_base10.RData")
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - NMF scd mKL')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smooth')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.15),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS runmed')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=c(0,0.05),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS wavelet')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen robust')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
 ```
 
-Estimated Nugget effect:
+## PSAP
 
-```{r}
-fit_stm_sg_RPS13_4$nugget$nugget_f
+```{r,fig.width=12,fig.height=5}
+load("~/SMF/data/PSAP_hals_runmed_K3_base10.RData")
+load("~/SMF/data/PSAP_hals_wavelet_K3_base10.RData")
+load("~/SMF/data/PSAP_stm_nugget_robust_K3_base10.RData")
+load("~/SMF/data/PSAP_stm_nugget_K3_base10.RData")
+load("~/SMF/data/PSAP_stm_bmsm_K3_base10.RData")
+load("~/SMF/data/PSAP_NMF_mkl_scd_K3_base10.RData")
+
+lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - NMF scd mKL')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm$qf),fit_stm$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smooth')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_runmed$V),fit_hals_runmed$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS runmed')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_hals_wavelet$V),fit_hals_wavelet$U)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - HALS wavelet')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
+lf = poisson2multinom(t(fit_stm_nugget_robust$qf),fit_stm_nugget_robust$ql)
+plot(lf$FF[,1],col=2,ylim=range(lf$FF),type='l',xlab = 'base',ylab='Intensity',main='Factors - smashgen robust')
+lines(lf$FF[,2],col=3)
+lines(lf$FF[,3],col=4)
+
 ```
+
