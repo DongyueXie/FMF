@@ -24,7 +24,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 7. [VST NMF](VSTNMF.html): does VST work well for NMF?
 8. [EBMPMF and nugget effect](SmoothPMFnugget.html)
 9. [Apply stm to gene splicing](stmGTEx.html)
-10. [GTEx gene splcing](GTExSplicing.html)
+
 
 
 ### PTF

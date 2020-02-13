@@ -1,3 +1,9 @@
+#'@title Empirical Bayes Poisson Mean
+#'@description Modified from Zihao Wang's ebpm package
+#'@export
+#'
+
+
 ebpm_exp_mixture <- function(x,s = 1, scale = c(1e-10,1e-5,0.01,0.1,1,10,100,1e5), point_mass=F,
                              nullweight=1000, weight = rep(1,length(x)),
                              g_init = NULL, fix_g = FALSE,
