@@ -452,10 +452,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreea1fbf1c7517ae864fe97ed24787b6487208751c4targetblanka1fbf1ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/a1fbf1c7517ae864fe97ed24787b6487208751c4" target="_blank">a1fbf1c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree4e24c610e4263b4457b3da74aed85284cdc9f1bbtargetblank4e24c61a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/4e24c610e4263b4457b3da74aed85284cdc9f1bb" target="_blank">4e24c61</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreea1fbf1c7517ae864fe97ed24787b6487208751c4targetblanka1fbf1ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree4e24c610e4263b4457b3da74aed85284cdc9f1bbtargetblank4e24c61a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -472,7 +472,6 @@ Untracked files:
     Untracked:  data/stmGTEx/
 
 Unstaged changes:
-    Modified:   analysis/index.Rmd
     Modified:   analysis/stmGTEx.Rmd
     Deleted:    data/GPX3_NMF_mkl_scd_K3.RData
     Deleted:    data/GPX3_NMF_mkl_scd_K3_base10.RData
@@ -571,6 +570,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/4e24c610e4263b4457b3da74aed85284cdc9f1bb/analysis/lowgene2.Rmd" target="_blank">4e24c61</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+<td>
+wflow_publish(“analysis/lowgene2.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/lowgene2.html" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/a1fbf1c7517ae864fe97ed24787b6487208751c4/analysis/lowgene2.Rmd" target="_blank">a1fbf1c</a>
 </td>
 <td>
@@ -608,84 +641,1267 @@ K=3
 base=10
 for(gene in count.files[gene.order[6:21]]){
   
-  message(noquote(&#39;---------------------------------------------------------------------&#39;))
-message(noquote(paste(&#39;Plot of&#39;,gene,sep=&#39; &#39;))  )
+  print(noquote(paste(&#39;Plot of&#39;,gene,sep=&#39; &#39;))  )
   
   load(paste(path,gene,&#39;_NMF_mkl_scd_K&#39;,K,&#39;_base&#39;,base,&#39;.RData&#39;,sep = &#39;&#39;))
   load(paste(path,gene,&#39;_stm_nugget_K&#39;,K,&#39;_base&#39;,base,&#39;.RData&#39;,sep = &#39;&#39;))
   
   par(mfrow=c(2,1))
   lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
-plot_factors3(lf$FF,&#39;NMF&#39;)
-lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
-plot_factors3(lf$FF,&#39;smoothed&#39;)
+  plot_factors3(lf$FF,&#39;NMF&#39;)
+  lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+  plot_factors3(lf$FF,&#39;smoothed&#39;)
 
-lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
-annotation = data.frame(sample_id=1:length(fit_NMF$label),tissue_label=fit_NMF$label)
-a=StructureGGplot(lf$L,annotation,palette = c(2,3,4),order_sample = TRUE,figure_title = &#39;NMF&#39;,
+  lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+  annotation = data.frame(sample_id=1:length(fit_NMF$label),tissue_label=fit_NMF$label)
+  a=StructureGGplot(lf$L,annotation,palette = c(2,3,4),order_sample = TRUE,figure_title = &#39;NMF&#39;,
                 axis_tick = list(axis_ticks_length = .1,
                                  axis_ticks_lwd_y = .1,
                                  axis_ticks_lwd_x = .1,
                                  axis_label_size = 7,
                                  axis_label_face = &quot;bold&quot;))
 
-lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
-b=StructureGGplot(lf$L,annotation,palette = c(2,3,4),order_sample = TRUE,figure_title = &#39;smoothed&#39;,
+  lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+  b=StructureGGplot(lf$L,annotation,palette = c(2,3,4),order_sample = TRUE,figure_title = &#39;smoothed&#39;,
                 axis_tick = list(axis_ticks_length = .1,
                                  axis_ticks_lwd_y = .1,
                                  axis_ticks_lwd_x = .1,
                                  axis_label_size = 7,
                                  axis_label_face = &quot;bold&quot;))
-grid.arrange(a, b, ncol=2)
+  grid.arrange(a, b, ncol=2)
 }</code></pre>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_2:55459038-55462989.txt.gz</code></pre>
+<pre><code>[1] Plot of Counts_2:55459038-55462989.txt.gz</code></pre>
 <p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_1:93297593-93307481.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-2.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-3.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_11:17095938-17099220.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-4.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-5.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_19:3976053-3985461.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-6.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-7.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_19:39923846-39926618.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-8.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-9.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_6:133135707-133138703.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-10.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-11.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_17:37356535-37360980.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-12.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-13.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_19:49999621-50002969.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-14.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-15.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_6:33239851-33244281.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-16.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-17.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_11:809935-812876.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-18.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-19.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_8:146015153-146017805.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-20.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-21.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_5:150399998-150408554.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-22.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-23.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_11:61731756-61735132.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-24.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-25.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_15:69745158-69747884.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-26.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-27.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_19:49468565-49470136.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-28.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-29.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>---------------------------------------------------------------------</code></pre>
-<pre><code>Plot of Counts_12:125396191-125399587.txt.gz</code></pre>
-<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-30.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-31.png" width="960" style="display: block; margin: auto;" /><img src="figure/lowgene2.Rmd/unnamed-chunk-2-32.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-1.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-2.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_1:93297593-93307481.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-3.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-3">
+Past versions of unnamed-chunk-2-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-3.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-4.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-4">
+Past versions of unnamed-chunk-2-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-4.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_11:17095938-17099220.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-5.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-5">
+Past versions of unnamed-chunk-2-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-5.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-6.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-6">
+Past versions of unnamed-chunk-2-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-6.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_19:3976053-3985461.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-7.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-7">
+Past versions of unnamed-chunk-2-7.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-7.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-8.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-8">
+Past versions of unnamed-chunk-2-8.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-8.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_19:39923846-39926618.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-9.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-9">
+Past versions of unnamed-chunk-2-9.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-9.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-10.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-10">
+Past versions of unnamed-chunk-2-10.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-10.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_6:133135707-133138703.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-11.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-11">
+Past versions of unnamed-chunk-2-11.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-11.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-12.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-12">
+Past versions of unnamed-chunk-2-12.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-12.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_17:37356535-37360980.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-13.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-13">
+Past versions of unnamed-chunk-2-13.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-13.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-14.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-14">
+Past versions of unnamed-chunk-2-14.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-14" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-14.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_19:49999621-50002969.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-15.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-15">
+Past versions of unnamed-chunk-2-15.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-15" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-15.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-16.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-16">
+Past versions of unnamed-chunk-2-16.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-16.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_6:33239851-33244281.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-17.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-17">
+Past versions of unnamed-chunk-2-17.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-17" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-17.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-18.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-18">
+Past versions of unnamed-chunk-2-18.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-18" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-18.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_11:809935-812876.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-19.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-19">
+Past versions of unnamed-chunk-2-19.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-19" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-19.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-20.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-20">
+Past versions of unnamed-chunk-2-20.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-20" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-20.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_8:146015153-146017805.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-21.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-21">
+Past versions of unnamed-chunk-2-21.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-21" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-21.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-22.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-22">
+Past versions of unnamed-chunk-2-22.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-22.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_5:150399998-150408554.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-23.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-23">
+Past versions of unnamed-chunk-2-23.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-23.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-24.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-24">
+Past versions of unnamed-chunk-2-24.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-24.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_11:61731756-61735132.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-25.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-25">
+Past versions of unnamed-chunk-2-25.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-25.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-26.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-26">
+Past versions of unnamed-chunk-2-26.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-26.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_15:69745158-69747884.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-27.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-27">
+Past versions of unnamed-chunk-2-27.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-27.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-28.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-28">
+Past versions of unnamed-chunk-2-28.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-28.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_19:49468565-49470136.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-29.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-29">
+Past versions of unnamed-chunk-2-29.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-29.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-30.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-30">
+Past versions of unnamed-chunk-2-30.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-30.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] Plot of Counts_12:125396191-125399587.txt.gz</code></pre>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-31.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-31">
+Past versions of unnamed-chunk-2-31.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-31.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/lowgene2.Rmd/unnamed-chunk-2-32.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-32">
+Past versions of unnamed-chunk-2-32.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/f3644a27e4a5dc07e52019a1fdbf170d817bf29c/docs/figure/lowgene2.Rmd/unnamed-chunk-2-32.png" target="_blank">f3644a2</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
