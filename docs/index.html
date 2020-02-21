@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree5770c78d3adfc63497366b4a06417dde60e2a479targetblank5770c78a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/5770c78d3adfc63497366b4a06417dde60e2a479" target="_blank">5770c78</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree37d2481f93e9dd5acb70bf2e880d8ff1c99d5f5ctargetblank37d2481a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/37d2481f93e9dd5acb70bf2e880d8ff1c99d5f5c" target="_blank">37d2481</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree5770c78d3adfc63497366b4a06417dde60e2a479targetblank5770c78a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree37d2481f93e9dd5acb70bf2e880d8ff1c99d5f5ctargetblank37d2481a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -287,8 +287,8 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  analysis/lowgene.Rmd
     Untracked:  code/lowgene.R
+    Untracked:  data/count_files.RData
     Untracked:  data/lowgene/
     Untracked:  data/stmGTEx/
 
@@ -386,6 +386,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/37d2481f93e9dd5acb70bf2e880d8ff1c99d5f5c/analysis/index.Rmd" target="_blank">37d2481</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+<td>
+wflow_publish(“analysis/index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/32925741b2791477ebc8fbf45aa1d4269929bf07/docs/index.html" target="_blank">3292574</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2020-02-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1840,7 +1874,7 @@ Start workflowr project.
 </div>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>Explore functional/smoothed matrix factorization(MF): consider the MF problem <span class="math inline">\(Y = LF+E\)</span>, and assume <span class="math inline">\(L\)</span> is sparse and <span class="math inline">\(F\)</span> has smooth rows.</p>
+<p>Explore functional/smoothed matrix factorization(MF): consider the MF problem <span class="math">\(Y = LF+E\)</span>, and assume <span class="math">\(L\)</span> is sparse and <span class="math">\(F\)</span> has smooth rows.</p>
 </div>
 <div id="main-results" class="section level2">
 <h2>Main Results</h2>
@@ -1857,6 +1891,7 @@ Start workflowr project.
 <li><a href="SmoothPMFnugget.html">EBMPMF and nugget effect</a></li>
 <li><a href="stmGTEx.html">Apply stm to gene splicing</a>: 1. looked at 3 genes and compared 6 methods. 2. large reads at the beginning/ending of exons may due to splitting reads.</li>
 <li><a href="lowgene.html">5 low expressed genes with 3 topics and structure plot</a>: compare NMF and stm-smashgen.</li>
+<li><a href="lowgene2.html">The other 16 genes with 3 topics and structure plot</a></li>
 </ol>
 </div>
 <div id="ptf" class="section level3">
@@ -1874,7 +1909,7 @@ Start workflowr project.
 <ol style="list-style-type: decimal">
 <li><a href="poissonmeanscale.html">Empirical Bayes Poisson Mean large scale</a></li>
 <li><a href="ebpmscale.html">Compare ebpm estimate from different scales</a></li>
-<li><a href="poissonmean2.html">EBPM scale invariant version</a>: when <span class="math inline">\(s\)</span> is large, little shrinkage compared with MLE.</li>
+<li><a href="poissonmean2.html">EBPM scale invariant version</a>: when <span class="math">\(s\)</span> is large, little shrinkage compared with MLE.</li>
 <li><a href="poissonmean3.html">EBPM mixture of two gamma distributions</a>: fix prior grid at truth.</li>
 <li><a href="poissonmean4.html">EBPM mixture of two gamma distributions</a>: closer priors make it harder to shrink.</li>
 <li><a href="poissonmean5.html">EBPM mixture of two gamma distributions</a>: same shape diff rate in priors.</li>
