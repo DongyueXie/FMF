@@ -11,7 +11,7 @@ editor_options:
 
 ## per 10 base count sum
 
-```{r,fig.width=10,fig.height=10}
+```{r}
 library(stm)
 plot_factors3 = function(X,method){
   plot(X[,1],col=2,ylim=range(lf$FF),type='l',xlab = '',ylab='Intensity',main=paste('Factors - ',method,sep=''))
@@ -30,34 +30,33 @@ K=3
 base=10
 for(gene in count.files[gene.order[6:21]]){
   
-  message(noquote('---------------------------------------------------------------------'))
-message(noquote(paste('Plot of',gene,sep=' '))  )
+  print(noquote(paste('Plot of',gene,sep=' '))  )
   
   load(paste(path,gene,'_NMF_mkl_scd_K',K,'_base',base,'.RData',sep = ''))
   load(paste(path,gene,'_stm_nugget_K',K,'_base',base,'.RData',sep = ''))
   
   par(mfrow=c(2,1))
   lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
-plot_factors3(lf$FF,'NMF')
-lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
-plot_factors3(lf$FF,'smoothed')
+  plot_factors3(lf$FF,'NMF')
+  lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+  plot_factors3(lf$FF,'smoothed')
 
-lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
-annotation = data.frame(sample_id=1:length(fit_NMF$label),tissue_label=fit_NMF$label)
-a=StructureGGplot(lf$L,annotation,palette = c(2,3,4),order_sample = TRUE,figure_title = 'NMF',
+  lf = poisson2multinom(t(fit_NMF$H),fit_NMF$W)
+  annotation = data.frame(sample_id=1:length(fit_NMF$label),tissue_label=fit_NMF$label)
+  a=StructureGGplot(lf$L,annotation,palette = c(2,3,4),order_sample = TRUE,figure_title = 'NMF',
                 axis_tick = list(axis_ticks_length = .1,
                                  axis_ticks_lwd_y = .1,
                                  axis_ticks_lwd_x = .1,
                                  axis_label_size = 7,
                                  axis_label_face = "bold"))
 
-lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
-b=StructureGGplot(lf$L,annotation,palette = c(2,3,4),order_sample = TRUE,figure_title = 'smoothed',
+  lf = poisson2multinom(t(fit_stm_nugget$qf),fit_stm_nugget$ql)
+  b=StructureGGplot(lf$L,annotation,palette = c(2,3,4),order_sample = TRUE,figure_title = 'smoothed',
                 axis_tick = list(axis_ticks_length = .1,
                                  axis_ticks_lwd_y = .1,
                                  axis_ticks_lwd_x = .1,
                                  axis_label_size = 7,
                                  axis_label_face = "bold"))
-grid.arrange(a, b, ncol=2)
+  grid.arrange(a, b, ncol=2)
 }
 ```
