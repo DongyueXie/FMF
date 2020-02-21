@@ -25,6 +25,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 8. [EBMPMF and nugget effect](SmoothPMFnugget.html)
 9. [Apply stm to gene splicing](stmGTEx.html): 1. looked at 3 genes and compared 6 methods. 2. large reads at the beginning/ending of exons may due to splitting reads.
 10. [5 low expressed genes with 3 topics and structure plot](lowgene.html): compare NMF and stm-smashgen.
+11. [The other 16 genes with 3 topics and structure plot](lowgene2.html)
 
 ### PTF
 
