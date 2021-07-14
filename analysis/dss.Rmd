@@ -1,0 +1,49 @@
+---
+title: "Dynamic spike and slab process"
+author: "Dongyue Xie"
+date: "2021-06-17"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Simulate data from [Dynamic spike and slab(dss) process prior](https://arxiv.org/pdf/1708.00085.pdf).
+
+```{r}
+
+rlap0 = function(n,b){
+  x = runif(n,-0.5,0.5)
+  -b*sign(x)*log(1-2*abs(x))
+}
+
+dlap0 = function(x,b){
+  1/(2*b)*exp(-abs(x)/b)
+}
+
+GenDSS = function(n,lambda0,lambda1,phi1,Theta){
+  beta = c()
+  theta = c()
+  beta[1] = ifelse(rbinom(1,1,Theta),rnorm(1,0,sqrt(lambda1/(1-phi1^2))),rlap0(1,lambda0))
+  for(t in 2:n){
+    theta[t] = Theta*dnorm(beta[t-1],0,sqrt(lambda1/(1-phi1^2))) / (Theta*dnorm(beta[t-1],0,sqrt(lambda1/(1-phi1^2))) + (1-Theta)*dlap0(beta[t-1],lambda0))
+    beta[t] = ifelse(rbinom(1,1,theta[t]),rnorm(1,phi1*beta[t-1],lambda1),rlap0(1,lambda0))
+  }
+  par(mfrow=c(2,1))
+  plot(beta,type='l')
+  plot(theta,type='l')
+  par(mfrow=c(1,1))
+  return(list(beta=beta,theta=theta))
+}
+```
+
+
+```{r}
+temp = GenDSS(1000,lambda0 = 0.01,lambda1 = 0.1,Theta = 0.5,phi1=0.98)
+
+temp = GenDSS(1000,lambda0 = 0.01,lambda1 = 0.1,Theta = 1,phi1=0.98)
+
+temp = GenDSS(1000,lambda0 = 0.01,lambda1 = 0.1,Theta = 0.1,phi1=0.98)
+
+```
