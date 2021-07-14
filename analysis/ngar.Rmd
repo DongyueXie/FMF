@@ -1,0 +1,87 @@
+---
+title: "normal-gamma autoregressive (NGAR) proces"
+author: "Dongyue Xie"
+date: "2021-06-24"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+
+Simulate some examples from [NGAR](https://www.sciencedirect.com/science/article/pii/S0304407613002273).
+
+\begin{equation}
+    \beta_{t} = \sqrt{\frac{\psi_t}{\psi_{t-1}}}\phi\beta_{t-1}+\eta_{t},
+\end{equation}
+
+\begin{equation}
+\begin{split}
+      &\psi_t|\kappa_{t-1}\sim Gamma(\lambda+\kappa_{t-1},\frac{\lambda}{\mu(1-\rho)})
+      \\
+      &\kappa_{t-1}|\psi_{t-1} \sim Poisson(\frac{\rho\lambda\psi_{t-1}}{\mu(1-\rho)}).
+\end{split}
+\end{equation}
+where $\beta_1|\psi_1\sim N(0,\psi_1)$ and $\psi_1\sim Gamma(\lambda,\lambda/\mu)$. The stationary distribution of $\psi_t$ is $Gamma(\lambda,\frac{\lambda}{\mu})$.
+
+
+```{r}
+GenNGAR = function(N = 128,lambda = 0.2,mu = 1,phi = 0.95,rho = 0.95){
+  psi = c()
+kappas = c()
+beta = c()
+psi[1] = rgamma(1,shape = lambda,rate = lambda/mu)
+beta[1] = rnorm(1,0,sqrt(psi[1]))
+for(t in 2:N){
+  kappas[t] = rpois(1,rho*lambda*psi[t-1]/mu/(1-rho))
+  psi[t] = rgamma(1,shape = lambda+kappas[t], rate = lambda/mu/(1-rho))
+  beta[t] = sqrt(psi[t]/psi[t-1])*phi*beta[t-1]+rnorm(1,0,sqrt((1-phi^2)*psi[t]))
+}
+par(mfrow=c(3,1))
+plot(kappas,type='l',main = paste('lambda=',lambda))
+plot(psi,type='l')
+plot(beta,type='l')
+abline(h = 0,lty=2)
+par(mfrow=c(1,1))
+return(list(kappas=kappas,psi=psi,beta=beta))
+}
+
+temp = GenNGAR(lambda = 1)
+temp = GenNGAR(lambda = 0.2,phi=0.95,rho=0.99)
+```
+
+The process can also be written as a product of normal AR(1) and Gamma AR(1)
+
+$\beta_t = \sqrt{\psi_t}\delta_t$ where $\delta_t$ is generated from an AR(1) process with autocorrelation parameter $\phi$, i.e. $\delta_t = \phi\delta_{t-1}+e_t$ where $e_t\sim N(0,1-\phi^2)$. 
+
+```{r}
+GenNGAR2 = function(N = 128,lambda = 0.2,mu = 1,phi = 0.95,rho = 0.95){
+  psi = c()
+kappas = c()
+delta = c()
+psi[1] = rgamma(1,shape = lambda,rate = lambda/mu)
+delta[1] = rnorm(1,0,1)
+for(t in 2:N){
+  kappas[t] = rpois(1,rho*lambda*psi[t-1]/mu/(1-rho))
+  psi[t] = rgamma(1,shape = lambda+kappas[t], rate = lambda/mu/(1-rho))
+  delta[t] = phi*delta[t-1]+rnorm(1,0,sqrt(1-phi^2))
+}
+beta = delta*sqrt(psi)
+par(mfrow=c(3,1))
+plot(delta,type='l',main = paste('lambda=',lambda))
+plot(psi,type='l')
+plot(beta,type='l')
+abline(h = 0,lty=2)
+par(mfrow=c(1,1))
+return(list(kappas=kappas,psi=psi,beta=beta))
+}
+
+temp = GenNGAR2()
+```
+
+
+
+
+
+
