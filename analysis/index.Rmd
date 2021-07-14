@@ -57,6 +57,11 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 9. [Robust smashgen](outlierSmashgen.html)
 
 
+## Dynamics
+
+1. [normal-gamma autoregressive (NGAR) process](ngar.html)
+2. [Dynamic spike and slab(dss) process prior](dss.Rmd)
+
 ## Ref
 
 1. [Variational EM ppt](http://www.cs.cmu.edu/~tom/10-702/Zoubin-702.pdf), [Variational EM paper](http://mlg.eng.cam.ac.uk/zoubin/papers/valencia02.pdf)
