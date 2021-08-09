@@ -1,0 +1,37 @@
+---
+title: "smooth flash"
+author: "Dongyue Xie"
+date: "2021-06-15"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+source('code/smooth_flash.R')
+
+set.seed(12345)
+N = 200
+p = 256
+pi0 = 0.3
+f = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
+l = c()
+for (i in 1:N) {
+  r = rbinom(1,1,pi0)
+  if(r==1){
+    l[i]=0
+  }else{
+      l[i] = mean(c(rnorm(1,0,sqrt(0.25)),rnorm(1,0,sqrt(0.5)),rnorm(1,0,sqrt(1)),
+                    rnorm(1,0,sqrt(2)),rnorm(1,0,sqrt(4))))
+      }
+}
+y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
+```
+
+```{r}
+fit = flash(flash_set_data(y,matrix(0.1,nrow=N,ncol=p)),Kmax=1,nullcheck = F)
+fit.s = smooth_flash(y,matrix(0.1,nrow=N,ncol=p),Kmax=1)
+plot(fit$ldf$f)
+```
