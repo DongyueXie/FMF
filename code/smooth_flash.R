@@ -2,7 +2,11 @@
 devtools::load_all('~/Documents/Rpackages/flashr')
 devtools::load_all('~/Documents/Rpackages/smashr')
 library(wavethresh)
-#'@param Y
+#'@param Y data matrix
+#'@param S
+#'@param Kmax maximum number of topics
+#'@param tol tolerance
+#'@param init_fn initilization of
 smooth_flash = function(Y,S,Kmax=1000,tol=0.01,
                         init_fn = "udv_si",
                         ebnm_fn = "ebnm_pn",
