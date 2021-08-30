@@ -1,5 +1,5 @@
 
-## first understand the code of flash
+## first understand the code of flash.
 
 
 #'
