@@ -24,7 +24,9 @@ Here, we consider using a specific basis to represent the smooth curves - wavele
 or 
 \[\tilde{Y} = L\tilde{F}+\tilde{E}.\]
 
-Now each row of $\tilde{F}$ is sparse. We can then apply any penalized matrix factorization algorithm to $\tilde{Y}$ to obtain sparse estimates of $L$ and $\tilde{F}$. Applying inverse DWT gives $\hat{F}$.
+Now each row of $\tilde{F}$ is sparse. We can then apply penalized matrix factorization algorithm(mainly universal thresholding methods) to $\tilde{Y}$ to obtain sparse estimates of $L$ and $\tilde{F}$. Applying inverse DWT gives $\hat{F}$.
+
+Applying empirical Bayes wavelet shrinkage methods needs extra steps to deal with each level separately. 
 
 ## Simulation
 
@@ -32,6 +34,7 @@ In this simulation study, we choose EBMF framework and compare it with the wavel
 
 ```{r}
 library(wavethresh)
+source("code/wave_ebmf.R")
 library(flashr)
 # wavelet-based matrix factorization
 #'@ y: observed matrix
@@ -67,38 +70,30 @@ N = 200
 p = 256
 pi0 = 0.3
 f = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
-l = c()
-for (i in 1:N) {
-  r = rbinom(1,1,pi0)
-  if(r==1){
-    l[i]=0
-  }else{
-      l[i] = mean(c(rnorm(1,0,sqrt(0.25)),rnorm(1,0,sqrt(0.5)),rnorm(1,0,sqrt(1)),
-                    rnorm(1,0,sqrt(2)),rnorm(1,0,sqrt(4))))
-      }
-}
+l = c(rep(0,N*pi0),rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+plot(l)
+plot(f,type='l')
+
 y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
 
 # apply flash directly
-f1 = flash(y,Kmax=1,var_type = 'constant',backfit = T,verbose=F)
-f1 = flash_get_ldf(f1)
+f1 = flash(y,var_type = 'by_row',verbose=T)
 
 # apply wavelet transform
 
 # use Haar wavelet
 
-f2 = WaveEBMF(y,k=1)
+f2 = wave_ebmf(y)
 
-paste('RMSE of l flash estimate:',round(rmse(f1$l,l/norm(l,'2')),5))
-paste('RMSE of l Waveflash estimate:',round(rmse(f2$l,l/norm(l,'2')),5))
+paste('RMSE of flash estimate:',round(rmse(f1$fitted_values,l%*%t(f)),5))
+paste('RMSE of wave_ebmf estimate:',round(rmse(f2$fitted_values,l%*%t(f)),5))
 
-plot(f2$l,l/norm(l,'2'),xlab='Estimate',ylab='True l')
-lines(f2$l,f2$l)
-
-plot(f1$f,col = 2,type='l',xlab='',ylab='',main='Estimate of factors')
-lines(f/norm(f,'2'),col='grey80',type='p')
-lines(f2$f,col=4)
-legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+plot(f1$ldf$f,col = 2,type='l',xlab='',ylab='',main='flash')
+plot(f2$ldf$f,col = 2,type='l',xlab='',ylab='',main='wave flash')
 
 ```
 
@@ -109,25 +104,19 @@ f=DJ.EX(p,signal = 2)$heavi
 y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
 
 # apply flash directly
-f1 = flash(y,Kmax=1,var_type = 'constant',backfit = F,verbose=F)
-f1 = flash_get_ldf(f1)
+f1 = flash(y,var_type = 'by_row')
 
 # apply wavelet transform
 
 # use symmlet10
 
-f2 = WaveEBMF(y,k=1,filter.number = 10,family = 'DaubLeAsymm')
+f2 = wave_ebmf(y)
 
-paste('RMSE of l flash estimate:',round(rmse(f1$l,l/norm(l,'2')),5))
-paste('RMSE of l Waveflash estimate:',round(rmse(f2$l,l/norm(l,'2')),5))
+paste('RMSE of flash estimate:',round(rmse(f1$fitted_values,l%*%t(f)),5))
+paste('RMSE of wave_ebmf estimate:',round(rmse(f2$fitted_values,l%*%t(f)),5))
 
-plot(f2$l,l/norm(l,'2'),xlab='Estimate',ylab='True l')
-lines(f2$l,f2$l)
-
-plot(f1$f,col = 2,type='l',xlab='',ylab='',main='Estimate of factors')
-lines(f/norm(f,'2'),col='grey80',type='p')
-lines(f2$f,col=4)
-legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+plot(f1$ldf$f,col = 2,type='l',xlab='',ylab='',main='flash')
+plot(f2$ldf$f,col = 2,type='l',xlab='',ylab='',main='wave flash')
 ```
 
 
@@ -142,26 +131,19 @@ f = 2*spike.f(t)
 
 y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
 
-# apply flash directly
-f1 = flash(y,Kmax=1,var_type = 'constant',backfit = F,verbose=F)
-f1 = flash_get_ldf(f1)
+f1 = flash(y,var_type = 'by_row')
 
 # apply wavelet transform
 
 # use symmlet10
 
-f2 = WaveEBMF(y,k=1,filter.number = 10,family = 'DaubLeAsymm')
+f2 = wave_ebmf(y)
 
-paste('RMSE of l flash estimate:',round(rmse(f1$l,l/norm(l,'2')),5))
-paste('RMSE of l Waveflash estimate:',round(rmse(f2$l,l/norm(l,'2')),5))
+paste('RMSE of flash estimate:',round(rmse(f1$fitted_values,l%*%t(f)),5))
+paste('RMSE of wave_ebmf estimate:',round(rmse(f2$fitted_values,l%*%t(f)),5))
 
-plot(f2$l,l/norm(l,'2'),xlab='Estimate',ylab='True l')
-lines(f2$l,f2$l)
-
-plot(f1$f,col = 2,type='l',xlab='',ylab='',main='Estimate of factors')
-lines(f/norm(f,'2'),col='grey80',type='p')
-lines(f2$f,col=4)
-legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+plot(f1$ldf$f,col = 2,type='l',xlab='',ylab='',main='flash')
+plot(f2$ldf$f,col = 2,type='l',xlab='',ylab='',main='wave flash')
 ```
 
 
@@ -176,19 +158,25 @@ We set $K=3$ and three factors are step function, Heavysine and spike functions.
 ```{r}
 K=3
 set.seed(12345)
-L = matrix(nrow=N,ncol=K)
-for (i in 1:N) {
-  for(j in 1:K){
-    
-    r = rbinom(1,1,pi0)
-    if(r==1){
-       L[i,j]=0
-    }else{
-      L[i,j] = mean(c(rnorm(1,0,sqrt(0.25)),rnorm(1,0,sqrt(0.5)),rnorm(1,0,sqrt(1)),
-                    rnorm(1,0,sqrt(2)),rnorm(1,0,sqrt(4))))
-    }
-  }
-}
+l1 = c(rep(0,N*pi0),rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+l1 = l1[sample(1:N)]
+l2 = c(rep(0,N*pi0),rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+l2 = l2[sample(1:N)]
+l3 = c(rep(0,N*pi0),rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+l3 = l3[sample(1:N)]
+L = cbind(l1,l2,l3)
 
 f_1 = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
 f_2 = DJ.EX(p,signal = 2)$heavi
@@ -198,37 +186,29 @@ E = matrix(rnorm(N*p,0,1),ncol=p)
 Y = L%*%FF + E
 
 # apply flash directly
-f1 = flash(Y,Kmax=3,var_type = 'constant',backfit = F,verbose=F)
-f1 = flash_get_ldf(f1)
+f1 = flash(Y,var_type = 'by_row')
 
 # apply wavelet transform
 
 # use symmlet10
 
-f2 = WaveEBMF(Y,k=3,filter.number = 10,family = 'DaubLeAsymm')
+f2 = wave_ebmf(Y)
 
+plot(f1$ldf$f[,1],type='l')
+plot(f1$ldf$f[,2],type='l')
+plot(f1$ldf$f[,3],type='l')
 
-plot(-f1$f[,1],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
-lines(f_1/norm(f_1,'2'),col='grey80',type='p')
-lines(-f2$f[,1],col=4)
-legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
-
-plot(-f1$f[,2],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
-lines(f_2/norm(f_2,'2'),col='grey80',type='p')
-lines(-f2$f[,2],col=4)
-legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
-
-plot(f1$f[,3],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
-lines(f_3/norm(f_3,'2'),col='grey80',type='p')
-lines(f2$f[,3],col=4)
-legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
+plot(f2$ldf$f[,1],type='l')
+plot(f2$ldf$f[,2],type='l')
+plot(f2$ldf$f[,3],type='l')
 
 ```
 
 
-How about use Haar wavelet?
 
-```{r}
+
+```{r,eval=F,include=F}
+# How about use Haar wavelet?
 f2 = WaveEBMF(Y,k=3,filter.number = 1,family = 'DaubExPhase')
 
 
@@ -246,11 +226,9 @@ plot(f1$f[,3],col = 2,type='l',xlab='',ylab='',main='Estimate of factor 1')
 lines(f_3/norm(f_3,'2'),col='grey80',type='p')
 lines(f2$f[,3],col=4)
 legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
-```
 
-How about change the order of three factors?
+### How about change the order of three factors?
 
-```{r}
 FF = rbind(f_3,f_2,f_1)
 Y = L%*%FF + E
 
@@ -276,14 +254,3 @@ lines(-f2$f[,3],col=4)
 legend('topright',c('true f','flash','Waveflash'),col=c('grey80',2,4),lty=c(1,1,1))
 ```
 
-### Try PMD
-
-[PMD](SmoothPMD.html)
-
-
-
-## Summary
-
-1. The wavelet method gives smoother estimate of factors. The smoothness depends on the wavelet basis chosen. 
-2. The signs of loadings and factors are not identifiable.
-3. Smash uses non-decimated DWT to give better estimate. If using NDWT in flash, there would be a lot more computational cost.
