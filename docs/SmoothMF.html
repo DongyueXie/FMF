@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -27,8 +26,27 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -238,6 +256,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -266,6 +285,12 @@ $(document).ready(function () {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -367,13 +392,6 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
 <div class="fluid-row" id="header">
 
 
@@ -404,7 +422,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-08
+<strong>Last updated:</strong> 2021-09-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,7 +432,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -452,7 +470,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20190719code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20190719)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20190719)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -495,13 +513,19 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreea47d047522799db9ae766aa67b38bc745b58744etargetblanka47d047a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/a47d047522799db9ae766aa67b38bc745b58744e" target="_blank">a47d047</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree5d1ae9290713f4ea9fa6fb55a1b8684f7d44f7d0targetblank5d1ae92a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/5d1ae9290713f4ea9fa6fb55a1b8684f7d44f7d0" target="_blank">5d1ae92</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreea47d047522799db9ae766aa67b38bc745b58744etargetblanka47d047a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree5d1ae9290713f4ea9fa6fb55a1b8684f7d44f7d0targetblank5d1ae92a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/5d1ae9290713f4ea9fa6fb55a1b8684f7d44f7d0" target="_blank">5d1ae92</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -509,9 +533,18 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/external_data/
+
+Untracked files:
+    Untracked:  analysis/luis_data.Rmd
+    Untracked:  code/wave_ebmf.R
+    Untracked:  code/wave_ebmf_run.R
+    Untracked:  data/luis/
+    Untracked:  output/flash_on_cmc2_reduced.rds
 
 Unstaged changes:
-    Deleted:    analysis/SmoothMFpoisson.Rmd
+    Modified:   code/smooth_flash.R
 
 </code></pre>
 <p>
@@ -526,7 +559,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/SmoothMF.Rmd</code>) and HTML (<code>docs/SmoothMF.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -550,6 +583,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/5d1ae9290713f4ea9fa6fb55a1b8684f7d44f7d0/analysis/SmoothMF.Rmd" target="_blank">5d1ae92</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-09-10
+</td>
+<td>
+wflow_publish(“analysis/SmoothMF.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/SmoothMF.html" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -633,12 +700,14 @@ wflow_publish(“analysis/SmoothMF.Rmd”)
 <p>The question is how to estimate <span class="math inline">\(L\)</span> and <span class="math inline">\(F\)</span>.</p>
 <p>This is very similar to functional principal component analysis, which considers finding weights and principal components of a collection of curves. A common approach is adding a roughness penalty of the weights to obtain smooth estimates.</p>
 <p>Here, we consider using a specific basis to represent the smooth curves - wavelet. Let <span class="math inline">\(W\)</span> be the discrete wavelet transformation(DWT) matrix. We perform wavelet decomnposition on both sides then <span class="math display">\[YW=LFW+EW,\]</span> or <span class="math display">\[\tilde{Y} = L\tilde{F}+\tilde{E}.\]</span></p>
-<p>Now each row of <span class="math inline">\(\tilde{F}\)</span> is sparse. We can then apply any penalized matrix factorization algorithm to <span class="math inline">\(\tilde{Y}\)</span> to obtain sparse estimates of <span class="math inline">\(L\)</span> and <span class="math inline">\(\tilde{F}\)</span>. Applying inverse DWT gives <span class="math inline">\(\hat{F}\)</span>.</p>
+<p>Now each row of <span class="math inline">\(\tilde{F}\)</span> is sparse. We can then apply penalized matrix factorization algorithm(mainly universal thresholding methods) to <span class="math inline">\(\tilde{Y}\)</span> to obtain sparse estimates of <span class="math inline">\(L\)</span> and <span class="math inline">\(\tilde{F}\)</span>. Applying inverse DWT gives <span class="math inline">\(\hat{F}\)</span>.</p>
+<p>Applying empirical Bayes wavelet shrinkage methods needs extra steps to deal with each level separately.</p>
 </div>
 <div id="simulation" class="section level2">
 <h2>Simulation</h2>
 <p>In this simulation study, we choose EBMF framework and compare it with the wavelet approach.</p>
 <pre class="r"><code>library(wavethresh)
+source(&quot;code/wave_ebmf.R&quot;)
 library(flashr)
 # wavelet-based matrix factorization
 #&#39;@ y: observed matrix
@@ -666,34 +735,12 @@ N = 200
 p = 256
 pi0 = 0.3
 f = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
-l = c()
-for (i in 1:N) {
-  r = rbinom(1,1,pi0)
-  if(r==1){
-    l[i]=0
-  }else{
-      l[i] = mean(c(rnorm(1,0,sqrt(0.25)),rnorm(1,0,sqrt(0.5)),rnorm(1,0,sqrt(1)),
-                    rnorm(1,0,sqrt(2)),rnorm(1,0,sqrt(4))))
-      }
-}
-y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
-
-# apply flash directly
-f1 = flash(y,Kmax=1,var_type = &#39;constant&#39;,backfit = T,verbose=F)
-f1 = flash_get_ldf(f1)
-
-# apply wavelet transform
-
-# use Haar wavelet
-
-f2 = WaveEBMF(y,k=1)
-
-paste(&#39;RMSE of l flash estimate:&#39;,round(rmse(f1$l,l/norm(l,&#39;2&#39;)),5))</code></pre>
-<pre><code>[1] &quot;RMSE of l flash estimate: 0.00209&quot;</code></pre>
-<pre class="r"><code>paste(&#39;RMSE of l Waveflash estimate:&#39;,round(rmse(f2$l,l/norm(l,&#39;2&#39;)),5))</code></pre>
-<pre><code>[1] &quot;RMSE of l Waveflash estimate: 0.0021&quot;</code></pre>
-<pre class="r"><code>plot(f2$l,l/norm(l,&#39;2&#39;),xlab=&#39;Estimate&#39;,ylab=&#39;True l&#39;)
-lines(f2$l,f2$l)</code></pre>
+l = c(rep(0,N*pi0),rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+plot(l)</code></pre>
 <p><img src="figure/SmoothMF.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -719,6 +766,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/figure/SmoothMF.Rmd/unnamed-chunk-2-1.png" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-2-1.png" target="_blank">666296b</a>
 </td>
 <td>
@@ -732,10 +790,7 @@ Dongyue Xie
 </table>
 </div>
 </div>
-<pre class="r"><code>plot(f1$f,col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factors&#39;)
-lines(f/norm(f,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(f2$f,col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
+<pre class="r"><code>plot(f,type=&#39;l&#39;)</code></pre>
 <p><img src="figure/SmoothMF.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
@@ -761,6 +816,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/figure/SmoothMF.Rmd/unnamed-chunk-2-2.png" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-2-2.png" target="_blank">666296b</a>
 </td>
 <td>
@@ -774,26 +840,136 @@ Dongyue Xie
 </table>
 </div>
 </div>
+<pre class="r"><code>y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
+
+# apply flash directly
+f1 = flash(y,var_type = &#39;by_row&#39;,verbose=T)
+
+# apply wavelet transform
+
+# use Haar wavelet
+
+f2 = wave_ebmf(y)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -73638.099&quot;
+[1] &quot;Iteration  2 : obj  -73638.089&quot;
+[1] &quot;Iteration  3 : obj  -73638.089&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  707403.192&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -73681.482&quot;
+[1] &quot;Iteration  2 : obj  -73668.767&quot;
+[1] &quot;Iteration  3 : obj  -73666.69&quot;
+[1] &quot;Iteration  4 : obj  -73665.674&quot;
+[1] &quot;Iteration  5 : obj  -73664.999&quot;
+[1] &quot;Iteration  6 : obj  -73664.493&quot;
+[1] &quot;Iteration  7 : obj  -73664.096&quot;
+[1] &quot;Iteration  8 : obj  -73663.779&quot;
+[1] &quot;Iteration  9 : obj  -73663.508&quot;
+[1] &quot;Iteration  10 : obj  -73663.265&quot;
+[1] &quot;Iteration  11 : obj  -73663.031&quot;
+[1] &quot;Iteration  12 : obj  -73662.794&quot;
+[1] &quot;Iteration  13 : obj  -73662.553&quot;
+[1] &quot;Iteration  14 : obj  -73662.292&quot;
+[1] &quot;Iteration  15 : obj  -73662.009&quot;
+[1] &quot;Iteration  16 : obj  -73661.721&quot;
+[1] &quot;Iteration  17 : obj  -73661.451&quot;
+[1] &quot;Iteration  18 : obj  -73661.217&quot;
+[1] &quot;Iteration  19 : obj  -73661.02&quot;
+[1] &quot;Iteration  20 : obj  -73660.856&quot;
+[1] &quot;Iteration  21 : obj  -73660.715&quot;
+[1] &quot;Iteration  22 : obj  -73660.593&quot;
+[1] &quot;Iteration  23 : obj  -73660.482&quot;
+[1] &quot;Iteration  24 : obj  -73660.379&quot;
+[1] &quot;Iteration  25 : obj  -73660.281&quot;
+[1] &quot;Iteration  26 : obj  -73660.182&quot;
+[1] &quot;Iteration  27 : obj  -73660.077&quot;
+[1] &quot;Iteration  28 : obj  -73659.963&quot;
+[1] &quot;Iteration  29 : obj  -73659.831&quot;
+[1] &quot;Iteration  30 : obj  -73659.669&quot;
+[1] &quot;Iteration  31 : obj  -73659.45&quot;
+[1] &quot;Iteration  32 : obj  -73659.114&quot;
+[1] &quot;Iteration  33 : obj  -73658.539&quot;
+[1] &quot;Iteration  34 : obj  -73657.483&quot;
+[1] &quot;Iteration  35 : obj  -73655.506&quot;
+[1] &quot;Iteration  36 : obj  -73651.812&quot;
+[1] &quot;Iteration  37 : obj  -73646.198&quot;
+[1] &quot;Iteration  38 : obj  -73643.742&quot;
+[1] &quot;Iteration  39 : obj  -73642.806&quot;
+[1] &quot;Iteration  40 : obj  -73642.387&quot;
+[1] &quot;Iteration  41 : obj  -73642.187&quot;
+[1] &quot;Iteration  42 : obj  -73642.061&quot;
+[1] &quot;Iteration  43 : obj  -73641.975&quot;
+[1] &quot;Iteration  44 : obj  -73641.91&quot;
+[1] &quot;Iteration  45 : obj  -73641.856&quot;
+[1] &quot;Iteration  46 : obj  -73641.808&quot;
+[1] &quot;Iteration  47 : obj  -73641.761&quot;
+[1] &quot;Iteration  48 : obj  -73641.713&quot;
+[1] &quot;Iteration  49 : obj  -73641.661&quot;
+[1] &quot;Iteration  50 : obj  -73641.601&quot;
+[1] &quot;Iteration  51 : obj  -73641.527&quot;
+[1] &quot;Iteration  52 : obj  -73641.426&quot;
+[1] &quot;Iteration  53 : obj  -73641.266&quot;
+[1] &quot;Iteration  54 : obj  -73640.978&quot;
+[1] &quot;Iteration  55 : obj  -73640.466&quot;
+[1] &quot;Iteration  56 : obj  -73639.954&quot;
+[1] &quot;Iteration  57 : obj  -73639.759&quot;
+[1] &quot;Iteration  58 : obj  -73639.7&quot;
+[1] &quot;Iteration  59 : obj  -73639.674&quot;
+[1] &quot;Iteration  60 : obj  -73639.658&quot;
+[1] &quot;Iteration  61 : obj  -73639.648&quot;
+[1] &quot;Iteration  62 : obj  -73639.64&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  increases objective by  1.552&quot;</code></pre>
+<pre class="r"><code>paste(&#39;RMSE of flash estimate:&#39;,round(rmse(f1$fitted_values,l%*%t(f)),5))</code></pre>
+<pre><code>[1] &quot;RMSE of flash estimate: 0.09078&quot;</code></pre>
+<pre class="r"><code>paste(&#39;RMSE of wave_ebmf estimate:&#39;,round(rmse(f2$fitted_values,l%*%t(f)),5))</code></pre>
+<pre><code>[1] &quot;RMSE of wave_ebmf estimate: 0.05862&quot;</code></pre>
+<pre class="r"><code>plot(f1$ldf$f,col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;flash&#39;)</code></pre>
+<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f2$ldf$f,col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;wave flash&#39;)</code></pre>
+<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-2-4.png" width="672" style="display: block; margin: auto;" /></p>
 <p><strong>HeavySine function factor</strong></p>
 <pre class="r"><code>f=DJ.EX(p,signal = 2)$heavi
 y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
 
 # apply flash directly
-f1 = flash(y,Kmax=1,var_type = &#39;constant&#39;,backfit = F,verbose=F)
-f1 = flash_get_ldf(f1)
+f1 = flash(y,var_type = &#39;by_row&#39;)
 
 # apply wavelet transform
 
 # use symmlet10
 
-f2 = WaveEBMF(y,k=1,filter.number = 10,family = &#39;DaubLeAsymm&#39;)
-
-paste(&#39;RMSE of l flash estimate:&#39;,round(rmse(f1$l,l/norm(l,&#39;2&#39;)),5))</code></pre>
-<pre><code>[1] &quot;RMSE of l flash estimate: 0.00427&quot;</code></pre>
-<pre class="r"><code>paste(&#39;RMSE of l Waveflash estimate:&#39;,round(rmse(f2$l,l/norm(l,&#39;2&#39;)),5))</code></pre>
-<pre><code>[1] &quot;RMSE of l Waveflash estimate: 0.00422&quot;</code></pre>
-<pre class="r"><code>plot(f2$l,l/norm(l,&#39;2&#39;),xlab=&#39;Estimate&#39;,ylab=&#39;True l&#39;)
-lines(f2$l,f2$l)</code></pre>
+f2 = wave_ebmf(y)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -74024.885&quot;
+[1] &quot;Iteration  2 : obj  -74024.863&quot;
+[1] &quot;Iteration  3 : obj  -74024.863&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  170989.651&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -74081.834&quot;
+[1] &quot;Iteration  2 : obj  -74063.743&quot;
+[1] &quot;Iteration  3 : obj  -74056.806&quot;
+[1] &quot;Iteration  4 : obj  -74051.167&quot;
+[1] &quot;Iteration  5 : obj  -74046.912&quot;
+[1] &quot;Iteration  6 : obj  -74043.723&quot;
+[1] &quot;Iteration  7 : obj  -74041.294&quot;
+[1] &quot;Iteration  8 : obj  -74039.529&quot;
+[1] &quot;Iteration  9 : obj  -74038.525&quot;
+[1] &quot;Iteration  10 : obj  -74038.097&quot;
+[1] &quot;Iteration  11 : obj  -74037.838&quot;
+[1] &quot;Iteration  12 : obj  -74037.698&quot;
+[1] &quot;Iteration  13 : obj  -74037.644&quot;
+[1] &quot;Iteration  14 : obj  -74037.625&quot;
+[1] &quot;Iteration  15 : obj  -74037.617&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  increases objective by  12.754&quot;</code></pre>
+<pre class="r"><code>paste(&#39;RMSE of flash estimate:&#39;,round(rmse(f1$fitted_values,l%*%t(f)),5))</code></pre>
+<pre><code>[1] &quot;RMSE of flash estimate: 0.08585&quot;</code></pre>
+<pre class="r"><code>paste(&#39;RMSE of wave_ebmf estimate:&#39;,round(rmse(f2$fitted_values,l%*%t(f)),5))</code></pre>
+<pre><code>[1] &quot;RMSE of wave_ebmf estimate: 0.07903&quot;</code></pre>
+<pre class="r"><code>plot(f1$ldf$f,col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;flash&#39;)</code></pre>
 <p><img src="figure/SmoothMF.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
@@ -819,6 +995,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/figure/SmoothMF.Rmd/unnamed-chunk-3-1.png" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-3-1.png" target="_blank">666296b</a>
 </td>
 <td>
@@ -832,10 +1019,7 @@ Dongyue Xie
 </table>
 </div>
 </div>
-<pre class="r"><code>plot(f1$f,col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factors&#39;)
-lines(f/norm(f,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(f2$f,col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
+<pre class="r"><code>plot(f2$ldf$f,col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;wave flash&#39;)</code></pre>
 <p><img src="figure/SmoothMF.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
@@ -861,6 +1045,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/figure/SmoothMF.Rmd/unnamed-chunk-3-2.png" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-3-2.png" target="_blank">666296b</a>
 </td>
 <td>
@@ -883,22 +1078,54 @@ f = 2*spike.f(t)
 
 y = l%*%t(f)+matrix(rnorm(N*p,0,1),ncol=p)
 
-# apply flash directly
-f1 = flash(y,Kmax=1,var_type = &#39;constant&#39;,backfit = F,verbose=F)
-f1 = flash_get_ldf(f1)
+f1 = flash(y,var_type = &#39;by_row&#39;)
 
 # apply wavelet transform
 
 # use symmlet10
 
-f2 = WaveEBMF(y,k=1,filter.number = 10,family = &#39;DaubLeAsymm&#39;)
-
-paste(&#39;RMSE of l flash estimate:&#39;,round(rmse(f1$l,l/norm(l,&#39;2&#39;)),5))</code></pre>
-<pre><code>[1] &quot;RMSE of l flash estimate: 0.00899&quot;</code></pre>
-<pre class="r"><code>paste(&#39;RMSE of l Waveflash estimate:&#39;,round(rmse(f2$l,l/norm(l,&#39;2&#39;)),5))</code></pre>
-<pre><code>[1] &quot;RMSE of l Waveflash estimate: 0.00906&quot;</code></pre>
-<pre class="r"><code>plot(f2$l,l/norm(l,&#39;2&#39;),xlab=&#39;Estimate&#39;,ylab=&#39;True l&#39;)
-lines(f2$l,f2$l)</code></pre>
+f2 = wave_ebmf(y)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -73980.749&quot;
+[1] &quot;Iteration  2 : obj  -73980.583&quot;
+[1] &quot;Iteration  3 : obj  -73980.583&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  37573.625&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -74042.226&quot;
+[1] &quot;Iteration  2 : obj  -74022.248&quot;
+[1] &quot;Iteration  3 : obj  -74014.302&quot;
+[1] &quot;Iteration  4 : obj  -74008.223&quot;
+[1] &quot;Iteration  5 : obj  -74003.707&quot;
+[1] &quot;Iteration  6 : obj  -74000.753&quot;
+[1] &quot;Iteration  7 : obj  -73998.952&quot;
+[1] &quot;Iteration  8 : obj  -73997.883&quot;
+[1] &quot;Iteration  9 : obj  -73997.115&quot;
+[1] &quot;Iteration  10 : obj  -73996.623&quot;
+[1] &quot;Iteration  11 : obj  -73996.316&quot;
+[1] &quot;Iteration  12 : obj  -73996.056&quot;
+[1] &quot;Iteration  13 : obj  -73995.722&quot;
+[1] &quot;Iteration  14 : obj  -73995.136&quot;
+[1] &quot;Iteration  15 : obj  -73993.959&quot;
+[1] &quot;Iteration  16 : obj  -73993.263&quot;
+[1] &quot;Iteration  17 : obj  -73992.925&quot;
+[1] &quot;Iteration  18 : obj  -73992.735&quot;
+[1] &quot;Iteration  19 : obj  -73992.391&quot;
+[1] &quot;Iteration  20 : obj  -73991.613&quot;
+[1] &quot;Iteration  21 : obj  -73990.415&quot;
+[1] &quot;Iteration  22 : obj  -73989.927&quot;
+[1] &quot;Iteration  23 : obj  -73989.852&quot;
+[1] &quot;Iteration  24 : obj  -73989.825&quot;
+[1] &quot;Iteration  25 : obj  -73989.813&quot;
+[1] &quot;Iteration  26 : obj  -74001.467&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  increases objective by  20.883&quot;</code></pre>
+<pre class="r"><code>paste(&#39;RMSE of flash estimate:&#39;,round(rmse(f1$fitted_values,l%*%t(f)),5))</code></pre>
+<pre><code>[1] &quot;RMSE of flash estimate: 0.07364&quot;</code></pre>
+<pre class="r"><code>paste(&#39;RMSE of wave_ebmf estimate:&#39;,round(rmse(f2$fitted_values,l%*%t(f)),5))</code></pre>
+<pre><code>[1] &quot;RMSE of wave_ebmf estimate: 0.07729&quot;</code></pre>
+<pre class="r"><code>plot(f1$ldf$f,col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;flash&#39;)</code></pre>
 <p><img src="figure/SmoothMF.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
@@ -924,6 +1151,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/figure/SmoothMF.Rmd/unnamed-chunk-4-1.png" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-4-1.png" target="_blank">666296b</a>
 </td>
 <td>
@@ -937,10 +1175,7 @@ Dongyue Xie
 </table>
 </div>
 </div>
-<pre class="r"><code>plot(f1$f,col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factors&#39;)
-lines(f/norm(f,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(f2$f,col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
+<pre class="r"><code>plot(f2$ldf$f,col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;wave flash&#39;)</code></pre>
 <p><img src="figure/SmoothMF.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
@@ -966,6 +1201,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/figure/SmoothMF.Rmd/unnamed-chunk-4-2.png" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-4-2.png" target="_blank">666296b</a>
 </td>
 <td>
@@ -986,19 +1232,25 @@ Dongyue Xie
 <p>We set <span class="math inline">\(K=3\)</span> and three factors are step function, Heavysine and spike functions.</p>
 <pre class="r"><code>K=3
 set.seed(12345)
-L = matrix(nrow=N,ncol=K)
-for (i in 1:N) {
-  for(j in 1:K){
-    
-    r = rbinom(1,1,pi0)
-    if(r==1){
-       L[i,j]=0
-    }else{
-      L[i,j] = mean(c(rnorm(1,0,sqrt(0.25)),rnorm(1,0,sqrt(0.5)),rnorm(1,0,sqrt(1)),
-                    rnorm(1,0,sqrt(2)),rnorm(1,0,sqrt(4))))
-    }
-  }
-}
+l1 = c(rep(0,N*pi0),rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+l1 = l1[sample(1:N)]
+l2 = c(rep(0,N*pi0),rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+l2 = l2[sample(1:N)]
+l3 = c(rep(0,N*pi0),rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+l3 = l3[sample(1:N)]
+L = cbind(l1,l2,l3)
 
 f_1 = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
 f_2 = DJ.EX(p,signal = 2)$heavi
@@ -1008,20 +1260,129 @@ E = matrix(rnorm(N*p,0,1),ncol=p)
 Y = L%*%FF + E
 
 # apply flash directly
-f1 = flash(Y,Kmax=3,var_type = &#39;constant&#39;,backfit = F,verbose=F)
-f1 = flash_get_ldf(f1)
+f1 = flash(Y,var_type = &#39;by_row&#39;)
 
 # apply wavelet transform
 
 # use symmlet10
 
-f2 = WaveEBMF(Y,k=3,filter.number = 10,family = &#39;DaubLeAsymm&#39;)
-
-
-plot(-f1$f[,1],col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factor 1&#39;)
-lines(f_1/norm(f_1,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(-f2$f[,1],col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
+f2 = wave_ebmf(Y)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -179747.607&quot;
+[1] &quot;Iteration  2 : obj  -179747.084&quot;
+[1] &quot;Iteration  3 : obj  -179747.081&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  652820.059&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -96568.755&quot;
+[1] &quot;Iteration  2 : obj  -96567.425&quot;
+[1] &quot;Iteration  3 : obj  -96567.343&quot;
+[1] &quot;Iteration  4 : obj  -96567.337&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  83179.743&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -75674.423&quot;
+[1] &quot;Iteration  2 : obj  -75674.025&quot;
+[1] &quot;Iteration  3 : obj  -75674.025&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  20893.313&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -75720.753&quot;
+[1] &quot;Iteration  2 : obj  -75705.477&quot;
+[1] &quot;Iteration  3 : obj  -75699.767&quot;
+[1] &quot;Iteration  4 : obj  -75693.126&quot;
+[1] &quot;Iteration  5 : obj  -75685.836&quot;
+[1] &quot;Iteration  6 : obj  -75680.251&quot;
+[1] &quot;Iteration  7 : obj  -75676.621&quot;
+[1] &quot;Iteration  8 : obj  -75674.663&quot;
+[1] &quot;Iteration  9 : obj  -75673.366&quot;
+[1] &quot;Iteration  10 : obj  -75672.043&quot;
+[1] &quot;Iteration  11 : obj  -75670.659&quot;
+[1] &quot;Iteration  12 : obj  -75670.169&quot;
+[1] &quot;Iteration  13 : obj  -75670.006&quot;
+[1] &quot;Iteration  14 : obj  -75669.922&quot;
+[1] &quot;Iteration  15 : obj  -75669.859&quot;
+[1] &quot;Iteration  16 : obj  -75669.793&quot;
+[1] &quot;Iteration  17 : obj  -75669.711&quot;
+[1] &quot;Iteration  18 : obj  -75669.603&quot;
+[1] &quot;Iteration  19 : obj  -75669.485&quot;
+[1] &quot;Iteration  20 : obj  -75669.393&quot;
+[1] &quot;Iteration  21 : obj  -75669.33&quot;
+[1] &quot;Iteration  22 : obj  -75669.28&quot;
+[1] &quot;Iteration  23 : obj  -75669.229&quot;
+[1] &quot;Iteration  24 : obj  -75669.172&quot;
+[1] &quot;Iteration  25 : obj  -75669.102&quot;
+[1] &quot;Iteration  26 : obj  -75669.014&quot;
+[1] &quot;Iteration  27 : obj  -75668.906&quot;
+[1] &quot;Iteration  28 : obj  -75668.78&quot;
+[1] &quot;Iteration  29 : obj  -75668.641&quot;
+[1] &quot;Iteration  30 : obj  -75668.502&quot;
+[1] &quot;Iteration  31 : obj  -75668.36&quot;
+[1] &quot;Iteration  32 : obj  -75668.169&quot;
+[1] &quot;Iteration  33 : obj  -75667.848&quot;
+[1] &quot;Iteration  34 : obj  -75667.325&quot;
+[1] &quot;Iteration  35 : obj  -75666.641&quot;
+[1] &quot;Iteration  36 : obj  -75665.975&quot;
+[1] &quot;Iteration  37 : obj  -75665.284&quot;
+[1] &quot;Iteration  38 : obj  -75664.398&quot;
+[1] &quot;Iteration  39 : obj  -75664.091&quot;
+[1] &quot;Iteration  40 : obj  -75664.025&quot;
+[1] &quot;Iteration  41 : obj  -75663.971&quot;
+[1] &quot;Iteration  42 : obj  -75663.894&quot;
+[1] &quot;Iteration  43 : obj  -75663.754&quot;
+[1] &quot;Iteration  44 : obj  -75663.536&quot;
+[1] &quot;Iteration  45 : obj  -75663.361&quot;
+[1] &quot;Iteration  46 : obj  -75663.3&quot;
+[1] &quot;Iteration  47 : obj  -75663.282&quot;
+[1] &quot;Iteration  48 : obj  -75663.273&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  decreases objective by  10.751&quot;
+[1] &quot;Fitting dimension  5&quot;
+[1] &quot;Iteration  1 : obj  -75722.72&quot;
+[1] &quot;Iteration  2 : obj  -75704.834&quot;
+[1] &quot;Iteration  3 : obj  -75699.428&quot;
+[1] &quot;Iteration  4 : obj  -75695.152&quot;
+[1] &quot;Iteration  5 : obj  -75690.396&quot;
+[1] &quot;Iteration  6 : obj  -75684.3&quot;
+[1] &quot;Iteration  7 : obj  -75682.219&quot;
+[1] &quot;Iteration  8 : obj  -75681.252&quot;
+[1] &quot;Iteration  9 : obj  -75680.528&quot;
+[1] &quot;Iteration  10 : obj  -75680.054&quot;
+[1] &quot;Iteration  11 : obj  -75679.548&quot;
+[1] &quot;Iteration  12 : obj  -75678.775&quot;
+[1] &quot;Iteration  13 : obj  -75678.019&quot;
+[1] &quot;Iteration  14 : obj  -75677.666&quot;
+[1] &quot;Iteration  15 : obj  -75677.44&quot;
+[1] &quot;Iteration  16 : obj  -75677.184&quot;
+[1] &quot;Iteration  17 : obj  -75676.85&quot;
+[1] &quot;Iteration  18 : obj  -75676.447&quot;
+[1] &quot;Iteration  19 : obj  -75676.04&quot;
+[1] &quot;Iteration  20 : obj  -75675.617&quot;
+[1] &quot;Iteration  21 : obj  -75675.098&quot;
+[1] &quot;Iteration  22 : obj  -75674.552&quot;
+[1] &quot;Iteration  23 : obj  -75674.129&quot;
+[1] &quot;Iteration  24 : obj  -75673.789&quot;
+[1] &quot;Iteration  25 : obj  -75673.493&quot;
+[1] &quot;Iteration  26 : obj  -75673.236&quot;
+[1] &quot;Iteration  27 : obj  -75673.006&quot;
+[1] &quot;Iteration  28 : obj  -75672.772&quot;
+[1] &quot;Iteration  29 : obj  -75672.498&quot;
+[1] &quot;Iteration  30 : obj  -75672.165&quot;
+[1] &quot;Iteration  31 : obj  -75671.746&quot;
+[1] &quot;Iteration  32 : obj  -75671.005&quot;
+[1] &quot;Iteration  33 : obj  -75669.273&quot;
+[1] &quot;Iteration  34 : obj  -75667.532&quot;
+[1] &quot;Iteration  35 : obj  -75667.212&quot;
+[1] &quot;Iteration  36 : obj  -75667.088&quot;
+[1] &quot;Iteration  37 : obj  -75666.983&quot;
+[1] &quot;Iteration  38 : obj  -75666.866&quot;
+[1] &quot;Iteration  39 : obj  -75666.706&quot;
+[1] &quot;Iteration  40 : obj  -75666.418&quot;
+[1] &quot;Iteration  41 : obj  -75667.149&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  5  increases objective by  3.875&quot;</code></pre>
+<pre class="r"><code>plot(f1$ldf$f[,1],type=&#39;l&#39;)</code></pre>
 <p><img src="figure/SmoothMF.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -1047,6 +1408,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/figure/SmoothMF.Rmd/unnamed-chunk-5-1.png" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-5-1.png" target="_blank">666296b</a>
 </td>
 <td>
@@ -1060,10 +1432,7 @@ Dongyue Xie
 </table>
 </div>
 </div>
-<pre class="r"><code>plot(-f1$f[,2],col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factor 1&#39;)
-lines(f_2/norm(f_2,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(-f2$f[,2],col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
+<pre class="r"><code>plot(f1$ldf$f[,2],type=&#39;l&#39;)</code></pre>
 <p><img src="figure/SmoothMF.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
@@ -1089,6 +1458,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/figure/SmoothMF.Rmd/unnamed-chunk-5-2.png" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-5-2.png" target="_blank">666296b</a>
 </td>
 <td>
@@ -1102,10 +1482,7 @@ Dongyue Xie
 </table>
 </div>
 </div>
-<pre class="r"><code>plot(f1$f[,3],col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factor 1&#39;)
-lines(f_3/norm(f_3,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(f2$f[,3],col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
+<pre class="r"><code>plot(f1$ldf$f[,3],type=&#39;l&#39;)</code></pre>
 <p><img src="figure/SmoothMF.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-3">
@@ -1131,6 +1508,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/figure/SmoothMF.Rmd/unnamed-chunk-5-3.png" target="_blank">2180b49</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-10-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-5-3.png" target="_blank">666296b</a>
 </td>
 <td>
@@ -1144,285 +1532,12 @@ Dongyue Xie
 </table>
 </div>
 </div>
-<p>How about use Haar wavelet?</p>
-<pre class="r"><code>f2 = WaveEBMF(Y,k=3,filter.number = 1,family = &#39;DaubExPhase&#39;)
-
-
-plot(-f1$f[,1],col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factor 1&#39;)
-lines(f_1/norm(f_1,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(-f2$f[,1],col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
-<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-6-1.png" target="_blank">666296b</a>
-</td>
-<td>
-Dongyue Xie
-</td>
-<td>
-2019-07-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>plot(-f1$f[,2],col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factor 1&#39;)
-lines(f_2/norm(f_2,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(-f2$f[,2],col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
-<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-2">
-Past versions of unnamed-chunk-6-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-6-2.png" target="_blank">666296b</a>
-</td>
-<td>
-Dongyue Xie
-</td>
-<td>
-2019-07-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>plot(f1$f[,3],col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factor 1&#39;)
-lines(f_3/norm(f_3,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(f2$f[,3],col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
-<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-3">
-Past versions of unnamed-chunk-6-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-6-3.png" target="_blank">666296b</a>
-</td>
-<td>
-Dongyue Xie
-</td>
-<td>
-2019-07-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>How about change the order of three factors?</p>
-<pre class="r"><code>FF = rbind(f_3,f_2,f_1)
-Y = L%*%FF + E
-
-# apply flash directly
-f1 = flash(Y,Kmax=3,var_type = &#39;constant&#39;,backfit = F,verbose=F)
-f1 = flash_get_ldf(f1)
-f2 = WaveEBMF(Y,k=3,filter.number = 1,family = &#39;DaubExPhase&#39;)
-
-
-plot(f1$f[,1],col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factor 1&#39;)
-lines(f_1/norm(f_1,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(f2$f[,1],col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
-<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-7-1.png" target="_blank">666296b</a>
-</td>
-<td>
-Dongyue Xie
-</td>
-<td>
-2019-07-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>plot(-f1$f[,2],col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factor 1&#39;)
-lines(f_2/norm(f_2,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(-f2$f[,2],col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
-<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
-Past versions of unnamed-chunk-7-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-7-2.png" target="_blank">666296b</a>
-</td>
-<td>
-Dongyue Xie
-</td>
-<td>
-2019-07-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>plot(-f1$f[,3],col = 2,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,main=&#39;Estimate of factor 1&#39;)
-lines(f_3/norm(f_3,&#39;2&#39;),col=&#39;grey80&#39;,type=&#39;p&#39;)
-lines(-f2$f[,3],col=4)
-legend(&#39;topright&#39;,c(&#39;true f&#39;,&#39;flash&#39;,&#39;Waveflash&#39;),col=c(&#39;grey80&#39;,2,4),lty=c(1,1,1))</code></pre>
-<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-3">
-Past versions of unnamed-chunk-7-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/DongyueXie/FMF/blob/666296ba0979515657a8d30f9957186033e9fd54/docs/figure/SmoothMF.Rmd/unnamed-chunk-7-3.png" target="_blank">666296b</a>
-</td>
-<td>
-Dongyue Xie
-</td>
-<td>
-2019-07-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="try-pmd" class="section level3">
-<h3>Try PMD</h3>
-<p><a href="SmoothPMD.html">PMD</a></p>
-</div>
-</div>
-<div id="summary" class="section level2">
-<h2>Summary</h2>
-<ol style="list-style-type: decimal">
-<li>The wavelet method gives smoother estimate of factors. The smoothness depends on the wavelet basis chosen.</li>
-<li>The signs of loadings and factors are not identifiable.</li>
-<li>Smash uses non-decimated DWT to give better estimate. If using NDWT in flash, there would be a lot more computational cost.</li>
-</ol>
+<pre class="r"><code>plot(f2$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-5-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f2$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-5-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f2$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/SmoothMF.Rmd/unnamed-chunk-5-6.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1431,13 +1546,13 @@ Dongyue Xie
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.6.1 (2019-07-05)
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS High Sierra 10.13.6
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -1446,27 +1561,30 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] flashr_0.6-6     wavethresh_4.6.8 MASS_7.3-51.4   
+[1] flashr_0.6-7     testthat_3.0.0   wavethresh_4.6.8 MASS_7.3-53     
+[5] workflowr_1.6.2 
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.2        plyr_1.8.4        pillar_1.4.2     
- [4] compiler_3.6.1    git2r_0.26.1      workflowr_1.4.0  
- [7] iterators_1.0.12  tools_3.6.1       digest_0.6.21    
-[10] tibble_2.1.3      evaluate_0.14     gtable_0.3.0     
-[13] lattice_0.20-38   pkgconfig_2.0.3   rlang_0.4.0      
-[16] Matrix_1.2-17     foreach_1.4.7     yaml_2.2.0       
-[19] parallel_3.6.1    xfun_0.10         dplyr_0.8.3      
-[22] stringr_1.4.0     knitr_1.25        fs_1.3.1         
-[25] tidyselect_0.2.5  rprojroot_1.3-2   grid_3.6.1       
-[28] glue_1.3.1        R6_2.4.0          rmarkdown_1.16   
-[31] mixsqp_0.1-97     reshape2_1.4.3    purrr_0.3.2      
-[34] ggplot2_3.2.1     ashr_2.2-38       magrittr_1.5     
-[37] whisker_0.4       backports_1.1.5   scales_1.0.0     
-[40] codetools_0.2-16  htmltools_0.4.0   assertthat_0.2.1 
-[43] softImpute_1.4    colorspace_1.4-1  stringi_1.4.3    
-[46] lazyeval_0.2.2    doParallel_1.0.15 pscl_1.5.2       
-[49] munsell_0.5.0     truncnorm_1.0-8   SQUAREM_2017.10-1
-[52] crayon_1.3.4     </code></pre>
+ [1] pkgload_1.1.0     splines_4.0.3     assertthat_0.2.1  horseshoe_0.2.0  
+ [5] mixsqp_0.3-43     deconvolveR_1.2-1 yaml_2.2.1        remotes_2.2.0    
+ [9] sessioninfo_1.1.1 ebnm_0.1-50       pillar_1.4.6      backports_1.1.10 
+[13] lattice_0.20-41   glue_1.4.2        digest_0.6.27     promises_1.1.1   
+[17] colorspace_1.4-1  htmltools_0.5.1.1 httpuv_1.5.4      Matrix_1.2-18    
+[21] plyr_1.8.6        pkgconfig_2.0.3   devtools_2.3.2    invgamma_1.1     
+[25] purrr_0.3.4       scales_1.1.1      processx_3.5.1    whisker_0.4      
+[29] later_1.1.0.1     git2r_0.27.1      tibble_3.0.4      generics_0.1.0   
+[33] ggplot2_3.3.2     usethis_1.6.3     ellipsis_0.3.1    withr_2.3.0      
+[37] ashr_2.2-47       cli_2.4.0         magrittr_2.0.1    crayon_1.3.4     
+[41] memoise_1.1.0     evaluate_0.14     ps_1.4.0          fs_1.5.0         
+[45] truncnorm_1.0-8   pkgbuild_1.1.0    tools_4.0.3       prettyunits_1.1.1
+[49] softImpute_1.4    REBayes_2.2       lifecycle_1.0.0   stringr_1.4.0    
+[53] trust_0.1-8       munsell_0.5.0     irlba_2.3.3       callr_3.6.0      
+[57] compiler_4.0.3    rlang_0.4.10      grid_4.0.3        rstudioapi_0.11  
+[61] rmarkdown_2.5     gtable_0.3.0      DBI_1.1.0         reshape2_1.4.4   
+[65] R6_2.4.1          knitr_1.30        dplyr_1.0.5       rprojroot_1.3-2  
+[69] desc_1.2.0        stringi_1.5.3     SQUAREM_2020.5    Rcpp_1.0.5       
+[73] vctrs_0.3.7       tidyselect_1.1.0  xfun_0.18        </code></pre>
+</div>
 </div>
 </div>
 
@@ -1493,7 +1611,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -1532,7 +1650,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
