@@ -1,0 +1,47 @@
+---
+title: "luis data wave"
+author: "Dongyue Xie"
+date: "2021-08-30"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## CMC2
+
+```{r}
+fit_wave = readRDS('output/wave_flash_on_cmc2_reduced_2000kb.rds')
+par(mfrow=c(1,1))
+plot(fit_wave$pve,type='p',pch=20,xlab = 'k',ylab='pve')
+
+ploter.wave.flash.factor = function(fit_wave,k=1,p){
+  
+  #plot(fit_flash$loadings.pm[[2]][,k],type='l',xlab='locus',ylab='',main=paste('factor ',k))
+  par(mfrow=c(3,1))
+  plot(fit_wave$ldf$f[1:(p/3),k],type='l',
+       xlab='',ylab='',main=paste('factor ',k, ', RNA'),col=2)
+  plot(fit_wave$ldf$f[((p/3+1):(p/3*2)),k],type='l',
+       xlab='',ylab='',main='H3K4me1',col=3)
+  plot(fit_wave$ldf$f[((p/3*2+1):(p)),k],type='l',
+       xlab='locus',ylab='',main='ATAC',col=4)
+  
+}
+ploter.wave.flash.loading = function(fit_wave,K){
+  par(mfrow=c(ceiling(K/2),2))
+  for(k in 1:K){
+    plot(fit_wave$ldf$l[,k],type='h',xlab='individuals',ylab='',main=paste('loading ',k))
+  }
+  
+}
+```
+
+```{r,fig.width=8,fig.height=15}
+ploter.wave.flash.loading(fit_wave,10)
+```
+
+```{r,fig.width=12,fig.height=12}
+for(k in 1:10){
+  ploter.wave.flash.factor(fit_wave,k,127827)
+}
+
+```
