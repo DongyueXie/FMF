@@ -125,9 +125,12 @@ ploter.flash = function(fit_flash,k=1,p){
 
 ```
 
-```{r,fig.width=12,fig.height=5}
+```{r}
 fit_flash = readRDS('output/flash_on_cmc2_reduced_2000kb.rds')
 plot(fit_flash$pve,type='p',pch=20,xlab = 'k',ylab='pve')
+```
+
+```{r,fig.width=12,fig.height=15}
 ploter.flash(fit_flash,1,127827)
 ploter.flash(fit_flash,2,127827)
 ploter.flash(fit_flash,3,127827)
@@ -163,7 +166,7 @@ ploter.wave.flash = function(fit_wave,k=1,p){
 }
 ```
 
-```{r,fig.width=12,fig.height=5}
+```{r,fig.width=12,fig.height=15}
 ploter.wave.flash(fit_wave,1,127827)
 ploter.wave.flash(fit_wave,2,127827)
 ploter.wave.flash(fit_wave,3,127827)
