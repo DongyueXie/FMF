@@ -109,9 +109,8 @@ Y = log(Y+1e-4)
 ```
 
 ```{r}
-ploter.flash = function(fit_flash,k=1,p){
-  par(mfrow=c(1,1))
-  plot(fit_flash$loadings.pm[[1]][,k],pch=20,xlab='individuals',ylab='',main=paste('loading ',k))
+ploter.flash.factor = function(fit_flash,k=1,p){
+  
   #plot(fit_flash$loadings.pm[[2]][,k],type='l',xlab='locus',ylab='',main=paste('factor ',k))
   par(mfrow=c(3,1))
   plot(fit_flash$loadings.pm[[2]][1:(p/3),k],type='l',
@@ -123,6 +122,14 @@ ploter.flash = function(fit_flash,k=1,p){
   
 }
 
+ploter.flash.loading = function(fit_flash,K){
+  par(mfrow=c(ceiling(K/2),2))
+  for(k in 1:K){
+    plot(fit_flash$loadings.pm[[1]][,k],type='h',xlab='individuals',ylab='',main=paste('loading ',k))
+  }
+  
+}
+
 ```
 
 ```{r}
@@ -130,12 +137,15 @@ fit_flash = readRDS('output/flash_on_cmc2_reduced_2000kb.rds')
 plot(fit_flash$pve,type='p',pch=20,xlab = 'k',ylab='pve')
 ```
 
-```{r,fig.width=12,fig.height=15}
-ploter.flash(fit_flash,1,127827)
-ploter.flash(fit_flash,2,127827)
-ploter.flash(fit_flash,3,127827)
-ploter.flash(fit_flash,4,127827)
-ploter.flash(fit_flash,5,127827)
+```{r,fig.width=10,fig.height=15}
+ploter.flash.loading(fit_flash,10)
+```
+
+```{r,fig.width=12,fig.height=12}
+for(k in 1:10){
+  ploter.flash.factor(fit_flash,k,127827)
+}
+
 ```
 
 
@@ -151,9 +161,8 @@ fit_wave = readRDS('output/wave_flash_on_cmc2_reduced_2000kb.rds')
 par(mfrow=c(1,1))
 plot(fit_wave$pve,type='p',pch=20,xlab = 'k',ylab='pve')
 
-ploter.wave.flash = function(fit_wave,k=1,p){
-  par(mfrow=c(1,1))
-  plot(fit_wave$ldf$l[,k],pch=20,xlab='individuals',ylab='',main=paste('loading ',k))
+ploter.wave.flash.factor = function(fit_wave,k=1,p){
+  
   #plot(fit_flash$loadings.pm[[2]][,k],type='l',xlab='locus',ylab='',main=paste('factor ',k))
   par(mfrow=c(3,1))
   plot(fit_wave$ldf$f[1:(p/3),k],type='l',
@@ -164,14 +173,24 @@ ploter.wave.flash = function(fit_wave,k=1,p){
        xlab='locus',ylab='',main='ATAC',col=4)
   
 }
+ploter.wave.flash.loading = function(fit_wave,K){
+  par(mfrow=c(ceiling(K/2),2))
+  for(k in 1:K){
+    plot(fit_wave$ldf$l[,k],type='h',xlab='individuals',ylab='',main=paste('loading ',k))
+  }
+  
+}
 ```
 
-```{r,fig.width=12,fig.height=15}
-ploter.wave.flash(fit_wave,1,127827)
-ploter.wave.flash(fit_wave,2,127827)
-ploter.wave.flash(fit_wave,3,127827)
-ploter.wave.flash(fit_wave,4,127827)
-ploter.wave.flash(fit_wave,5,127827)
+```{r,fig.width=8,fig.height=15}
+ploter.wave.flash.loading(fit_wave,10)
+```
+
+```{r,fig.width=12,fig.height=12}
+for(k in 1:10){
+  ploter.wave.flash.factor(fit_wave,k,127827)
+}
+
 ```
 
 ## FAM220A
