@@ -6,7 +6,7 @@ library(wavethresh)
 #'@param S
 #'@param Kmax maximum number of topics
 #'@param tol tolerance
-#'@param init_fn initilization of
+#'@param init_fn initialization of
 smooth_flash = function(Y,S,Kmax=1000,tol=0.01,
                         init_fn = "udv_si",
                         ebnm_fn = "ebnm_pn",
