@@ -27,6 +27,8 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 10. [5 low expressed genes with 3 topics and structure plot](lowgene.html): compare NMF and stm-smashgen.
 11. [The other 16 genes with 3 topics and structure plot](lowgene2.html)
 
+12. [Initial analysis on luis data](luis_data.html)
+
 ### PTF
 
 1. [Trend Filtering](PoissonTrendFiltering.html)
