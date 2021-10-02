@@ -1,0 +1,66 @@
+---
+title: "NDWT introduces correlations"
+author: "Dongyue Xie"
+date: "2021-09-20"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+We compare the performance of 1: ebmf on DWT(Y); 2: ebmf NDWT(Y). 
+
+NDWT stands for non-decimated wavelet transformation. The emppirical wavelet coefficients at each level are no longer independent.
+
+```{r}
+source('code/wave_ebmf_ndwt.R')
+set.seed(12345)
+N = 50
+p = 256
+s = 1
+pi0 = 0.3
+f = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
+l = c(rep(0,N*pi0),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+plot(l)
+plot(f,type='l')
+m = tcrossprod(l,f)
+y = m+matrix(rnorm(N*p,0,s),ncol=p)
+```
+
+
+```{r}
+fit.dwt = wave_ebmf(y,type='wavelet')
+fit.ndwt = wave_ebmf(y,Kmax=10,type='station')
+```
+
+```{r}
+fit.dwt$nfactors
+fit.ndwt$nfactors
+```
+
+I let the ndwt version to have at most 10 factors.
+
+```{r}
+plot(fit.dwt$ldf$f,type='l',xlab='',ylab='',lwd=1,main = 'dwt')
+plot(fit.ndwt$ldf$f[,1],type='l',xlab='',ylab='',lwd=1,main = 'ndwt')
+```
+
+Look at other factors from ndwt version
+
+```{r}
+for(i in 2:10){
+  plot(fit.ndwt$ldf$f[,i],type='l',xlab='',ylab='',lwd=1,main = paste(i))
+}
+```
+
+
+
+
+
+
