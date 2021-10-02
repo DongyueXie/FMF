@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Dongyue Xie" />
+
+<meta name="date" content="2021-09-20" />
+
+<title>NDWT introduces correlations</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SMF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/DongyueXie/SMF">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">NDWT introduces correlations</h1>
+<h4 class="author">Dongyue Xie</h4>
+<h4 class="date">2021-09-20</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-10-02
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190719code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190719)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190719code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190719)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreec7cd149a7fe9a6261771f2772bf91001e41a6a7btargetblankc7cd149a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/c7cd149a7fe9a6261771f2772bf91001e41a6a7b" target="_blank">c7cd149</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreec7cd149a7fe9a6261771f2772bf91001e41a6a7btargetblankc7cd149a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/c7cd149a7fe9a6261771f2772bf91001e41a6a7b" target="_blank">c7cd149</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/external_data/
+
+Untracked files:
+    Untracked:  analysis/sparse_smoothing.Rmd
+    Untracked:  code/smash_wave.R
+    Untracked:  code/wave_ebmf_ndwt.R
+    Untracked:  data/luis/
+    Untracked:  output/flash_on_cmc2_reduced.rds
+    Untracked:  output/flash_on_cmc2_reduced_2000kb.rds
+    Untracked:  output/wave_flash_on_cmc2_reduced_2000kb.rds
+
+Unstaged changes:
+    Modified:   analysis/luis_data.Rmd
+    Modified:   analysis/smooth_flash.Rmd
+    Modified:   code/smooth_flash.R
+    Modified:   code/sparseWS.R
+    Modified:   code/wave_ebmf.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/ndwt_wave_ebmf.Rmd</code>) and HTML (<code>docs/ndwt_wave_ebmf.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/c7cd149a7fe9a6261771f2772bf91001e41a6a7b/analysis/ndwt_wave_ebmf.Rmd" target="_blank">c7cd149</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-10-02
+</td>
+<td>
+wflow_publish(“analysis/ndwt_wave_ebmf.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>We compare the performance of 1: ebmf on DWT(Y); 2: ebmf NDWT(Y).</p>
+<p>NDWT stands for non-decimated wavelet transformation. The emppirical wavelet coefficients at each level are no longer independent.</p>
+<pre class="r"><code>source(&#39;code/wave_ebmf_ndwt.R&#39;)</code></pre>
+<pre><code>Loading required package: MASS</code></pre>
+<pre><code>WaveThresh: R wavelet software, release 4.6.8, installed</code></pre>
+<pre><code>Copyright Guy Nason and others 1993-2016</code></pre>
+<pre><code>Note: nlevels has been renamed to nlevelsWT</code></pre>
+<pre><code>Loading flashr</code></pre>
+<pre class="r"><code>set.seed(12345)
+N = 50
+p = 256
+s = 1
+pi0 = 0.3
+f = c(rep(2,p/4), rep(5, p/4), rep(6, p/4), rep(2, p/4))
+l = c(rep(0,N*pi0),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.25)),
+      rnorm(N*(1-pi0)/5,0,sqrt(0.5)),
+      rnorm(N*(1-pi0)/5,0,sqrt(1)),
+      rnorm(N*(1-pi0)/5,0,sqrt(2)),
+      rnorm(N*(1-pi0)/5,0,sqrt(4)))
+plot(l)</code></pre>
+<p><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>m = tcrossprod(l,f)
+y = m+matrix(rnorm(N*p,0,s),ncol=p)</code></pre>
+<pre class="r"><code>fit.dwt = wave_ebmf(y,type=&#39;wavelet&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -18182.655&quot;
+[1] &quot;Iteration  2 : obj  -18173.416&quot;
+[1] &quot;Iteration  3 : obj  -18173.138&quot;
+[1] &quot;Iteration  4 : obj  -18173.137&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  5489.049&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -18207.009&quot;
+[1] &quot;Iteration  2 : obj  -18193.024&quot;
+[1] &quot;Iteration  3 : obj  -18189.414&quot;
+[1] &quot;Iteration  4 : obj  -18187.045&quot;
+[1] &quot;Iteration  5 : obj  -18185.659&quot;
+[1] &quot;Iteration  6 : obj  -18184.62&quot;
+[1] &quot;Iteration  7 : obj  -18183.499&quot;
+[1] &quot;Iteration  8 : obj  -18182.335&quot;
+[1] &quot;Iteration  9 : obj  -18181.488&quot;
+[1] &quot;Iteration  10 : obj  -18180.927&quot;
+[1] &quot;Iteration  11 : obj  -18180.329&quot;
+[1] &quot;Iteration  12 : obj  -18179.69&quot;
+[1] &quot;Iteration  13 : obj  -18179.258&quot;
+[1] &quot;Iteration  14 : obj  -18179.03&quot;
+[1] &quot;Iteration  15 : obj  -18178.879&quot;
+[1] &quot;Iteration  16 : obj  -18178.737&quot;
+[1] &quot;Iteration  17 : obj  -18178.675&quot;
+[1] &quot;Iteration  18 : obj  -18178.644&quot;
+[1] &quot;Iteration  19 : obj  -18178.629&quot;
+[1] &quot;Iteration  20 : obj  -18178.621&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  increases objective by  5.484&quot;</code></pre>
+<pre class="r"><code>fit.ndwt = wave_ebmf(y,Kmax=10,type=&#39;station&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -143500.727&quot;
+[1] &quot;Iteration  2 : obj  -143425.537&quot;
+[1] &quot;Iteration  3 : obj  -143424.198&quot;
+[1] &quot;Iteration  4 : obj  -143424.152&quot;
+[1] &quot;Iteration  5 : obj  -143424.15&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  120164.813&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -141277.496&quot;
+[1] &quot;Iteration  2 : obj  -141238.225&quot;
+[1] &quot;Iteration  3 : obj  -141232.832&quot;
+[1] &quot;Iteration  4 : obj  -141229.703&quot;
+[1] &quot;Iteration  5 : obj  -141227.499&quot;
+[1] &quot;Iteration  6 : obj  -141225.9&quot;
+[1] &quot;Iteration  7 : obj  -141224.739&quot;
+[1] &quot;Iteration  8 : obj  -141223.888&quot;
+[1] &quot;Iteration  9 : obj  -141223.258&quot;
+[1] &quot;Iteration  10 : obj  -141222.797&quot;
+[1] &quot;Iteration  11 : obj  -141222.466&quot;
+[1] &quot;Iteration  12 : obj  -141222.23&quot;
+[1] &quot;Iteration  13 : obj  -141222.064&quot;
+[1] &quot;Iteration  14 : obj  -141221.948&quot;
+[1] &quot;Iteration  15 : obj  -141221.867&quot;
+[1] &quot;Iteration  16 : obj  -141221.81&quot;
+[1] &quot;Iteration  17 : obj  -141221.771&quot;
+[1] &quot;Iteration  18 : obj  -141221.744&quot;
+[1] &quot;Iteration  19 : obj  -141221.725&quot;
+[1] &quot;Iteration  20 : obj  -141221.712&quot;
+[1] &quot;Iteration  21 : obj  -141221.704&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  2202.447&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -139454.692&quot;
+[1] &quot;Iteration  2 : obj  -139399.937&quot;
+[1] &quot;Iteration  3 : obj  -139389.778&quot;
+[1] &quot;Iteration  4 : obj  -139383.507&quot;
+[1] &quot;Iteration  5 : obj  -139379.115&quot;
+[1] &quot;Iteration  6 : obj  -139375.872&quot;
+[1] &quot;Iteration  7 : obj  -139373.453&quot;
+[1] &quot;Iteration  8 : obj  -139371.65&quot;
+[1] &quot;Iteration  9 : obj  -139370.341&quot;
+[1] &quot;Iteration  10 : obj  -139369.408&quot;
+[1] &quot;Iteration  11 : obj  -139368.738&quot;
+[1] &quot;Iteration  12 : obj  -139368.25&quot;
+[1] &quot;Iteration  13 : obj  -139367.891&quot;
+[1] &quot;Iteration  14 : obj  -139367.622&quot;
+[1] &quot;Iteration  15 : obj  -139367.418&quot;
+[1] &quot;Iteration  16 : obj  -139367.262&quot;
+[1] &quot;Iteration  17 : obj  -139367.141&quot;
+[1] &quot;Iteration  18 : obj  -139367.045&quot;
+[1] &quot;Iteration  19 : obj  -139366.97&quot;
+[1] &quot;Iteration  20 : obj  -139366.91&quot;
+[1] &quot;Iteration  21 : obj  -139366.862&quot;
+[1] &quot;Iteration  22 : obj  -139366.824&quot;
+[1] &quot;Iteration  23 : obj  -139366.793&quot;
+[1] &quot;Iteration  24 : obj  -139366.768&quot;
+[1] &quot;Iteration  25 : obj  -139366.747&quot;
+[1] &quot;Iteration  26 : obj  -139366.731&quot;
+[1] &quot;Iteration  27 : obj  -139366.717&quot;
+[1] &quot;Iteration  28 : obj  -139366.706&quot;
+[1] &quot;Iteration  29 : obj  -139366.697&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  1855.006&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -137719.486&quot;
+[1] &quot;Iteration  2 : obj  -137675.323&quot;
+[1] &quot;Iteration  3 : obj  -137671.891&quot;
+[1] &quot;Iteration  4 : obj  -137670.778&quot;
+[1] &quot;Iteration  5 : obj  -137670.24&quot;
+[1] &quot;Iteration  6 : obj  -137669.942&quot;
+[1] &quot;Iteration  7 : obj  -137669.765&quot;
+[1] &quot;Iteration  8 : obj  -137669.655&quot;
+[1] &quot;Iteration  9 : obj  -137669.585&quot;
+[1] &quot;Iteration  10 : obj  -137669.54&quot;
+[1] &quot;Iteration  11 : obj  -137669.511&quot;
+[1] &quot;Iteration  12 : obj  -137669.492&quot;
+[1] &quot;Iteration  13 : obj  -137669.48&quot;
+[1] &quot;Iteration  14 : obj  -137669.472&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  decreases objective by  1697.224&quot;
+[1] &quot;Fitting dimension  5&quot;
+[1] &quot;Iteration  1 : obj  -136548.642&quot;
+[1] &quot;Iteration  2 : obj  -136510.888&quot;
+[1] &quot;Iteration  3 : obj  -136508.318&quot;
+[1] &quot;Iteration  4 : obj  -136507.598&quot;
+[1] &quot;Iteration  5 : obj  -136507.344&quot;
+[1] &quot;Iteration  6 : obj  -136507.237&quot;
+[1] &quot;Iteration  7 : obj  -136507.183&quot;
+[1] &quot;Iteration  8 : obj  -136507.149&quot;
+[1] &quot;Iteration  9 : obj  -136507.124&quot;
+[1] &quot;Iteration  10 : obj  -136507.103&quot;
+[1] &quot;Iteration  11 : obj  -136507.084&quot;
+[1] &quot;Iteration  12 : obj  -136507.066&quot;
+[1] &quot;Iteration  13 : obj  -136507.048&quot;
+[1] &quot;Iteration  14 : obj  -136507.03&quot;
+[1] &quot;Iteration  15 : obj  -136507.013&quot;
+[1] &quot;Iteration  16 : obj  -136506.995&quot;
+[1] &quot;Iteration  17 : obj  -136506.977&quot;
+[1] &quot;Iteration  18 : obj  -136506.959&quot;
+[1] &quot;Iteration  19 : obj  -136506.941&quot;
+[1] &quot;Iteration  20 : obj  -136506.923&quot;
+[1] &quot;Iteration  21 : obj  -136506.905&quot;
+[1] &quot;Iteration  22 : obj  -136506.887&quot;
+[1] &quot;Iteration  23 : obj  -136506.869&quot;
+[1] &quot;Iteration  24 : obj  -136506.851&quot;
+[1] &quot;Iteration  25 : obj  -136506.832&quot;
+[1] &quot;Iteration  26 : obj  -136506.814&quot;
+[1] &quot;Iteration  27 : obj  -136506.795&quot;
+[1] &quot;Iteration  28 : obj  -136506.777&quot;
+[1] &quot;Iteration  29 : obj  -136506.758&quot;
+[1] &quot;Iteration  30 : obj  -136506.739&quot;
+[1] &quot;Iteration  31 : obj  -136506.72&quot;
+[1] &quot;Iteration  32 : obj  -136506.701&quot;
+[1] &quot;Iteration  33 : obj  -136506.682&quot;
+[1] &quot;Iteration  34 : obj  -136506.662&quot;
+[1] &quot;Iteration  35 : obj  -136506.643&quot;
+[1] &quot;Iteration  36 : obj  -136506.623&quot;
+[1] &quot;Iteration  37 : obj  -136506.604&quot;
+[1] &quot;Iteration  38 : obj  -136506.584&quot;
+[1] &quot;Iteration  39 : obj  -136506.564&quot;
+[1] &quot;Iteration  40 : obj  -136506.544&quot;
+[1] &quot;Iteration  41 : obj  -136506.524&quot;
+[1] &quot;Iteration  42 : obj  -136506.504&quot;
+[1] &quot;Iteration  43 : obj  -136506.484&quot;
+[1] &quot;Iteration  44 : obj  -136506.463&quot;
+[1] &quot;Iteration  45 : obj  -136506.443&quot;
+[1] &quot;Iteration  46 : obj  -136506.422&quot;
+[1] &quot;Iteration  47 : obj  -136506.401&quot;
+[1] &quot;Iteration  48 : obj  -136506.381&quot;
+[1] &quot;Iteration  49 : obj  -136506.36&quot;
+[1] &quot;Iteration  50 : obj  -136506.338&quot;
+[1] &quot;Iteration  51 : obj  -136506.317&quot;
+[1] &quot;Iteration  52 : obj  -136506.296&quot;
+[1] &quot;Iteration  53 : obj  -136506.274&quot;
+[1] &quot;Iteration  54 : obj  -136506.253&quot;
+[1] &quot;Iteration  55 : obj  -136506.231&quot;
+[1] &quot;Iteration  56 : obj  -136506.209&quot;
+[1] &quot;Iteration  57 : obj  -136506.187&quot;
+[1] &quot;Iteration  58 : obj  -136506.165&quot;
+[1] &quot;Iteration  59 : obj  -136506.143&quot;
+[1] &quot;Iteration  60 : obj  -136506.121&quot;
+[1] &quot;Iteration  61 : obj  -136506.098&quot;
+[1] &quot;Iteration  62 : obj  -136506.075&quot;
+[1] &quot;Iteration  63 : obj  -136506.053&quot;
+[1] &quot;Iteration  64 : obj  -136506.03&quot;
+[1] &quot;Iteration  65 : obj  -136506.007&quot;
+[1] &quot;Iteration  66 : obj  -136505.983&quot;
+[1] &quot;Iteration  67 : obj  -136505.96&quot;
+[1] &quot;Iteration  68 : obj  -136505.936&quot;
+[1] &quot;Iteration  69 : obj  -136505.912&quot;
+[1] &quot;Iteration  70 : obj  -136505.887&quot;
+[1] &quot;Iteration  71 : obj  -136505.861&quot;
+[1] &quot;Iteration  72 : obj  -136505.835&quot;
+[1] &quot;Iteration  73 : obj  -136505.808&quot;
+[1] &quot;Iteration  74 : obj  -136505.779&quot;
+[1] &quot;Iteration  75 : obj  -136505.75&quot;
+[1] &quot;Iteration  76 : obj  -136505.72&quot;
+[1] &quot;Iteration  77 : obj  -136505.688&quot;
+[1] &quot;Iteration  78 : obj  -136505.655&quot;
+[1] &quot;Iteration  79 : obj  -136505.621&quot;
+[1] &quot;Iteration  80 : obj  -136505.585&quot;
+[1] &quot;Iteration  81 : obj  -136505.569&quot;
+[1] &quot;Iteration  82 : obj  -136505.539&quot;
+[1] &quot;Iteration  83 : obj  -136505.509&quot;
+[1] &quot;Iteration  84 : obj  -136505.477&quot;
+[1] &quot;Iteration  85 : obj  -136505.445&quot;
+[1] &quot;Iteration  86 : obj  -136505.412&quot;
+[1] &quot;Iteration  87 : obj  -136505.378&quot;
+[1] &quot;Iteration  88 : obj  -136505.343&quot;
+[1] &quot;Iteration  89 : obj  -136505.255&quot;
+[1] &quot;Iteration  90 : obj  -136505.203&quot;
+[1] &quot;Iteration  91 : obj  -136505.151&quot;
+[1] &quot;Iteration  92 : obj  -136505.099&quot;
+[1] &quot;Iteration  93 : obj  -136505.045&quot;
+[1] &quot;Iteration  94 : obj  -136504.99&quot;
+[1] &quot;Iteration  95 : obj  -136504.935&quot;
+[1] &quot;Iteration  96 : obj  -136504.878&quot;
+[1] &quot;Iteration  97 : obj  -136504.822&quot;
+[1] &quot;Iteration  98 : obj  -136504.765&quot;
+[1] &quot;Iteration  99 : obj  -136504.707&quot;
+[1] &quot;Iteration  100 : obj  -136504.65&quot;
+[1] &quot;Iteration  101 : obj  -136504.593&quot;
+[1] &quot;Iteration  102 : obj  -136504.535&quot;
+[1] &quot;Iteration  103 : obj  -136504.478&quot;
+[1] &quot;Iteration  104 : obj  -136504.422&quot;
+[1] &quot;Iteration  105 : obj  -136504.366&quot;
+[1] &quot;Iteration  106 : obj  -136504.31&quot;
+[1] &quot;Iteration  107 : obj  -136504.255&quot;
+[1] &quot;Iteration  108 : obj  -136504.201&quot;
+[1] &quot;Iteration  109 : obj  -136504.147&quot;
+[1] &quot;Iteration  110 : obj  -136504.094&quot;
+[1] &quot;Iteration  111 : obj  -136504.038&quot;
+[1] &quot;Iteration  112 : obj  -136503.98&quot;
+[1] &quot;Iteration  113 : obj  -136503.92&quot;
+[1] &quot;Iteration  114 : obj  -136503.856&quot;
+[1] &quot;Iteration  115 : obj  -136503.791&quot;
+[1] &quot;Iteration  116 : obj  -136503.723&quot;
+[1] &quot;Iteration  117 : obj  -136503.652&quot;
+[1] &quot;Iteration  118 : obj  -136503.579&quot;
+[1] &quot;Iteration  119 : obj  -136503.503&quot;
+[1] &quot;Iteration  120 : obj  -136503.425&quot;
+[1] &quot;Iteration  121 : obj  -136503.344&quot;
+[1] &quot;Iteration  122 : obj  -136503.26&quot;
+[1] &quot;Iteration  123 : obj  -136503.174&quot;
+[1] &quot;Iteration  124 : obj  -136503.085&quot;
+[1] &quot;Iteration  125 : obj  -136502.994&quot;
+[1] &quot;Iteration  126 : obj  -136502.899&quot;
+[1] &quot;Iteration  127 : obj  -136502.8&quot;
+[1] &quot;Iteration  128 : obj  -136502.699&quot;
+[1] &quot;Iteration  129 : obj  -136502.593&quot;
+[1] &quot;Iteration  130 : obj  -136502.484&quot;
+[1] &quot;Iteration  131 : obj  -136502.371&quot;
+[1] &quot;Iteration  132 : obj  -136502.253&quot;
+[1] &quot;Iteration  133 : obj  -136502.132&quot;
+[1] &quot;Iteration  134 : obj  -136502.007&quot;
+[1] &quot;Iteration  135 : obj  -136501.878&quot;
+[1] &quot;Iteration  136 : obj  -136501.747&quot;
+[1] &quot;Iteration  137 : obj  -136501.614&quot;
+[1] &quot;Iteration  138 : obj  -136501.48&quot;
+[1] &quot;Iteration  139 : obj  -136501.347&quot;
+[1] &quot;Iteration  140 : obj  -136501.215&quot;
+[1] &quot;Iteration  141 : obj  -136501.086&quot;
+[1] &quot;Iteration  142 : obj  -136500.96&quot;
+[1] &quot;Iteration  143 : obj  -136500.838&quot;
+[1] &quot;Iteration  144 : obj  -136500.72&quot;
+[1] &quot;Iteration  145 : obj  -136500.607&quot;
+[1] &quot;Iteration  146 : obj  -136500.497&quot;
+[1] &quot;Iteration  147 : obj  -136500.393&quot;
+[1] &quot;Iteration  148 : obj  -136500.292&quot;
+[1] &quot;Iteration  149 : obj  -136500.195&quot;
+[1] &quot;Iteration  150 : obj  -136500.102&quot;
+[1] &quot;Iteration  151 : obj  -136500.012&quot;
+[1] &quot;Iteration  152 : obj  -136499.924&quot;
+[1] &quot;Iteration  153 : obj  -136499.839&quot;
+[1] &quot;Iteration  154 : obj  -136499.756&quot;
+[1] &quot;Iteration  155 : obj  -136499.674&quot;
+[1] &quot;Iteration  156 : obj  -136499.593&quot;
+[1] &quot;Iteration  157 : obj  -136499.512&quot;
+[1] &quot;Iteration  158 : obj  -136499.43&quot;
+[1] &quot;Iteration  159 : obj  -136499.347&quot;
+[1] &quot;Iteration  160 : obj  -136499.262&quot;
+[1] &quot;Iteration  161 : obj  -136499.174&quot;
+[1] &quot;Iteration  162 : obj  -136499.112&quot;
+[1] &quot;Iteration  163 : obj  -136498.994&quot;
+[1] &quot;Iteration  164 : obj  -136498.856&quot;
+[1] &quot;Iteration  165 : obj  -136498.749&quot;
+[1] &quot;Iteration  166 : obj  -136498.639&quot;
+[1] &quot;Iteration  167 : obj  -136498.526&quot;
+[1] &quot;Iteration  168 : obj  -136498.41&quot;
+[1] &quot;Iteration  169 : obj  -136498.291&quot;
+[1] &quot;Iteration  170 : obj  -136498.175&quot;
+[1] &quot;Iteration  171 : obj  -136498.061&quot;
+[1] &quot;Iteration  172 : obj  -136497.95&quot;
+[1] &quot;Iteration  173 : obj  -136497.841&quot;
+[1] &quot;Iteration  174 : obj  -136497.736&quot;
+[1] &quot;Iteration  175 : obj  -136497.633&quot;
+[1] &quot;Iteration  176 : obj  -136497.534&quot;
+[1] &quot;Iteration  177 : obj  -136497.437&quot;
+[1] &quot;Iteration  178 : obj  -136497.342&quot;
+[1] &quot;Iteration  179 : obj  -136497.251&quot;
+[1] &quot;Iteration  180 : obj  -136497.162&quot;
+[1] &quot;Iteration  181 : obj  -136497.08&quot;
+[1] &quot;Iteration  182 : obj  -136496.999&quot;
+[1] &quot;Iteration  183 : obj  -136496.914&quot;
+[1] &quot;Iteration  184 : obj  -136496.836&quot;
+[1] &quot;Iteration  185 : obj  -136496.762&quot;
+[1] &quot;Iteration  186 : obj  -136496.69&quot;
+[1] &quot;Iteration  187 : obj  -136496.622&quot;
+[1] &quot;Iteration  188 : obj  -136496.556&quot;
+[1] &quot;Iteration  189 : obj  -136496.494&quot;
+[1] &quot;Iteration  190 : obj  -136496.435&quot;
+[1] &quot;Iteration  191 : obj  -136496.378&quot;
+[1] &quot;Iteration  192 : obj  -136496.324&quot;
+[1] &quot;Iteration  193 : obj  -136496.272&quot;
+[1] &quot;Iteration  194 : obj  -136496.223&quot;
+[1] &quot;Iteration  195 : obj  -136496.176&quot;
+[1] &quot;Iteration  196 : obj  -136496.131&quot;
+[1] &quot;Iteration  197 : obj  -136496.088&quot;
+[1] &quot;Iteration  198 : obj  -136496.046&quot;
+[1] &quot;Iteration  199 : obj  -136496.007&quot;
+[1] &quot;Iteration  200 : obj  -136495.968&quot;
+[1] &quot;Iteration  201 : obj  -136495.931&quot;
+[1] &quot;Iteration  202 : obj  -136495.896&quot;
+[1] &quot;Iteration  203 : obj  -136495.861&quot;
+[1] &quot;Iteration  204 : obj  -136495.828&quot;
+[1] &quot;Iteration  205 : obj  -136495.796&quot;
+[1] &quot;Iteration  206 : obj  -136495.765&quot;
+[1] &quot;Iteration  207 : obj  -136495.735&quot;
+[1] &quot;Iteration  208 : obj  -136495.707&quot;
+[1] &quot;Iteration  209 : obj  -136495.679&quot;
+[1] &quot;Iteration  210 : obj  -136495.652&quot;
+[1] &quot;Iteration  211 : obj  -136495.626&quot;
+[1] &quot;Iteration  212 : obj  -136495.602&quot;
+[1] &quot;Iteration  213 : obj  -136495.578&quot;
+[1] &quot;Iteration  214 : obj  -136495.554&quot;
+[1] &quot;Iteration  215 : obj  -136495.532&quot;
+[1] &quot;Iteration  216 : obj  -136495.511&quot;
+[1] &quot;Iteration  217 : obj  -136495.49&quot;
+[1] &quot;Iteration  218 : obj  -136495.47&quot;
+[1] &quot;Iteration  219 : obj  -136495.45&quot;
+[1] &quot;Iteration  220 : obj  -136495.432&quot;
+[1] &quot;Iteration  221 : obj  -136495.413&quot;
+[1] &quot;Iteration  222 : obj  -136495.396&quot;
+[1] &quot;Iteration  223 : obj  -136495.379&quot;
+[1] &quot;Iteration  224 : obj  -136495.362&quot;
+[1] &quot;Iteration  225 : obj  -136495.346&quot;
+[1] &quot;Iteration  226 : obj  -136495.33&quot;
+[1] &quot;Iteration  227 : obj  -136495.315&quot;
+[1] &quot;Iteration  228 : obj  -136495.3&quot;
+[1] &quot;Iteration  229 : obj  -136495.285&quot;
+[1] &quot;Iteration  230 : obj  -136495.271&quot;
+[1] &quot;Iteration  231 : obj  -136495.257&quot;
+[1] &quot;Iteration  232 : obj  -136495.243&quot;
+[1] &quot;Iteration  233 : obj  -136495.229&quot;
+[1] &quot;Iteration  234 : obj  -136495.216&quot;
+[1] &quot;Iteration  235 : obj  -136495.203&quot;
+[1] &quot;Iteration  236 : obj  -136495.191&quot;
+[1] &quot;Iteration  237 : obj  -136495.179&quot;
+[1] &quot;Iteration  238 : obj  -136495.167&quot;
+[1] &quot;Iteration  239 : obj  -136495.155&quot;
+[1] &quot;Iteration  240 : obj  -136495.144&quot;
+[1] &quot;Iteration  241 : obj  -136495.133&quot;
+[1] &quot;Iteration  242 : obj  -136495.122&quot;
+[1] &quot;Iteration  243 : obj  -136495.112&quot;
+[1] &quot;Iteration  244 : obj  -136495.102&quot;
+[1] &quot;Iteration  245 : obj  -136495.092&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  5  decreases objective by  1174.38&quot;
+[1] &quot;Fitting dimension  6&quot;
+[1] &quot;Iteration  1 : obj  -135305.685&quot;
+[1] &quot;Iteration  2 : obj  -135259.356&quot;
+[1] &quot;Iteration  3 : obj  -135257.328&quot;
+[1] &quot;Iteration  4 : obj  -135256.98&quot;
+[1] &quot;Iteration  5 : obj  -135256.881&quot;
+[1] &quot;Iteration  6 : obj  -135256.845&quot;
+[1] &quot;Iteration  7 : obj  -135256.83&quot;
+[1] &quot;Iteration  8 : obj  -135256.823&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  6  decreases objective by  1238.268&quot;
+[1] &quot;Fitting dimension  7&quot;
+[1] &quot;Iteration  1 : obj  -134718.117&quot;
+[1] &quot;Iteration  2 : obj  -134678.819&quot;
+[1] &quot;Iteration  3 : obj  -134668.804&quot;
+[1] &quot;Iteration  4 : obj  -134660.741&quot;
+[1] &quot;Iteration  5 : obj  -134654.209&quot;
+[1] &quot;Iteration  6 : obj  -134649.045&quot;
+[1] &quot;Iteration  7 : obj  -134644.956&quot;
+[1] &quot;Iteration  8 : obj  -134641.789&quot;
+[1] &quot;Iteration  9 : obj  -134639.39&quot;
+[1] &quot;Iteration  10 : obj  -134637.595&quot;
+[1] &quot;Iteration  11 : obj  -134636.26&quot;
+[1] &quot;Iteration  12 : obj  -134635.266&quot;
+[1] &quot;Iteration  13 : obj  -134634.523&quot;
+[1] &quot;Iteration  14 : obj  -134633.964&quot;
+[1] &quot;Iteration  15 : obj  -134633.542&quot;
+[1] &quot;Iteration  16 : obj  -134633.221&quot;
+[1] &quot;Iteration  17 : obj  -134632.977&quot;
+[1] &quot;Iteration  18 : obj  -134632.79&quot;
+[1] &quot;Iteration  19 : obj  -134632.647&quot;
+[1] &quot;Iteration  20 : obj  -134632.537&quot;
+[1] &quot;Iteration  21 : obj  -134632.453&quot;
+[1] &quot;Iteration  22 : obj  -134632.388&quot;
+[1] &quot;Iteration  23 : obj  -134632.338&quot;
+[1] &quot;Iteration  24 : obj  -134632.3&quot;
+[1] &quot;Iteration  25 : obj  -134632.27&quot;
+[1] &quot;Iteration  26 : obj  -134632.247&quot;
+[1] &quot;Iteration  27 : obj  -134632.229&quot;
+[1] &quot;Iteration  28 : obj  -134632.215&quot;
+[1] &quot;Iteration  29 : obj  -134632.205&quot;
+[1] &quot;Iteration  30 : obj  -134632.196&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  7  decreases objective by  624.627&quot;
+[1] &quot;Fitting dimension  8&quot;
+[1] &quot;Iteration  1 : obj  -134085.315&quot;
+[1] &quot;Iteration  2 : obj  -134052.493&quot;
+[1] &quot;Iteration  3 : obj  -134050.306&quot;
+[1] &quot;Iteration  4 : obj  -134049.003&quot;
+[1] &quot;Iteration  5 : obj  -134047.896&quot;
+[1] &quot;Iteration  6 : obj  -134046.835&quot;
+[1] &quot;Iteration  7 : obj  -134045.763&quot;
+[1] &quot;Iteration  8 : obj  -134044.659&quot;
+[1] &quot;Iteration  9 : obj  -134043.494&quot;
+[1] &quot;Iteration  10 : obj  -134042.305&quot;
+[1] &quot;Iteration  11 : obj  -134041.095&quot;
+[1] &quot;Iteration  12 : obj  -134039.867&quot;
+[1] &quot;Iteration  13 : obj  -134038.628&quot;
+[1] &quot;Iteration  14 : obj  -134037.383&quot;
+[1] &quot;Iteration  15 : obj  -134036.131&quot;
+[1] &quot;Iteration  16 : obj  -134034.864&quot;
+[1] &quot;Iteration  17 : obj  -134033.572&quot;
+[1] &quot;Iteration  18 : obj  -134032.287&quot;
+[1] &quot;Iteration  19 : obj  -134031.083&quot;
+[1] &quot;Iteration  20 : obj  -134030.016&quot;
+[1] &quot;Iteration  21 : obj  -134029.089&quot;
+[1] &quot;Iteration  22 : obj  -134028.295&quot;
+[1] &quot;Iteration  23 : obj  -134027.624&quot;
+[1] &quot;Iteration  24 : obj  -134027.06&quot;
+[1] &quot;Iteration  25 : obj  -134026.581&quot;
+[1] &quot;Iteration  26 : obj  -134026.18&quot;
+[1] &quot;Iteration  27 : obj  -134025.852&quot;
+[1] &quot;Iteration  28 : obj  -134025.588&quot;
+[1] &quot;Iteration  29 : obj  -134025.375&quot;
+[1] &quot;Iteration  30 : obj  -134025.204&quot;
+[1] &quot;Iteration  31 : obj  -134025.064&quot;
+[1] &quot;Iteration  32 : obj  -134024.948&quot;
+[1] &quot;Iteration  33 : obj  -134024.851&quot;
+[1] &quot;Iteration  34 : obj  -134024.767&quot;
+[1] &quot;Iteration  35 : obj  -134024.693&quot;
+[1] &quot;Iteration  36 : obj  -134024.628&quot;
+[1] &quot;Iteration  37 : obj  -134024.57&quot;
+[1] &quot;Iteration  38 : obj  -134024.518&quot;
+[1] &quot;Iteration  39 : obj  -134024.471&quot;
+[1] &quot;Iteration  40 : obj  -134024.43&quot;
+[1] &quot;Iteration  41 : obj  -134024.394&quot;
+[1] &quot;Iteration  42 : obj  -134024.363&quot;
+[1] &quot;Iteration  43 : obj  -134024.337&quot;
+[1] &quot;Iteration  44 : obj  -134024.315&quot;
+[1] &quot;Iteration  45 : obj  -134024.296&quot;
+[1] &quot;Iteration  46 : obj  -134024.282&quot;
+[1] &quot;Iteration  47 : obj  -134024.27&quot;
+[1] &quot;Iteration  48 : obj  -134024.26&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  8  decreases objective by  607.936&quot;
+[1] &quot;Fitting dimension  9&quot;
+[1] &quot;Iteration  1 : obj  -133415.032&quot;
+[1] &quot;Iteration  2 : obj  -133369.255&quot;
+[1] &quot;Iteration  3 : obj  -133364.476&quot;
+[1] &quot;Iteration  4 : obj  -133361.671&quot;
+[1] &quot;Iteration  5 : obj  -133359.749&quot;
+[1] &quot;Iteration  6 : obj  -133358.374&quot;
+[1] &quot;Iteration  7 : obj  -133357.376&quot;
+[1] &quot;Iteration  8 : obj  -133356.651&quot;
+[1] &quot;Iteration  9 : obj  -133356.124&quot;
+[1] &quot;Iteration  10 : obj  -133355.743&quot;
+[1] &quot;Iteration  11 : obj  -133355.468&quot;
+[1] &quot;Iteration  12 : obj  -133355.269&quot;
+[1] &quot;Iteration  13 : obj  -133355.127&quot;
+[1] &quot;Iteration  14 : obj  -133355.024&quot;
+[1] &quot;Iteration  15 : obj  -133354.951&quot;
+[1] &quot;Iteration  16 : obj  -133354.899&quot;
+[1] &quot;Iteration  17 : obj  -133354.861&quot;
+[1] &quot;Iteration  18 : obj  -133354.834&quot;
+[1] &quot;Iteration  19 : obj  -133354.815&quot;
+[1] &quot;Iteration  20 : obj  -133354.799&quot;
+[1] &quot;Iteration  21 : obj  -133354.786&quot;
+[1] &quot;Iteration  22 : obj  -133354.773&quot;
+[1] &quot;Iteration  23 : obj  -133354.761&quot;
+[1] &quot;Iteration  24 : obj  -133354.749&quot;
+[1] &quot;Iteration  25 : obj  -133354.737&quot;
+[1] &quot;Iteration  26 : obj  -133354.724&quot;
+[1] &quot;Iteration  27 : obj  -133354.712&quot;
+[1] &quot;Iteration  28 : obj  -133354.7&quot;
+[1] &quot;Iteration  29 : obj  -133354.687&quot;
+[1] &quot;Iteration  30 : obj  -133354.675&quot;
+[1] &quot;Iteration  31 : obj  -133354.663&quot;
+[1] &quot;Iteration  32 : obj  -133354.652&quot;
+[1] &quot;Iteration  33 : obj  -133354.641&quot;
+[1] &quot;Iteration  34 : obj  -133354.63&quot;
+[1] &quot;Iteration  35 : obj  -133354.62&quot;
+[1] &quot;Iteration  36 : obj  -133354.61&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  9  decreases objective by  669.65&quot;
+[1] &quot;Fitting dimension  10&quot;
+[1] &quot;Iteration  1 : obj  -132967.359&quot;
+[1] &quot;Iteration  2 : obj  -132912.546&quot;
+[1] &quot;Iteration  3 : obj  -132902.925&quot;
+[1] &quot;Iteration  4 : obj  -132895.287&quot;
+[1] &quot;Iteration  5 : obj  -132888.753&quot;
+[1] &quot;Iteration  6 : obj  -132883.647&quot;
+[1] &quot;Iteration  7 : obj  -132879.743&quot;
+[1] &quot;Iteration  8 : obj  -132876.668&quot;
+[1] &quot;Iteration  9 : obj  -132874.063&quot;
+[1] &quot;Iteration  10 : obj  -132871.596&quot;
+[1] &quot;Iteration  11 : obj  -132869.021&quot;
+[1] &quot;Iteration  12 : obj  -132866.341&quot;
+[1] &quot;Iteration  13 : obj  -132863.848&quot;
+[1] &quot;Iteration  14 : obj  -132861.638&quot;
+[1] &quot;Iteration  15 : obj  -132859.678&quot;
+[1] &quot;Iteration  16 : obj  -132857.946&quot;
+[1] &quot;Iteration  17 : obj  -132856.422&quot;
+[1] &quot;Iteration  18 : obj  -132855.09&quot;
+[1] &quot;Iteration  19 : obj  -132853.93&quot;
+[1] &quot;Iteration  20 : obj  -132852.924&quot;
+[1] &quot;Iteration  21 : obj  -132852.055&quot;
+[1] &quot;Iteration  22 : obj  -132851.304&quot;
+[1] &quot;Iteration  23 : obj  -132850.656&quot;
+[1] &quot;Iteration  24 : obj  -132850.099&quot;
+[1] &quot;Iteration  25 : obj  -132849.618&quot;
+[1] &quot;Iteration  26 : obj  -132849.203&quot;
+[1] &quot;Iteration  27 : obj  -132848.845&quot;
+[1] &quot;Iteration  28 : obj  -132848.535&quot;
+[1] &quot;Iteration  29 : obj  -132848.266&quot;
+[1] &quot;Iteration  30 : obj  -132848.032&quot;
+[1] &quot;Iteration  31 : obj  -132847.828&quot;
+[1] &quot;Iteration  32 : obj  -132847.65&quot;
+[1] &quot;Iteration  33 : obj  -132847.494&quot;
+[1] &quot;Iteration  34 : obj  -132847.356&quot;
+[1] &quot;Iteration  35 : obj  -132847.234&quot;
+[1] &quot;Iteration  36 : obj  -132847.127&quot;
+[1] &quot;Iteration  37 : obj  -132847.035&quot;
+[1] &quot;Iteration  38 : obj  -132846.955&quot;
+[1] &quot;Iteration  39 : obj  -132846.885&quot;
+[1] &quot;Iteration  40 : obj  -132846.825&quot;
+[1] &quot;Iteration  41 : obj  -132846.773&quot;
+[1] &quot;Iteration  42 : obj  -132846.728&quot;
+[1] &quot;Iteration  43 : obj  -132846.688&quot;
+[1] &quot;Iteration  44 : obj  -132846.654&quot;
+[1] &quot;Iteration  45 : obj  -132846.624&quot;
+[1] &quot;Iteration  46 : obj  -132846.597&quot;
+[1] &quot;Iteration  47 : obj  -132846.574&quot;
+[1] &quot;Iteration  48 : obj  -132846.554&quot;
+[1] &quot;Iteration  49 : obj  -132846.537&quot;
+[1] &quot;Iteration  50 : obj  -132846.522&quot;
+[1] &quot;Iteration  51 : obj  -132846.508&quot;
+[1] &quot;Iteration  52 : obj  -132846.496&quot;
+[1] &quot;Iteration  53 : obj  -132846.486&quot;
+[1] &quot;Iteration  54 : obj  -132846.477&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  10  decreases objective by  508.133&quot;</code></pre>
+<pre class="r"><code>fit.dwt$nfactors</code></pre>
+<pre><code>[1] 1</code></pre>
+<pre class="r"><code>fit.ndwt$nfactors</code></pre>
+<pre><code>[1] 10</code></pre>
+<p>I let the ndwt version to have at most 10 factors.</p>
+<pre class="r"><code>plot(fit.dwt$ldf$f,type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,lwd=1,main = &#39;dwt&#39;)</code></pre>
+<p><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,1],type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,lwd=1,main = &#39;ndwt&#39;)</code></pre>
+<p><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Look at other factors from ndwt version</p>
+<pre class="r"><code>for(i in 2:10){
+  plot(fit.ndwt$ldf$f[,i],type=&#39;l&#39;,xlab=&#39;&#39;,ylab=&#39;&#39;,lwd=1,main = paste(i))
+}</code></pre>
+<p><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-5-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-5-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-5-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-5-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-5-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/ndwt_wave_ebmf.Rmd/unnamed-chunk-5-9.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] flashr_0.6-7     testthat_3.0.0   wavethresh_4.6.8 MASS_7.3-53     
+[5] workflowr_1.6.2 
+
+loaded via a namespace (and not attached):
+ [1] pkgload_1.1.0     splines_4.0.3     assertthat_0.2.1  horseshoe_0.2.0  
+ [5] mixsqp_0.3-43     deconvolveR_1.2-1 yaml_2.2.1        remotes_2.2.0    
+ [9] sessioninfo_1.1.1 ebnm_0.1-50       pillar_1.4.6      backports_1.1.10 
+[13] lattice_0.20-41   glue_1.4.2        digest_0.6.27     promises_1.1.1   
+[17] colorspace_1.4-1  htmltools_0.5.1.1 httpuv_1.5.4      Matrix_1.2-18    
+[21] plyr_1.8.6        pkgconfig_2.0.3   devtools_2.3.2    invgamma_1.1     
+[25] purrr_0.3.4       scales_1.1.1      processx_3.5.1    whisker_0.4      
+[29] later_1.1.0.1     git2r_0.27.1      tibble_3.0.4      generics_0.1.0   
+[33] ggplot2_3.3.2     usethis_1.6.3     ellipsis_0.3.1    withr_2.3.0      
+[37] ashr_2.2-47       cli_2.4.0         magrittr_2.0.1    crayon_1.3.4     
+[41] memoise_1.1.0     evaluate_0.14     ps_1.4.0          fs_1.5.0         
+[45] truncnorm_1.0-8   pkgbuild_1.1.0    tools_4.0.3       prettyunits_1.1.1
+[49] softImpute_1.4    REBayes_2.2       lifecycle_1.0.0   stringr_1.4.0    
+[53] trust_0.1-8       munsell_0.5.0     irlba_2.3.3       callr_3.6.0      
+[57] compiler_4.0.3    rlang_0.4.10      grid_4.0.3        rstudioapi_0.11  
+[61] rmarkdown_2.5     gtable_0.3.0      DBI_1.1.0         reshape2_1.4.4   
+[65] R6_2.4.1          knitr_1.30        dplyr_1.0.5       rprojroot_1.3-2  
+[69] desc_1.2.0        stringi_1.5.3     SQUAREM_2020.5    Rcpp_1.0.5       
+[73] vctrs_0.3.7       tidyselect_1.1.0  xfun_0.18        </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
