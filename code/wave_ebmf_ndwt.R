@@ -24,13 +24,13 @@ wave_ebmf = function(Y,Kmax=100,tol=0.01,
                      ebnm_param=NULL,
                      verbose=TRUE,
                      nullcheck=TRUE,
-                     est_var = 'va',
+                     #est_var = 'va',
                      greedy=TRUE,
                      family="DaubExPhase",
                      filter.number=1,
                      type='wavelet',
-                     nlevels.prior = NULL,
-                     sum.prior = TRUE,
+                     #nlevels.prior = NULL,
+                     #sum.prior = TRUE,
                      seed=12345){
 
   set.seed(seed)
@@ -45,27 +45,13 @@ wave_ebmf = function(Y,Kmax=100,tol=0.01,
   nlevel = log2(p)
 
   # rows are wavelet coefficients. finest level comes first.
-  Yw = t(apply(Y,1,haar))
-  #energy = rowSums(Y)/sqrt(p)
-
-  # estimate sd of random errors
-  # if(is.null(s)){
-  #   if(est_var=='mad'){
-  #     s = apply(Yw[,1:(2^(nlevel-1))],1,mad)
-  #     if(sum(s==0)>0){
-  #       stop('Standard errors must be positive, try est_var = va')
-  #     }
-  #   }
-  # }
-
-
+  Yw = get_dwt_wc(Y,filter.number,family,type)
+  pw = ncol(Yw)
+  # energy is the scaled summation of each row of Y
+  energy = rowSums(Y)/sqrt(p)
   # initialize empty result object
-  res = init_res(n,p,Kmax)
-  res$s = s
-  # Y is the original data matrix.
-  res$Y = Y
-  # Yw is the matrix after DWT.
-  res$Yw = Yw
+  res = init_res(n,pw,Kmax)
+  res$energy = energy
 
   for(k in 1:Kmax){
     res_old = res
@@ -78,17 +64,20 @@ wave_ebmf = function(Y,Kmax=100,tol=0.01,
                           ebnm_param=ebnm_param,
                           maxiter=maxiter,tol=tol,
                           verbose=verbose,
-                          nlevels.prior=nlevels.prior,
-                          sum.prior=sum.prior,
+                          #nlevels.prior=nlevels.prior,
+                          #sum.prior=sum.prior,
                           init_fn=init_fn,
-                          est_var=est_var)
+                          type=type,
+                          Yw=Yw,
+                          nlevel=nlevel)
+                          #est_var=est_var)
 
 
     if(nullcheck){
       if(verbose){
         print("Performing nullcheck")
       }
-      res = null_check(res,k,verbose,est_var)
+      res = null_check(res,k,verbose,Yw)
     }
 
     if(is_tiny_fl(res,k)){
@@ -104,15 +93,8 @@ wave_ebmf = function(Y,Kmax=100,tol=0.01,
   # transform back to data space
   # also deal with non-power 2: transform it back
   #browser()
-  out = construct_object(res,orig.idx)
+  out = construct_object(res,orig.idx,p,filter.number,family,Yw,type)
 
-  # EYw = tcrossprod(res$EL,res$EF)
-  # EY = lapply(1:n,function(i){
-  #   wd.list[[i]]$D = EYw[i,]
-  #   wr(wd.list[[i]])
-  # })
-  # EY = do.call(rbind,EY)
-  # FF = solve(crossprod(res$EL))%*%t(res$EL)%*%EY
 
   out
 }
@@ -127,16 +109,43 @@ get_dwt_wc = function(Y,filter.number,family,type){
   return(t(Yw))
 }
 
+#'@description get the NDWT wavelet coefficients
+#'@param Y input data matrix
+inv_dwt_wc = function(EF,f_e,p,filter.number,family,type){
+  K = ncol(EF)
+  FF = matrix(nrow=p,ncol=K)
+  if(type=='wavelet'){
+
+    for(k in 1:K){
+      temp0 = wavethresh::wd(rep(0,p),filter.number=filter.number,family=family,type='wavelet')
+      temp0$D = EF[,k]
+      temp0 = putC(temp0,0,f_e[k])
+      FF[,k] = wr(temp0)
+    }
+
+  }else if(type == 'station'){
+
+    for(k in 1:K){
+      temp0 = wavethresh::wd(rep(0,p),filter.number=filter.number,family=family,type='station')
+      temp0$D = EF[,k]
+      temp0 = putC(temp0,0,rep(f_e[k],p))
+      FF[,k] = AvBasis(convert(temp0))
+    }
+
+  }else{
+    stop('type should be either wavelet or station')
+  }
+  return(FF)
+}
 
 
 #'@description evaluate objective function
-calc_objective = function(res){
-  p = ncol(res$Y)
-  obj = Eloglik(res$Yw,(res$s)^2%*%t(rep(1,p)),res) + sum(res$KL_L) + sum(res$KL_F)
+calc_objective = function(Yw,res){
+  obj = Eloglik(Yw,matrix((res$s)^2,nrow=length(res$s),ncol=ncol(Yw)),res$EL,res$EF,res$EL2,res$EF2) + sum(res$KL_L) + sum(res$KL_F)
   obj
 }
 
-delete_factor = function(res,k,est_var){
+delete_factor = function(res,k,Yw){
   res$EL[,k] = 0
   res$EF[,k] = 0
   res$EL2[,k] = 0
@@ -145,18 +154,16 @@ delete_factor = function(res,k,est_var){
   res$gF[[k]] = list(NULL)
   res$KL_L[k] = 0
   res$KL_F[k] = 0
-  if(est_var=='va'){
-    res$s = sqrt(rowMeans(get_R2(res$Yw,res$EL,res$EF,res$EL2,res$EF2)))
-  }
+  res$s = sqrt(rowMeans(get_R2(Yw,res$EL,res$EF,res$EL2,res$EF2)))
   res
 }
 
-null_check = function(res,k,verbose,est_var){
+null_check = function(res,k,verbose,Yw){
   # delete the kth factor
-  res0 = delete_factor(res,k,est_var)
+  res0 = delete_factor(res,k,Yw)
   # compare the objective function
-  obj0 = calc_objective(res0)
-  obj1 = calc_objective(res)
+  obj0 = calc_objective(Yw,res0)
+  obj1 = calc_objective(Yw,res)
 
   if(obj0>obj1){
     res = res0
@@ -174,7 +181,7 @@ null_check = function(res,k,verbose,est_var){
 }
 
 #'@description construct object for returning results.
-construct_object = function(res,orig.idx){
+construct_object = function(res,orig.idx,p,filter.number,family,Yw,type){
   # remove factor and loadings are zero
   rm.idx = which(colSums(res$EL2)==0)
   if(length(rm.idx)>0){
@@ -187,9 +194,14 @@ construct_object = function(res,orig.idx){
   }
 
 
-  p = ncol(res$Y)
+  # take the energy into account
+  # here E(energy|EL) = EL*f_e; var(energy|EL) = diag(s^2)
+  # perform a weighted least square to estimate f_e
+  #browser()
+  f_e = lm(y~.+0,data.frame(y=res$energy,X = res$EL),weights = 1/(res$s)^2)
+  f_e = f_e$coefficients
   # transform F back to data space
-  FF = apply(res$EF,2,haar_inv)
+  FF = inv_dwt_wc(res$EF,f_e,p,filter.number,family,type)
   if(!is.null(orig.idx)){
     FF = FF[orig.idx,]
   }
@@ -204,7 +216,7 @@ construct_object = function(res,orig.idx){
   nfactors = length(d)
   pve = d^2/(sum(d^2)+sum((res$s)^2)*nrow(FF))
 
-  objective = calc_objective(res)
+  objective = calc_objective(Yw,res)
 
 
 
@@ -251,7 +263,9 @@ update_res = function(res,k,El,El2,Ef,Ef2,
   res$gF[[k]] = gf
   res$KL_L[k] = KL.l
   res$KL_F[k] = KL.f
-  res$s = s
+  if(!is.null(s)){
+    res$s = s
+  }
   res
 }
 
@@ -266,14 +280,10 @@ init_fl = function(Y,init_fn){
 #'@param k current k to be added
 #'@return res
 wave_ebmf_rank1 = function(Y,res,k,ebnm_fn,ebnm_param,
-                           maxiter=100,tol=0.01,verbose,
-                           nlevels.prior,sum.prior,
-                           init_fn,est_var){
+                           maxiter=100,tol=0.01,
+                           verbose,init_fn,type,Yw,nlevel){
 
-  n = nrow(Y)
-  p = ncol(Y)
-  nlevel = log(p,2)
-  s = res$s
+  #s = res$s
   # initialize l and f
   init = init_fl(Y,init_fn)
   El = init$u*sqrt(init$d[1])
@@ -284,29 +294,21 @@ wave_ebmf_rank1 = function(Y,res,k,ebnm_fn,ebnm_param,
   gf = list()
   KL.l = 0
   KL.f = 0
-  res = update_res(res,k,El,El2,Ef,Ef2,gl,gf,KL.l,KL.l,s)
-
-
-  if(is.null(nlevels.prior)){
-    nlevels.prior = nlevel
-  }
+  res = update_res(res,k,El,El2,Ef,Ef2,gl,gf,KL.l,KL.l)
 
   obj = -Inf
   for(i in 1:maxiter){
 
-    # update variance if needed
-    if(est_var=='va'){
-      s = c(sqrt(rowMeans(get_R2(res$Yw,res$EL,res$EF,res$EL2,res$EF2))))
-    }
+    # update s
+
+    s = c(sqrt(rowMeans(get_R2(Yw,res$EL,res$EF,res$EL2,res$EF2))))
 
     # update l
 
     ## formulate the x and s for ebnm
-    if(sum(Ef)==0){
-      print('factor zeroed out')
-      break
-    }
-    xl = rowSums(rep(1,n)%*%t(Ef) * Y)/sum(Ef2)
+
+    #xl = rowSums(rep(1,n)%*%t(Ef) * Y)/sum(Ef2)
+    xl = colSums(t(Y)*c(Ef))/sum(Ef2)
     sl = sqrt(s^2/sum(Ef2))
     a = do.call(ebnm_fn, list(xl, sl, ebnm_param))
 
@@ -316,7 +318,7 @@ wave_ebmf_rank1 = function(Y,res,k,ebnm_fn,ebnm_param,
 
     KL.l = a$penloglik - NM_posterior_e_loglik(xl, sl,El, El2)
 
-    if(sum(El)==0){
+    if(sum(El2)==0){
       res = update_res(res,k,El,El2,Ef,Ef2,gl,gf,KL.l,KL.f,s)
       print('loading zeroed out')
       break
@@ -326,10 +328,11 @@ wave_ebmf_rank1 = function(Y,res,k,ebnm_fn,ebnm_param,
 
     # update wavelet coefficients
     KL.f = 0
-    for(t in (nlevel-nlevels.prior):(nlevel-1)){
-      idx = get_wave_index(t,nlevel)
+    for(t in (0):(nlevel-1)){
+      idx = get_wave_index(t,nlevel,type)
       yt = Y[,idx,drop=FALSE]
-      xf = colSums(El%*%t(rep(1,2^t))*yt/s^2)/sum(El2/s^2)
+      #xf = colSums(El%*%t(rep(1,2^t))*yt/s^2)/sum(El2/s^2)
+      xf = colSums(yt*c(El)/s^2)/sum(El2/s^2)
       sf = sum(El2/s^2)^(-0.5)
       a = do.call(ebnm_fn, list(xf, sf, ebnm_param))
       Ef[idx] = a$postmean
@@ -337,24 +340,16 @@ wave_ebmf_rank1 = function(Y,res,k,ebnm_fn,ebnm_param,
       gf[[t+1]] = a$fitted_g
       KL.f = KL.f + a$penloglik - NM_posterior_e_loglik(xf, sf,a$postmean, a$postmean2)
     }
-    # update the last summation term, this term in principle should have a flat prior
-    if(sum.prior){
-      xf = sum(El*Y[,p]/s^2)/sum(El2/s^2)
-      sf = sum(El2/s^2)^(-0.5)
-      a = do.call(ebnm_fn, list(xf, sf,ebnm_param))
-      #a = do.call(ebnm_fn, list(xf, sf, list(mode=xf)))
-      Ef[p] = a$postmean
-      Ef2[p] = a$postmean2
-      gf[[nlevel+1]] = a$fitted_g
-      KL.f = KL.f + a$penloglik - NM_posterior_e_loglik(xf, sf,a$postmean, a$postmean2)
+
+    if(sum(Ef2)==0){
+      res = update_res(res,k,El,El2,Ef,Ef2,gl,gf,KL.l,KL.f,s)
+      print('factor zeroed out')
+      break
     }
-
-
-
 
     res = update_res(res,k,El,El2,Ef,Ef2,gl,gf,KL.l,KL.f,s)
     # evaluate objective function
-    obj[i+1] = calc_objective(res)
+    obj[i+1] = calc_objective(Yw,res)
     if(verbose){
       print(paste('Iteration ', i, ': obj ', round(obj[i+1],3)))
     }
@@ -385,27 +380,39 @@ get_R2 = function(Y,EL,EF,EL2,EF2){
 }
 
 #'@description This function calculates the expected log likelihood wrt q(L,F).
-#'@param Y the original data matrix
+#'@param Y the data matrix
 #'@param Sigma a matrix of variance of random errors. [sigma^2 sigma^2 ... sigma^2]
-Eloglik = function(Y,Sigma,res){
-  -0.5 * sum(log(2 * pi * Sigma) + 1/Sigma * get_R2(Y,res$EL,res$EF,res$EL2,res$EF2))
+Eloglik = function(Y,Sigma,EL,EF,EL2,EF2){
+  -0.5 * sum(log(2 * pi * Sigma) + 1/Sigma * get_R2(Y,EL,EF,EL2,EF2))
 }
 
 #'@param t current wavelet level, take value 0:(nt-1)
 #'@param nt total number of level
-get_wave_index = function(t,nt){
+get_wave_index = function(t,nt,type){
   # find level index before the current level t
   levels = 0:(nt-1)
   if(t<nt){
-    if(t==levels[nt]){
-      return(1:2^t)
-    }else{
-      idx = levels[levels>t]
-      return((sum(2^idx)+1):(sum(2^idx)+2^t))
+
+    if(type=='wavelet'){
+      if(t==levels[nt]){
+        return(1:2^t)
+      }else{
+        idx = levels[levels>t]
+        return((sum(2^idx)+1):(sum(2^idx)+2^t))
+      }
     }
+    if(type=='station'){
+      p = 2^nt
+      temp = p*(nt-t-1)
+      (temp+1):(temp+p)
+    }
+
   }else{
     stop('wavelet levels are from 0 to (#levels-1)')
   }
+
+
+
 
 
 }
