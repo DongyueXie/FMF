@@ -10,6 +10,7 @@ editor_options:
 ## Introduction
 
 ```{r,plot_func}
+library(Matrix)
 #'@param EF a p by K factor matrix
 #'@param k #factors to be plot 
 plot_factor = function(EF,k,main=NULL){
