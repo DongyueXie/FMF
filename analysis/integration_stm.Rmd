@@ -92,10 +92,31 @@ for(gene in genes){
 ## NMF fit
 
 ```{r,NMF}
-for(gene in genes){
-  print(gene)
-  fit = readRDS(paste('output/luis/',gene,'_K10_merge10base.rds',sep=''))
-  #summary_study(fit,K = 10,gene=gene,method = 'NMF')
-}
+# for(gene in genes){
+#   print(gene)
+#   fit = readRDS(paste('output/luis/',gene,'_K10_merge10base.rds',sep=''))
+#   summary_study(fit,K = 10,gene=gene,method = 'NMF')
+# }
+gene = genes[1]
+fit = readRDS(paste('output/luis/',gene,'_K10_merge10base.rds',sep=''))
+method='stm'
+K = 10
+p = ncol(fit$X)
+  # idx1 = 1:(p/3)
+  # idx2 = (p/3+1):(p/3*2)
+  # idx3 = (p/3*2+1):(p)
+  # if(method=='stm'){
+  #   EF = fit$fit_stm$EF
+  # }else if(method=='NMF'){
+  #   EF = t(fit$fit_NMF$H)
+  # }else if(method=='hals'){
+  #   EF = t(fit$fit_hals$V)
+  # }
+  # par(mfrow=c(3,1))
+  # for(k in 1:K){
+  #     plot(EF[idx1,k],type='l',ylab='',xlab='base',main=c(paste(gene, 'factor',k),'RNA'),col=2)
+  #     plot(EF[idx2,k],col=3,xlab='base',ylab='',type='l',main='H3K4me1')
+  #     plot(EF[idx3,k],col=4,xlab='base',ylab='',type='l',main='ATAC')
+  #   }
 ```
 
