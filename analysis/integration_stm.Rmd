@@ -81,7 +81,7 @@ genes = genes[-which(genes=='MRPL18')]
 
 ## STM fit
 
-```{r,stm,eval=FALSE}
+```{r,stm,fig.width=8,fig.height=15}
 for(gene in genes){
   print(gene)
   fit = readRDS(paste('output/luis/',gene,'_K10_merge10base.rds',sep=''))
@@ -92,7 +92,7 @@ for(gene in genes){
 
 ## NMF fit
 
-```{r,NMF}
+```{r,NMF,fig.width=8,fig.height=15}
 for(gene in genes){
   print(gene)
   fit = readRDS(paste('output/luis/',gene,'_K10_merge10base.rds',sep=''))
