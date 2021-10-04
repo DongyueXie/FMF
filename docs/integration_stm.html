@@ -537,16 +537,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree36a9d2dd8158b95bb8c143e2a392b7ebf764d43ftargetblank36a9d2da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/36a9d2dd8158b95bb8c143e2a392b7ebf764d43f" target="_blank">36a9d2d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree778fcb1cebec90e32bf5179d96d51c8a5d2787adtargetblank778fcb1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/778fcb1cebec90e32bf5179d96d51c8a5d2787ad" target="_blank">778fcb1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree36a9d2dd8158b95bb8c143e2a392b7ebf764d43ftargetblank36a9d2da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree778fcb1cebec90e32bf5179d96d51c8a5d2787adtargetblank778fcb1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DongyueXie/SMF/tree/36a9d2dd8158b95bb8c143e2a392b7ebf764d43f" target="_blank">36a9d2d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/SMF/tree/778fcb1cebec90e32bf5179d96d51c8a5d2787ad" target="_blank">778fcb1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -659,6 +659,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/778fcb1cebec90e32bf5179d96d51c8a5d2787ad/analysis/integration_stm.Rmd" target="_blank">778fcb1</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2021-10-04
+</td>
+<td>
+wflow_publish(“analysis/integration_stm.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/245c7a51ae53ededd0a88c413efd4db44b05b68a/docs/integration_stm.html" target="_blank">245c7a5</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2021-10-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -860,34 +894,29 @@ genes = genes[-which(genes==&#39;MRPL18&#39;)]</code></pre>
 </div>
 <div id="nmf-fit" class="section level2">
 <h2>NMF fit</h2>
-<pre class="r"><code># for(gene in genes){
-#   print(gene)
-#   fit = readRDS(paste(&#39;output/luis/&#39;,gene,&#39;_K10_merge10base.rds&#39;,sep=&#39;&#39;))
-#   summary_study(fit,K = 10,gene=gene,method = &#39;NMF&#39;)
-# }
-gene = genes[1]
-fit = readRDS(paste(&#39;output/luis/&#39;,gene,&#39;_K10_merge10base.rds&#39;,sep=&#39;&#39;))
-method=&#39;stm&#39;
-K = 10
-p = ncol(fit$X)
-print(p)</code></pre>
-<pre><code>[1] 127827</code></pre>
-<pre class="r"><code>  # idx1 = 1:(p/3)
-  # idx2 = (p/3+1):(p/3*2)
-  # idx3 = (p/3*2+1):(p)
-  # if(method==&#39;stm&#39;){
-  #   EF = fit$fit_stm$EF
-  # }else if(method==&#39;NMF&#39;){
-  #   EF = t(fit$fit_NMF$H)
-  # }else if(method==&#39;hals&#39;){
-  #   EF = t(fit$fit_hals$V)
-  # }
-  # par(mfrow=c(3,1))
-  # for(k in 1:K){
-  #     plot(EF[idx1,k],type=&#39;l&#39;,ylab=&#39;&#39;,xlab=&#39;base&#39;,main=c(paste(gene, &#39;factor&#39;,k),&#39;RNA&#39;),col=2)
-  #     plot(EF[idx2,k],col=3,xlab=&#39;base&#39;,ylab=&#39;&#39;,type=&#39;l&#39;,main=&#39;H3K4me1&#39;)
-  #     plot(EF[idx3,k],col=4,xlab=&#39;base&#39;,ylab=&#39;&#39;,type=&#39;l&#39;,main=&#39;ATAC&#39;)
-  #   }</code></pre>
+<pre class="r"><code>for(gene in genes){
+  print(gene)
+  fit = readRDS(paste(&#39;output/luis/&#39;,gene,&#39;_K10_merge10base.rds&#39;,sep=&#39;&#39;))
+  summary_study(fit,K = 10,gene=gene,method = &#39;NMF&#39;)
+}</code></pre>
+<pre><code>[1] &quot;CMC2&quot;</code></pre>
+<p><img src="figure/integration_stm.Rmd/NMF-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-10.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;FAM220A&quot;</code></pre>
+<p><img src="figure/integration_stm.Rmd/NMF-11.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-12.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-13.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-14.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-15.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-16.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-17.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-18.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-19.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-20.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;GTF3C6&quot;</code></pre>
+<p><img src="figure/integration_stm.Rmd/NMF-21.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-22.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-23.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-24.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-25.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-26.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-27.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-28.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-29.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-30.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;HDDC2&quot;</code></pre>
+<p><img src="figure/integration_stm.Rmd/NMF-31.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-32.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-33.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-34.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-35.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-36.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-37.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-38.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-39.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-40.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;HLA-DRB5&quot;</code></pre>
+<p><img src="figure/integration_stm.Rmd/NMF-41.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-42.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-43.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-44.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-45.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-46.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-47.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-48.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-49.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-50.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;IRF2&quot;</code></pre>
+<p><img src="figure/integration_stm.Rmd/NMF-51.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-52.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-53.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-54.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-55.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-56.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-57.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-58.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-59.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-60.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;RP11-661A12.5&quot;</code></pre>
+<p><img src="figure/integration_stm.Rmd/NMF-61.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-62.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-63.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-64.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-65.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-66.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-67.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-68.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-69.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-70.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;YBEY&quot;</code></pre>
+<p><img src="figure/integration_stm.Rmd/NMF-71.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-72.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-73.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-74.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-75.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-76.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-77.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-78.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-79.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-80.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;ZFAND2A&quot;</code></pre>
+<p><img src="figure/integration_stm.Rmd/NMF-81.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-82.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-83.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-84.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-85.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-86.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-87.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-88.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-89.png" width="672" style="display: block; margin: auto;" /><img src="figure/integration_stm.Rmd/NMF-90.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
