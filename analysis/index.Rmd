@@ -27,7 +27,11 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 10. [5 low expressed genes with 3 topics and structure plot](lowgene.html): compare NMF and stm-smashgen.
 11. [The other 16 genes with 3 topics and structure plot](lowgene2.html)
 
-12. [Initial analysis on luis data](luis_data.html)
+### Integration analysis on RNA, histone mark and ATAC seq data
+
+1. [Initial analysis on luis data](luis_data.html)
+2. [run wave ebmf on luis data](luis_data_wave.html)
+3. [run stm on the data](integration_stm.html)
 
 ### PTF
 
