@@ -102,6 +102,7 @@ fit = readRDS(paste('output/luis/',gene,'_K10_merge10base.rds',sep=''))
 method='stm'
 K = 10
 p = ncol(fit$X)
+print(p)
   # idx1 = 1:(p/3)
   # idx2 = (p/3+1):(p/3*2)
   # idx3 = (p/3*2+1):(p)
