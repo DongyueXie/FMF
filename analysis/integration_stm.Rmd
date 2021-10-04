@@ -1,0 +1,101 @@
+---
+title: "Run stm on luis data"
+author: "DongyueXie"
+date: "2021-09-27"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r,plot_func}
+#'@param EF a p by K factor matrix
+#'@param k #factors to be plot 
+plot_factor = function(EF,k,main=NULL){
+  plot(EF[,1],type='l',ylab='',xlab='base',main=main,ylim=range(EF))
+  if(k>1){
+    for(i in 2:k){
+    lines(EF[,i],col=i,lty=i)
+  }
+  }
+}
+
+
+# summary_study = function(fit,K,method='stm'){
+#   # plot factors 
+#   p = ncol(fit$X)
+#   idx1 = 1:(p/3)
+#   idx2 = (p/3+1):(p/3*2)
+#   idx3 = (p/3*2+1):(p)
+#   if(method=='stm'){
+#     EF = fit$fit_stm$EF
+#   }else if(method=='NMF'){
+#     EF = t(fit$fit_NMF$H)
+#   }else if(method=='hals'){
+#     EF = t(fit$fit_hals$V)
+#   }
+#   for(k in 1:K){
+#       plot(EF[idx1,k],type='l',ylab='',xlab='base',main=paste('factor ',k),ylim=range(EF[,k]),col=2)
+#       lines(EF[idx2,k],col=3,xlab='base')
+#       lines(EF[idx3,k],col=4,xlab='base')
+#       legend('topright',c("RNA","H3K4me1","ATAC"),lty=c(1,1,1),col=c(2,3,4))
+#     }
+# }
+
+#'@param K number of factors to be plot
+summary_study = function(fit,K,gene=NULL,method='stm'){
+  # plot factors 
+  p = ncol(fit$X)
+  idx1 = 1:(p/3)
+  idx2 = (p/3+1):(p/3*2)
+  idx3 = (p/3*2+1):(p)
+  if(method=='stm'){
+    EF = fit$fit_stm$EF
+  }else if(method=='NMF'){
+    EF = t(fit$fit_NMF$H)
+  }else if(method=='hals'){
+    EF = t(fit$fit_hals$V)
+  }
+  par(mfrow=c(3,1))
+  for(k in 1:K){
+      plot(EF[idx1,k],type='l',ylab='',xlab='base',main=c(paste(gene, 'factor',k),'RNA'),col=2)
+      plot(EF[idx2,k],col=3,xlab='base',ylab='',type='l',main='H3K4me1')
+      plot(EF[idx3,k],col=4,xlab='base',ylab='',type='l',main='ATAC')
+    }
+}
+```
+
+
+
+```{r,get_gene}
+files = list.files('/project2/mstephens/dongyue/luis/luis')
+genes = c()
+for(i in 1:length(files)){
+  genes[i] = strsplit(files[i],split = '_')[[1]][1]
+}
+genes = unique(genes)
+genes = genes[-which(genes=='MRPL18')]
+```
+
+## STM fit
+
+```{r,stm,eval=FALSE}
+for(gene in genes){
+  print(gene)
+  fit = readRDS(paste('output/luis/',gene,'_K10_merge10base.rds',sep=''))
+  summary_study(fit,K = 10,gene=gene)
+}
+```
+
+
+## NMF fit
+
+```{r,NMF}
+for(gene in genes){
+  print(gene)
+  fit = readRDS(paste('output/luis/',gene,'_K10_merge10base.rds',sep=''))
+  #summary_study(fit,K = 10,gene=gene,method = 'NMF')
+}
+```
+
