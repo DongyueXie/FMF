@@ -1,0 +1,17 @@
+---
+title: "Joint factor analysis"
+author: "DongyueXie"
+date: "2021-09-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Here we study if the joint factor analysis could recover the covarying pattern of the two functions. 
+
+```{r}
+
+```
+
