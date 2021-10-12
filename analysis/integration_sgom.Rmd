@@ -1,0 +1,67 @@
+---
+title: "Run sgom on luis data"
+author: "DongyueXie"
+date: "2021-10-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(Matrix)
+library(CountClust)
+summary_study = function(fit,K,gene=NULL){
+  # plot loadings
+  par(mfrow=c(1,1))
+  
+  indis = rownames(fit$X)
+  tissue_label = c()
+  for(i in 1:length(indis)){
+    tissue_label[i] = strsplit(indis[i],split='_')[[1]][2]
+  }
+  annotation = data.frame(sample_id = indis,tissue_label = factor(tissue_label))
+  EL = fit$fit_sgom$pi[,1:K]
+  print(StructureGGplot(EL,annotation = annotation,
+                  yaxis_label = 'condition',
+                  palette = RColorBrewer::brewer.pal(K,  "Paired"),
+                  axis_tick = list(axis_ticks_length = .1,
+                                   axis_ticks_lwd_y = .1,
+                                   axis_ticks_lwd_x = .1,
+                                   axis_label_size = 7,
+                                   axis_label_face = "bold")))
+  # plot factors 
+  EF = t(fit$fit_sgom$phi)
+  p = nrow(EF)
+  idx1 = 1:(p/3)
+  idx2 = (p/3+1):(p/3*2)
+  idx3 = (p/3*2+1):(p)
+  
+  par(mfrow=c(3,1))
+  for(k in 1:K){
+    plot(EF[idx1,k],type='l',ylab='',xlab='base',main=c(paste(gene, 'factor',k),'RNA'),col=2)
+    plot(EF[idx2,k],col=3,xlab='base',ylab='',type='l',main='H3K4me1')
+    plot(EF[idx3,k],col=4,xlab='base',ylab='',type='l',main='ATAC')
+  }
+}
+```
+
+
+```{r,get_gene}
+files = list.files('/project2/mstephens/dongyue/luis/luis')
+genes = c()
+for(i in 1:length(files)){
+  genes[i] = strsplit(files[i],split = '_')[[1]][1]
+}
+genes = unique(genes)
+```
+
+
+```{r,stm,fig.width=8,fig.height=7}
+for(gene in genes[1:6]){
+  print(gene)
+  fit = readRDS(paste('output/luis/',gene,'_K10_merge10base_sgom.rds',sep=''))
+  summary_study(fit,K = 10,gene=gene)
+}
+```
