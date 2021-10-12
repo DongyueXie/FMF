@@ -1,0 +1,3610 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="DongyueXie" />
+
+<meta name="date" content="2021-09-12" />
+
+<title>Joint factor analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SMF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/DongyueXie/SMF">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Joint factor analysis</h1>
+<h4 class="author">DongyueXie</h4>
+<h4 class="date">2021-09-12</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-10-12
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190719code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190719)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190719code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190719)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreefc62fd8aafa8c50255cb847aecd588c4337857abtargetblankfc62fd8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/fc62fd8aafa8c50255cb847aecd588c4337857ab" target="_blank">fc62fd8</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreefc62fd8aafa8c50255cb847aecd588c4337857abtargetblankfc62fd8a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/fc62fd8aafa8c50255cb847aecd588c4337857ab" target="_blank">fc62fd8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/external_data/
+
+Untracked files:
+    Untracked:  analysis/sparse_smoothing.Rmd
+    Untracked:  data/luis/
+    Untracked:  output/flash_on_cmc2_reduced.rds
+    Untracked:  output/flash_on_cmc2_reduced_2000kb.rds
+    Untracked:  output/wave_flash_on_cmc2_reduced_2000kb.rds
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/luis_data.Rmd
+    Modified:   analysis/smooth_flash.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/joint_factoranalysis.Rmd</code>) and HTML (<code>docs/joint_factoranalysis.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/fc62fd8aafa8c50255cb847aecd588c4337857ab/analysis/joint_factoranalysis.Rmd" target="_blank">fc62fd8</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-10-12
+</td>
+<td>
+wflow_publish(“analysis/joint_factoranalysis.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/03ceb24f54e985663256bbd1c2f2044966513242/analysis/joint_factoranalysis.Rmd" target="_blank">03ceb24</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2021-10-11
+</td>
+<td>
+add
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Here we study if the joint factor analysis could recover the co-varying pattern of the two functions.</p>
+</div>
+<div id="gaussian-case" class="section level2">
+<h2>Gaussian case</h2>
+<pre class="r"><code>set.seed(123)
+n = 120
+p = 256
+K= 3
+L = matrix(rnorm(n*K),ncol=K)
+
+FF = matrix(1, nrow=p, ncol=K)
+FF[(p/8*1):(p/8*2),1] = 5
+FF[(p/8*3):(p/8*4),2] = 5
+FF[(p/8*5):(p/8*7),3] = 5
+
+FFF = rbind(FF,FF)
+s = 0.5
+y = tcrossprod(L,FFF) + matrix(rnorm(n*p*2,0,s),nrow=n,ncol=p*2)
+
+par(mfrow=c(3,1))
+plot(FF[,1],type=&#39;l&#39;)
+plot(FF[,2],type=&#39;l&#39;)
+plot(FF[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>par(mfrow=c(3,1))
+plot(FFF[,1],type=&#39;l&#39;)
+abline(v=p,lty=2)
+plot(FFF[,2],type=&#39;l&#39;)
+abline(v=p,lty=2)
+plot(FFF[,3],type=&#39;l&#39;)
+abline(v=p,lty=2)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>source(&#39;code/smooth_flash.R&#39;)</code></pre>
+<pre><code>Loading required package: usethis</code></pre>
+<pre><code>Loading flashr</code></pre>
+<pre><code>
+Attaching package: &#39;testthat&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:devtools&#39;:
+
+    test_file</code></pre>
+<pre><code>Loading required package: MASS</code></pre>
+<pre><code>WaveThresh: R wavelet software, release 4.6.8, installed</code></pre>
+<pre><code>Copyright Guy Nason and others 1993-2016</code></pre>
+<pre><code>Note: nlevels has been renamed to nlevelsWT</code></pre>
+<pre><code>
+Attaching package: &#39;wavethresh&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:devtools&#39;:
+
+    wd</code></pre>
+<pre class="r"><code>source(&#39;code/wave_ebmf.R&#39;)</code></pre>
+<pre><code>Loading flashr</code></pre>
+<pre class="r"><code>ploter = function(EF,main){
+  par(mfrow=c(3,1))
+  for(k in 1:ncol(EF)){
+    plot(EF[,k],ylab=paste(&#39;f&#39;,k,sep=&#39;&#39;),main=ifelse(k==1,main,&quot;&quot;),type=&#39;l&#39;)
+  }
+}</code></pre>
+<pre class="r"><code>ploter2 = function(EF,main){
+  p = nrow(EF)
+  par(mfrow=c(3,1))
+  for(k in 1:ncol(EF)){
+    plot(EF[,k],ylab=paste(&#39;f&#39;,k,sep=&#39;&#39;),main=ifelse(k==1,main,&quot;&quot;),type=&#39;l&#39;)
+    abline(v=p/2,lty=2)
+  }
+}</code></pre>
+<p>Let’s first take a look of single function case:</p>
+<pre class="r"><code>library(tictoc)
+seed=12345
+tic();fit.flash = flash(y[,1:p],var_type = &#39;by_row&#39;,seed = seed);toc()</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -62031.23        Inf</code></pre>
+<pre><code>          2      -61963.63   6.76e+01</code></pre>
+<pre><code>          3      -61919.03   4.46e+01</code></pre>
+<pre><code>          4      -61892.79   2.62e+01</code></pre>
+<pre><code>          5      -61878.84   1.39e+01</code></pre>
+<pre><code>          6      -61871.85   6.99e+00</code></pre>
+<pre><code>          7      -61868.43   3.41e+00</code></pre>
+<pre><code>          8      -61866.78   1.65e+00</code></pre>
+<pre><code>          9      -61865.98   7.99e-01</code></pre>
+<pre><code>         10      -61865.60   3.86e-01</code></pre>
+<pre><code>         11      -61865.41   1.87e-01</code></pre>
+<pre><code>         12      -61865.32   9.06e-02</code></pre>
+<pre><code>         13      -61865.27   4.39e-02</code></pre>
+<pre><code>         14      -61865.25   2.13e-02</code></pre>
+<pre><code>         15      -61865.24   1.03e-02</code></pre>
+<pre><code>         16      -61865.24   5.02e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 1.62e+04. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -61865.24</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -45993.58        Inf</code></pre>
+<pre><code>          2      -45983.27   1.03e+01</code></pre>
+<pre><code>          3      -45980.13   3.14e+00</code></pre>
+<pre><code>          4      -45978.99   1.14e+00</code></pre>
+<pre><code>          5      -45978.58   4.09e-01</code></pre>
+<pre><code>          6      -45978.44   1.47e-01</code></pre>
+<pre><code>          7      -45978.38   5.31e-02</code></pre>
+<pre><code>          8      -45978.36   1.92e-02</code></pre>
+<pre><code>          9      -45978.36   6.91e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 1.59e+04. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -45978.36</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -28272.62        Inf</code></pre>
+<pre><code>          2      -28268.90   3.72e+00</code></pre>
+<pre><code>          3      -28268.89   5.75e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 1.77e+04. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -28268.89</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -28321.78        Inf</code></pre>
+<pre><code>          2      -28308.51   1.33e+01</code></pre>
+<pre><code>          3      -28306.89   1.62e+00</code></pre>
+<pre><code>          4      -28306.31   5.75e-01</code></pre>
+<pre><code>          5      -28305.98   3.37e-01</code></pre>
+<pre><code>          6      -28305.69   2.85e-01</code></pre>
+<pre><code>          7      -28305.38   3.12e-01</code></pre>
+<pre><code>          8      -28304.97   4.13e-01</code></pre>
+<pre><code>          9      -28303.90   1.07e+00</code></pre>
+<pre><code>         10      -28294.73   9.17e+00</code></pre>
+<pre><code>         11      -28294.42   3.17e-01</code></pre>
+<pre><code>         12      -28294.42   0.00e+00</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 2.55e+01. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -28268.89</code></pre>
+<pre><code>0.725 sec elapsed</code></pre>
+<pre class="r"><code>tic();fit.dwt = wave_ebmf(y[,1:p]);toc()</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -61233.381&quot;
+[1] &quot;Iteration  2 : obj  -61157.953&quot;
+[1] &quot;Iteration  3 : obj  -61109.053&quot;
+[1] &quot;Iteration  4 : obj  -61080.973&quot;
+[1] &quot;Iteration  5 : obj  -61066.273&quot;
+[1] &quot;Iteration  6 : obj  -61058.984&quot;
+[1] &quot;Iteration  7 : obj  -61055.466&quot;
+[1] &quot;Iteration  8 : obj  -61053.789&quot;
+[1] &quot;Iteration  9 : obj  -61052.994&quot;
+[1] &quot;Iteration  10 : obj  -61052.619&quot;
+[1] &quot;Iteration  11 : obj  -61052.442&quot;
+[1] &quot;Iteration  12 : obj  -61052.359&quot;
+[1] &quot;Iteration  13 : obj  -61052.32&quot;
+[1] &quot;Iteration  14 : obj  -61052.301&quot;
+[1] &quot;Iteration  15 : obj  -61052.293&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  17049.363&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -44225.684&quot;
+[1] &quot;Iteration  2 : obj  -44215.094&quot;
+[1] &quot;Iteration  3 : obj  -44211.735&quot;
+[1] &quot;Iteration  4 : obj  -44210.574&quot;
+[1] &quot;Iteration  5 : obj  -44210.174&quot;
+[1] &quot;Iteration  6 : obj  -44210.036&quot;
+[1] &quot;Iteration  7 : obj  -44209.989&quot;
+[1] &quot;Iteration  8 : obj  -44209.972&quot;
+[1] &quot;Iteration  9 : obj  -44209.966&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  16842.324&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -25394.505&quot;
+[1] &quot;Iteration  2 : obj  -25391.799&quot;
+[1] &quot;Iteration  3 : obj  -25391.799&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  18818.167&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -25455.565&quot;
+[1] &quot;Iteration  2 : obj  -25435.391&quot;
+[1] &quot;Iteration  3 : obj  -25425.674&quot;
+[1] &quot;Iteration  4 : obj  -25413.52&quot;
+[1] &quot;Iteration  5 : obj  -25392.367&quot;
+[1] &quot;factor zeroed out&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  increases objective by  0.568&quot;</code></pre>
+<pre><code>1.235 sec elapsed</code></pre>
+<pre class="r"><code>ploter(fit.flash$ldf$f,main=&#39;flash&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ploter(fit.dwt$ldf$f,main=&#39;wave_flash&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Try to use different initialization</p>
+<pre class="r"><code>fit.dwt = wave_ebmf(y[,1:p],init_fn = &#39;udv_svd&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -61229.797&quot;
+[1] &quot;Iteration  2 : obj  -61155.398&quot;
+[1] &quot;Iteration  3 : obj  -61107.483&quot;
+[1] &quot;Iteration  4 : obj  -61080.114&quot;
+[1] &quot;Iteration  5 : obj  -61065.836&quot;
+[1] &quot;Iteration  6 : obj  -61058.77&quot;
+[1] &quot;Iteration  7 : obj  -61055.363&quot;
+[1] &quot;Iteration  8 : obj  -61053.74&quot;
+[1] &quot;Iteration  9 : obj  -61052.971&quot;
+[1] &quot;Iteration  10 : obj  -61052.608&quot;
+[1] &quot;Iteration  11 : obj  -61052.437&quot;
+[1] &quot;Iteration  12 : obj  -61052.356&quot;
+[1] &quot;Iteration  13 : obj  -61052.319&quot;
+[1] &quot;Iteration  14 : obj  -61052.301&quot;
+[1] &quot;Iteration  15 : obj  -61052.292&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  17049.363&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -44227.663&quot;
+[1] &quot;Iteration  2 : obj  -44215.804&quot;
+[1] &quot;Iteration  3 : obj  -44211.979&quot;
+[1] &quot;Iteration  4 : obj  -44210.657&quot;
+[1] &quot;Iteration  5 : obj  -44210.201&quot;
+[1] &quot;Iteration  6 : obj  -44210.044&quot;
+[1] &quot;Iteration  7 : obj  -44209.99&quot;
+[1] &quot;Iteration  8 : obj  -44209.971&quot;
+[1] &quot;Iteration  9 : obj  -44209.964&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  16842.326&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -25394.506&quot;
+[1] &quot;Iteration  2 : obj  -25391.8&quot;
+[1] &quot;Iteration  3 : obj  -25391.8&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  18818.164&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -25455.85&quot;
+[1] &quot;Iteration  2 : obj  -25435.637&quot;
+[1] &quot;Iteration  3 : obj  -25425.166&quot;
+[1] &quot;Iteration  4 : obj  -25412.613&quot;
+[1] &quot;Iteration  5 : obj  -25392.242&quot;
+[1] &quot;factor zeroed out&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  increases objective by  0.443&quot;</code></pre>
+<pre class="r"><code>ploter(fit.dwt$ldf$f,main=&#39;wave_flash, svd init&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Modify <span class="math inline">\(L\)</span> so that there columns are independent</p>
+<pre class="r"><code>set.seed(123)
+L = cbind(c(rep(1,n/3),rep(0,n/3*2)),
+          c(rep(0,n/3),rep(-1,n/3),rep(0,n/3)),
+          c(rep(0,n/3*2),rep(1,n/3)))
+s = 0.5
+y = tcrossprod(L,FFF) + matrix(rnorm(n*p*2,0,s),nrow=n,ncol=p*2)</code></pre>
+<pre class="r"><code>seed=12345
+tic();fit.flash = flash(y[,1:p],var_type = &#39;by_row&#39;,seed = seed);toc()</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -54425.89        Inf</code></pre>
+<pre><code>          2      -53605.18   8.21e+02</code></pre>
+<pre><code>          3      -52008.60   1.60e+03</code></pre>
+<pre><code>          4      -50504.65   1.50e+03</code></pre>
+<pre><code>          5      -50181.38   3.23e+02</code></pre>
+<pre><code>          6      -50167.70   1.37e+01</code></pre>
+<pre><code>          7      -50167.39   3.14e-01</code></pre>
+<pre><code>          8      -50167.38   6.69e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 1.86e+04. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -50167.38</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -41470.93        Inf</code></pre>
+<pre><code>          2      -41468.27   2.66e+00</code></pre>
+<pre><code>          3      -41463.14   5.13e+00</code></pre>
+<pre><code>          4      -41441.62   2.15e+01</code></pre>
+<pre><code>          5      -41352.66   8.90e+01</code></pre>
+<pre><code>          6      -41008.11   3.45e+02</code></pre>
+<pre><code>          7      -39954.08   1.05e+03</code></pre>
+<pre><code>          8      -38328.48   1.63e+03</code></pre>
+<pre><code>          9      -37744.72   5.84e+02</code></pre>
+<pre><code>         10      -37715.68   2.90e+01</code></pre>
+<pre><code>         11      -37715.12   5.61e-01</code></pre>
+<pre><code>         12      -37715.11   1.04e-02</code></pre>
+<pre><code>         13      -37715.11   1.98e-04</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 1.25e+04. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -37715.11</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -26563.99        Inf</code></pre>
+<pre><code>          2      -26561.36   2.63e+00</code></pre>
+<pre><code>          3      -26561.36   1.98e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 1.12e+04. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -26561.36</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -26624.61        Inf</code></pre>
+<pre><code>          2      -26607.88   1.67e+01</code></pre>
+<pre><code>          3      -26602.79   5.09e+00</code></pre>
+<pre><code>          4      -26585.60   1.72e+01</code></pre>
+<pre><code>          5      -26585.21   3.93e-01</code></pre>
+<pre><code>          6      -26585.21   0.00e+00</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 2.38e+01. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -26561.36</code></pre>
+<pre><code>0.411 sec elapsed</code></pre>
+<pre class="r"><code>tic();fit.dwt = wave_ebmf(y[,1:p]);toc()</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -53709.449&quot;
+[1] &quot;Iteration  2 : obj  -52827.44&quot;
+[1] &quot;Iteration  3 : obj  -51099.92&quot;
+[1] &quot;Iteration  4 : obj  -49587.504&quot;
+[1] &quot;Iteration  5 : obj  -49332.826&quot;
+[1] &quot;Iteration  6 : obj  -49325.191&quot;
+[1] &quot;Iteration  7 : obj  -49325.056&quot;
+[1] &quot;Iteration  8 : obj  -49325.053&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  19426.972&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -40002.025&quot;
+[1] &quot;Iteration  2 : obj  -40001.487&quot;
+[1] &quot;Iteration  3 : obj  -40001.37&quot;
+[1] &quot;Iteration  4 : obj  -40001.129&quot;
+[1] &quot;Iteration  5 : obj  -39999.652&quot;
+[1] &quot;Iteration  6 : obj  -39991.509&quot;
+[1] &quot;Iteration  7 : obj  -39952.018&quot;
+[1] &quot;Iteration  8 : obj  -39784.233&quot;
+[1] &quot;Iteration  9 : obj  -39163.125&quot;
+[1] &quot;Iteration  10 : obj  -37629.75&quot;
+[1] &quot;Iteration  11 : obj  -36311.309&quot;
+[1] &quot;Iteration  12 : obj  -36152.674&quot;
+[1] &quot;Iteration  13 : obj  -36148.577&quot;
+[1] &quot;Iteration  14 : obj  -36148.52&quot;
+[1] &quot;Iteration  15 : obj  -36148.52&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  13176.534&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -24283.569&quot;
+[1] &quot;Iteration  2 : obj  -24281.024&quot;
+[1] &quot;Iteration  3 : obj  -24281.023&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  11867.497&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -24340.149&quot;
+[1] &quot;Iteration  2 : obj  -24323.602&quot;
+[1] &quot;Iteration  3 : obj  -24318.697&quot;
+[1] &quot;Iteration  4 : obj  -24312.346&quot;
+[1] &quot;Iteration  5 : obj  -24296.374&quot;
+[1] &quot;loading zeroed out&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  increases objective by  1.587&quot;</code></pre>
+<pre><code>0.994 sec elapsed</code></pre>
+<pre class="r"><code>ploter(fit.flash$ldf$f,main=&#39;flash&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ploter(fit.dwt$ldf$f,main=&#39;wave_flash&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Two functions</p>
+<pre class="r"><code>seed=12345
+tic();fit.flash = flash(y,var_type = &#39;by_row&#39;,seed = seed);toc()</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1     -108732.64        Inf</code></pre>
+<pre><code>          2     -107198.23   1.53e+03</code></pre>
+<pre><code>          3     -104120.27   3.08e+03</code></pre>
+<pre><code>          4     -101003.79   3.12e+03</code></pre>
+<pre><code>          5     -100257.86   7.46e+02</code></pre>
+<pre><code>          6     -100224.90   3.30e+01</code></pre>
+<pre><code>          7     -100224.18   7.19e-01</code></pre>
+<pre><code>          8     -100224.17   1.43e-02</code></pre>
+<pre><code>          9     -100224.17   2.80e-04</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 3.74e+04. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -100224.17</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -82205.78        Inf</code></pre>
+<pre><code>          2      -82199.57   6.21e+00</code></pre>
+<pre><code>          3      -82182.47   1.71e+01</code></pre>
+<pre><code>          4      -82111.09   7.14e+01</code></pre>
+<pre><code>          5      -81820.53   2.91e+02</code></pre>
+<pre><code>          6      -80751.70   1.07e+03</code></pre>
+<pre><code>          7      -77976.59   2.78e+03</code></pre>
+<pre><code>          8      -75108.95   2.87e+03</code></pre>
+<pre><code>          9      -74590.44   5.19e+02</code></pre>
+<pre><code>         10      -74575.60   1.48e+01</code></pre>
+<pre><code>         11      -74575.35   2.54e-01</code></pre>
+<pre><code>         12      -74575.34   4.44e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 2.56e+04. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -74575.34</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -51738.85        Inf</code></pre>
+<pre><code>          2      -51734.74   4.11e+00</code></pre>
+<pre><code>          3      -51734.73   2.77e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 2.28e+04. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -51734.73</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -51815.30        Inf</code></pre>
+<pre><code>          2      -51792.18   2.31e+01</code></pre>
+<pre><code>          3      -51788.56   3.63e+00</code></pre>
+<pre><code>          4      -51785.80   2.76e+00</code></pre>
+<pre><code>          5      -51777.15   8.65e+00</code></pre>
+<pre><code>          6      -51736.39   4.08e+01</code></pre>
+<pre><code>          7      -51736.39   2.69e-04</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 1.66e+00. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -51734.73</code></pre>
+<pre><code>0.602 sec elapsed</code></pre>
+<pre class="r"><code>tic();fit.dwt = wave_ebmf(y);toc()</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -107292.443&quot;
+[1] &quot;Iteration  2 : obj  -105642.273&quot;
+[1] &quot;Iteration  3 : obj  -102305.493&quot;
+[1] &quot;Iteration  4 : obj  -99150.002&quot;
+[1] &quot;Iteration  5 : obj  -98554.208&quot;
+[1] &quot;Iteration  6 : obj  -98535.653&quot;
+[1] &quot;Iteration  7 : obj  -98535.338&quot;
+[1] &quot;Iteration  8 : obj  -98535.333&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  39091.254&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -79256.738&quot;
+[1] &quot;Iteration  2 : obj  -79255.162&quot;
+[1] &quot;Iteration  3 : obj  -79250.46&quot;
+[1] &quot;Iteration  4 : obj  -79228.677&quot;
+[1] &quot;Iteration  5 : obj  -79130.16&quot;
+[1] &quot;Iteration  6 : obj  -78715.988&quot;
+[1] &quot;Iteration  7 : obj  -77232.717&quot;
+[1] &quot;Iteration  8 : obj  -73908.739&quot;
+[1] &quot;Iteration  9 : obj  -71625.121&quot;
+[1] &quot;Iteration  10 : obj  -71430.346&quot;
+[1] &quot;Iteration  11 : obj  -71426.573&quot;
+[1] &quot;Iteration  12 : obj  -71426.51&quot;
+[1] &quot;Iteration  13 : obj  -71426.51&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  27108.823&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -47174.395&quot;
+[1] &quot;Iteration  2 : obj  -47170.479&quot;
+[1] &quot;Iteration  3 : obj  -47170.478&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  24256.032&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -47241.861&quot;
+[1] &quot;Iteration  2 : obj  -47218.33&quot;
+[1] &quot;Iteration  3 : obj  -47213.905&quot;
+[1] &quot;Iteration  4 : obj  -47210.322&quot;
+[1] &quot;Iteration  5 : obj  -47205.739&quot;
+[1] &quot;Iteration  6 : obj  -47201.604&quot;
+[1] &quot;Iteration  7 : obj  -47197.79&quot;
+[1] &quot;Iteration  8 : obj  -47194.883&quot;
+[1] &quot;Iteration  9 : obj  -47193.295&quot;
+[1] &quot;Iteration  10 : obj  -47192.457&quot;
+[1] &quot;Iteration  11 : obj  -47191.904&quot;
+[1] &quot;Iteration  12 : obj  -47191.472&quot;
+[1] &quot;Iteration  13 : obj  -47191.123&quot;
+[1] &quot;Iteration  14 : obj  -47190.807&quot;
+[1] &quot;Iteration  15 : obj  -47190.461&quot;
+[1] &quot;Iteration  16 : obj  -47190.064&quot;
+[1] &quot;Iteration  17 : obj  -47189.744&quot;
+[1] &quot;Iteration  18 : obj  -47189.485&quot;
+[1] &quot;Iteration  19 : obj  -47189.279&quot;
+[1] &quot;Iteration  20 : obj  -47189.114&quot;
+[1] &quot;Iteration  21 : obj  -47188.982&quot;
+[1] &quot;Iteration  22 : obj  -47188.876&quot;
+[1] &quot;Iteration  23 : obj  -47188.792&quot;
+[1] &quot;Iteration  24 : obj  -47188.727&quot;
+[1] &quot;Iteration  25 : obj  -47188.676&quot;
+[1] &quot;Iteration  26 : obj  -47188.634&quot;
+[1] &quot;Iteration  27 : obj  -47188.596&quot;
+[1] &quot;Iteration  28 : obj  -47188.559&quot;
+[1] &quot;Iteration  29 : obj  -47188.519&quot;
+[1] &quot;Iteration  30 : obj  -47188.47&quot;
+[1] &quot;Iteration  31 : obj  -47188.402&quot;
+[1] &quot;Iteration  32 : obj  -47188.29&quot;
+[1] &quot;Iteration  33 : obj  -47205.281&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  increases objective by  34.803&quot;</code></pre>
+<pre><code>3.053 sec elapsed</code></pre>
+<pre class="r"><code>ploter2(fit.flash$ldf$f,main=&#39;flash&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ploter2(fit.dwt$ldf$f,main=&#39;wave_flash&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="poisson-case" class="section level2">
+<h2>Poisson case</h2>
+<pre class="r"><code>ploter3 = function(EF,main){
+  p = nrow(EF)
+  par(mfrow=c(3,1))
+  for(k in 1:ncol(EF)){
+    plot(EF[,k],ylab=paste(&#39;f&#39;,k,sep=&#39;&#39;),main=ifelse(k==1,main,&quot;&quot;),type=&#39;l&#39;)
+    abline(v=p/2,lty=2)
+  }
+}</code></pre>
+<p>Start with a single function case:</p>
+<pre class="r"><code>library(stm)
+set.seed(123)
+n = 120
+p = 256
+K= 3
+FF = matrix(1, nrow=p, ncol=K)
+FF[(p/8*1):(p/8*2),1] = 5
+FF[(p/8*3):(p/8*4),2] = 5
+FF[(p/8*5):(p/8*7),3] = 5
+L = matrix(rgamma(n*K,2),ncol=K)
+y = matrix(rpois(n*p,tcrossprod(L,FF)),nrow=n)
+
+fit.nmf = NNLM::nnmf(y,k=3,method = &#39;scd&#39;,loss=&#39;mkl&#39;)
+ploter(t(fit.nmf$H),main=&#39;nmf,scd=mkl&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.gom = cluster.mix(y,smooth = FALSE,K=3,tol=1e-3,maxit = 100)</code></pre>
+<pre><code>[1] &quot;iteration&quot;
+[1] 1
+[1] &quot;phi difference&quot;
+[1] 3988.362
+[1] &quot;pi difference&quot;
+[1] 0.2680048
+[1] &quot;negative loglikelihood&quot;
+[1] 1556268
+[1] &quot;iteration&quot;
+[1] 2
+[1] &quot;phi difference&quot;
+[1] 0.007248152
+[1] &quot;pi difference&quot;
+[1] 0.01655635
+[1] &quot;negative loglikelihood&quot;
+[1] 1556132
+[1] &quot;iteration&quot;
+[1] 3
+[1] &quot;phi difference&quot;
+[1] 0.01425026
+[1] &quot;pi difference&quot;
+[1] 0.0169203
+[1] &quot;negative loglikelihood&quot;
+[1] 1555973
+[1] &quot;iteration&quot;
+[1] 4
+[1] &quot;phi difference&quot;
+[1] 0.02125566
+[1] &quot;pi difference&quot;
+[1] 0.01778377
+[1] &quot;negative loglikelihood&quot;
+[1] 1555773
+[1] &quot;iteration&quot;
+[1] 5
+[1] &quot;phi difference&quot;
+[1] 0.02832821
+[1] &quot;pi difference&quot;
+[1] 0.01903516
+[1] &quot;negative loglikelihood&quot;
+[1] 1555517
+[1] &quot;iteration&quot;
+[1] 6
+[1] &quot;phi difference&quot;
+[1] 0.03540202
+[1] &quot;pi difference&quot;
+[1] 0.0205576
+[1] &quot;negative loglikelihood&quot;
+[1] 1555191
+[1] &quot;iteration&quot;
+[1] 7
+[1] &quot;phi difference&quot;
+[1] 0.04222619
+[1] &quot;pi difference&quot;
+[1] 0.02222088
+[1] &quot;negative loglikelihood&quot;
+[1] 1554784
+[1] &quot;iteration&quot;
+[1] 8
+[1] &quot;phi difference&quot;
+[1] 0.04834576
+[1] &quot;pi difference&quot;
+[1] 0.02378133
+[1] &quot;negative loglikelihood&quot;
+[1] 1554296
+[1] &quot;iteration&quot;
+[1] 9
+[1] &quot;phi difference&quot;
+[1] 0.05218435
+[1] &quot;pi difference&quot;
+[1] 0.0249727
+[1] &quot;negative loglikelihood&quot;
+[1] 1553741
+[1] &quot;iteration&quot;
+[1] 10
+[1] &quot;phi difference&quot;
+[1] 0.05384307
+[1] &quot;pi difference&quot;
+[1] 0.02565832
+[1] &quot;negative loglikelihood&quot;
+[1] 1553150
+[1] &quot;iteration&quot;
+[1] 11
+[1] &quot;phi difference&quot;
+[1] 0.05318603
+[1] &quot;pi difference&quot;
+[1] 0.02564275
+[1] &quot;negative loglikelihood&quot;
+[1] 1552564
+[1] &quot;iteration&quot;
+[1] 12
+[1] &quot;phi difference&quot;
+[1] 0.04992299
+[1] &quot;pi difference&quot;
+[1] 0.02484726
+[1] &quot;negative loglikelihood&quot;
+[1] 1552023
+[1] &quot;iteration&quot;
+[1] 13
+[1] &quot;phi difference&quot;
+[1] 0.04313862
+[1] &quot;pi difference&quot;
+[1] 0.02360919
+[1] &quot;negative loglikelihood&quot;
+[1] 1551555
+[1] &quot;iteration&quot;
+[1] 14
+[1] &quot;phi difference&quot;
+[1] 0.0350059
+[1] &quot;pi difference&quot;
+[1] 0.02240167
+[1] &quot;negative loglikelihood&quot;
+[1] 1551167
+[1] &quot;iteration&quot;
+[1] 15
+[1] &quot;phi difference&quot;
+[1] 0.02670056
+[1] &quot;pi difference&quot;
+[1] 0.02130135
+[1] &quot;negative loglikelihood&quot;
+[1] 1550849
+[1] &quot;iteration&quot;
+[1] 16
+[1] &quot;phi difference&quot;
+[1] 0.01867192
+[1] &quot;pi difference&quot;
+[1] 0.02026996
+[1] &quot;negative loglikelihood&quot;
+[1] 1550581
+[1] &quot;iteration&quot;
+[1] 17
+[1] &quot;phi difference&quot;
+[1] 0.01195962
+[1] &quot;pi difference&quot;
+[1] 0.01964568
+[1] &quot;negative loglikelihood&quot;
+[1] 1550344
+[1] &quot;iteration&quot;
+[1] 18
+[1] &quot;phi difference&quot;
+[1] 0.007249337
+[1] &quot;pi difference&quot;
+[1] 0.01917317
+[1] &quot;negative loglikelihood&quot;
+[1] 1550121
+[1] &quot;iteration&quot;
+[1] 19
+[1] &quot;phi difference&quot;
+[1] 0.007401366
+[1] &quot;pi difference&quot;
+[1] 0.01882432
+[1] &quot;negative loglikelihood&quot;
+[1] 1549901
+[1] &quot;iteration&quot;
+[1] 20
+[1] &quot;phi difference&quot;
+[1] 0.007840253
+[1] &quot;pi difference&quot;
+[1] 0.01859933
+[1] &quot;negative loglikelihood&quot;
+[1] 1549681
+[1] &quot;iteration&quot;
+[1] 21
+[1] &quot;phi difference&quot;
+[1] 0.00795566
+[1] &quot;pi difference&quot;
+[1] 0.01837616
+[1] &quot;negative loglikelihood&quot;
+[1] 1549459
+[1] &quot;iteration&quot;
+[1] 22
+[1] &quot;phi difference&quot;
+[1] 0.008185762
+[1] &quot;pi difference&quot;
+[1] 0.01812838
+[1] &quot;negative loglikelihood&quot;
+[1] 1549239
+[1] &quot;iteration&quot;
+[1] 23
+[1] &quot;phi difference&quot;
+[1] 0.008556548
+[1] &quot;pi difference&quot;
+[1] 0.01773103
+[1] &quot;negative loglikelihood&quot;
+[1] 1549027
+[1] &quot;iteration&quot;
+[1] 24
+[1] &quot;phi difference&quot;
+[1] 0.008651467
+[1] &quot;pi difference&quot;
+[1] 0.01713919
+[1] &quot;negative loglikelihood&quot;
+[1] 1548829
+[1] &quot;iteration&quot;
+[1] 25
+[1] &quot;phi difference&quot;
+[1] 0.008499844
+[1] &quot;pi difference&quot;
+[1] 0.01630018
+[1] &quot;negative loglikelihood&quot;
+[1] 1548648
+[1] &quot;iteration&quot;
+[1] 26
+[1] &quot;phi difference&quot;
+[1] 0.008148614
+[1] &quot;pi difference&quot;
+[1] 0.01523472
+[1] &quot;negative loglikelihood&quot;
+[1] 1548490
+[1] &quot;iteration&quot;
+[1] 27
+[1] &quot;phi difference&quot;
+[1] 0.007721917
+[1] &quot;pi difference&quot;
+[1] 0.01397762
+[1] &quot;negative loglikelihood&quot;
+[1] 1548354
+[1] &quot;iteration&quot;
+[1] 28
+[1] &quot;phi difference&quot;
+[1] 0.007359908
+[1] &quot;pi difference&quot;
+[1] 0.01258646
+[1] &quot;negative loglikelihood&quot;
+[1] 1548242
+[1] &quot;iteration&quot;
+[1] 29
+[1] &quot;phi difference&quot;
+[1] 0.006932472
+[1] &quot;pi difference&quot;
+[1] 0.01134788
+[1] &quot;negative loglikelihood&quot;
+[1] 1548149
+[1] &quot;iteration&quot;
+[1] 30
+[1] &quot;phi difference&quot;
+[1] 0.006280522
+[1] &quot;pi difference&quot;
+[1] 0.01030838
+[1] &quot;negative loglikelihood&quot;
+[1] 1548075
+[1] &quot;iteration&quot;
+[1] 31
+[1] &quot;phi difference&quot;
+[1] 0.005759753
+[1] &quot;pi difference&quot;
+[1] 0.009294335
+[1] &quot;negative loglikelihood&quot;
+[1] 1548016
+[1] &quot;iteration&quot;
+[1] 32
+[1] &quot;phi difference&quot;
+[1] 0.005267121
+[1] &quot;pi difference&quot;
+[1] 0.008331438
+[1] &quot;negative loglikelihood&quot;
+[1] 1547969
+[1] &quot;iteration&quot;
+[1] 33
+[1] &quot;phi difference&quot;
+[1] 0.004801244
+[1] &quot;pi difference&quot;
+[1] 0.007503247
+[1] &quot;negative loglikelihood&quot;
+[1] 1547931
+[1] &quot;iteration&quot;
+[1] 34
+[1] &quot;phi difference&quot;
+[1] 0.004377284
+[1] &quot;pi difference&quot;
+[1] 0.006784135
+[1] &quot;negative loglikelihood&quot;
+[1] 1547901
+[1] &quot;iteration&quot;
+[1] 35
+[1] &quot;phi difference&quot;
+[1] 0.003960138
+[1] &quot;pi difference&quot;
+[1] 0.006223292
+[1] &quot;negative loglikelihood&quot;
+[1] 1547876
+[1] &quot;iteration&quot;
+[1] 36
+[1] &quot;phi difference&quot;
+[1] 0.003445544
+[1] &quot;pi difference&quot;
+[1] 0.005720539
+[1] &quot;negative loglikelihood&quot;
+[1] 1547856
+[1] &quot;iteration&quot;
+[1] 37
+[1] &quot;phi difference&quot;
+[1] 0.002969403
+[1] &quot;pi difference&quot;
+[1] 0.005232668
+[1] &quot;negative loglikelihood&quot;
+[1] 1547840
+[1] &quot;iteration&quot;
+[1] 38
+[1] &quot;phi difference&quot;
+[1] 0.002832508
+[1] &quot;pi difference&quot;
+[1] 0.004801012
+[1] &quot;negative loglikelihood&quot;
+[1] 1547826
+[1] &quot;iteration&quot;
+[1] 39
+[1] &quot;phi difference&quot;
+[1] 0.002628865
+[1] &quot;pi difference&quot;
+[1] 0.004421177
+[1] &quot;negative loglikelihood&quot;
+[1] 1547814
+[1] &quot;iteration&quot;
+[1] 40
+[1] &quot;phi difference&quot;
+[1] 0.002435371
+[1] &quot;pi difference&quot;
+[1] 0.004077915
+[1] &quot;negative loglikelihood&quot;
+[1] 1547804
+[1] &quot;iteration&quot;
+[1] 41
+[1] &quot;phi difference&quot;
+[1] 0.002313386
+[1] &quot;pi difference&quot;
+[1] 0.003779616
+[1] &quot;negative loglikelihood&quot;
+[1] 1547795
+[1] &quot;iteration&quot;
+[1] 42
+[1] &quot;phi difference&quot;
+[1] 0.002123023
+[1] &quot;pi difference&quot;
+[1] 0.003526026
+[1] &quot;negative loglikelihood&quot;
+[1] 1547788
+[1] &quot;iteration&quot;
+[1] 43
+[1] &quot;phi difference&quot;
+[1] 0.001916216
+[1] &quot;pi difference&quot;
+[1] 0.003308955
+[1] &quot;negative loglikelihood&quot;
+[1] 1547781
+[1] &quot;iteration&quot;
+[1] 44
+[1] &quot;phi difference&quot;
+[1] 0.0017656
+[1] &quot;pi difference&quot;
+[1] 0.003110528
+[1] &quot;negative loglikelihood&quot;
+[1] 1547775
+[1] &quot;iteration&quot;
+[1] 45
+[1] &quot;phi difference&quot;
+[1] 0.001684359
+[1] &quot;pi difference&quot;
+[1] 0.002933182
+[1] &quot;negative loglikelihood&quot;
+[1] 1547770
+[1] &quot;iteration&quot;
+[1] 46
+[1] &quot;phi difference&quot;
+[1] 0.001585574
+[1] &quot;pi difference&quot;
+[1] 0.002770518
+[1] &quot;negative loglikelihood&quot;
+[1] 1547765
+[1] &quot;iteration&quot;
+[1] 47
+[1] &quot;phi difference&quot;
+[1] 0.0014518
+[1] &quot;pi difference&quot;
+[1] 0.002626192
+[1] &quot;negative loglikelihood&quot;
+[1] 1547760
+[1] &quot;iteration&quot;
+[1] 48
+[1] &quot;phi difference&quot;
+[1] 0.001385454
+[1] &quot;pi difference&quot;
+[1] 0.002498727
+[1] &quot;negative loglikelihood&quot;
+[1] 1547756
+[1] &quot;iteration&quot;
+[1] 49
+[1] &quot;phi difference&quot;
+[1] 0.001276966
+[1] &quot;pi difference&quot;
+[1] 0.002382345
+[1] &quot;negative loglikelihood&quot;
+[1] 1547752
+[1] &quot;iteration&quot;
+[1] 50
+[1] &quot;phi difference&quot;
+[1] 0.001177705
+[1] &quot;pi difference&quot;
+[1] 0.002276098
+[1] &quot;negative loglikelihood&quot;
+[1] 1547749
+[1] &quot;iteration&quot;
+[1] 51
+[1] &quot;phi difference&quot;
+[1] 0.001132947
+[1] &quot;pi difference&quot;
+[1] 0.002181821
+[1] &quot;negative loglikelihood&quot;
+[1] 1547745
+[1] &quot;iteration&quot;
+[1] 52
+[1] &quot;phi difference&quot;
+[1] 0.001090066
+[1] &quot;pi difference&quot;
+[1] 0.002095521
+[1] &quot;negative loglikelihood&quot;
+[1] 1547742
+[1] &quot;iteration&quot;
+[1] 53
+[1] &quot;phi difference&quot;
+[1] 0.001043696
+[1] &quot;pi difference&quot;
+[1] 0.002016015
+[1] &quot;negative loglikelihood&quot;
+[1] 1547739
+[1] &quot;iteration&quot;
+[1] 54
+[1] &quot;phi difference&quot;
+[1] 0.0009827324
+[1] &quot;pi difference&quot;
+[1] 0.001944414
+[1] &quot;negative loglikelihood&quot;
+[1] 1547736
+[1] &quot;iteration&quot;
+[1] 55
+[1] &quot;phi difference&quot;
+[1] 0.0009289521
+[1] &quot;pi difference&quot;
+[1] 0.001877975
+[1] &quot;negative loglikelihood&quot;
+[1] 1547734
+[1] &quot;iteration&quot;
+[1] 56
+[1] &quot;phi difference&quot;
+[1] 0.000876512
+[1] &quot;pi difference&quot;
+[1] 0.001816076
+[1] &quot;negative loglikelihood&quot;
+[1] 1547731
+[1] &quot;iteration&quot;
+[1] 57
+[1] &quot;phi difference&quot;
+[1] 0.0008307285
+[1] &quot;pi difference&quot;
+[1] 0.001759041
+[1] &quot;negative loglikelihood&quot;
+[1] 1547729
+[1] &quot;iteration&quot;
+[1] 58
+[1] &quot;phi difference&quot;
+[1] 0.0008034163
+[1] &quot;pi difference&quot;
+[1] 0.001704776
+[1] &quot;negative loglikelihood&quot;
+[1] 1547727
+[1] &quot;iteration&quot;
+[1] 59
+[1] &quot;phi difference&quot;
+[1] 0.0007853062
+[1] &quot;pi difference&quot;
+[1] 0.001653211
+[1] &quot;negative loglikelihood&quot;
+[1] 1547724
+[1] &quot;iteration&quot;
+[1] 60
+[1] &quot;phi difference&quot;
+[1] 0.0007481631
+[1] &quot;pi difference&quot;
+[1] 0.001605318
+[1] &quot;negative loglikelihood&quot;
+[1] 1547722
+[1] &quot;iteration&quot;
+[1] 61
+[1] &quot;phi difference&quot;
+[1] 0.0007088679
+[1] &quot;pi difference&quot;
+[1] 0.001560169
+[1] &quot;negative loglikelihood&quot;
+[1] 1547720
+[1] &quot;iteration&quot;
+[1] 62
+[1] &quot;phi difference&quot;
+[1] 0.0006779852
+[1] &quot;pi difference&quot;
+[1] 0.001518061
+[1] &quot;negative loglikelihood&quot;
+[1] 1547718
+[1] &quot;iteration&quot;
+[1] 63
+[1] &quot;phi difference&quot;
+[1] 0.0006566976
+[1] &quot;pi difference&quot;
+[1] 0.001477979
+[1] &quot;negative loglikelihood&quot;
+[1] 1547717
+[1] &quot;iteration&quot;
+[1] 64
+[1] &quot;phi difference&quot;
+[1] 0.0006547238
+[1] &quot;pi difference&quot;
+[1] 0.00144133
+[1] &quot;negative loglikelihood&quot;
+[1] 1547715
+[1] &quot;iteration&quot;
+[1] 65
+[1] &quot;phi difference&quot;
+[1] 0.0006487581
+[1] &quot;pi difference&quot;
+[1] 0.001407952
+[1] &quot;negative loglikelihood&quot;
+[1] 1547713
+[1] &quot;iteration&quot;
+[1] 66
+[1] &quot;phi difference&quot;
+[1] 0.0006353632
+[1] &quot;pi difference&quot;
+[1] 0.001376833
+[1] &quot;negative loglikelihood&quot;
+[1] 1547711
+[1] &quot;iteration&quot;
+[1] 67
+[1] &quot;phi difference&quot;
+[1] 0.000622759
+[1] &quot;pi difference&quot;
+[1] 0.001347232
+[1] &quot;negative loglikelihood&quot;
+[1] 1547710
+[1] &quot;iteration&quot;
+[1] 68
+[1] &quot;phi difference&quot;
+[1] 0.0006067917
+[1] &quot;pi difference&quot;
+[1] 0.001318114
+[1] &quot;negative loglikelihood&quot;
+[1] 1547708
+[1] &quot;iteration&quot;
+[1] 69
+[1] &quot;phi difference&quot;
+[1] 0.0005888941
+[1] &quot;pi difference&quot;
+[1] 0.001289981
+[1] &quot;negative loglikelihood&quot;
+[1] 1547707
+[1] &quot;iteration&quot;
+[1] 70
+[1] &quot;phi difference&quot;
+[1] 0.0005713779
+[1] &quot;pi difference&quot;
+[1] 0.001263342
+[1] &quot;negative loglikelihood&quot;
+[1] 1547706
+[1] &quot;iteration&quot;
+[1] 71
+[1] &quot;phi difference&quot;
+[1] 0.0005535687
+[1] &quot;pi difference&quot;
+[1] 0.001238107
+[1] &quot;negative loglikelihood&quot;
+[1] 1547704
+[1] &quot;iteration&quot;
+[1] 72
+[1] &quot;phi difference&quot;
+[1] 0.000536831
+[1] &quot;pi difference&quot;
+[1] 0.001213726
+[1] &quot;negative loglikelihood&quot;
+[1] 1547703
+[1] &quot;iteration&quot;
+[1] 73
+[1] &quot;phi difference&quot;
+[1] 0.0005223291
+[1] &quot;pi difference&quot;
+[1] 0.001190546
+[1] &quot;negative loglikelihood&quot;
+[1] 1547702
+[1] &quot;iteration&quot;
+[1] 74
+[1] &quot;phi difference&quot;
+[1] 0.000519353
+[1] &quot;pi difference&quot;
+[1] 0.001167923
+[1] &quot;negative loglikelihood&quot;
+[1] 1547700
+[1] &quot;iteration&quot;
+[1] 75
+[1] &quot;phi difference&quot;
+[1] 0.0005168541
+[1] &quot;pi difference&quot;
+[1] 0.001146075
+[1] &quot;negative loglikelihood&quot;
+[1] 1547699
+[1] &quot;iteration&quot;
+[1] 76
+[1] &quot;phi difference&quot;
+[1] 0.0005095154
+[1] &quot;pi difference&quot;
+[1] 0.001124777
+[1] &quot;negative loglikelihood&quot;
+[1] 1547698
+[1] &quot;iteration&quot;
+[1] 77
+[1] &quot;phi difference&quot;
+[1] 0.0004964102
+[1] &quot;pi difference&quot;
+[1] 0.001103644
+[1] &quot;negative loglikelihood&quot;
+[1] 1547697
+[1] &quot;iteration&quot;
+[1] 78
+[1] &quot;phi difference&quot;
+[1] 0.000482352
+[1] &quot;pi difference&quot;
+[1] 0.001083192
+[1] &quot;negative loglikelihood&quot;
+[1] 1547696
+[1] &quot;iteration&quot;
+[1] 79
+[1] &quot;phi difference&quot;
+[1] 0.0004789292
+[1] &quot;pi difference&quot;
+[1] 0.001063269
+[1] &quot;negative loglikelihood&quot;
+[1] 1547695
+[1] &quot;iteration&quot;
+[1] 80
+[1] &quot;phi difference&quot;
+[1] 0.0004761465
+[1] &quot;pi difference&quot;
+[1] 0.001044251
+[1] &quot;negative loglikelihood&quot;
+[1] 1547694
+[1] &quot;iteration&quot;
+[1] 81
+[1] &quot;phi difference&quot;
+[1] 0.0004733357
+[1] &quot;pi difference&quot;
+[1] 0.00102601
+[1] &quot;negative loglikelihood&quot;
+[1] 1547693
+[1] &quot;iteration&quot;
+[1] 82
+[1] &quot;phi difference&quot;
+[1] 0.0004692198
+[1] &quot;pi difference&quot;
+[1] 0.001008253
+[1] &quot;negative loglikelihood&quot;
+[1] 1547692
+[1] &quot;iteration&quot;
+[1] 83
+[1] &quot;phi difference&quot;
+[1] 0.000462306
+[1] &quot;pi difference&quot;
+[1] 0.000991118
+[1] &quot;negative loglikelihood&quot;
+[1] 1547691</code></pre>
+<pre class="r"><code>ploter(t(fit.gom$phi),main=&#39;gom&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.stm = stm(y,K=3,nugget = TRUE,tol=1e-4)</code></pre>
+<pre><code>[1] &quot;At iter 10, mean KL: 0.484295&quot;</code></pre>
+<pre class="r"><code>ploter(fit.stm$EF,main=&#39;stm, scd-mkl&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-14-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># change init
+fit.stm2 = stm(y,K=3,nugget = TRUE,init=&#39;lee&#39;,tol=1e-4)
+ploter(fit.stm2$EF,main=&#39;stm, lee-mkl&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-14-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.stm3 = stm(y,K=3,nugget = TRUE,init=&#39;lee&#39;,init_loss = &#39;mse&#39;,tol=1e-4)</code></pre>
+<pre><code>[1] &quot;At iter 10, mean KL: 0.492514&quot;
+[1] &quot;At iter 20, mean KL: 0.490361&quot;</code></pre>
+<pre class="r"><code>ploter(fit.stm3$EF,main=&#39;stm, lee-mse&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-14-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.stm4 = stm(y,K=3,nugget = TRUE,init=&#39;scd&#39;,init_loss = &#39;mse&#39;,tol=1e-4)</code></pre>
+<pre><code>[1] &quot;At iter 10, mean KL: 0.484725&quot;</code></pre>
+<pre class="r"><code>ploter(fit.stm4$EF,main=&#39;stm, scd-mse&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-14-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>kmeans.init = kmeans(y, K, nstart = 5)
+L0 = rep(1, n) %o% (as.vector(table(kmeans.init$cluster)))
+F0 = t(kmeans.init$centers)
+fit.stm5 = stm(y,K=3,nugget = TRUE,init = list(L_init=L0,F_init=F0),tol=1e-5)</code></pre>
+<pre><code>[1] &quot;At iter 10, mean KL: 0.735056&quot;
+[1] &quot;At iter 20, mean KL: 0.581710&quot;
+[1] &quot;At iter 30, mean KL: 0.504752&quot;
+[1] &quot;At iter 40, mean KL: 0.488120&quot;
+[1] &quot;At iter 50, mean KL: 0.485984&quot;
+[1] &quot;At iter 60, mean KL: 0.485408&quot;</code></pre>
+<pre class="r"><code>ploter(fit.stm5$EF,main=&#39;stm, kmeans init&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-14-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.sgom = cluster.mix(y,K=3,tol=1e-3,maxit = 100,nugget = T)</code></pre>
+<pre><code>[1] &quot;iteration&quot;
+[1] 1
+[1] &quot;phi difference&quot;
+[1] 3988.373
+[1] &quot;pi difference&quot;
+[1] 0.2680048
+[1] &quot;negative loglikelihood&quot;
+[1] 1556268
+[1] &quot;iteration&quot;
+[1] 2
+[1] &quot;phi difference&quot;
+[1] 0.03018013
+[1] &quot;pi difference&quot;
+[1] 0.01787299
+[1] &quot;negative loglikelihood&quot;
+[1] 1556108
+[1] &quot;iteration&quot;
+[1] 3
+[1] &quot;phi difference&quot;
+[1] 0.03583746
+[1] &quot;pi difference&quot;
+[1] 0.01968614
+[1] &quot;negative loglikelihood&quot;
+[1] 1555875
+[1] &quot;iteration&quot;
+[1] 4
+[1] &quot;phi difference&quot;
+[1] 0.02971307
+[1] &quot;pi difference&quot;
+[1] 0.02180536
+[1] &quot;negative loglikelihood&quot;
+[1] 1555557
+[1] &quot;iteration&quot;
+[1] 5
+[1] &quot;phi difference&quot;
+[1] 0.03334056
+[1] &quot;pi difference&quot;
+[1] 0.02444069
+[1] &quot;negative loglikelihood&quot;
+[1] 1555135
+[1] &quot;iteration&quot;
+[1] 6
+[1] &quot;phi difference&quot;
+[1] 0.03854816
+[1] &quot;pi difference&quot;
+[1] 0.02713383
+[1] &quot;negative loglikelihood&quot;
+[1] 1554601
+[1] &quot;iteration&quot;
+[1] 7
+[1] &quot;phi difference&quot;
+[1] 0.04032402
+[1] &quot;pi difference&quot;
+[1] 0.02944567
+[1] &quot;negative loglikelihood&quot;
+[1] 1553963
+[1] &quot;iteration&quot;
+[1] 8
+[1] &quot;phi difference&quot;
+[1] 0.04240823
+[1] &quot;pi difference&quot;
+[1] 0.03053127
+[1] &quot;negative loglikelihood&quot;
+[1] 1553280
+[1] &quot;iteration&quot;
+[1] 9
+[1] &quot;phi difference&quot;
+[1] 0.04106111
+[1] &quot;pi difference&quot;
+[1] 0.03040469
+[1] &quot;negative loglikelihood&quot;
+[1] 1552617
+[1] &quot;iteration&quot;
+[1] 10
+[1] &quot;phi difference&quot;
+[1] 0.03786641
+[1] &quot;pi difference&quot;
+[1] 0.02946195
+[1] &quot;negative loglikelihood&quot;
+[1] 1552011
+[1] &quot;iteration&quot;
+[1] 11
+[1] &quot;phi difference&quot;
+[1] 0.03373034
+[1] &quot;pi difference&quot;
+[1] 0.027606
+[1] &quot;negative loglikelihood&quot;
+[1] 1551506
+[1] &quot;iteration&quot;
+[1] 12
+[1] &quot;phi difference&quot;
+[1] 0.02879371
+[1] &quot;pi difference&quot;
+[1] 0.02595568
+[1] &quot;negative loglikelihood&quot;
+[1] 1551079
+[1] &quot;iteration&quot;
+[1] 13
+[1] &quot;phi difference&quot;
+[1] 0.02232435
+[1] &quot;pi difference&quot;
+[1] 0.02443482
+[1] &quot;negative loglikelihood&quot;
+[1] 1550736
+[1] &quot;iteration&quot;
+[1] 14
+[1] &quot;phi difference&quot;
+[1] 0.01729528
+[1] &quot;pi difference&quot;
+[1] 0.02363252
+[1] &quot;negative loglikelihood&quot;
+[1] 1550436
+[1] &quot;iteration&quot;
+[1] 15
+[1] &quot;phi difference&quot;
+[1] 0.01573788
+[1] &quot;pi difference&quot;
+[1] 0.02302273
+[1] &quot;negative loglikelihood&quot;
+[1] 1550163
+[1] &quot;iteration&quot;
+[1] 16
+[1] &quot;phi difference&quot;
+[1] 0.01650664
+[1] &quot;pi difference&quot;
+[1] 0.02281812
+[1] &quot;negative loglikelihood&quot;
+[1] 1549905
+[1] &quot;iteration&quot;
+[1] 17
+[1] &quot;phi difference&quot;
+[1] 0.01569569
+[1] &quot;pi difference&quot;
+[1] 0.02260439
+[1] &quot;negative loglikelihood&quot;
+[1] 1549643
+[1] &quot;iteration&quot;
+[1] 18
+[1] &quot;phi difference&quot;
+[1] 0.01534902
+[1] &quot;pi difference&quot;
+[1] 0.02197915
+[1] &quot;negative loglikelihood&quot;
+[1] 1549392
+[1] &quot;iteration&quot;
+[1] 19
+[1] &quot;phi difference&quot;
+[1] 0.01487146
+[1] &quot;pi difference&quot;
+[1] 0.02118918
+[1] &quot;negative loglikelihood&quot;
+[1] 1549160
+[1] &quot;iteration&quot;
+[1] 20
+[1] &quot;phi difference&quot;
+[1] 0.01428396
+[1] &quot;pi difference&quot;
+[1] 0.0204687
+[1] &quot;negative loglikelihood&quot;
+[1] 1548948
+[1] &quot;iteration&quot;
+[1] 21
+[1] &quot;phi difference&quot;
+[1] 0.01085422
+[1] &quot;pi difference&quot;
+[1] 0.01886644
+[1] &quot;negative loglikelihood&quot;
+[1] 1548767
+[1] &quot;iteration&quot;
+[1] 22
+[1] &quot;phi difference&quot;
+[1] 0.009870626
+[1] &quot;pi difference&quot;
+[1] 0.01711367
+[1] &quot;negative loglikelihood&quot;
+[1] 1548623
+[1] &quot;iteration&quot;
+[1] 23
+[1] &quot;phi difference&quot;
+[1] 0.008548105
+[1] &quot;pi difference&quot;
+[1] 0.01540902
+[1] &quot;negative loglikelihood&quot;
+[1] 1548509
+[1] &quot;iteration&quot;
+[1] 24
+[1] &quot;phi difference&quot;
+[1] 0.008144208
+[1] &quot;pi difference&quot;
+[1] 0.01378699
+[1] &quot;negative loglikelihood&quot;
+[1] 1548420
+[1] &quot;iteration&quot;
+[1] 25
+[1] &quot;phi difference&quot;
+[1] 0.007262927
+[1] &quot;pi difference&quot;
+[1] 0.01223353
+[1] &quot;negative loglikelihood&quot;
+[1] 1548343
+[1] &quot;iteration&quot;
+[1] 26
+[1] &quot;phi difference&quot;
+[1] 0.006539517
+[1] &quot;pi difference&quot;
+[1] 0.01092857
+[1] &quot;negative loglikelihood&quot;
+[1] 1548288
+[1] &quot;iteration&quot;
+[1] 27
+[1] &quot;phi difference&quot;
+[1] 0.005962441
+[1] &quot;pi difference&quot;
+[1] 0.00977714
+[1] &quot;negative loglikelihood&quot;
+[1] 1548244
+[1] &quot;iteration&quot;
+[1] 28
+[1] &quot;phi difference&quot;
+[1] 0.00546834
+[1] &quot;pi difference&quot;
+[1] 0.008816407
+[1] &quot;negative loglikelihood&quot;
+[1] 1548209
+[1] &quot;iteration&quot;
+[1] 29
+[1] &quot;phi difference&quot;
+[1] 0.004964084
+[1] &quot;pi difference&quot;
+[1] 0.007863353
+[1] &quot;negative loglikelihood&quot;
+[1] 1548182
+[1] &quot;iteration&quot;
+[1] 30
+[1] &quot;phi difference&quot;
+[1] 0.004912835
+[1] &quot;pi difference&quot;
+[1] 0.007065226
+[1] &quot;negative loglikelihood&quot;
+[1] 1548160
+[1] &quot;iteration&quot;
+[1] 31
+[1] &quot;phi difference&quot;
+[1] 0.00475776
+[1] &quot;pi difference&quot;
+[1] 0.006406188
+[1] &quot;negative loglikelihood&quot;
+[1] 1548142
+[1] &quot;iteration&quot;
+[1] 32
+[1] &quot;phi difference&quot;
+[1] 0.004144307
+[1] &quot;pi difference&quot;
+[1] 0.005916537
+[1] &quot;negative loglikelihood&quot;
+[1] 1548120
+[1] &quot;iteration&quot;
+[1] 33
+[1] &quot;phi difference&quot;
+[1] 0.004228823
+[1] &quot;pi difference&quot;
+[1] 0.005429475
+[1] &quot;negative loglikelihood&quot;
+[1] 1548106
+[1] &quot;iteration&quot;
+[1] 34
+[1] &quot;phi difference&quot;
+[1] 0.004027642
+[1] &quot;pi difference&quot;
+[1] 0.005029188
+[1] &quot;negative loglikelihood&quot;
+[1] 1548094
+[1] &quot;iteration&quot;
+[1] 35
+[1] &quot;phi difference&quot;
+[1] 0.003329406
+[1] &quot;pi difference&quot;
+[1] 0.004679578
+[1] &quot;negative loglikelihood&quot;
+[1] 1548085
+[1] &quot;iteration&quot;
+[1] 36
+[1] &quot;phi difference&quot;
+[1] 0.002929253
+[1] &quot;pi difference&quot;
+[1] 0.004416778
+[1] &quot;negative loglikelihood&quot;
+[1] 1548076
+[1] &quot;iteration&quot;
+[1] 37
+[1] &quot;phi difference&quot;
+[1] 0.002634863
+[1] &quot;pi difference&quot;
+[1] 0.004199795
+[1] &quot;negative loglikelihood&quot;
+[1] 1548069
+[1] &quot;iteration&quot;
+[1] 38
+[1] &quot;phi difference&quot;
+[1] 0.002469349
+[1] &quot;pi difference&quot;
+[1] 0.0040106
+[1] &quot;negative loglikelihood&quot;
+[1] 1548062
+[1] &quot;iteration&quot;
+[1] 39
+[1] &quot;phi difference&quot;
+[1] 0.002484036
+[1] &quot;pi difference&quot;
+[1] 0.003840474
+[1] &quot;negative loglikelihood&quot;
+[1] 1548056
+[1] &quot;iteration&quot;
+[1] 40
+[1] &quot;phi difference&quot;
+[1] 0.002469018
+[1] &quot;pi difference&quot;
+[1] 0.003695681
+[1] &quot;negative loglikelihood&quot;
+[1] 1548050
+[1] &quot;iteration&quot;
+[1] 41
+[1] &quot;phi difference&quot;
+[1] 0.002469172
+[1] &quot;pi difference&quot;
+[1] 0.003566242
+[1] &quot;negative loglikelihood&quot;
+[1] 1548045
+[1] &quot;iteration&quot;
+[1] 42
+[1] &quot;phi difference&quot;
+[1] 0.002426261
+[1] &quot;pi difference&quot;
+[1] 0.003560945
+[1] &quot;negative loglikelihood&quot;
+[1] 1548034
+[1] &quot;iteration&quot;
+[1] 43
+[1] &quot;phi difference&quot;
+[1] 0.002401062
+[1] &quot;pi difference&quot;
+[1] 0.003394727
+[1] &quot;negative loglikelihood&quot;
+[1] 1548028
+[1] &quot;iteration&quot;
+[1] 44
+[1] &quot;phi difference&quot;
+[1] 0.002384302
+[1] &quot;pi difference&quot;
+[1] 0.003271703
+[1] &quot;negative loglikelihood&quot;
+[1] 1548024
+[1] &quot;iteration&quot;
+[1] 45
+[1] &quot;phi difference&quot;
+[1] 0.002353458
+[1] &quot;pi difference&quot;
+[1] 0.003167008
+[1] &quot;negative loglikelihood&quot;
+[1] 1548020
+[1] &quot;iteration&quot;
+[1] 46
+[1] &quot;phi difference&quot;
+[1] 0.002322013
+[1] &quot;pi difference&quot;
+[1] 0.003074777
+[1] &quot;negative loglikelihood&quot;
+[1] 1548016
+[1] &quot;iteration&quot;
+[1] 47
+[1] &quot;phi difference&quot;
+[1] 0.002284785
+[1] &quot;pi difference&quot;
+[1] 0.002990795
+[1] &quot;negative loglikelihood&quot;
+[1] 1548012
+[1] &quot;iteration&quot;
+[1] 48
+[1] &quot;phi difference&quot;
+[1] 0.002249176
+[1] &quot;pi difference&quot;
+[1] 0.002914901
+[1] &quot;negative loglikelihood&quot;
+[1] 1548008
+[1] &quot;iteration&quot;
+[1] 49
+[1] &quot;phi difference&quot;
+[1] 0.002215859
+[1] &quot;pi difference&quot;
+[1] 0.002850266
+[1] &quot;negative loglikelihood&quot;
+[1] 1548005
+[1] &quot;iteration&quot;
+[1] 50
+[1] &quot;phi difference&quot;
+[1] 0.00218779
+[1] &quot;pi difference&quot;
+[1] 0.002790675
+[1] &quot;negative loglikelihood&quot;
+[1] 1548002
+[1] &quot;iteration&quot;
+[1] 51
+[1] &quot;phi difference&quot;
+[1] 0.002158367
+[1] &quot;pi difference&quot;
+[1] 0.002736233
+[1] &quot;negative loglikelihood&quot;
+[1] 1547998
+[1] &quot;iteration&quot;
+[1] 52
+[1] &quot;phi difference&quot;
+[1] 0.002138825
+[1] &quot;pi difference&quot;
+[1] 0.002685156
+[1] &quot;negative loglikelihood&quot;
+[1] 1547995
+[1] &quot;iteration&quot;
+[1] 53
+[1] &quot;phi difference&quot;
+[1] 0.002110526
+[1] &quot;pi difference&quot;
+[1] 0.002638842
+[1] &quot;negative loglikelihood&quot;
+[1] 1547992
+[1] &quot;iteration&quot;
+[1] 54
+[1] &quot;phi difference&quot;
+[1] 0.002084028
+[1] &quot;pi difference&quot;
+[1] 0.002594762
+[1] &quot;negative loglikelihood&quot;
+[1] 1547989
+[1] &quot;iteration&quot;
+[1] 55
+[1] &quot;phi difference&quot;
+[1] 0.002059332
+[1] &quot;pi difference&quot;
+[1] 0.002552755
+[1] &quot;negative loglikelihood&quot;
+[1] 1547986
+[1] &quot;iteration&quot;
+[1] 56
+[1] &quot;phi difference&quot;
+[1] 0.002035167
+[1] &quot;pi difference&quot;
+[1] 0.002512751
+[1] &quot;negative loglikelihood&quot;
+[1] 1547984
+[1] &quot;iteration&quot;
+[1] 57
+[1] &quot;phi difference&quot;
+[1] 0.002012832
+[1] &quot;pi difference&quot;
+[1] 0.002476791
+[1] &quot;negative loglikelihood&quot;
+[1] 1547981
+[1] &quot;iteration&quot;
+[1] 58
+[1] &quot;phi difference&quot;
+[1] 0.001992535
+[1] &quot;pi difference&quot;
+[1] 0.002446409
+[1] &quot;negative loglikelihood&quot;
+[1] 1547978
+[1] &quot;iteration&quot;
+[1] 59
+[1] &quot;phi difference&quot;
+[1] 0.001974504
+[1] &quot;pi difference&quot;
+[1] 0.002419446
+[1] &quot;negative loglikelihood&quot;
+[1] 1547976
+[1] &quot;iteration&quot;
+[1] 60
+[1] &quot;phi difference&quot;
+[1] 0.001958425
+[1] &quot;pi difference&quot;
+[1] 0.002393076
+[1] &quot;negative loglikelihood&quot;
+[1] 1547973
+[1] &quot;iteration&quot;
+[1] 61
+[1] &quot;phi difference&quot;
+[1] 0.001989723
+[1] &quot;pi difference&quot;
+[1] 0.002276884
+[1] &quot;negative loglikelihood&quot;
+[1] 1547970
+[1] &quot;iteration&quot;
+[1] 62
+[1] &quot;phi difference&quot;
+[1] 0.001950623
+[1] &quot;pi difference&quot;
+[1] 0.002282698
+[1] &quot;negative loglikelihood&quot;
+[1] 1547968
+[1] &quot;iteration&quot;
+[1] 63
+[1] &quot;phi difference&quot;
+[1] 0.001923932
+[1] &quot;pi difference&quot;
+[1] 0.002268076
+[1] &quot;negative loglikelihood&quot;
+[1] 1547965
+[1] &quot;iteration&quot;
+[1] 64
+[1] &quot;phi difference&quot;
+[1] 0.001903519
+[1] &quot;pi difference&quot;
+[1] 0.002249296
+[1] &quot;negative loglikelihood&quot;
+[1] 1547963
+[1] &quot;iteration&quot;
+[1] 65
+[1] &quot;phi difference&quot;
+[1] 0.001904114
+[1] &quot;pi difference&quot;
+[1] 0.002228726
+[1] &quot;negative loglikelihood&quot;
+[1] 1547961
+[1] &quot;iteration&quot;
+[1] 66
+[1] &quot;phi difference&quot;
+[1] 0.001919569
+[1] &quot;pi difference&quot;
+[1] 0.002207453
+[1] &quot;negative loglikelihood&quot;
+[1] 1547959
+[1] &quot;iteration&quot;
+[1] 67
+[1] &quot;phi difference&quot;
+[1] 0.001924466
+[1] &quot;pi difference&quot;
+[1] 0.002185836
+[1] &quot;negative loglikelihood&quot;
+[1] 1547957
+[1] &quot;iteration&quot;
+[1] 68
+[1] &quot;phi difference&quot;
+[1] 0.001923349
+[1] &quot;pi difference&quot;
+[1] 0.002164205
+[1] &quot;negative loglikelihood&quot;
+[1] 1547955
+[1] &quot;iteration&quot;
+[1] 69
+[1] &quot;phi difference&quot;
+[1] 0.001917652
+[1] &quot;pi difference&quot;
+[1] 0.002142552
+[1] &quot;negative loglikelihood&quot;
+[1] 1547953
+[1] &quot;iteration&quot;
+[1] 70
+[1] &quot;phi difference&quot;
+[1] 0.00190977
+[1] &quot;pi difference&quot;
+[1] 0.002121029
+[1] &quot;negative loglikelihood&quot;
+[1] 1547951
+[1] &quot;iteration&quot;
+[1] 71
+[1] &quot;phi difference&quot;
+[1] 0.001896586
+[1] &quot;pi difference&quot;
+[1] 0.00209947
+[1] &quot;negative loglikelihood&quot;
+[1] 1547949
+[1] &quot;iteration&quot;
+[1] 72
+[1] &quot;phi difference&quot;
+[1] 0.00188439
+[1] &quot;pi difference&quot;
+[1] 0.00207807
+[1] &quot;negative loglikelihood&quot;
+[1] 1547947
+[1] &quot;iteration&quot;
+[1] 73
+[1] &quot;phi difference&quot;
+[1] 0.00186686
+[1] &quot;pi difference&quot;
+[1] 0.002057027
+[1] &quot;negative loglikelihood&quot;
+[1] 1547945
+[1] &quot;iteration&quot;
+[1] 74
+[1] &quot;phi difference&quot;
+[1] 0.001794007
+[1] &quot;pi difference&quot;
+[1] 0.001961822
+[1] &quot;negative loglikelihood&quot;
+[1] 1547943
+[1] &quot;iteration&quot;
+[1] 75
+[1] &quot;phi difference&quot;
+[1] 0.001738328
+[1] &quot;pi difference&quot;
+[1] 0.001960224
+[1] &quot;negative loglikelihood&quot;
+[1] 1547941
+[1] &quot;iteration&quot;
+[1] 76
+[1] &quot;phi difference&quot;
+[1] 0.00175927
+[1] &quot;pi difference&quot;
+[1] 0.001950683
+[1] &quot;negative loglikelihood&quot;
+[1] 1547940
+[1] &quot;iteration&quot;
+[1] 77
+[1] &quot;phi difference&quot;
+[1] 0.001760102
+[1] &quot;pi difference&quot;
+[1] 0.001935696
+[1] &quot;negative loglikelihood&quot;
+[1] 1547938
+[1] &quot;iteration&quot;
+[1] 78
+[1] &quot;phi difference&quot;
+[1] 0.001752297
+[1] &quot;pi difference&quot;
+[1] 0.00191842
+[1] &quot;negative loglikelihood&quot;
+[1] 1547936
+[1] &quot;iteration&quot;
+[1] 79
+[1] &quot;phi difference&quot;
+[1] 0.001739365
+[1] &quot;pi difference&quot;
+[1] 0.001900192
+[1] &quot;negative loglikelihood&quot;
+[1] 1547935
+[1] &quot;iteration&quot;
+[1] 80
+[1] &quot;phi difference&quot;
+[1] 0.001724546
+[1] &quot;pi difference&quot;
+[1] 0.001881809
+[1] &quot;negative loglikelihood&quot;
+[1] 1547933
+[1] &quot;iteration&quot;
+[1] 81
+[1] &quot;phi difference&quot;
+[1] 0.001735514
+[1] &quot;pi difference&quot;
+[1] 0.001863538
+[1] &quot;negative loglikelihood&quot;
+[1] 1547932
+[1] &quot;iteration&quot;
+[1] 82
+[1] &quot;phi difference&quot;
+[1] 0.001730098
+[1] &quot;pi difference&quot;
+[1] 0.001791939
+[1] &quot;negative loglikelihood&quot;
+[1] 1547929
+[1] &quot;iteration&quot;
+[1] 83
+[1] &quot;phi difference&quot;
+[1] 0.001727495
+[1] &quot;pi difference&quot;
+[1] 0.001770703
+[1] &quot;negative loglikelihood&quot;
+[1] 1547927
+[1] &quot;iteration&quot;
+[1] 84
+[1] &quot;phi difference&quot;
+[1] 0.001700501
+[1] &quot;pi difference&quot;
+[1] 0.001759386
+[1] &quot;negative loglikelihood&quot;
+[1] 1547926
+[1] &quot;iteration&quot;
+[1] 85
+[1] &quot;phi difference&quot;
+[1] 0.00167627
+[1] &quot;pi difference&quot;
+[1] 0.001749164
+[1] &quot;negative loglikelihood&quot;
+[1] 1547924
+[1] &quot;iteration&quot;
+[1] 86
+[1] &quot;phi difference&quot;
+[1] 0.001665829
+[1] &quot;pi difference&quot;
+[1] 0.001737654
+[1] &quot;negative loglikelihood&quot;
+[1] 1547923
+[1] &quot;iteration&quot;
+[1] 87
+[1] &quot;phi difference&quot;
+[1] 0.001672726
+[1] &quot;pi difference&quot;
+[1] 0.001688342
+[1] &quot;negative loglikelihood&quot;
+[1] 1547921
+[1] &quot;iteration&quot;
+[1] 88
+[1] &quot;phi difference&quot;
+[1] 0.001635966
+[1] &quot;pi difference&quot;
+[1] 0.001678322
+[1] &quot;negative loglikelihood&quot;
+[1] 1547919
+[1] &quot;iteration&quot;
+[1] 89
+[1] &quot;phi difference&quot;
+[1] 0.001498349
+[1] &quot;pi difference&quot;
+[1] 0.001596598
+[1] &quot;negative loglikelihood&quot;
+[1] 1547918
+[1] &quot;iteration&quot;
+[1] 90
+[1] &quot;phi difference&quot;
+[1] 0.001559974
+[1] &quot;pi difference&quot;
+[1] 0.001607123
+[1] &quot;negative loglikelihood&quot;
+[1] 1547917
+[1] &quot;iteration&quot;
+[1] 91
+[1] &quot;phi difference&quot;
+[1] 0.001558612
+[1] &quot;pi difference&quot;
+[1] 0.001608436
+[1] &quot;negative loglikelihood&quot;
+[1] 1547916
+[1] &quot;iteration&quot;
+[1] 92
+[1] &quot;phi difference&quot;
+[1] 0.001537687
+[1] &quot;pi difference&quot;
+[1] 0.001602466
+[1] &quot;negative loglikelihood&quot;
+[1] 1547914
+[1] &quot;iteration&quot;
+[1] 93
+[1] &quot;phi difference&quot;
+[1] 0.001515887
+[1] &quot;pi difference&quot;
+[1] 0.001592543
+[1] &quot;negative loglikelihood&quot;
+[1] 1547913
+[1] &quot;iteration&quot;
+[1] 94
+[1] &quot;phi difference&quot;
+[1] 0.001494541
+[1] &quot;pi difference&quot;
+[1] 0.001580507
+[1] &quot;negative loglikelihood&quot;
+[1] 1547912
+[1] &quot;iteration&quot;
+[1] 95
+[1] &quot;phi difference&quot;
+[1] 0.001473435
+[1] &quot;pi difference&quot;
+[1] 0.001567111
+[1] &quot;negative loglikelihood&quot;
+[1] 1547911
+[1] &quot;iteration&quot;
+[1] 96
+[1] &quot;phi difference&quot;
+[1] 0.001450557
+[1] &quot;pi difference&quot;
+[1] 0.001553231
+[1] &quot;negative loglikelihood&quot;
+[1] 1547910
+[1] &quot;iteration&quot;
+[1] 97
+[1] &quot;phi difference&quot;
+[1] 0.001431835
+[1] &quot;pi difference&quot;
+[1] 0.001539699
+[1] &quot;negative loglikelihood&quot;
+[1] 1547909
+[1] &quot;iteration&quot;
+[1] 98
+[1] &quot;phi difference&quot;
+[1] 0.001423584
+[1] &quot;pi difference&quot;
+[1] 0.001525928
+[1] &quot;negative loglikelihood&quot;
+[1] 1547908
+[1] &quot;iteration&quot;
+[1] 99
+[1] &quot;phi difference&quot;
+[1] 0.001398835
+[1] &quot;pi difference&quot;
+[1] 0.001492106
+[1] &quot;negative loglikelihood&quot;
+[1] 1547907
+[1] &quot;iteration&quot;
+[1] 100
+[1] &quot;phi difference&quot;
+[1] 0.001392031
+[1] &quot;pi difference&quot;
+[1] 0.001471048
+[1] &quot;negative loglikelihood&quot;
+[1] 1547906</code></pre>
+<pre class="r"><code>ploter(t(fit.sgom$phi),main=&#39;sgom, kmeans init&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-14-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now test two functions:</p>
+<pre class="r"><code>set.seed(123)
+FFF = rbind(FF,FF)
+y = matrix(rpois(n*p*2,tcrossprod(L,FFF)),nrow=n)
+
+fit.stm = stm(y,K=3,nugget = TRUE,tol=1e-4,init=&#39;scd&#39;,init_loss = &#39;mkl&#39;)</code></pre>
+<pre><code>[1] &quot;At iter 10, mean KL: 0.486996&quot;
+[1] &quot;At iter 20, mean KL: 0.486484&quot;
+[1] &quot;At iter 30, mean KL: 0.486346&quot;
+[1] &quot;At iter 40, mean KL: 0.486644&quot;
+[1] &quot;At iter 50, mean KL: 0.486525&quot;
+[1] &quot;At iter 60, mean KL: 0.489061&quot;</code></pre>
+<pre class="r"><code>ploter2(fit.stm$EF,main=&#39;stm, scd-mkl&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># change init
+fit.stm2 = stm(y,K=3,nugget = TRUE,init=&#39;lee&#39;,init_loss = &#39;mkl&#39;,tol=1e-4)</code></pre>
+<pre><code>[1] &quot;At iter 10, mean KL: 0.536938&quot;</code></pre>
+<pre class="r"><code>ploter2(fit.stm2$EF,main=&#39;stm, lee-mkl&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.stm3 = stm(y,K=3,nugget = TRUE,init=&#39;lee&#39;,init_loss = &#39;mse&#39;,tol=1e-4)
+ploter2(fit.stm3$EF,main=&#39;stm, lee-mse&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.stm4 = stm(y,K=3,nugget = TRUE,init=&#39;scd&#39;,init_loss = &#39;mse&#39;,tol=1e-4)</code></pre>
+<pre><code>[1] &quot;At iter 10, mean KL: 0.488115&quot;</code></pre>
+<pre class="r"><code>ploter2(fit.stm4$EF,main=&#39;stm, scd-mse&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-15-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>kmeans.init = kmeans(y, K, nstart = 20)
+L0 = rep(1, n) %o% (as.vector(table(kmeans.init$cluster)))
+F0 = t(kmeans.init$centers)
+fit.stm5 = stm(y,K=3,nugget = TRUE,init = list(L_init=L0,F_init=F0),tol=1e-5)</code></pre>
+<pre><code>[1] &quot;At iter 10, mean KL: 0.734644&quot;
+[1] &quot;At iter 20, mean KL: 0.534781&quot;
+[1] &quot;At iter 30, mean KL: 0.488247&quot;
+[1] &quot;At iter 40, mean KL: 0.487026&quot;
+[1] &quot;At iter 50, mean KL: 0.486390&quot;
+[1] &quot;At iter 60, mean KL: 0.486425&quot;
+[1] &quot;At iter 70, mean KL: 0.486102&quot;</code></pre>
+<pre class="r"><code>ploter2(fit.stm5$EF,main=&#39;stm, kmeans init&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-15-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.sgom = cluster.mix(y,K=3,tol=1e-3,maxit = 100,nugget = T)</code></pre>
+<pre><code>[1] &quot;iteration&quot;
+[1] 1
+[1] &quot;phi difference&quot;
+[1] 7892.405
+[1] &quot;pi difference&quot;
+[1] 0.2677622
+[1] &quot;negative loglikelihood&quot;
+[1] 3512295
+[1] &quot;iteration&quot;
+[1] 2
+[1] &quot;phi difference&quot;
+[1] 0.0379689
+[1] &quot;pi difference&quot;
+[1] 0.01846479
+[1] &quot;negative loglikelihood&quot;
+[1] 3511941
+[1] &quot;iteration&quot;
+[1] 3
+[1] &quot;phi difference&quot;
+[1] 0.0436682
+[1] &quot;pi difference&quot;
+[1] 0.02077947
+[1] &quot;negative loglikelihood&quot;
+[1] 3511407
+[1] &quot;iteration&quot;
+[1] 4
+[1] &quot;phi difference&quot;
+[1] 0.03650998
+[1] &quot;pi difference&quot;
+[1] 0.02381655
+[1] &quot;negative loglikelihood&quot;
+[1] 3510633
+[1] &quot;iteration&quot;
+[1] 5
+[1] &quot;phi difference&quot;
+[1] 0.03693277
+[1] &quot;pi difference&quot;
+[1] 0.02749967
+[1] &quot;negative loglikelihood&quot;
+[1] 3509585
+[1] &quot;iteration&quot;
+[1] 6
+[1] &quot;phi difference&quot;
+[1] 0.04406093
+[1] &quot;pi difference&quot;
+[1] 0.0311506
+[1] &quot;negative loglikelihood&quot;
+[1] 3508250
+[1] &quot;iteration&quot;
+[1] 7
+[1] &quot;phi difference&quot;
+[1] 0.04722812
+[1] &quot;pi difference&quot;
+[1] 0.03362491
+[1] &quot;negative loglikelihood&quot;
+[1] 3506706
+[1] &quot;iteration&quot;
+[1] 8
+[1] &quot;phi difference&quot;
+[1] 0.04678179
+[1] &quot;pi difference&quot;
+[1] 0.03461517
+[1] &quot;negative loglikelihood&quot;
+[1] 3505118
+[1] &quot;iteration&quot;
+[1] 9
+[1] &quot;phi difference&quot;
+[1] 0.0418353
+[1] &quot;pi difference&quot;
+[1] 0.03345156
+[1] &quot;negative loglikelihood&quot;
+[1] 3503694
+[1] &quot;iteration&quot;
+[1] 10
+[1] &quot;phi difference&quot;
+[1] 0.0348958
+[1] &quot;pi difference&quot;
+[1] 0.03177639
+[1] &quot;negative loglikelihood&quot;
+[1] 3502450
+[1] &quot;iteration&quot;
+[1] 11
+[1] &quot;phi difference&quot;
+[1] 0.0295633
+[1] &quot;pi difference&quot;
+[1] 0.0301965
+[1] &quot;negative loglikelihood&quot;
+[1] 3501407
+[1] &quot;iteration&quot;
+[1] 12
+[1] &quot;phi difference&quot;
+[1] 0.02444245
+[1] &quot;pi difference&quot;
+[1] 0.02907749
+[1] &quot;negative loglikelihood&quot;
+[1] 3500499
+[1] &quot;iteration&quot;
+[1] 13
+[1] &quot;phi difference&quot;
+[1] 0.02018698
+[1] &quot;pi difference&quot;
+[1] 0.0283852
+[1] &quot;negative loglikelihood&quot;
+[1] 3499704
+[1] &quot;iteration&quot;
+[1] 14
+[1] &quot;phi difference&quot;
+[1] 0.01704474
+[1] &quot;pi difference&quot;
+[1] 0.02711148
+[1] &quot;negative loglikelihood&quot;
+[1] 3499009
+[1] &quot;iteration&quot;
+[1] 15
+[1] &quot;phi difference&quot;
+[1] 0.01424221
+[1] &quot;pi difference&quot;
+[1] 0.02549777
+[1] &quot;negative loglikelihood&quot;
+[1] 3498402
+[1] &quot;iteration&quot;
+[1] 16
+[1] &quot;phi difference&quot;
+[1] 0.01838894
+[1] &quot;pi difference&quot;
+[1] 0.02367177
+[1] &quot;negative loglikelihood&quot;
+[1] 3497899
+[1] &quot;iteration&quot;
+[1] 17
+[1] &quot;phi difference&quot;
+[1] 0.02125098
+[1] &quot;pi difference&quot;
+[1] 0.02171565
+[1] &quot;negative loglikelihood&quot;
+[1] 3497491
+[1] &quot;iteration&quot;
+[1] 18
+[1] &quot;phi difference&quot;
+[1] 0.0219587
+[1] &quot;pi difference&quot;
+[1] 0.01983774
+[1] &quot;negative loglikelihood&quot;
+[1] 3497184
+[1] &quot;iteration&quot;
+[1] 19
+[1] &quot;phi difference&quot;
+[1] 0.01887537
+[1] &quot;pi difference&quot;
+[1] 0.01807375
+[1] &quot;negative loglikelihood&quot;
+[1] 3496939
+[1] &quot;iteration&quot;
+[1] 20
+[1] &quot;phi difference&quot;
+[1] 0.01265783
+[1] &quot;pi difference&quot;
+[1] 0.01620618
+[1] &quot;negative loglikelihood&quot;
+[1] 3496739
+[1] &quot;iteration&quot;
+[1] 21
+[1] &quot;phi difference&quot;
+[1] 0.01006968
+[1] &quot;pi difference&quot;
+[1] 0.01412676
+[1] &quot;negative loglikelihood&quot;
+[1] 3496593
+[1] &quot;iteration&quot;
+[1] 22
+[1] &quot;phi difference&quot;
+[1] 0.008018608
+[1] &quot;pi difference&quot;
+[1] 0.01257881
+[1] &quot;negative loglikelihood&quot;
+[1] 3496468
+[1] &quot;iteration&quot;
+[1] 23
+[1] &quot;phi difference&quot;
+[1] 0.006502438
+[1] &quot;pi difference&quot;
+[1] 0.01095633
+[1] &quot;negative loglikelihood&quot;
+[1] 3496377
+[1] &quot;iteration&quot;
+[1] 24
+[1] &quot;phi difference&quot;
+[1] 0.005221367
+[1] &quot;pi difference&quot;
+[1] 0.009596843
+[1] &quot;negative loglikelihood&quot;
+[1] 3496307
+[1] &quot;iteration&quot;
+[1] 25
+[1] &quot;phi difference&quot;
+[1] 0.004219676
+[1] &quot;pi difference&quot;
+[1] 0.008533203
+[1] &quot;negative loglikelihood&quot;
+[1] 3496249
+[1] &quot;iteration&quot;
+[1] 26
+[1] &quot;phi difference&quot;
+[1] 0.003955105
+[1] &quot;pi difference&quot;
+[1] 0.00755653
+[1] &quot;negative loglikelihood&quot;
+[1] 3496203
+[1] &quot;iteration&quot;
+[1] 27
+[1] &quot;phi difference&quot;
+[1] 0.002993657
+[1] &quot;pi difference&quot;
+[1] 0.0067356
+[1] &quot;negative loglikelihood&quot;
+[1] 3496165
+[1] &quot;iteration&quot;
+[1] 28
+[1] &quot;phi difference&quot;
+[1] 0.00267973
+[1] &quot;pi difference&quot;
+[1] 0.005984802
+[1] &quot;negative loglikelihood&quot;
+[1] 3496127
+[1] &quot;iteration&quot;
+[1] 29
+[1] &quot;phi difference&quot;
+[1] 0.00212502
+[1] &quot;pi difference&quot;
+[1] 0.005393021
+[1] &quot;negative loglikelihood&quot;
+[1] 3496097
+[1] &quot;iteration&quot;
+[1] 30
+[1] &quot;phi difference&quot;
+[1] 0.002279228
+[1] &quot;pi difference&quot;
+[1] 0.004940119
+[1] &quot;negative loglikelihood&quot;
+[1] 3496074
+[1] &quot;iteration&quot;
+[1] 31
+[1] &quot;phi difference&quot;
+[1] 0.002407007
+[1] &quot;pi difference&quot;
+[1] 0.004583082
+[1] &quot;negative loglikelihood&quot;
+[1] 3496055
+[1] &quot;iteration&quot;
+[1] 32
+[1] &quot;phi difference&quot;
+[1] 0.002479638
+[1] &quot;pi difference&quot;
+[1] 0.004311338
+[1] &quot;negative loglikelihood&quot;
+[1] 3496038
+[1] &quot;iteration&quot;
+[1] 33
+[1] &quot;phi difference&quot;
+[1] 0.002545767
+[1] &quot;pi difference&quot;
+[1] 0.004099626
+[1] &quot;negative loglikelihood&quot;
+[1] 3496023
+[1] &quot;iteration&quot;
+[1] 34
+[1] &quot;phi difference&quot;
+[1] 0.002551584
+[1] &quot;pi difference&quot;
+[1] 0.003904647
+[1] &quot;negative loglikelihood&quot;
+[1] 3496010
+[1] &quot;iteration&quot;
+[1] 35
+[1] &quot;phi difference&quot;
+[1] 0.002546811
+[1] &quot;pi difference&quot;
+[1] 0.003741738
+[1] &quot;negative loglikelihood&quot;
+[1] 3495997
+[1] &quot;iteration&quot;
+[1] 36
+[1] &quot;phi difference&quot;
+[1] 0.002536208
+[1] &quot;pi difference&quot;
+[1] 0.003587549
+[1] &quot;negative loglikelihood&quot;
+[1] 3495985
+[1] &quot;iteration&quot;
+[1] 37
+[1] &quot;phi difference&quot;
+[1] 0.002538028
+[1] &quot;pi difference&quot;
+[1] 0.003447868
+[1] &quot;negative loglikelihood&quot;
+[1] 3495975
+[1] &quot;iteration&quot;
+[1] 38
+[1] &quot;phi difference&quot;
+[1] 0.002511125
+[1] &quot;pi difference&quot;
+[1] 0.00332751
+[1] &quot;negative loglikelihood&quot;
+[1] 3495964
+[1] &quot;iteration&quot;
+[1] 39
+[1] &quot;phi difference&quot;
+[1] 0.002485373
+[1] &quot;pi difference&quot;
+[1] 0.003217536
+[1] &quot;negative loglikelihood&quot;
+[1] 3495955
+[1] &quot;iteration&quot;
+[1] 40
+[1] &quot;phi difference&quot;
+[1] 0.002447365
+[1] &quot;pi difference&quot;
+[1] 0.003120623
+[1] &quot;negative loglikelihood&quot;
+[1] 3495946
+[1] &quot;iteration&quot;
+[1] 41
+[1] &quot;phi difference&quot;
+[1] 0.002414424
+[1] &quot;pi difference&quot;
+[1] 0.003035548
+[1] &quot;negative loglikelihood&quot;
+[1] 3495937
+[1] &quot;iteration&quot;
+[1] 42
+[1] &quot;phi difference&quot;
+[1] 0.002390708
+[1] &quot;pi difference&quot;
+[1] 0.002961346
+[1] &quot;negative loglikelihood&quot;
+[1] 3495929
+[1] &quot;iteration&quot;
+[1] 43
+[1] &quot;phi difference&quot;
+[1] 0.002382012
+[1] &quot;pi difference&quot;
+[1] 0.002892438
+[1] &quot;negative loglikelihood&quot;
+[1] 3495921
+[1] &quot;iteration&quot;
+[1] 44
+[1] &quot;phi difference&quot;
+[1] 0.002331953
+[1] &quot;pi difference&quot;
+[1] 0.002837581
+[1] &quot;negative loglikelihood&quot;
+[1] 3495913
+[1] &quot;iteration&quot;
+[1] 45
+[1] &quot;phi difference&quot;
+[1] 0.002315162
+[1] &quot;pi difference&quot;
+[1] 0.002792455
+[1] &quot;negative loglikelihood&quot;
+[1] 3495905
+[1] &quot;iteration&quot;
+[1] 46
+[1] &quot;phi difference&quot;
+[1] 0.002298546
+[1] &quot;pi difference&quot;
+[1] 0.002754093
+[1] &quot;negative loglikelihood&quot;
+[1] 3495898
+[1] &quot;iteration&quot;
+[1] 47
+[1] &quot;phi difference&quot;
+[1] 0.002281809
+[1] &quot;pi difference&quot;
+[1] 0.002718074
+[1] &quot;negative loglikelihood&quot;
+[1] 3495891
+[1] &quot;iteration&quot;
+[1] 48
+[1] &quot;phi difference&quot;
+[1] 0.002249297
+[1] &quot;pi difference&quot;
+[1] 0.00268596
+[1] &quot;negative loglikelihood&quot;
+[1] 3495884
+[1] &quot;iteration&quot;
+[1] 49
+[1] &quot;phi difference&quot;
+[1] 0.002257303
+[1] &quot;pi difference&quot;
+[1] 0.002654853
+[1] &quot;negative loglikelihood&quot;
+[1] 3495877
+[1] &quot;iteration&quot;
+[1] 50
+[1] &quot;phi difference&quot;
+[1] 0.002254351
+[1] &quot;pi difference&quot;
+[1] 0.002629907
+[1] &quot;negative loglikelihood&quot;
+[1] 3495871
+[1] &quot;iteration&quot;
+[1] 51
+[1] &quot;phi difference&quot;
+[1] 0.002243879
+[1] &quot;pi difference&quot;
+[1] 0.002608092
+[1] &quot;negative loglikelihood&quot;
+[1] 3495865
+[1] &quot;iteration&quot;
+[1] 52
+[1] &quot;phi difference&quot;
+[1] 0.002215963
+[1] &quot;pi difference&quot;
+[1] 0.002541874
+[1] &quot;negative loglikelihood&quot;
+[1] 3495857
+[1] &quot;iteration&quot;
+[1] 53
+[1] &quot;phi difference&quot;
+[1] 0.002200637
+[1] &quot;pi difference&quot;
+[1] 0.002543268
+[1] &quot;negative loglikelihood&quot;
+[1] 3495851
+[1] &quot;iteration&quot;
+[1] 54
+[1] &quot;phi difference&quot;
+[1] 0.002187092
+[1] &quot;pi difference&quot;
+[1] 0.002538508
+[1] &quot;negative loglikelihood&quot;
+[1] 3495845
+[1] &quot;iteration&quot;
+[1] 55
+[1] &quot;phi difference&quot;
+[1] 0.002189963
+[1] &quot;pi difference&quot;
+[1] 0.002490186
+[1] &quot;negative loglikelihood&quot;
+[1] 3495839
+[1] &quot;iteration&quot;
+[1] 56
+[1] &quot;phi difference&quot;
+[1] 0.002156809
+[1] &quot;pi difference&quot;
+[1] 0.002473204
+[1] &quot;negative loglikelihood&quot;
+[1] 3495833
+[1] &quot;iteration&quot;
+[1] 57
+[1] &quot;phi difference&quot;
+[1] 0.002127963
+[1] &quot;pi difference&quot;
+[1] 0.002444326
+[1] &quot;negative loglikelihood&quot;
+[1] 3495828
+[1] &quot;iteration&quot;
+[1] 58
+[1] &quot;phi difference&quot;
+[1] 0.002095303
+[1] &quot;pi difference&quot;
+[1] 0.002405296
+[1] &quot;negative loglikelihood&quot;
+[1] 3495822
+[1] &quot;iteration&quot;
+[1] 59
+[1] &quot;phi difference&quot;
+[1] 0.00209071
+[1] &quot;pi difference&quot;
+[1] 0.002397739
+[1] &quot;negative loglikelihood&quot;
+[1] 3495816
+[1] &quot;iteration&quot;
+[1] 60
+[1] &quot;phi difference&quot;
+[1] 0.002062004
+[1] &quot;pi difference&quot;
+[1] 0.002384365
+[1] &quot;negative loglikelihood&quot;
+[1] 3495811
+[1] &quot;iteration&quot;
+[1] 61
+[1] &quot;phi difference&quot;
+[1] 0.002071835
+[1] &quot;pi difference&quot;
+[1] 0.002363512
+[1] &quot;negative loglikelihood&quot;
+[1] 3495806
+[1] &quot;iteration&quot;
+[1] 62
+[1] &quot;phi difference&quot;
+[1] 0.002041922
+[1] &quot;pi difference&quot;
+[1] 0.002328577
+[1] &quot;negative loglikelihood&quot;
+[1] 3495802
+[1] &quot;iteration&quot;
+[1] 63
+[1] &quot;phi difference&quot;
+[1] 0.002021581
+[1] &quot;pi difference&quot;
+[1] 0.002317958
+[1] &quot;negative loglikelihood&quot;
+[1] 3495797
+[1] &quot;iteration&quot;
+[1] 64
+[1] &quot;phi difference&quot;
+[1] 0.00196265
+[1] &quot;pi difference&quot;
+[1] 0.002295939
+[1] &quot;negative loglikelihood&quot;
+[1] 3495793
+[1] &quot;iteration&quot;
+[1] 65
+[1] &quot;phi difference&quot;
+[1] 0.001984323
+[1] &quot;pi difference&quot;
+[1] 0.002280442
+[1] &quot;negative loglikelihood&quot;
+[1] 3495788
+[1] &quot;iteration&quot;
+[1] 66
+[1] &quot;phi difference&quot;
+[1] 0.001930945
+[1] &quot;pi difference&quot;
+[1] 0.002236811
+[1] &quot;negative loglikelihood&quot;
+[1] 3495782
+[1] &quot;iteration&quot;
+[1] 67
+[1] &quot;phi difference&quot;
+[1] 0.001934175
+[1] &quot;pi difference&quot;
+[1] 0.002222583
+[1] &quot;negative loglikelihood&quot;
+[1] 3495778
+[1] &quot;iteration&quot;
+[1] 68
+[1] &quot;phi difference&quot;
+[1] 0.001921063
+[1] &quot;pi difference&quot;
+[1] 0.002208974
+[1] &quot;negative loglikelihood&quot;
+[1] 3495773
+[1] &quot;iteration&quot;
+[1] 69
+[1] &quot;phi difference&quot;
+[1] 0.001925458
+[1] &quot;pi difference&quot;
+[1] 0.002192477
+[1] &quot;negative loglikelihood&quot;
+[1] 3495769
+[1] &quot;iteration&quot;
+[1] 70
+[1] &quot;phi difference&quot;
+[1] 0.001945061
+[1] &quot;pi difference&quot;
+[1] 0.00213395
+[1] &quot;negative loglikelihood&quot;
+[1] 3495765
+[1] &quot;iteration&quot;
+[1] 71
+[1] &quot;phi difference&quot;
+[1] 0.00186265
+[1] &quot;pi difference&quot;
+[1] 0.002064106
+[1] &quot;negative loglikelihood&quot;
+[1] 3495761
+[1] &quot;iteration&quot;
+[1] 72
+[1] &quot;phi difference&quot;
+[1] 0.001815166
+[1] &quot;pi difference&quot;
+[1] 0.002081738
+[1] &quot;negative loglikelihood&quot;
+[1] 3495757
+[1] &quot;iteration&quot;
+[1] 73
+[1] &quot;phi difference&quot;
+[1] 0.00181396
+[1] &quot;pi difference&quot;
+[1] 0.002074656
+[1] &quot;negative loglikelihood&quot;
+[1] 3495753
+[1] &quot;iteration&quot;
+[1] 74
+[1] &quot;phi difference&quot;
+[1] 0.001813777
+[1] &quot;pi difference&quot;
+[1] 0.002060524
+[1] &quot;negative loglikelihood&quot;
+[1] 3495749
+[1] &quot;iteration&quot;
+[1] 75
+[1] &quot;phi difference&quot;
+[1] 0.001880053
+[1] &quot;pi difference&quot;
+[1] 0.00195965
+[1] &quot;negative loglikelihood&quot;
+[1] 3495747
+[1] &quot;iteration&quot;
+[1] 76
+[1] &quot;phi difference&quot;
+[1] 0.001822667
+[1] &quot;pi difference&quot;
+[1] 0.001979323
+[1] &quot;negative loglikelihood&quot;
+[1] 3495744
+[1] &quot;iteration&quot;
+[1] 77
+[1] &quot;phi difference&quot;
+[1] 0.001727907
+[1] &quot;pi difference&quot;
+[1] 0.001942758
+[1] &quot;negative loglikelihood&quot;
+[1] 3495740
+[1] &quot;iteration&quot;
+[1] 78
+[1] &quot;phi difference&quot;
+[1] 0.001689524
+[1] &quot;pi difference&quot;
+[1] 0.001931267
+[1] &quot;negative loglikelihood&quot;
+[1] 3495736
+[1] &quot;iteration&quot;
+[1] 79
+[1] &quot;phi difference&quot;
+[1] 0.001689444
+[1] &quot;pi difference&quot;
+[1] 0.001927212
+[1] &quot;negative loglikelihood&quot;
+[1] 3495732
+[1] &quot;iteration&quot;
+[1] 80
+[1] &quot;phi difference&quot;
+[1] 0.001679536
+[1] &quot;pi difference&quot;
+[1] 0.001717146
+[1] &quot;negative loglikelihood&quot;
+[1] 3495722
+[1] &quot;iteration&quot;
+[1] 81
+[1] &quot;phi difference&quot;
+[1] 0.001661715
+[1] &quot;pi difference&quot;
+[1] 0.001826611
+[1] &quot;negative loglikelihood&quot;
+[1] 3495718
+[1] &quot;iteration&quot;
+[1] 82
+[1] &quot;phi difference&quot;
+[1] 0.00168135
+[1] &quot;pi difference&quot;
+[1] 0.001817015
+[1] &quot;negative loglikelihood&quot;
+[1] 3495715
+[1] &quot;iteration&quot;
+[1] 83
+[1] &quot;phi difference&quot;
+[1] 0.001658501
+[1] &quot;pi difference&quot;
+[1] 0.001814753
+[1] &quot;negative loglikelihood&quot;
+[1] 3495712
+[1] &quot;iteration&quot;
+[1] 84
+[1] &quot;phi difference&quot;
+[1] 0.001633717
+[1] &quot;pi difference&quot;
+[1] 0.00179768
+[1] &quot;negative loglikelihood&quot;
+[1] 3495709
+[1] &quot;iteration&quot;
+[1] 85
+[1] &quot;phi difference&quot;
+[1] 0.001574049
+[1] &quot;pi difference&quot;
+[1] 0.001626841
+[1] &quot;negative loglikelihood&quot;
+[1] 3495699
+[1] &quot;iteration&quot;
+[1] 86
+[1] &quot;phi difference&quot;
+[1] 0.001610495
+[1] &quot;pi difference&quot;
+[1] 0.001707527
+[1] &quot;negative loglikelihood&quot;
+[1] 3495696
+[1] &quot;iteration&quot;
+[1] 87
+[1] &quot;phi difference&quot;
+[1] 0.001547156
+[1] &quot;pi difference&quot;
+[1] 0.001686927
+[1] &quot;negative loglikelihood&quot;
+[1] 3495693
+[1] &quot;iteration&quot;
+[1] 88
+[1] &quot;phi difference&quot;
+[1] 0.001537362
+[1] &quot;pi difference&quot;
+[1] 0.001700788
+[1] &quot;negative loglikelihood&quot;
+[1] 3495690
+[1] &quot;iteration&quot;
+[1] 89
+[1] &quot;phi difference&quot;
+[1] 0.001507697
+[1] &quot;pi difference&quot;
+[1] 0.001698673
+[1] &quot;negative loglikelihood&quot;
+[1] 3495687
+[1] &quot;iteration&quot;
+[1] 90
+[1] &quot;phi difference&quot;
+[1] 0.001480216
+[1] &quot;pi difference&quot;
+[1] 0.001689763
+[1] &quot;negative loglikelihood&quot;
+[1] 3495685
+[1] &quot;iteration&quot;
+[1] 91
+[1] &quot;phi difference&quot;
+[1] 0.001453214
+[1] &quot;pi difference&quot;
+[1] 0.001678377
+[1] &quot;negative loglikelihood&quot;
+[1] 3495682
+[1] &quot;iteration&quot;
+[1] 92
+[1] &quot;phi difference&quot;
+[1] 0.001412847
+[1] &quot;pi difference&quot;
+[1] 0.001665663
+[1] &quot;negative loglikelihood&quot;
+[1] 3495680
+[1] &quot;iteration&quot;
+[1] 93
+[1] &quot;phi difference&quot;
+[1] 0.001410081
+[1] &quot;pi difference&quot;
+[1] 0.001647452
+[1] &quot;negative loglikelihood&quot;
+[1] 3495678
+[1] &quot;iteration&quot;
+[1] 94
+[1] &quot;phi difference&quot;
+[1] 0.001427167
+[1] &quot;pi difference&quot;
+[1] 0.001612153
+[1] &quot;negative loglikelihood&quot;
+[1] 3495674
+[1] &quot;iteration&quot;
+[1] 95
+[1] &quot;phi difference&quot;
+[1] 0.001433414
+[1] &quot;pi difference&quot;
+[1] 0.001581008
+[1] &quot;negative loglikelihood&quot;
+[1] 3495672
+[1] &quot;iteration&quot;
+[1] 96
+[1] &quot;phi difference&quot;
+[1] 0.001406101
+[1] &quot;pi difference&quot;
+[1] 0.001578095
+[1] &quot;negative loglikelihood&quot;
+[1] 3495670
+[1] &quot;iteration&quot;
+[1] 97
+[1] &quot;phi difference&quot;
+[1] 0.00143738
+[1] &quot;pi difference&quot;
+[1] 0.001524344
+[1] &quot;negative loglikelihood&quot;
+[1] 3495668
+[1] &quot;iteration&quot;
+[1] 98
+[1] &quot;phi difference&quot;
+[1] 0.001391724
+[1] &quot;pi difference&quot;
+[1] 0.001534715
+[1] &quot;negative loglikelihood&quot;
+[1] 3495666
+[1] &quot;iteration&quot;
+[1] 99
+[1] &quot;phi difference&quot;
+[1] 0.001370973
+[1] &quot;pi difference&quot;
+[1] 0.001530443
+[1] &quot;negative loglikelihood&quot;
+[1] 3495664
+[1] &quot;iteration&quot;
+[1] 100
+[1] &quot;phi difference&quot;
+[1] 0.001375036
+[1] &quot;pi difference&quot;
+[1] 0.001477857
+[1] &quot;negative loglikelihood&quot;
+[1] 3495662</code></pre>
+<pre class="r"><code>ploter2(t(fit.sgom$phi),main=&#39;sgom, kmeans init&#39;)</code></pre>
+<p><img src="figure/joint_factoranalysis.Rmd/unnamed-chunk-15-6.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] stm_1.0.0        tictoc_1.0.1     flashr_0.6-7     wavethresh_4.6.8
+[5] MASS_7.3-53      testthat_3.0.0   devtools_2.3.2   usethis_1.6.3   
+[9] workflowr_1.6.2 
+
+loaded via a namespace (and not attached):
+ [1] genlasso_1.5       pkgload_1.1.0      splines_4.0.3      assertthat_0.2.1  
+ [5] horseshoe_0.2.0    mixsqp_0.3-43      deconvolveR_1.2-1  yaml_2.2.1        
+ [9] remotes_2.2.0      sessioninfo_1.1.1  ebnm_0.1-50        pillar_1.4.6      
+[13] backports_1.1.10   lattice_0.20-41    glue_1.4.2         digest_0.6.27     
+[17] promises_1.1.1     colorspace_1.4-1   htmltools_0.5.1.1  httpuv_1.5.4      
+[21] Matrix_1.2-18      plyr_1.8.6         pkgconfig_2.0.3    invgamma_1.1      
+[25] purrr_0.3.4        scales_1.1.1       processx_3.5.1     whisker_0.4       
+[29] later_1.1.0.1      git2r_0.27.1       tibble_3.0.4       generics_0.1.0    
+[33] ggplot2_3.3.2      ellipsis_0.3.1     withr_2.3.0        ashr_2.2-47       
+[37] cli_2.4.0          magrittr_2.0.1     crayon_1.3.4       memoise_1.1.0     
+[41] evaluate_0.14      ps_1.4.0           ebpm_0.0.1.3       fs_1.5.0          
+[45] truncnorm_1.0-8    pkgbuild_1.1.0     data.table_1.13.2  tools_4.0.3       
+[49] prettyunits_1.1.1  softImpute_1.4     REBayes_2.2        matrixStats_0.57.0
+[53] lifecycle_1.0.0    stringr_1.4.0      trust_0.1-8        munsell_0.5.0     
+[57] irlba_2.3.3        callr_3.6.0        compiler_4.0.3     caTools_1.18.0    
+[61] rlang_0.4.10       grid_4.0.3         NNLM_0.4.4         rstudioapi_0.11   
+[65] igraph_1.2.6       bitops_1.0-6       rmarkdown_2.5      gtable_0.3.0      
+[69] DBI_1.1.0          reshape2_1.4.4     R6_2.4.1           knitr_1.30        
+[73] dplyr_1.0.5        rprojroot_1.3-2    smashr_1.2-9       desc_1.2.0        
+[77] stringi_1.5.3      SQUAREM_2020.5     Rcpp_1.0.5         vctrs_0.3.7       
+[81] tidyselect_1.1.0   xfun_0.18         </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
