@@ -9,9 +9,213 @@ editor_options:
 
 ## Introduction
 
-Here we study if the joint factor analysis could recover the covarying pattern of the two functions. 
+Here we study if the joint factor analysis could recover the co-varying pattern of the two functions. 
+
+
+## Gaussian case
 
 ```{r}
+set.seed(123)
+n = 120
+p = 256
+K= 3
+L = matrix(rnorm(n*K),ncol=K)
+
+FF = matrix(1, nrow=p, ncol=K)
+FF[(p/8*1):(p/8*2),1] = 5
+FF[(p/8*3):(p/8*4),2] = 5
+FF[(p/8*5):(p/8*7),3] = 5
+
+FFF = rbind(FF,FF)
+s = 0.5
+y = tcrossprod(L,FFF) + matrix(rnorm(n*p*2,0,s),nrow=n,ncol=p*2)
+
+par(mfrow=c(3,1))
+plot(FF[,1],type='l')
+plot(FF[,2],type='l')
+plot(FF[,3],type='l')
+
+par(mfrow=c(3,1))
+plot(FFF[,1],type='l')
+abline(v=p,lty=2)
+plot(FFF[,2],type='l')
+abline(v=p,lty=2)
+plot(FFF[,3],type='l')
+abline(v=p,lty=2)
+```
+
+
+```{r}
+source('code/smooth_flash.R')
+source('code/wave_ebmf.R')
+```
+
+```{r}
+ploter = function(EF,main){
+  par(mfrow=c(3,1))
+  for(k in 1:ncol(EF)){
+    plot(EF[,k],ylab=paste('f',k,sep=''),main=ifelse(k==1,main,""),type='l')
+  }
+}
+```
+
+```{r}
+ploter2 = function(EF,main){
+  p = nrow(EF)
+  par(mfrow=c(3,1))
+  for(k in 1:ncol(EF)){
+    plot(EF[,k],ylab=paste('f',k,sep=''),main=ifelse(k==1,main,""),type='l')
+    abline(v=p/2,lty=2)
+  }
+}
+```
+
+Let's first take a look of single function case:
+
+```{r}
+library(tictoc)
+seed=12345
+tic();fit.flash = flash(y[,1:p],var_type = 'by_row',seed = seed);toc()
+tic();fit.dwt = wave_ebmf(y[,1:p]);toc()
+```
+
+```{r}
+ploter(fit.flash$ldf$f,main='flash')
+ploter(fit.dwt$ldf$f,main='wave_flash')
+```
+
+Try to use different initialization
+
+```{r}
+fit.dwt = wave_ebmf(y[,1:p],init_fn = 'udv_svd')
+ploter(fit.dwt$ldf$f,main='wave_flash, svd init')
+```
+
+
+Modify $L$ so that there columns are independent
+
+```{r}
+set.seed(123)
+L = cbind(c(rep(1,n/3),rep(0,n/3*2)),
+          c(rep(0,n/3),rep(-1,n/3),rep(0,n/3)),
+          c(rep(0,n/3*2),rep(1,n/3)))
+s = 0.5
+y = tcrossprod(L,FFF) + matrix(rnorm(n*p*2,0,s),nrow=n,ncol=p*2)
+```
+
+```{r}
+seed=12345
+tic();fit.flash = flash(y[,1:p],var_type = 'by_row',seed = seed);toc()
+tic();fit.dwt = wave_ebmf(y[,1:p]);toc()
+```
+
+```{r}
+ploter(fit.flash$ldf$f,main='flash')
+ploter(fit.dwt$ldf$f,main='wave_flash')
+```
+
+Two functions
+
+```{r}
+seed=12345
+tic();fit.flash = flash(y,var_type = 'by_row',seed = seed);toc()
+tic();fit.dwt = wave_ebmf(y);toc()
+```
+
+```{r}
+ploter2(fit.flash$ldf$f,main='flash')
+ploter2(fit.dwt$ldf$f,main='wave_flash')
+```
+
+
+
+## Poisson case
+
+```{r}
+ploter3 = function(EF,main){
+  p = nrow(EF)
+  par(mfrow=c(3,1))
+  for(k in 1:ncol(EF)){
+    plot(EF[,k],ylab=paste('f',k,sep=''),main=ifelse(k==1,main,""),type='l')
+    abline(v=p/2,lty=2)
+  }
+}
+```
+
+Start with a single function case:
+
+```{r}
+library(stm)
+set.seed(123)
+n = 120
+p = 256
+K= 3
+FF = matrix(1, nrow=p, ncol=K)
+FF[(p/8*1):(p/8*2),1] = 5
+FF[(p/8*3):(p/8*4),2] = 5
+FF[(p/8*5):(p/8*7),3] = 5
+L = matrix(rgamma(n*K,2),ncol=K)
+y = matrix(rpois(n*p,tcrossprod(L,FF)),nrow=n)
+
+fit.nmf = NNLM::nnmf(y,k=3,method = 'scd',loss='mkl')
+ploter(t(fit.nmf$H),main='nmf,scd=mkl')
+
+fit.gom = cluster.mix(y,smooth = FALSE,K=3,tol=1e-3,maxit = 100)
+ploter(t(fit.gom$phi),main='gom')
+
+fit.stm = stm(y,K=3,nugget = TRUE,tol=1e-4)
+ploter(fit.stm$EF,main='stm, scd-mkl')
+
+# change init
+fit.stm2 = stm(y,K=3,nugget = TRUE,init='lee',tol=1e-4)
+ploter(fit.stm2$EF,main='stm, lee-mkl')
+
+fit.stm3 = stm(y,K=3,nugget = TRUE,init='lee',init_loss = 'mse',tol=1e-4)
+ploter(fit.stm3$EF,main='stm, lee-mse')
+
+fit.stm4 = stm(y,K=3,nugget = TRUE,init='scd',init_loss = 'mse',tol=1e-4)
+ploter(fit.stm4$EF,main='stm, scd-mse')
+
+kmeans.init = kmeans(y, K, nstart = 5)
+L0 = rep(1, n) %o% (as.vector(table(kmeans.init$cluster)))
+F0 = t(kmeans.init$centers)
+fit.stm5 = stm(y,K=3,nugget = TRUE,init = list(L_init=L0,F_init=F0),tol=1e-5)
+ploter(fit.stm5$EF,main='stm, kmeans init')
+
+fit.sgom = cluster.mix(y,K=3,tol=1e-3,maxit = 100,nugget = T)
+ploter(t(fit.sgom$phi),main='sgom, kmeans init')
+```
+
+
+Now test two functions:
+
+```{r}
+set.seed(123)
+FFF = rbind(FF,FF)
+y = matrix(rpois(n*p*2,tcrossprod(L,FFF)),nrow=n)
+
+fit.stm = stm(y,K=3,nugget = TRUE,tol=1e-4,init='scd',init_loss = 'mkl')
+ploter2(fit.stm$EF,main='stm, scd-mkl')
+
+# change init
+fit.stm2 = stm(y,K=3,nugget = TRUE,init='lee',init_loss = 'mkl',tol=1e-4)
+ploter2(fit.stm2$EF,main='stm, lee-mkl')
+
+fit.stm3 = stm(y,K=3,nugget = TRUE,init='lee',init_loss = 'mse',tol=1e-4)
+ploter2(fit.stm3$EF,main='stm, lee-mse')
+
+fit.stm4 = stm(y,K=3,nugget = TRUE,init='scd',init_loss = 'mse',tol=1e-4)
+ploter2(fit.stm4$EF,main='stm, scd-mse')
+
+kmeans.init = kmeans(y, K, nstart = 20)
+L0 = rep(1, n) %o% (as.vector(table(kmeans.init$cluster)))
+F0 = t(kmeans.init$centers)
+fit.stm5 = stm(y,K=3,nugget = TRUE,init = list(L_init=L0,F_init=F0),tol=1e-5)
+ploter2(fit.stm5$EF,main='stm, kmeans init')
+
+fit.sgom = cluster.mix(y,K=3,tol=1e-3,maxit = 100,nugget = T)
+ploter2(t(fit.sgom$phi),main='sgom, kmeans init')
 
 ```
+
 
