@@ -515,16 +515,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree6b20befa03d6c121e992ae7b6060261d54737687targetblank6b20befa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/6b20befa03d6c121e992ae7b6060261d54737687" target="_blank">6b20bef</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreeacdaf694247ea983c9dc632477a21d2c62f6fe07targetblankacdaf69a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/acdaf694247ea983c9dc632477a21d2c62f6fe07" target="_blank">acdaf69</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree6b20befa03d6c121e992ae7b6060261d54737687targetblank6b20befa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreeacdaf694247ea983c9dc632477a21d2c62f6fe07targetblankacdaf69a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/6b20befa03d6c121e992ae7b6060261d54737687" target="_blank">6b20bef</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/acdaf694247ea983c9dc632477a21d2c62f6fe07" target="_blank">acdaf69</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -535,6 +535,7 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
+    Ignored:    analysis/figure/
     Ignored:    data/.DS_Store
     Ignored:    data/external_data/
     Ignored:    output/.DS_Store
@@ -596,6 +597,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/acdaf694247ea983c9dc632477a21d2c62f6fe07/analysis/joint_fa_more.Rmd" target="_blank">acdaf69</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+<td>
+wflow_publish(“analysis/joint_fa_more.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/joint_fa_more.html" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/6b20befa03d6c121e992ae7b6060261d54737687/analysis/joint_fa_more.Rmd" target="_blank">6b20bef</a>
 </td>
 <td>
@@ -619,7 +654,10 @@ wflow_publish(“analysis/joint_fa_more.Rmd”)
   if(!is.null(EF2)){
     
     p = nrow(EF1)
-    par(mfrow=c(2,max(ncol(EF1),ncol(EF2))))
+    temp = max(ncol(EF1),ncol(EF2))
+    if(temp!=0){
+      
+      par(mfrow=c(2,temp))
     if(ncol(EF1)&gt;0){
       
       for(k in 1:ncol(EF1)){
@@ -633,6 +671,9 @@ wflow_publish(“analysis/joint_fa_more.Rmd”)
       plot(EF2[1:(p/2),k],type=&#39;l&#39;,ylim = range(EF2[,k]),ylab=paste(&#39;f&#39;,k,sep=&#39;&#39;),xlab=&#39;&#39;,main=main2)
       lines(EF2[(p/2+1):(p),k],type=&#39;l&#39;,col=4)
     }
+    }
+    
+      
     }
     
   
@@ -694,6 +735,43 @@ for(k in 1:K){
   lines(FFF[(p+1):(2*p),k],type=&#39;l&#39;,col=4)
 }</code></pre>
 <p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-2-1.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>l0 = 0
 l1 = 3
 L = cbind(c(rep(l1,n/3),rep(l0,n/3*2)),
@@ -708,10 +786,54 @@ ggplot(LL, aes(x = Var2, y = Var1)) + geom_raster(aes(fill=value)) +
   scale_fill_gradient(low=&quot;grey90&quot;, high=&quot;red&quot;) +
   labs(x=&quot;column&quot;, y=&quot;row&quot;, title=&quot;L&quot;)</code></pre>
 <p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-2-2.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>For each level of <span class="math inline">\(\sigma^2\)</span>, the variance of random noise, we plot the recovered structure from multiple runs.</p>
-<pre class="r"><code>s_list = c(1,3,6,9,12,15,20)
+<pre class="r"><code>apply(tcrossprod(L,FFF),1,sd)</code></pre>
+<pre><code> [1] 2.334636 2.334636 2.334636 2.334636 2.334636 2.334636 2.334636 2.334636
+ [9] 2.334636 2.334636 2.334636 2.334636 2.334636 2.334636 2.334636 1.569571
+[17] 1.569571 1.569571 1.569571 1.569571 1.569571 1.569571 1.569571 1.569571
+[25] 1.569571 1.569571 1.569571 1.569571 1.569571 1.569571 3.016010 3.016010
+[33] 3.016010 3.016010 3.016010 3.016010 3.016010 3.016010 3.016010 3.016010
+[41] 3.016010 3.016010 3.016010 3.016010 3.016010</code></pre>
+<pre class="r"><code>s_list = c(1,2,3,5,10,15,20)
 #s_list = c(1)
-niter = 5
+niter = 10
 seed=0
 for(s in s_list){
   for(iter in 1:niter){
@@ -723,7 +845,1337 @@ for(s in s_list){
    ploter2(fit.dwt$ldf$f,fit.flash$ldf$f,main1=paste(&#39;wave_flash, s=&#39;,s,&#39;, iter=&#39;,iter,sep=&#39;&#39;),main2=paste(&#39;flash, s=&#39;,s,&#39;, iter=&#39;,iter,sep=&#39;&#39;)) 
   }
 }</code></pre>
-<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-10.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-11.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-12.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-13.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-14.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-15.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-16.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-17.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-18.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-19.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-20.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-21.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-22.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-23.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-24.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-25.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-26.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-27.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-28.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-29.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-30.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-31.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-32.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-33.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-34.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-35.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-1.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
+Past versions of unnamed-chunk-3-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-2.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-3">
+Past versions of unnamed-chunk-3-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-3.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-4">
+Past versions of unnamed-chunk-3-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-4.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-5">
+Past versions of unnamed-chunk-3-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-5.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-6">
+Past versions of unnamed-chunk-3-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-6.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-7">
+Past versions of unnamed-chunk-3-7.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-7.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-8">
+Past versions of unnamed-chunk-3-8.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-8.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-9">
+Past versions of unnamed-chunk-3-9.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-9.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-10">
+Past versions of unnamed-chunk-3-10.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-10.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-11.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-11">
+Past versions of unnamed-chunk-3-11.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-11.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-12">
+Past versions of unnamed-chunk-3-12.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-12.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-13.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-13">
+Past versions of unnamed-chunk-3-13.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-13.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-14.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-14">
+Past versions of unnamed-chunk-3-14.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-14" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-14.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-15.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-15">
+Past versions of unnamed-chunk-3-15.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-15" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-15.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-16.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-16">
+Past versions of unnamed-chunk-3-16.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-16.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-17.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-17">
+Past versions of unnamed-chunk-3-17.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-17" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-17.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-18.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-18">
+Past versions of unnamed-chunk-3-18.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-18" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-18.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-19.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-19">
+Past versions of unnamed-chunk-3-19.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-19" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-19.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-20.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-20">
+Past versions of unnamed-chunk-3-20.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-20" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-20.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-21.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-21">
+Past versions of unnamed-chunk-3-21.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-21" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-21.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-22.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-22">
+Past versions of unnamed-chunk-3-22.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-22.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-23.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-23">
+Past versions of unnamed-chunk-3-23.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-23.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-24.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-24">
+Past versions of unnamed-chunk-3-24.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-24.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-25.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-25">
+Past versions of unnamed-chunk-3-25.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-25.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-26.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-26">
+Past versions of unnamed-chunk-3-26.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-26.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-27.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-27">
+Past versions of unnamed-chunk-3-27.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-27.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-28.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-28">
+Past versions of unnamed-chunk-3-28.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-28.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-29.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-29">
+Past versions of unnamed-chunk-3-29.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-29.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-30.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-30">
+Past versions of unnamed-chunk-3-30.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-30.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-31.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-31">
+Past versions of unnamed-chunk-3-31.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-31.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-32.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-32">
+Past versions of unnamed-chunk-3-32.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-32.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-33.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-33">
+Past versions of unnamed-chunk-3-33.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-33" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-33.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-34.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-34">
+Past versions of unnamed-chunk-3-34.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-34" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-34.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-35.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-35">
+Past versions of unnamed-chunk-3-35.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-35" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/56752d9fa4dd218c81f2dfb032192d31436fc723/docs/figure/joint_fa_more.Rmd/unnamed-chunk-3-35.png" target="_blank">56752d9</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-36.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-37.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-38.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-39.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-40.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-41.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-42.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-43.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-44.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-45.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-46.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-47.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-48.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-49.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-50.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-51.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-52.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-53.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-54.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-55.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-56.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-57.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-58.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-59.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-60.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-61.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-62.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-63.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-64.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-65.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-66.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-67.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-68.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-69.png" width="672" style="display: block; margin: auto;" /><img src="figure/joint_fa_more.Rmd/unnamed-chunk-3-70.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
