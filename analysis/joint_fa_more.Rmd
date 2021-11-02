@@ -1,0 +1,115 @@
+---
+title: "joint factor analysis, more examples"
+author: "Dongyue Xie"
+date: "2021-09-15"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+ploter2 = function(EF1,EF2=NULL,main1=NULL,main2=NULL){
+  if(!is.null(EF2)){
+    
+    p = nrow(EF1)
+    par(mfrow=c(2,max(ncol(EF1),ncol(EF2))))
+    if(ncol(EF1)>0){
+      
+      for(k in 1:ncol(EF1)){
+      plot(EF1[1:(p/2),k],type='l',ylim = range(EF1[,k]),ylab=paste('f',k,sep=''),xlab='',main=main1)
+      lines(EF1[(p/2+1):(p),k],type='l',col=4)
+      }
+      
+    }
+    if(ncol(EF2)>0){
+      for(k in 1:ncol(EF2)){
+      plot(EF2[1:(p/2),k],type='l',ylim = range(EF2[,k]),ylab=paste('f',k,sep=''),xlab='',main=main2)
+      lines(EF2[(p/2+1):(p),k],type='l',col=4)
+    }
+    }
+    
+  
+  }else{
+    p = nrow(EF1)
+    par(mfrow=c(ncol(EF1),1))
+    for(k in 1:ncol(EF1)){
+      plot(EF1[1:(p/2),k],type='l',ylim = range(EF1[,k]),ylab=paste('f',k,sep=''),xlab='',main=main1)
+      lines(EF1[(p/2+1):(p),k],type='l',col=4)
+    }
+  }
+  
+}
+
+source('code/smooth_flash.R')
+source('code/wave_ebmf.R')
+```
+
+## Introduction
+
+Here we look at how smoothness plays a role in the revealing of the structure.
+
+Start from Gaussian case.
+
+```{r}
+n = 45
+p = 256
+K= 3
+
+FF = matrix(0, nrow=p, ncol=K)
+f1 = 3
+f2 = 1
+FF[(p/8*1):(p/8*2),1] = f1
+FF[(p/8*3):(p/8*4),2] = f2
+FF[(p/8*5):(p/8*7),3] = f1
+
+FF2 = matrix(0, nrow=p, ncol=K)
+FF2[(p/8*1):(p/8*2),1] = f2
+FF2[(p/8*3+10):(p/8*4-10),2] = f1
+FF2[(p/8*5):(p/8*7),3] = f2
+
+FFF = cbind(c(FF[,1],FF2[,3]),c(FF[,2],FF2[,2]),c(FF[,3],FF2[,1]))
+
+par(mfrow=c(3,1))
+for(k in 1:K){
+  plot(FFF[1:p,k],type='l',ylim = range(FFF),xlab='',ylab=paste('f',k,sep=''))
+  lines(FFF[(p+1):(2*p),k],type='l',col=4)
+}
+
+
+l0 = 0
+l1 = 3
+L = cbind(c(rep(l1,n/3),rep(l0,n/3*2)),
+          c(rep(l0,n/3),rep(l1,n/3),rep(l0,n/3)),
+          c(rep(l0,n/3*2),rep(l1,n/3)))
+
+
+library(reshape2)
+library(ggplot2)
+LL=  melt(L)
+ggplot(LL, aes(x = Var2, y = Var1)) + geom_raster(aes(fill=value)) + 
+  scale_fill_gradient(low="grey90", high="red") +
+  labs(x="column", y="row", title="L")
+```
+
+For each level of $\sigma^2$, the variance of random noise, we plot the recovered structure from multiple runs.
+
+```{r}
+
+s_list = c(1,3,6,9,12,15,20)
+#s_list = c(1)
+niter = 5
+seed=0
+for(s in s_list){
+  for(iter in 1:niter){
+    seed=seed+1
+    set.seed(seed)
+   y = tcrossprod(L,FFF) + matrix(rnorm(n*p*2,0,s),nrow=n,ncol=p*2)
+   fit.flash = flash(y,var_type = 'by_row',verbose = FALSE)
+   fit.dwt = wave_ebmf(y,verbose = FALSE)
+   ploter2(fit.dwt$ldf$f,fit.flash$ldf$f,main1=paste('wave_flash, s=',s,', iter=',iter,sep=''),main2=paste('flash, s=',s,', iter=',iter,sep='')) 
+  }
+}
+
+```
+
+
