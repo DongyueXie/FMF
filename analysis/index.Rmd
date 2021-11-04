@@ -32,6 +32,8 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 1. [Initial analysis on luis data](luis_data.html)
 2. [run wave ebmf on luis data](luis_data_wave.html)
 3. [run stm on the data](integration_stm.html)
+4. [Simulations on joint factor analysis](joint_factoranalysis.html)
+5. [Another simulation illustrating diff bwt wave_flash and flash](joint_fa_more.html)
 
 ### PTF
 
