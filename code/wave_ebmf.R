@@ -303,7 +303,9 @@ wave_ebmf_rank1 = function(Y,res,k,ebnm_fn,ebnm_param,
 
     ## formulate the x and s for ebnm
     if(sum(Ef)==0){
-      print('factor zeroed out')
+      if(verbose){
+        print('factor zeroed out')
+      }
       break
     }
     xl = rowSums(rep(1,n)%*%t(Ef) * Y)/sum(Ef2)
@@ -318,7 +320,9 @@ wave_ebmf_rank1 = function(Y,res,k,ebnm_fn,ebnm_param,
 
     if(sum(El)==0){
       res = update_res(res,k,El,El2,Ef,Ef2,gl,gf,KL.l,KL.f,s)
-      print('loading zeroed out')
+      if(verbose){
+        print('loading zeroed out')
+      }
       break
     }
 
@@ -360,7 +364,9 @@ wave_ebmf_rank1 = function(Y,res,k,ebnm_fn,ebnm_param,
     }
 
     if((obj[i+1]-obj[i])<0){
-      print('An iteration decreased the objective')
+      if(verbose){
+        print('An iteration decreased the objective')
+      }
     }
 
     if((obj[i+1]-obj[i])<=tol){
