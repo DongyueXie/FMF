@@ -1,0 +1,99 @@
+---
+title: "sgom and stm comparison"
+author: "DongyueXie"
+date: "2021-09-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(stm)
+
+ploter2 = function(EF,main){
+  p = nrow(EF)
+  par(mfrow=c(3,1))
+  for(k in 1:ncol(EF)){
+    plot(EF[1:(p/2),k],type='l',ylim = range(EF[,k]),ylab=paste('f',k,sep=''),xlab='',main=main,col=2)
+    lines(EF[(p/2+1):(p),k],type='l',col=3)
+
+  }
+}
+
+K = 3
+n=45
+p=256
+l0 = 0.1
+l1 = 1
+L = cbind(c(rep(l1,n/3),rep(l0,n/3*2)),
+          c(rep(l0,n/3),rep(l1,n/3),rep(l0,n/3)),
+          c(rep(l0,n/3*2),rep(l1,n/3)))
+
+par(mfrow=c(3,1))
+for(k in 1:K){
+  plot(L[,k])
+}
+
+FF = matrix(0, nrow=p, ncol=K)
+f1 = 3
+f2 = 1
+FF[(p/8*1):(p/8*2),1] = f1
+FF[(p/8*3):(p/8*4),2] = f2
+FF[(p/8*5):(p/8*7),3] = f1
+
+FF2 = matrix(0, nrow=p, ncol=K)
+FF2[(p/8*1):(p/8*2),1] = f2
+FF2[(p/8*3+10):(p/8*4-10),2] = f1
+FF2[(p/8*5):(p/8*7),3] = f2
+
+FFF = cbind(c(FF[,1],FF2[,3]),c(FF[,2],FF2[,2]),c(FF[,3],FF2[,1]))
+
+
+par(mfrow=c(3,1),tcl=-0.5,mai=c(0.3,0.6,0.1,0.3))
+for(k in 1:K){
+  plot(FFF[1:p,k],type='l',ylim = range(FFF),ylab=paste('f',k,sep=''),xlab='',lwd=2,col=2)
+  lines(FFF[(p+1):(2*p),k],type='l',col=3,lwd=2)
+}
+
+set.seed(12345)
+y = matrix(rpois(n*p*2,tcrossprod(L,FFF)),nrow=n)
+```
+
+initialize from kmeans
+
+```{r}
+set.seed(12345)
+kmeans.init = kmeans(y, K, nstart = 20)
+L0 = rep(1, n) %o% (as.vector(table(kmeans.init$cluster)))
+F0 = t(kmeans.init$centers)
+fit.stm5 = stm(y,K=3,nugget = F,init = list(L_init=L0,F_init=F0),tol=1e-5)
+ploter2(fit.stm5$EF,main='stm')
+
+set.seed(12345)
+fit.nmf = NNLM::nnmf(y,k=3,method = 'lee',loss='mkl',init = list(W=L0,H=t(F0)))
+ploter2(t(fit.nmf$H),main='nmf')
+
+
+fit.sgom = cluster.mix(y,K=3,tol=1e-5,maxit = 100)
+ploter2(t(fit.sgom$phi),main='sgom')
+```
+
+initialize from NMF fit
+
+```{r}
+set.seed(12345)
+fit.nmf = NNLM::nnmf(y,k=3,method = 'lee',loss='mkl')
+ploter2(t(fit.nmf$H),main='nmf')
+
+fit.stm5 = stm(y,K=3,nugget = F,init = list(L_init=fit.nmf$W,F_init=t(fit.nmf$H)),tol=1e-5)
+ploter2(fit.stm5$EF,main='stm')
+
+fit.sgom = cluster.mix(y,K=3,pi0=fit.nmf$W,phi0=fit.nmf$H,tol=1e-5,maxit = 100)
+ploter2(t(fit.sgom$phi),main='sgom')
+```
+
+
+
+
