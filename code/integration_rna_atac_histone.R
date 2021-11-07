@@ -2,7 +2,7 @@ library(stm)
 library(NNLM)
 library(Matrix)
 
-files = list.files('/project2/mstephens/dongyue/luis/luis')
+files = list.files('/project2/mstephens/dongyue/luis/assays')
 genes = c()
 for(i in 1:length(files)){
   genes[i] = strsplit(files[i],split = '_')[[1]][1]
@@ -16,9 +16,9 @@ merge_len = 10
 for(g in 1:length(genes)){
   gene = genes[g]
   print(paste('running ',gene))
-  RNAseq = read_csv(paste("/project2/mstephens/dongyue/luis/luis/",gene,"_RNAseq.csv.gz",sep=''))
-  ATACseq = read_csv(paste("/project2/mstephens/dongyue/luis/luis/",gene,"_ATACseq.csv.gz",sep=''))
-  H3K4seq = read_csv(paste("/project2/mstephens/dongyue/luis/luis/",gene,"_H3K4me1.csv.gz",sep=''))
+  RNAseq = read_csv(paste("/project2/mstephens/dongyue/luis/assays/",gene,"_RNAseq.csv.gz",sep=''))
+  ATACseq = read_csv(paste("/project2/mstephens/dongyue/luis/assays/",gene,"_ATACseq.csv.gz",sep=''))
+  H3K4seq = read_csv(paste("/project2/mstephens/dongyue/luis/assays/",gene,"_H3K4me1.csv.gz",sep=''))
 
   indis_ATAC = (colnames(ATACseq))[-c(1,2)]
   indis_RNA = (colnames(RNAseq))[-c(1,2)]
