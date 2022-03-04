@@ -1,0 +1,43 @@
+---
+title: "fixFupdateL in fastTopics"
+author: "DongyueXie"
+date: "2022-03-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+In some cases we would like to fix facrors $F$ and only get $L$ estimated in the following model, $Y\sim Poisson(LF^T)$, where $L\in R_+^{n\times K}$ and $F\in R_{+}^{m\times K}$.
+
+I found that `fastTopics` has the option to fix factors and now let's try this feature.
+
+
+```{r}
+library(fastTopics)
+K = 3
+n = 99
+p = 512
+
+FF = matrix(0, nrow=p, ncol=K)
+f1 = 3
+f2 = 1
+FF[(p/8*1):(p/8*2),1] = f1
+FF[(p/8*3):(p/8*4),2] = f2
+FF[(p/8*5):(p/8*7),3] = f1
+
+l0 = 0.1
+l1 = 1
+L = cbind(c(rep(l1,n/3),rep(l0,n/3*2)),
+          c(rep(l0,n/3),rep(l1,n/3),rep(l0,n/3)),
+          c(rep(l0,n/3*2),rep(l1,n/3)))
+
+set.seed(12345)
+y = matrix(rpois(n*p,tcrossprod(L,FF)),nrow=n)
+```
+
+
+
+
+
