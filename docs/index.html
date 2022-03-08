@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -22,8 +22,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -34,15 +32,6 @@ div.section {
   padding-top: 12px;
 }
 </style>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -104,6 +93,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -252,7 +242,6 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
-  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -264,6 +253,18 @@ $(document).ready(function () {
   display: none;
 }
 </style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
 
 <!-- code folding -->
 
@@ -344,7 +345,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-04
+<strong>Last updated:</strong> 2022-03-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -375,41 +376,87 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreebdd0ab05ed0ccad8754c1affd7574ac7e166d46ftargetblankbdd0ab0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/bdd0ab05ed0ccad8754c1affd7574ac7e166d46f" target="_blank">bdd0ab0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreefc311357b00a4ed13b8ecb779d1b6f280f1e5952targetblankfc31135a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/fc311357b00a4ed13b8ecb779d1b6f280f1e5952" target="_blank">fc31135</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreebdd0ab05ed0ccad8754c1affd7574ac7e166d46ftargetblankbdd0ab0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreefc311357b00a4ed13b8ecb779d1b6f280f1e5952targetblankfc31135a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/bdd0ab05ed0ccad8754c1affd7574ac7e166d46f" target="_blank">bdd0ab0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/SMF/tree/fc311357b00a4ed13b8ecb779d1b6f280f1e5952" target="_blank">fc31135</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/.DS_Store
-    Ignored:    data/.DS_Store
-    Ignored:    data/external_data/
-    Ignored:    output/.DS_Store
 
 Untracked files:
-    Untracked:  analysis/sparse_smoothing.Rmd
-    Untracked:  data/luis/
-    Untracked:  output/flash_on_cmc2_reduced.rds
-    Untracked:  output/flash_on_cmc2_reduced_2000kb.rds
+    Untracked:  data/count_files.RData
+    Untracked:  data/lowgene/
+    Untracked:  data/stmGTEx/
     Untracked:  output/luis/
-    Untracked:  output/wave_flash_on_cmc2_reduced_2000kb.rds
 
 Unstaged changes:
-    Modified:   analysis/luis_data.Rmd
-    Modified:   analysis/smooth_flash.Rmd
+    Modified:   analysis/stmGTEx.Rmd
+    Deleted:    data/GPX3_NMF_mkl_scd_K3.RData
+    Deleted:    data/GPX3_NMF_mkl_scd_K3_base10.RData
+    Deleted:    data/GPX3_NMF_mkl_scd_K3_base5.RData
+    Deleted:    data/GPX3_hals_runmed_K3.RData
+    Deleted:    data/GPX3_hals_runmed_K3_base10.RData
+    Deleted:    data/GPX3_hals_runmed_K3_base5.RData
+    Deleted:    data/GPX3_hals_wavelet_K3.RData
+    Deleted:    data/GPX3_hals_wavelet_K3_base10.RData
+    Deleted:    data/GPX3_hals_wavelet_K3_base5.RData
+    Deleted:    data/GPX3_stm_bmsm_K3.RData
+    Deleted:    data/GPX3_stm_bmsm_K3_base10.RData
+    Deleted:    data/GPX3_stm_bmsm_K3_base5.RData
+    Deleted:    data/GPX3_stm_nugget_K3.RData
+    Deleted:    data/GPX3_stm_nugget_K3_base10.RData
+    Deleted:    data/GPX3_stm_nugget_K3_base5.RData
+    Deleted:    data/GPX3_stm_nugget_robust_K3.RData
+    Deleted:    data/GPX3_stm_nugget_robust_K3_base10.RData
+    Deleted:    data/GPX3_stm_nugget_robust_K3_base5.RData
+    Deleted:    data/PSAP_NMF_mkl_scd_K3.RData
+    Deleted:    data/PSAP_NMF_mkl_scd_K3_base10.RData
+    Deleted:    data/PSAP_NMF_mkl_scd_K3_base5.RData
+    Deleted:    data/PSAP_hals_runmed_K3.RData
+    Deleted:    data/PSAP_hals_runmed_K3_base10.RData
+    Deleted:    data/PSAP_hals_runmed_K3_base5.RData
+    Deleted:    data/PSAP_hals_wavelet_K3.RData
+    Deleted:    data/PSAP_hals_wavelet_K3_base10.RData
+    Deleted:    data/PSAP_hals_wavelet_K3_base5.RData
+    Deleted:    data/PSAP_stm_bmsm_K3.RData
+    Deleted:    data/PSAP_stm_bmsm_K3_base10.RData
+    Deleted:    data/PSAP_stm_bmsm_K3_base5.RData
+    Deleted:    data/PSAP_stm_nugget_K3.RData
+    Deleted:    data/PSAP_stm_nugget_K3_base10.RData
+    Deleted:    data/PSAP_stm_nugget_K3_base5.RData
+    Deleted:    data/PSAP_stm_nugget_robust_K3.RData
+    Deleted:    data/PSAP_stm_nugget_robust_K3_base10.RData
+    Deleted:    data/PSAP_stm_nugget_robust_K3_base5.RData
+    Deleted:    data/RPS13_NMF_mkl_scd_K3.RData
+    Deleted:    data/RPS13_NMF_mkl_scd_K3_base10.RData
+    Deleted:    data/RPS13_NMF_mkl_scd_K3_base5.RData
+    Deleted:    data/RPS13_hals_runmed_K3.RData
+    Deleted:    data/RPS13_hals_runmed_K3_base10.RData
+    Deleted:    data/RPS13_hals_runmed_K3_base5.RData
+    Deleted:    data/RPS13_hals_wavelet_K3.RData
+    Deleted:    data/RPS13_hals_wavelet_K3_base10.RData
+    Deleted:    data/RPS13_hals_wavelet_K3_base5.RData
+    Deleted:    data/RPS13_stm_bmsm_K3.RData
+    Deleted:    data/RPS13_stm_bmsm_K3_base10.RData
+    Deleted:    data/RPS13_stm_bmsm_K3_base5.RData
+    Deleted:    data/RPS13_stm_nugget_K3.RData
+    Deleted:    data/RPS13_stm_nugget_K3_base10.RData
+    Deleted:    data/RPS13_stm_nugget_K3_base5.RData
+    Deleted:    data/RPS13_stm_nugget_robust_K3.RData
+    Deleted:    data/RPS13_stm_nugget_robust_K3_base10.RData
+    Deleted:    data/RPS13_stm_nugget_robust_K3_base5.RData
 
 </code></pre>
 <p>
@@ -453,7 +500,41 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/bdd0ab05ed0ccad8754c1affd7574ac7e166d46f/analysis/index.Rmd" target="_blank">bdd0ab0</a>
+<a href="https://github.com/DongyueXie/SMF/blob/fc311357b00a4ed13b8ecb779d1b6f280f1e5952/analysis/index.Rmd" target="_blank">fc31135</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2022-03-08
+</td>
+<td>
+wflow_publish(“analysis/index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/0801abad2c95d5431eeeda969c6514ccf252e0d2/docs/index.html" target="_blank">0801aba</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2021-11-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/bdd0ab05ed0ccad8754c1affd7574ac7e166d46f/analysis/index.Rmd" target="_blank">bdd0ab0</a>
 </td>
 <td>
 Dongyue Xie
@@ -470,7 +551,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/da33e3b3fa6458807edaf39c26b0d9965a268ee4/docs/index.html" target="_blank">da33e3b</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/da33e3b3fa6458807edaf39c26b0d9965a268ee4/docs/index.html" target="_blank">da33e3b</a>
 </td>
 <td>
 DongyueXie
@@ -487,7 +568,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/976f88b41f75c0fc9c33d3138056b24d7a9a48c5/analysis/index.Rmd" target="_blank">976f88b</a>
+<a href="https://github.com/DongyueXie/SMF/blob/976f88b41f75c0fc9c33d3138056b24d7a9a48c5/analysis/index.Rmd" target="_blank">976f88b</a>
 </td>
 <td>
 DongyueXie
@@ -504,7 +585,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/34a1499f661ddd87e907ca36e3b92f408b2a3ef1/docs/index.html" target="_blank">34a1499</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/34a1499f661ddd87e907ca36e3b92f408b2a3ef1/docs/index.html" target="_blank">34a1499</a>
 </td>
 <td>
 Dongyue Xie
@@ -521,7 +602,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/53b455138c3b89de3213747d2427a18ccc349a54/analysis/index.Rmd" target="_blank">53b4551</a>
+<a href="https://github.com/DongyueXie/SMF/blob/53b455138c3b89de3213747d2427a18ccc349a54/analysis/index.Rmd" target="_blank">53b4551</a>
 </td>
 <td>
 Dongyue Xie
@@ -538,7 +619,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/89654491141260a963fbcf13cf3988a8310f9f21/docs/index.html" target="_blank">8965449</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/89654491141260a963fbcf13cf3988a8310f9f21/docs/index.html" target="_blank">8965449</a>
 </td>
 <td>
 Dongyue Xie
@@ -555,7 +636,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/5c04fecdb2b6124ff25abeddffebf8e538f9531c/analysis/index.Rmd" target="_blank">5c04fec</a>
+<a href="https://github.com/DongyueXie/SMF/blob/5c04fecdb2b6124ff25abeddffebf8e538f9531c/analysis/index.Rmd" target="_blank">5c04fec</a>
 </td>
 <td>
 Dongyue Xie
@@ -572,7 +653,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/e5c1b5ab43845f0da21811189a92c4485487b3ac/docs/index.html" target="_blank">e5c1b5a</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/e5c1b5ab43845f0da21811189a92c4485487b3ac/docs/index.html" target="_blank">e5c1b5a</a>
 </td>
 <td>
 DongyueXie
@@ -589,7 +670,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/37d2481f93e9dd5acb70bf2e880d8ff1c99d5f5c/analysis/index.Rmd" target="_blank">37d2481</a>
+<a href="https://github.com/DongyueXie/SMF/blob/37d2481f93e9dd5acb70bf2e880d8ff1c99d5f5c/analysis/index.Rmd" target="_blank">37d2481</a>
 </td>
 <td>
 DongyueXie
@@ -606,7 +687,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/32925741b2791477ebc8fbf45aa1d4269929bf07/docs/index.html" target="_blank">3292574</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/32925741b2791477ebc8fbf45aa1d4269929bf07/docs/index.html" target="_blank">3292574</a>
 </td>
 <td>
 DongyueXie
@@ -623,7 +704,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/5770c78d3adfc63497366b4a06417dde60e2a479/analysis/index.Rmd" target="_blank">5770c78</a>
+<a href="https://github.com/DongyueXie/SMF/blob/5770c78d3adfc63497366b4a06417dde60e2a479/analysis/index.Rmd" target="_blank">5770c78</a>
 </td>
 <td>
 DongyueXie
@@ -640,7 +721,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/efe7d11c0155bd771ff87d2c065f8f055a790aef/docs/index.html" target="_blank">efe7d11</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/efe7d11c0155bd771ff87d2c065f8f055a790aef/docs/index.html" target="_blank">efe7d11</a>
 </td>
 <td>
 DongyueXie
@@ -657,7 +738,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/595ceada38bc0cadeda24dd30f5391eb1df48924/analysis/index.Rmd" target="_blank">595cead</a>
+<a href="https://github.com/DongyueXie/SMF/blob/595ceada38bc0cadeda24dd30f5391eb1df48924/analysis/index.Rmd" target="_blank">595cead</a>
 </td>
 <td>
 DongyueXie
@@ -674,7 +755,7 @@ wflow_publish(“analysis/index.Rmd”)
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/8679691ff2b06181381752a482ea0f33d4992e81/analysis/index.Rmd" target="_blank">8679691</a>
+<a href="https://github.com/DongyueXie/SMF/blob/8679691ff2b06181381752a482ea0f33d4992e81/analysis/index.Rmd" target="_blank">8679691</a>
 </td>
 <td>
 DongyueXie
@@ -691,7 +772,7 @@ solve conflict
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/cc96d90e86d6fb95b51196cb6d77d5e61520793e/analysis/index.Rmd" target="_blank">cc96d90</a>
+<a href="https://github.com/DongyueXie/SMF/blob/cc96d90e86d6fb95b51196cb6d77d5e61520793e/analysis/index.Rmd" target="_blank">cc96d90</a>
 </td>
 <td>
 DongyueXie
@@ -708,7 +789,7 @@ solve conflict
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/b6bc4125ac0d8c5a8802e89a50415520abf409bc/docs/index.html" target="_blank">b6bc412</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/b6bc4125ac0d8c5a8802e89a50415520abf409bc/docs/index.html" target="_blank">b6bc412</a>
 </td>
 <td>
 Dongyue Xie
@@ -725,7 +806,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/3c7aa16bf3574c9eace107f620209d9350a66230/analysis/index.Rmd" target="_blank">3c7aa16</a>
+<a href="https://github.com/DongyueXie/SMF/blob/3c7aa16bf3574c9eace107f620209d9350a66230/analysis/index.Rmd" target="_blank">3c7aa16</a>
 </td>
 <td>
 Dongyue Xie
@@ -742,7 +823,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/b13b981d597e8b380760acab9626003a083deb8c/docs/index.html" target="_blank">b13b981</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/b13b981d597e8b380760acab9626003a083deb8c/docs/index.html" target="_blank">b13b981</a>
 </td>
 <td>
 DongyueXie
@@ -759,7 +840,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/c650235814c1d5064d5b2fbbf2fb975d4fa2f9f9/analysis/index.Rmd" target="_blank">c650235</a>
+<a href="https://github.com/DongyueXie/SMF/blob/c650235814c1d5064d5b2fbbf2fb975d4fa2f9f9/analysis/index.Rmd" target="_blank">c650235</a>
 </td>
 <td>
 DongyueXie
@@ -776,7 +857,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/c650235814c1d5064d5b2fbbf2fb975d4fa2f9f9/docs/index.html" target="_blank">c650235</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/c650235814c1d5064d5b2fbbf2fb975d4fa2f9f9/docs/index.html" target="_blank">c650235</a>
 </td>
 <td>
 DongyueXie
@@ -793,7 +874,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/01d83f5e7bac8e98be7377355a2ea9d77d951959/docs/index.html" target="_blank">01d83f5</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/01d83f5e7bac8e98be7377355a2ea9d77d951959/docs/index.html" target="_blank">01d83f5</a>
 </td>
 <td>
 Dongyue Xie
@@ -810,7 +891,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/35b80e981bfe0dc8bb9a4f06f3d6e517fc672305/analysis/index.Rmd" target="_blank">35b80e9</a>
+<a href="https://github.com/DongyueXie/SMF/blob/35b80e981bfe0dc8bb9a4f06f3d6e517fc672305/analysis/index.Rmd" target="_blank">35b80e9</a>
 </td>
 <td>
 Dongyue Xie
@@ -827,7 +908,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/ef6be55cf4f11876e45cd849b2642209d9c360ee/docs/index.html" target="_blank">ef6be55</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/ef6be55cf4f11876e45cd849b2642209d9c360ee/docs/index.html" target="_blank">ef6be55</a>
 </td>
 <td>
 DongyueXie
@@ -844,7 +925,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/0d7cac78aaca90290f35a55ec75bfc8f0450815a/analysis/index.Rmd" target="_blank">0d7cac7</a>
+<a href="https://github.com/DongyueXie/SMF/blob/0d7cac78aaca90290f35a55ec75bfc8f0450815a/analysis/index.Rmd" target="_blank">0d7cac7</a>
 </td>
 <td>
 DongyueXie
@@ -861,7 +942,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/831db1044b00dfae6a7e38165cfd0f8684892dd3/docs/index.html" target="_blank">831db10</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/831db1044b00dfae6a7e38165cfd0f8684892dd3/docs/index.html" target="_blank">831db10</a>
 </td>
 <td>
 DongyueXie
@@ -878,7 +959,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/f99e171aa372f2dbed433118ad2520566bc9e653/analysis/index.Rmd" target="_blank">f99e171</a>
+<a href="https://github.com/DongyueXie/SMF/blob/f99e171aa372f2dbed433118ad2520566bc9e653/analysis/index.Rmd" target="_blank">f99e171</a>
 </td>
 <td>
 DongyueXie
@@ -895,7 +976,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/5d5cae563ea18210118c09cde436f48c3c4fe9e0/docs/index.html" target="_blank">5d5cae5</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/5d5cae563ea18210118c09cde436f48c3c4fe9e0/docs/index.html" target="_blank">5d5cae5</a>
 </td>
 <td>
 DongyueXie
@@ -912,7 +993,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/c18d943bc02c62feb1a2f90dda15f9ddf714fc9e/analysis/index.Rmd" target="_blank">c18d943</a>
+<a href="https://github.com/DongyueXie/SMF/blob/c18d943bc02c62feb1a2f90dda15f9ddf714fc9e/analysis/index.Rmd" target="_blank">c18d943</a>
 </td>
 <td>
 DongyueXie
@@ -929,7 +1010,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/86c3036a33c978c6ae16ee34248a53b1cabbcf1d/docs/index.html" target="_blank">86c3036</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/86c3036a33c978c6ae16ee34248a53b1cabbcf1d/docs/index.html" target="_blank">86c3036</a>
 </td>
 <td>
 Dongyue Xie
@@ -946,7 +1027,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/d4506c15e3b5cb09c1077d19afeb2febd259cee8/analysis/index.Rmd" target="_blank">d4506c1</a>
+<a href="https://github.com/DongyueXie/SMF/blob/d4506c15e3b5cb09c1077d19afeb2febd259cee8/analysis/index.Rmd" target="_blank">d4506c1</a>
 </td>
 <td>
 Dongyue Xie
@@ -963,7 +1044,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/00527575d28945e2f8108d17d1914eb840ce40a0/docs/index.html" target="_blank">0052757</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/00527575d28945e2f8108d17d1914eb840ce40a0/docs/index.html" target="_blank">0052757</a>
 </td>
 <td>
 Dongyue Xie
@@ -980,7 +1061,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/fd3b2ba345f18660008baa1cc9e0277383d2c4be/analysis/index.Rmd" target="_blank">fd3b2ba</a>
+<a href="https://github.com/DongyueXie/SMF/blob/fd3b2ba345f18660008baa1cc9e0277383d2c4be/analysis/index.Rmd" target="_blank">fd3b2ba</a>
 </td>
 <td>
 Dongyue Xie
@@ -997,7 +1078,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/f9a8199e6b92f70c87c604c72f578a25ddeff200/docs/index.html" target="_blank">f9a8199</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/f9a8199e6b92f70c87c604c72f578a25ddeff200/docs/index.html" target="_blank">f9a8199</a>
 </td>
 <td>
 Dongyue Xie
@@ -1014,7 +1095,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/acefe6865bb36ed955363ebd15d7a9ab907935a1/analysis/index.Rmd" target="_blank">acefe68</a>
+<a href="https://github.com/DongyueXie/SMF/blob/acefe6865bb36ed955363ebd15d7a9ab907935a1/analysis/index.Rmd" target="_blank">acefe68</a>
 </td>
 <td>
 Dongyue Xie
@@ -1031,7 +1112,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/48059170f0e26f815e29a766455e11b401847569/docs/index.html" target="_blank">4805917</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/48059170f0e26f815e29a766455e11b401847569/docs/index.html" target="_blank">4805917</a>
 </td>
 <td>
 Dongyue Xie
@@ -1048,7 +1129,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/4d19135b1ef7b72caefd0dab7052ef62cb6cd7d7/analysis/index.Rmd" target="_blank">4d19135</a>
+<a href="https://github.com/DongyueXie/SMF/blob/4d19135b1ef7b72caefd0dab7052ef62cb6cd7d7/analysis/index.Rmd" target="_blank">4d19135</a>
 </td>
 <td>
 Dongyue Xie
@@ -1065,7 +1146,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/971a3edf45b9fb74000e8e31eec4c0476705f7f4/docs/index.html" target="_blank">971a3ed</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/971a3edf45b9fb74000e8e31eec4c0476705f7f4/docs/index.html" target="_blank">971a3ed</a>
 </td>
 <td>
 Dongyue Xie
@@ -1082,7 +1163,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/0f85dae2d49b41f1154f5d168ff6bf44a7c82626/analysis/index.Rmd" target="_blank">0f85dae</a>
+<a href="https://github.com/DongyueXie/SMF/blob/0f85dae2d49b41f1154f5d168ff6bf44a7c82626/analysis/index.Rmd" target="_blank">0f85dae</a>
 </td>
 <td>
 Dongyue Xie
@@ -1099,7 +1180,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/45c6d72343a10f19a23ec0e73f615605a2098d59/docs/index.html" target="_blank">45c6d72</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/45c6d72343a10f19a23ec0e73f615605a2098d59/docs/index.html" target="_blank">45c6d72</a>
 </td>
 <td>
 Dongyue Xie
@@ -1116,7 +1197,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/037fb80c9b9bfef5d8a0134012bbef11d6cbdd1d/analysis/index.Rmd" target="_blank">037fb80</a>
+<a href="https://github.com/DongyueXie/SMF/blob/037fb80c9b9bfef5d8a0134012bbef11d6cbdd1d/analysis/index.Rmd" target="_blank">037fb80</a>
 </td>
 <td>
 Dongyue Xie
@@ -1133,7 +1214,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/2b12f871a4e98b604b833b5f13ba40c226d5e28f/docs/index.html" target="_blank">2b12f87</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/2b12f871a4e98b604b833b5f13ba40c226d5e28f/docs/index.html" target="_blank">2b12f87</a>
 </td>
 <td>
 Dongyue Xie
@@ -1150,7 +1231,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/4ffc1d31d2862bfafdb51d73db2b030a5df7e216/analysis/index.Rmd" target="_blank">4ffc1d3</a>
+<a href="https://github.com/DongyueXie/SMF/blob/4ffc1d31d2862bfafdb51d73db2b030a5df7e216/analysis/index.Rmd" target="_blank">4ffc1d3</a>
 </td>
 <td>
 Dongyue Xie
@@ -1167,7 +1248,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/533fbf55c699eccd89ccaec2d0046627064d9828/docs/index.html" target="_blank">533fbf5</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/533fbf55c699eccd89ccaec2d0046627064d9828/docs/index.html" target="_blank">533fbf5</a>
 </td>
 <td>
 Dongyue Xie
@@ -1184,7 +1265,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/55470e320d3396b741d34ac20cf4e1e24bcc0cf7/analysis/index.Rmd" target="_blank">55470e3</a>
+<a href="https://github.com/DongyueXie/SMF/blob/55470e320d3396b741d34ac20cf4e1e24bcc0cf7/analysis/index.Rmd" target="_blank">55470e3</a>
 </td>
 <td>
 Dongyue Xie
@@ -1201,7 +1282,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/37bde0c3cb63e92052c0ed16b8683b67749b0831/docs/index.html" target="_blank">37bde0c</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/37bde0c3cb63e92052c0ed16b8683b67749b0831/docs/index.html" target="_blank">37bde0c</a>
 </td>
 <td>
 Dongyue Xie
@@ -1218,7 +1299,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/827dd12b491c6b17c49055173b332443e462ac86/analysis/index.Rmd" target="_blank">827dd12</a>
+<a href="https://github.com/DongyueXie/SMF/blob/827dd12b491c6b17c49055173b332443e462ac86/analysis/index.Rmd" target="_blank">827dd12</a>
 </td>
 <td>
 Dongyue Xie
@@ -1235,7 +1316,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/d9d2c8e836f75a50a3acbd6362c599dea59b9da0/docs/index.html" target="_blank">d9d2c8e</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/d9d2c8e836f75a50a3acbd6362c599dea59b9da0/docs/index.html" target="_blank">d9d2c8e</a>
 </td>
 <td>
 Dongyue Xie
@@ -1252,7 +1333,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/d3949bafba3044288a5c3485b39c35f07587c678/analysis/index.Rmd" target="_blank">d3949ba</a>
+<a href="https://github.com/DongyueXie/SMF/blob/d3949bafba3044288a5c3485b39c35f07587c678/analysis/index.Rmd" target="_blank">d3949ba</a>
 </td>
 <td>
 Dongyue Xie
@@ -1269,7 +1350,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/fadcfed447c7018cd0e18f62b117e48793686e19/docs/index.html" target="_blank">fadcfed</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/fadcfed447c7018cd0e18f62b117e48793686e19/docs/index.html" target="_blank">fadcfed</a>
 </td>
 <td>
 Dongyue Xie
@@ -1286,7 +1367,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/5422f2a13304878a4a794eae0f822d02c6cb32a6/analysis/index.Rmd" target="_blank">5422f2a</a>
+<a href="https://github.com/DongyueXie/SMF/blob/5422f2a13304878a4a794eae0f822d02c6cb32a6/analysis/index.Rmd" target="_blank">5422f2a</a>
 </td>
 <td>
 Dongyue Xie
@@ -1303,7 +1384,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/c210318d7ae2a9dc7d2fdefd69bba671b2dc6b14/docs/index.html" target="_blank">c210318</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/c210318d7ae2a9dc7d2fdefd69bba671b2dc6b14/docs/index.html" target="_blank">c210318</a>
 </td>
 <td>
 Dongyue Xie
@@ -1320,7 +1401,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/561eba1969aee9d1bc319853ff4f07692b0839c9/analysis/index.Rmd" target="_blank">561eba1</a>
+<a href="https://github.com/DongyueXie/SMF/blob/561eba1969aee9d1bc319853ff4f07692b0839c9/analysis/index.Rmd" target="_blank">561eba1</a>
 </td>
 <td>
 Dongyue Xie
@@ -1337,7 +1418,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/3ab97d04e8c21fcbbc53f543909eeaef55b565c7/docs/index.html" target="_blank">3ab97d0</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/3ab97d04e8c21fcbbc53f543909eeaef55b565c7/docs/index.html" target="_blank">3ab97d0</a>
 </td>
 <td>
 Dongyue Xie
@@ -1354,7 +1435,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/0ad92df22a501784f9c50230d81db1f8881d599c/analysis/index.Rmd" target="_blank">0ad92df</a>
+<a href="https://github.com/DongyueXie/SMF/blob/0ad92df22a501784f9c50230d81db1f8881d599c/analysis/index.Rmd" target="_blank">0ad92df</a>
 </td>
 <td>
 Dongyue Xie
@@ -1371,7 +1452,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/1d4ea020b8e368728cd5ee197f5bbbae6f1eb565/docs/index.html" target="_blank">1d4ea02</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/1d4ea020b8e368728cd5ee197f5bbbae6f1eb565/docs/index.html" target="_blank">1d4ea02</a>
 </td>
 <td>
 Dongyue Xie
@@ -1388,7 +1469,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/3b5f85eb31a36b2e61527a9d0504334af0b6d8f5/analysis/index.Rmd" target="_blank">3b5f85e</a>
+<a href="https://github.com/DongyueXie/SMF/blob/3b5f85eb31a36b2e61527a9d0504334af0b6d8f5/analysis/index.Rmd" target="_blank">3b5f85e</a>
 </td>
 <td>
 Dongyue Xie
@@ -1405,7 +1486,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/ccdafba97c5a96b89985a4bd28b3121f685c1590/docs/index.html" target="_blank">ccdafba</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/ccdafba97c5a96b89985a4bd28b3121f685c1590/docs/index.html" target="_blank">ccdafba</a>
 </td>
 <td>
 Dongyue Xie
@@ -1422,7 +1503,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/e1680d8394ce3f3c57f215d7406cd113620f2740/analysis/index.Rmd" target="_blank">e1680d8</a>
+<a href="https://github.com/DongyueXie/SMF/blob/e1680d8394ce3f3c57f215d7406cd113620f2740/analysis/index.Rmd" target="_blank">e1680d8</a>
 </td>
 <td>
 Dongyue Xie
@@ -1439,7 +1520,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/755d1ace9a81ff9f6a5e3d1bebfa5143c3b1490b/docs/index.html" target="_blank">755d1ac</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/755d1ace9a81ff9f6a5e3d1bebfa5143c3b1490b/docs/index.html" target="_blank">755d1ac</a>
 </td>
 <td>
 Dongyue Xie
@@ -1456,7 +1537,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/8a9758ef97ae7a2097fc3790b7f0f92d49690498/analysis/index.Rmd" target="_blank">8a9758e</a>
+<a href="https://github.com/DongyueXie/SMF/blob/8a9758ef97ae7a2097fc3790b7f0f92d49690498/analysis/index.Rmd" target="_blank">8a9758e</a>
 </td>
 <td>
 Dongyue Xie
@@ -1473,7 +1554,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/5bb5be34d6f79d32b24c4619285748dfa393dae8/docs/index.html" target="_blank">5bb5be3</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/5bb5be34d6f79d32b24c4619285748dfa393dae8/docs/index.html" target="_blank">5bb5be3</a>
 </td>
 <td>
 Dongyue Xie
@@ -1490,7 +1571,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/c04fafafbe15aa100d2d7fa56139521121567efe/analysis/index.Rmd" target="_blank">c04fafa</a>
+<a href="https://github.com/DongyueXie/SMF/blob/c04fafafbe15aa100d2d7fa56139521121567efe/analysis/index.Rmd" target="_blank">c04fafa</a>
 </td>
 <td>
 Dongyue Xie
@@ -1507,58 +1588,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/3e29775d4d79029f1a05b6bf206758383921d50b/docs/index.html" target="_blank">3e29775</a>
-</td>
-<td>
-Dongyue Xie
-</td>
-<td>
-2019-11-05
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/DongyueXie/FMF/blob/1c5ae8ae70845330c9410ff8f4d2f64cbfb398ff/analysis/index.Rmd" target="_blank">1c5ae8a</a>
-</td>
-<td>
-Dongyue Xie
-</td>
-<td>
-2019-11-05
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/901c1aca552da594e005200340f970a1a396cc31/docs/index.html" target="_blank">901c1ac</a>
-</td>
-<td>
-Dongyue Xie
-</td>
-<td>
-2019-11-05
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/ae7c5a29c1286e7eb1f68169a261da7ff411c796/docs/index.html" target="_blank">ae7c5a2</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/3e29775d4d79029f1a05b6bf206758383921d50b/docs/index.html" target="_blank">3e29775</a>
 </td>
 <td>
 Dongyue Xie
@@ -1575,7 +1605,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/780cf65d55aace1f4f1cecbc25d86fdd9daec5ea/analysis/index.Rmd" target="_blank">780cf65</a>
+<a href="https://github.com/DongyueXie/SMF/blob/1c5ae8ae70845330c9410ff8f4d2f64cbfb398ff/analysis/index.Rmd" target="_blank">1c5ae8a</a>
 </td>
 <td>
 Dongyue Xie
@@ -1592,7 +1622,58 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/40293b8b92c9a00355035d704b22f4b5c20c36cb/docs/index.html" target="_blank">40293b8</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/901c1aca552da594e005200340f970a1a396cc31/docs/index.html" target="_blank">901c1ac</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/ae7c5a29c1286e7eb1f68169a261da7ff411c796/docs/index.html" target="_blank">ae7c5a2</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/780cf65d55aace1f4f1cecbc25d86fdd9daec5ea/analysis/index.Rmd" target="_blank">780cf65</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2019-11-05
+</td>
+<td>
+wflow_publish(“analysis/index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/40293b8b92c9a00355035d704b22f4b5c20c36cb/docs/index.html" target="_blank">40293b8</a>
 </td>
 <td>
 Dongyue Xie
@@ -1609,7 +1690,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/4069be39bb086535f51768b00c70a0e8caf1afd1/analysis/index.Rmd" target="_blank">4069be3</a>
+<a href="https://github.com/DongyueXie/SMF/blob/4069be39bb086535f51768b00c70a0e8caf1afd1/analysis/index.Rmd" target="_blank">4069be3</a>
 </td>
 <td>
 Dongyue Xie
@@ -1626,7 +1707,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/87c747429caf4d3314e4803263ab40edf3f9a15d/docs/index.html" target="_blank">87c7474</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/87c747429caf4d3314e4803263ab40edf3f9a15d/docs/index.html" target="_blank">87c7474</a>
 </td>
 <td>
 Dongyue Xie
@@ -1643,7 +1724,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/2c10833d79107df2a8be6f50b700085af48ca417/analysis/index.Rmd" target="_blank">2c10833</a>
+<a href="https://github.com/DongyueXie/SMF/blob/2c10833d79107df2a8be6f50b700085af48ca417/analysis/index.Rmd" target="_blank">2c10833</a>
 </td>
 <td>
 Dongyue Xie
@@ -1660,7 +1741,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/f1eea6f204f76d255ca9d87ba8d78c37695678f8/docs/index.html" target="_blank">f1eea6f</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/f1eea6f204f76d255ca9d87ba8d78c37695678f8/docs/index.html" target="_blank">f1eea6f</a>
 </td>
 <td>
 Dongyue Xie
@@ -1677,7 +1758,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/4ff9774139ebbc80674ffa95bb7e4d34a35c5645/analysis/index.Rmd" target="_blank">4ff9774</a>
+<a href="https://github.com/DongyueXie/SMF/blob/4ff9774139ebbc80674ffa95bb7e4d34a35c5645/analysis/index.Rmd" target="_blank">4ff9774</a>
 </td>
 <td>
 Dongyue Xie
@@ -1694,7 +1775,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/7a496a26eac5b4b7e46507561cfde71b76da5e3b/docs/index.html" target="_blank">7a496a2</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/7a496a26eac5b4b7e46507561cfde71b76da5e3b/docs/index.html" target="_blank">7a496a2</a>
 </td>
 <td>
 Dongyue Xie
@@ -1711,7 +1792,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/ae961622d012972eb7b902487c5fa1c23b8db3bb/analysis/index.Rmd" target="_blank">ae96162</a>
+<a href="https://github.com/DongyueXie/SMF/blob/ae961622d012972eb7b902487c5fa1c23b8db3bb/analysis/index.Rmd" target="_blank">ae96162</a>
 </td>
 <td>
 Dongyue Xie
@@ -1728,7 +1809,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/dded0dd4138676aaf4a22b332382c4c9e998972d/docs/index.html" target="_blank">dded0dd</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/dded0dd4138676aaf4a22b332382c4c9e998972d/docs/index.html" target="_blank">dded0dd</a>
 </td>
 <td>
 Dongyue Xie
@@ -1745,7 +1826,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/3a5daa6b693d4b10a75c2f49397a33077b6d6dae/analysis/index.Rmd" target="_blank">3a5daa6</a>
+<a href="https://github.com/DongyueXie/SMF/blob/3a5daa6b693d4b10a75c2f49397a33077b6d6dae/analysis/index.Rmd" target="_blank">3a5daa6</a>
 </td>
 <td>
 Dongyue Xie
@@ -1762,7 +1843,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/e68f5dceee2f7ebe2490de20d1fd607e820e5078/docs/index.html" target="_blank">e68f5dc</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/e68f5dceee2f7ebe2490de20d1fd607e820e5078/docs/index.html" target="_blank">e68f5dc</a>
 </td>
 <td>
 Dongyue Xie
@@ -1779,7 +1860,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/2da47b650317cc173536a1978d4cfba06221d956/analysis/index.Rmd" target="_blank">2da47b6</a>
+<a href="https://github.com/DongyueXie/SMF/blob/2da47b650317cc173536a1978d4cfba06221d956/analysis/index.Rmd" target="_blank">2da47b6</a>
 </td>
 <td>
 Dongyue Xie
@@ -1796,7 +1877,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/index.html" target="_blank">2180b49</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/2180b49e5480cc3784a4a1e5d55813988bc42f17/docs/index.html" target="_blank">2180b49</a>
 </td>
 <td>
 Dongyue Xie
@@ -1813,7 +1894,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/fd882a983191debb5eed33e89aa3121d51fdb37e/analysis/index.Rmd" target="_blank">fd882a9</a>
+<a href="https://github.com/DongyueXie/SMF/blob/fd882a983191debb5eed33e89aa3121d51fdb37e/analysis/index.Rmd" target="_blank">fd882a9</a>
 </td>
 <td>
 Dongyue Xie
@@ -1830,7 +1911,7 @@ rename
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/3e3c1f63ced2f32bd36846cd7ae9281b31c483aa/docs/index.html" target="_blank">3e3c1f6</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/3e3c1f63ced2f32bd36846cd7ae9281b31c483aa/docs/index.html" target="_blank">3e3c1f6</a>
 </td>
 <td>
 Dongyue Xie
@@ -1847,7 +1928,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/ec8ee9076f096c4de0249a6c38073b3a19fc5049/analysis/index.Rmd" target="_blank">ec8ee90</a>
+<a href="https://github.com/DongyueXie/SMF/blob/ec8ee9076f096c4de0249a6c38073b3a19fc5049/analysis/index.Rmd" target="_blank">ec8ee90</a>
 </td>
 <td>
 Dongyue Xie
@@ -1864,7 +1945,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/c9777aedc6f93fae0efe5c97cafdf883117e4833/docs/index.html" target="_blank">c9777ae</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/c9777aedc6f93fae0efe5c97cafdf883117e4833/docs/index.html" target="_blank">c9777ae</a>
 </td>
 <td>
 Dongyue Xie
@@ -1881,7 +1962,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/18910605de8a20520c9402a034592ef22fb8ceb3/analysis/index.Rmd" target="_blank">1891060</a>
+<a href="https://github.com/DongyueXie/SMF/blob/18910605de8a20520c9402a034592ef22fb8ceb3/analysis/index.Rmd" target="_blank">1891060</a>
 </td>
 <td>
 Dongyue Xie
@@ -1898,7 +1979,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/f35c4780627d09902fc9180782cf3d17141dead5/docs/index.html" target="_blank">f35c478</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/f35c4780627d09902fc9180782cf3d17141dead5/docs/index.html" target="_blank">f35c478</a>
 </td>
 <td>
 Dongyue Xie
@@ -1915,7 +1996,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/4a6ce4279007b3529450565abfd200d0b7d76164/analysis/index.Rmd" target="_blank">4a6ce42</a>
+<a href="https://github.com/DongyueXie/SMF/blob/4a6ce4279007b3529450565abfd200d0b7d76164/analysis/index.Rmd" target="_blank">4a6ce42</a>
 </td>
 <td>
 Dongyue Xie
@@ -1932,7 +2013,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/aa75dc0f10a3d247cbf3a92e8a6b82fade28c193/docs/index.html" target="_blank">aa75dc0</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/aa75dc0f10a3d247cbf3a92e8a6b82fade28c193/docs/index.html" target="_blank">aa75dc0</a>
 </td>
 <td>
 Dongyue Xie
@@ -1949,7 +2030,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/4b5e7350268ef9e826f8fd651a6d654e376dd8d3/analysis/index.Rmd" target="_blank">4b5e735</a>
+<a href="https://github.com/DongyueXie/SMF/blob/4b5e7350268ef9e826f8fd651a6d654e376dd8d3/analysis/index.Rmd" target="_blank">4b5e735</a>
 </td>
 <td>
 Dongyue Xie
@@ -1966,7 +2047,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/05189b8f4046bec69e2d5c4db58f4a84a70ac525/docs/index.html" target="_blank">05189b8</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/05189b8f4046bec69e2d5c4db58f4a84a70ac525/docs/index.html" target="_blank">05189b8</a>
 </td>
 <td>
 Dongyue Xie
@@ -1983,7 +2064,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/9e01a5d0da38473595dee6949359b6424cf8eb94/analysis/index.Rmd" target="_blank">9e01a5d</a>
+<a href="https://github.com/DongyueXie/SMF/blob/9e01a5d0da38473595dee6949359b6424cf8eb94/analysis/index.Rmd" target="_blank">9e01a5d</a>
 </td>
 <td>
 Dongyue Xie
@@ -2000,7 +2081,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/dcad29985d62e562936bad5fda30be1e14c119e2/docs/index.html" target="_blank">dcad299</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/dcad29985d62e562936bad5fda30be1e14c119e2/docs/index.html" target="_blank">dcad299</a>
 </td>
 <td>
 Dongyue Xie
@@ -2017,7 +2098,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/efdc25ae3a7e0e382cd51a64e415b8b6d3143387/analysis/index.Rmd" target="_blank">efdc25a</a>
+<a href="https://github.com/DongyueXie/SMF/blob/efdc25ae3a7e0e382cd51a64e415b8b6d3143387/analysis/index.Rmd" target="_blank">efdc25a</a>
 </td>
 <td>
 Dongyue Xie
@@ -2034,7 +2115,7 @@ Publish the initial files for myproject
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/DongyueXie/FMF/456d9b00d00c001260f953f3492cd08541f2880b/docs/index.html" target="_blank">456d9b0</a>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/456d9b00d00c001260f953f3492cd08541f2880b/docs/index.html" target="_blank">456d9b0</a>
 </td>
 <td>
 Dongyue Xie
@@ -2051,7 +2132,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/DongyueXie/FMF/blob/319f369d03373317ae45a6e92c4cf068833de6dd/analysis/index.Rmd" target="_blank">319f369</a>
+<a href="https://github.com/DongyueXie/SMF/blob/319f369d03373317ae45a6e92c4cf068833de6dd/analysis/index.Rmd" target="_blank">319f369</a>
 </td>
 <td>
 Dongyue Xie
@@ -2090,6 +2171,7 @@ Start workflowr project.
 <li><a href="stmGTEx.html">Apply stm to gene splicing</a>: 1. looked at 3 genes and compared 6 methods. 2. large reads at the beginning/ending of exons may due to splitting reads.</li>
 <li><a href="lowgene.html">5 low expressed genes with 3 topics and structure plot</a>: compare NMF and stm-smashgen.</li>
 <li><a href="lowgene2.html">The other 16 genes with 3 topics and structure plot</a></li>
+<li><a href="fixFupdateL_fastTopics.html">Fix F, update L using fastTopics</a></li>
 </ol>
 </div>
 <div id="integration-analysis-on-rna-histone-mark-and-atac-seq-data" class="section level3">
@@ -2142,8 +2224,12 @@ Start workflowr project.
 <h2>Dynamics</h2>
 <ol style="list-style-type: decimal">
 <li><a href="ngar.html">normal-gamma autoregressive (NGAR) process</a></li>
-<li><a href="dss.Rmd">Dynamic spike and slab(dss) process prior</a></li>
+<li><a href="dss.html">Dynamic spike and slab(dss) process prior</a></li>
 </ol>
+</div>
+<div id="wavelet" class="section level2">
+<h2>Wavelet</h2>
+<p>1.<a href="wdw.html">Fast calculate diag(<span class="math inline">\(WDW^T\)</span>)</a></p>
 </div>
 <div id="ref" class="section level2">
 <h2>Ref</h2>
@@ -2176,7 +2262,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -2184,23 +2270,6 @@ $(document).ready(function () {
 
 
 </script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
