@@ -1,0 +1,121 @@
+---
+title: "Fast calculation of WDW'"
+author: "DongyueXie"
+date: "2021-03-08"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+The benefit of using EB method in wavelet denoising is that when using Haar basis, we don't need to use the scaling function(the exact W), but just the original dfference operator. 
+
+First define the non-scaled DWT matrix
+
+```{r}
+W = rbind(rep(1,8),
+          c(rep(1,4),rep(-1,4)),
+          c(1,1,-1,-1,rep(0,4)),
+          c(rep(0,4),1,1,-1,-1),
+          c(1,-1,rep(0,6)),
+          c(0,0,1,-1,0,0,0,0),
+          c(0,0,0,0,1,-1,0,0),
+          c(rep(0,6),1,-1))
+tcrossprod(W)
+```
+
+```{r}
+n = 8
+d = 1:n
+```
+
+Exact calculation
+
+```{r}
+diag(W%*%diag(d)%*%t(W))
+```
+
+Apply DWT to $d$ and get the summation vector
+
+```{r}
+# @title Shift a vector one unit to the right.
+# @param x A vector.
+# @return A vector of the same length as that of x.
+rshift = function (x) {
+  L = length(x)
+  return(c(x[L],x[-L]))
+}
+
+# @title Shift a vector one unit to the left.
+# @param x A vector.
+# @return A vector of the same length as that of x.
+lshift = function (x)
+  c(x[-1],x[1])
+
+# @description Produces two TI tables. One table contains the
+#   difference between adjacent pairs of data in the same resolution,
+#   and the other table contains the sum.
+# @param sig a signal of length a power of 2
+titable = function (sig) {
+  n = length(sig)
+  J = log2(n)
+  
+  dmat = matrix(0, nrow = J + 1, ncol = n)
+  ddmat = matrix(0, nrow = J + 1, ncol = n)
+  dmat[1, ] = sig
+  ddmat[1, ] = sig
+  
+  for (D in 0:(J - 1)) {
+    nD = 2^(J - D)
+    nDo2 = nD/2
+    twonD = 2 * nD
+    for (l in 0:(2^D - 1)) {
+      ind = (l * nD + 1):((l + 1) * nD)
+      x = dmat[D + 1, ind]
+      lsumx = x[seq(from = 1, to = nD - 1, by = 2)] +
+              x[seq(from = 2, to = nD, by = 2)]
+      ldiffx = x[seq(from = 1, to = nD - 1, by = 2)] -
+               x[seq(from = 2, to = nD, by = 2)]
+      rx = rshift(x)
+      rsumx = rx[seq(from = 1, to = nD - 1, by = 2)] +
+              rx[seq(from = 2, to = nD, by = 2)]
+      rdiffx = rx[seq(from = 1, to = nD - 1, by = 2)] -
+               rx[seq(from = 2, to = nD, by = 2)]
+      dmat[D + 2, ind] = c(lsumx, rsumx)
+      ddmat[D + 2, ind] = c(ldiffx, rdiffx)
+    }
+  }
+  return(list(sumtable = dmat, difftable = ddmat))
+}
+titable(d)$sumtable
+```
+
+
+
+But this does not hold if using the exact W:
+
+
+```{r}
+library(wavethresh)
+```
+
+```{r}
+n = 8 
+d = 1:n
+W = t(GenW(n,filter.number=1,family = 'DaubExPhase'))
+```
+
+Exact calculation
+
+```{r}
+diag(W%*%diag(d)%*%t(W))
+```
+
+Apply DWT to $d$ and get the summation vector
+
+```{r}
+fit = wd(d,filter.number=1,family = 'DaubExPhase')
+fit$C
+```
+
