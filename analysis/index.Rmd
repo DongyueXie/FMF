@@ -26,6 +26,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 9. [Apply stm to gene splicing](stmGTEx.html): 1. looked at 3 genes and compared 6 methods. 2. large reads at the beginning/ending of exons may due to splitting reads.
 10. [5 low expressed genes with 3 topics and structure plot](lowgene.html): compare NMF and stm-smashgen.
 11. [The other 16 genes with 3 topics and structure plot](lowgene2.html)
+12. [Fix F, update L using fastTopics](fixFupdateL_fastTopics.html)
 
 ### Integration analysis on RNA, histone mark and ATAC seq data
 
@@ -68,7 +69,11 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 ## Dynamics
 
 1. [normal-gamma autoregressive (NGAR) process](ngar.html)
-2. [Dynamic spike and slab(dss) process prior](dss.Rmd)
+2. [Dynamic spike and slab(dss) process prior](dss.html)
+
+## Wavelet
+
+1.[Fast calculate diag($WDW^T$)](wdw.html)
 
 ## Ref
 
