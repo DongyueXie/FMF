@@ -17,7 +17,7 @@ I found that `fastTopics` has the option to fix factors and now let's try this f
 ```{r}
 library(fastTopics)
 K = 3
-n = 99
+n = 100
 p = 512
 
 FF = matrix(0, nrow=p, ncol=K)
@@ -27,17 +27,79 @@ FF[(p/8*1):(p/8*2),1] = f1
 FF[(p/8*3):(p/8*4),2] = f2
 FF[(p/8*5):(p/8*7),3] = f1
 
-l0 = 0.1
-l1 = 1
-L = cbind(c(rep(l1,n/3),rep(l0,n/3*2)),
-          c(rep(l0,n/3),rep(l1,n/3),rep(l0,n/3)),
-          c(rep(l0,n/3*2),rep(l1,n/3)))
+# l0 = 0.1
+# l1 = 1
+# L = cbind(c(rep(l1,n/3),rep(l0,n/3*2)),
+#           c(rep(l0,n/3),rep(l1,n/3),rep(l0,n/3)),
+#           c(rep(l0,n/3*2),rep(l1,n/3)))
+
+L = matrix(rexp(n*K,1),nrow=n,ncol=K)
 
 set.seed(12345)
 y = matrix(rpois(n*p,tcrossprod(L,FF)),nrow=n)
 ```
 
 
+```{r}
+fit_init = init_poisson_nmf(y,F = FF,init.method = 'random')
+out = fit_poisson_nmf(y,fit0=fit_init,update.factors = NULL)
+```
+
+Check if $F$ stays the same.
+
+```{r}
+plot(out$F[,1])
+plot(out$F[,2])
+plot(out$F[,3])
+```
 
 
+Check the fitted $L$
+
+```{r}
+plot(L[,1],out$L[,1])
+plot(L[,2],out$L[,2])
+plot(L[,3],out$L[,3])
+```
+
+Check normalized $L$:
+
+```{r}
+out2 = poisson2multinom(out)
+L_normalized = t(apply(L,1,function(z){z/sum(z)}))
+plot(L_normalized[,1],out2$L[,1])
+abline(a=0,b=1)
+plot(L_normalized[,2],out2$L[,2])
+abline(a=0,b=1)
+plot(L_normalized[,3],out2$L[,3])
+abline(a=0,b=1)
+```
+
+## Summary
+
+Suppose we have a known factor matrix $F\in R_+^{p\times K}$ where $K$ is the number of topics.
+
+Then run the following to get the estiamted $L$.
+
+
+
+```{r,eval=FALSE}
+# FF: the known factor is FF, p by K
+# y: y is the data matrix, n by p
+fit_init = init_poisson_nmf(y,F = FF,init.method = 'random')
+out = fit_poisson_nmf(y,fit0=fit_init,update.factors = NULL)
+```
+
+To get $L$, look at 
+
+```{r,eval=FALSE}
+out$L
+```
+
+To get normalized $L$ (Poisson to Multinomial vector, so that rows are sum to 1)
+
+```{r,eval=FALSE}
+out2 = poisson2multinom(out)
+out2$L
+```
 
