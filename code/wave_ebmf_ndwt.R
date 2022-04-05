@@ -6,13 +6,12 @@
 ##########################################
 
 
-## to do:
-
-# 1. add other wavelet basis
-# 2. add NDWT option
 
 library(wavethresh)
-devtools::load_all('~/Documents/Rpackages/flashr')
+library(ebnm)
+library(flashr)
+library(softImpute)
+#devtools::load_all('~/Documents/Rpackages/flashr')
 #'@param est_var 'mad': use mad estimator on the wavelet coefficients. 'va': update within variational approx
 #'@param nlevel.prior number of levels that are assumed prior. If NULL, all levels
 #'@param sum.prior whether put prior on the summation term, after DWT
@@ -44,7 +43,8 @@ wave_ebmf = function(Y,Kmax=100,tol=0.01,
   p = ncol(Y)
   nlevel = log2(p)
 
-  # rows are wavelet coefficients. finest level comes first.
+  # rows are wavelet coefficients. finest level comes first, the summation term is not included.
+
   Yw = get_dwt_wc(Y,filter.number,family,type)
   pw = ncol(Yw)
   # energy is the scaled summation of each row of Y
@@ -97,6 +97,10 @@ wave_ebmf = function(Y,Kmax=100,tol=0.01,
 
 
   out
+}
+
+is_tiny_fl = function (f, k, tol = 1e-08) {
+  return(sum(f$EL[, k]^2) * sum(f$EF[, k]^2) < tol)
 }
 
 #'@description get the NDWT wavelet coefficients
@@ -269,10 +273,117 @@ update_res = function(res,k,El,El2,Ef,Ef2,
   res
 }
 
+
+# @title udv_si
+#
+# @description Provides a simple wrapper to \code{softImpute} to
+#   provide a rank 1 initialization. Uses \code{type = "als"} option.
+#
+# @param Y An n by p matrix.
+#
+# @param K Number of factors to use.
+#
+# @return A list with components (u,d,v).
+#
+#' @importFrom softImpute softImpute
+#'
+udv_si = function(Y, K = 1) {
+  suppressWarnings(
+    res <- softImpute(Y, rank.max = K, type = "als", lambda = 0)
+  )
+  return(res)
+}
+
+
+# @title udv_si_svd
+#
+# @description provides a simple wrapper to \code{softImpute} to
+#   provide a rank 1 initialization. Uses \code{type = "svd"} option.
+#
+# @inherit udv_si
+#
+#' @importFrom softImpute softImpute
+#'
+udv_si_svd = function(Y, K = 1) {
+  suppressWarnings(
+    res <- softImpute(Y, rank.max = K, type = "svd", lambda = 0)
+  )
+  return(res)
+}
+
+
+# @title udv_svd
+#
+# @description Provides a simple wrapper to svd.
+#
+# @inherit udv_si
+#
+udv_svd = function (Y, K = 1) {
+  svd(Y, K, K)
+}
+
+
+# @title udv_random
+#
+# @description Provides a random initialization of factors.
+#
+# @inherit udv_si
+#
+# @return A list with components (u,d,v), with elements of u and v
+#   i.i.d. N(0,1).
+#
+#' @importFrom stats rnorm
+#'
+udv_random = function (Y, K = 1) {
+  n = nrow(Y)
+  p = ncol(Y)
+  return(list(u = matrix(rnorm(n * K), ncol = K),
+              d = 1,
+              v = matrix(rnorm(p * K), ncol = K)))
+}
+
+
 init_fl = function(Y,init_fn){
-  out = do.call(init_fn,list(Y,1))
+  if(init_fn=='udv_si'){
+    out = udv_si(Y,1)
+  }
+  if(init_fn=='udv_si_svd'){
+    out = udv_si_svd(Y,1)
+  }
+  if(init_fn=='udv_svd'){
+    out = udv_svd(Y,1)
+  }
+  if(init_fn=='udv_random'){
+    out = udv_random(Y,1)
+  }
+
+  #out = do.call(init_fn,list(Y,1))
   out
 }
+
+# @title Expected log likelihood for normal means model.
+#
+# @description The likelihood is for x | theta ~ N(theta, s^2);
+#   The expectation is taken over the posterior on theta.
+#
+# @param x Observations in normal means.
+#
+# @param s Standard errors of x.
+#
+# @param Et Posterior mean of theta.
+#
+# @param Et2 Posterior second moment of theta.
+#
+NM_posterior_e_loglik = function(x, s, Et, Et2) {
+  # Deal with infinite SEs:
+  idx = is.finite(s)
+  x = x[idx]
+  s = s[idx]
+  Et = Et[idx]
+  Et2 = Et2[idx]
+  return(-0.5 * sum(log(2*pi*s^2) + (1/s^2) * (Et2 - 2*x*Et + x^2)))
+}
+
 
 #'@description  fit a rank 1 wave-ebmf model
 #'@param Y data matrix
@@ -411,11 +522,149 @@ get_wave_index = function(t,nt,type){
     stop('wavelet levels are from 0 to (#levels-1)')
   }
 
-
-
-
-
 }
+
+
+
+# Provides functions to solve the Empirical Bayes Normal Means problem.
+# Each function must take arguments x, s, ebnm_param, and output, and
+# must return a list with elements postmean, postmean2, fitted_g,
+# and penloglik.
+#
+# If sampling from the posterior is desired, then the function must also
+# be able to return a sampling function when output = "post_sampler".
+# This sampling function should take a single argument nsamp and return
+# a matrix with nsamp rows and length(x) columns. (In other words, the
+# (i,j)-entry of the matrix should correspond to the ith sample from the
+# posterior for the jth element in the vector of observations.)
+
+
+# @title EBNM using ash
+#
+# @description A wrapper to the ash function for flash.
+#
+# @param x A vector of observations.
+#
+# @param s A vector of standard errors.
+#
+# @param ash_param A list of parameters to be passed into ash.
+#
+# @param output If output = "post_sampler", then the return value is a
+#   function that samples from the posterior.
+#
+#' @importFrom ashr ash
+#'
+ebnm_ash = function(x, s, ash_param, output = NULL) {
+  if (identical(output, "post_sampler")) {
+    ash_param$output = "post_sampler"
+  } else {
+    ash_param$output = "flash_data"
+  }
+
+  a = do.call(ash,
+              c(list(betahat = as.vector(x), sebetahat = as.vector(s)),
+                ash_param))
+
+  if (identical(output, "post_sampler")) {
+    out = a$post_sampler
+  } else if (is.null(a$flash_data$postmean)) {
+    stop(paste("ashr is not outputting flashr data in the right format.",
+               "Maybe ashr needs updating to latest version?"))
+  } else {
+    out = a$flash_data
+  }
+  return(out)
+}
+
+
+# @title EBNM using point-normal prior, from ebnm package
+#
+# @description A wrapper to the function
+#   \code{\link[ebnm]{ebnm_point_normal}}.
+#
+# @inheritParams ebnm_ash
+#
+# @param ebnm_param A list of parameters to be passed to
+#   \code{ebnm_point_normal}.
+#
+# Do not include an @importFrom field here until ebnm is on CRAN.
+#
+ebnm_pn = function(x, s, ebnm_param, output = NULL) {
+  if (identical(output, "post_sampler")) {
+    ebnm_param$output = "posterior_sampler"
+  } else {
+    ebnm_param$output = c("posterior_mean", "posterior_second_moment",
+                          "fitted_g", "log_likelihood")
+  }
+
+  if (!is.null(ebnm_param$g)) {
+    ebnm_param$g_init = ebnm_param$g
+    ebnm_param$g = NULL
+  }
+  if (!is.null(ebnm_param$fixg)) {
+    ebnm_param$fix_g = ebnm_param$fixg
+    ebnm_param$fixg = NULL
+  }
+
+  res = do.call(ebnm::ebnm_point_normal,
+                c(list(x = as.vector(x), s = as.vector(s)),
+                  ebnm_param))
+
+  if (identical(output, "post_sampler")) {
+    out = res$posterior_sampler
+  } else {
+    out = list(postmean = res$posterior$mean,
+               postmean2 = res$posterior$second_moment,
+               fitted_g = res$fitted_g,
+               penloglik = res$log_likelihood)
+  }
+
+  return(out)
+}
+
+
+# @title EBNM using point-laplace prior, from ebnm package
+#
+# @description A wrapper to the function
+# \code{\link[ebnm]{ebnm_point_laplace}}.
+#
+# @inheritParams ebnm_pn
+#
+# @param ebnm_param A list of parameters to be passed to the function
+#   \code{ebnm_point_laplace}.
+#
+# @param output Sampling from the posterior has not yet been implemented
+#   for point-laplace priors.
+#
+# Do not include an @importFrom field here until ebnm is on CRAN.
+#
+ebnm_pl = function(x, s, ebnm_param, output = NULL) {
+  if (identical(output, "post_sampler")) {
+    ebnm_param$output = "posterior_sampler"
+  } else {
+    ebnm_param$output = c("posterior_mean", "posterior_second_moment",
+                          "fitted_g", "log_likelihood")
+  }
+
+  if (!is.null(ebnm_param$g)) {
+    ebnm_param$g_init = ebnm_param$g
+    ebnm_param$g = NULL
+  }
+  if (!is.null(ebnm_param$fixg)) {
+    ebnm_param$fix_g = ebnm_param$fixg
+    ebnm_param$fixg = NULL
+  }
+
+  res = do.call(ebnm::ebnm_point_laplace,
+                c(list(x = as.vector(x), s = as.vector(s)),
+                  ebnm_param))
+
+  return(list(postmean = res$posterior$mean,
+              postmean2 = res$posterior$second_moment,
+              fitted_g = res$fitted_g,
+              penloglik = res$log_likelihood))
+}
+
 
 
 
