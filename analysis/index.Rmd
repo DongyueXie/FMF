@@ -27,6 +27,8 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 10. [5 low expressed genes with 3 topics and structure plot](lowgene.html): compare NMF and stm-smashgen.
 11. [The other 16 genes with 3 topics and structure plot](lowgene2.html)
 12. [Fix F, update L using fastTopics](fixFupdateL_fastTopics.html)
+13. [log transformed counts](log_transform_counts.html)
+14. [a new likelihood expansionn](new_poisson_matrix_lik_expansion.html)
 
 ### Integration analysis on RNA, histone mark and ATAC seq data
 
@@ -65,7 +67,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 8. [Outlier in wavelet smoothing](outlierWavelet.html)
 9. [Robust smashgen](outlierSmashgen.html)
 10. [Biwhitening](biwhitening.html)
-
+11. [try MoMA](moma.html)
 
 ## Dynamics
 
