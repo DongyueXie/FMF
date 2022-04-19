@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Dongyue Xie" />
+
+<meta name="date" content="2022-04-16" />
+
+<title>Try MoMA package</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SMF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/DongyueXie/SMF">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Try MoMA package</h1>
+<h4 class="author">Dongyue Xie</h4>
+<h4 class="date">2022-04-16</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-04-18
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190719code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190719)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190719code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190719)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree8a2a4d467d5405f9a1ac40478ba44998220f9e80targetblank8a2a4d4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/8a2a4d467d5405f9a1ac40478ba44998220f9e80" target="_blank">8a2a4d4</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree8a2a4d467d5405f9a1ac40478ba44998220f9e80targetblank8a2a4d4a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/8a2a4d467d5405f9a1ac40478ba44998220f9e80" target="_blank">8a2a4d4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/external_data/
+    Ignored:    output/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/sparse_smoothing.Rmd
+    Untracked:  data/luis/
+    Untracked:  output/flash_on_cmc2_reduced.rds
+    Untracked:  output/flash_on_cmc2_reduced_2000kb.rds
+    Untracked:  output/luis/
+    Untracked:  output/wave_flash_on_cmc2_reduced_2000kb.rds
+
+Unstaged changes:
+    Modified:   analysis/luis_data.Rmd
+    Modified:   analysis/smooth_flash.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/moma.Rmd</code>) and HTML (<code>docs/moma.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/8a2a4d467d5405f9a1ac40478ba44998220f9e80/analysis/moma.Rmd" target="_blank">8a2a4d4</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-04-18
+</td>
+<td>
+wflow_publish("analysis/moma.Rmd")
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<pre class="r"><code>library(MoMA)</code></pre>
+<p>Generate some data</p>
+<pre class="r"><code>get.X &lt;- function(n=50,p=200,snr=1) {
+    #n &lt;- 50
+    #p &lt;- 200
+    K &lt;- 3
+    #snr &lt;- 1
+
+    ## Step 1: sample U, an orthogonal matrix
+    rand_semdef_sym_mat &lt;- crossprod(matrix(runif(n * n), n, n))
+    rand_ortho_mat &lt;- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+    u_1 &lt;- rand_ortho_mat[, 1]
+    u_2 &lt;- rand_ortho_mat[, 2]
+    u_3 &lt;- rand_ortho_mat[, 3]
+
+    ## Step 2: generate V, the signal
+    set_zero_n_scale &lt;- function(x, index_set) {
+        x[index_set] &lt;- 0
+        x &lt;- x / sqrt(sum(x^2))
+        x
+    }
+
+    b_1 &lt;- 7 / 20 * p
+    b_2 &lt;- 13 / 20 * p
+
+    x &lt;- as.vector(seq(p))
+
+    # Sinusoidal signal
+    v_1 &lt;- sin((x + 15) * pi / 17)
+    v_1 &lt;- set_zero_n_scale(v_1, b_1:p)
+
+    # Gaussian-modulated sinusoidal signal
+    v_2 &lt;- exp(-(x - 100)^2 / 650) * sin((x - 100) * 2 * pi / 21)
+    v_2 &lt;- set_zero_n_scale(v_2, c(1:b_1, b_2:p))
+
+    # Sinusoidal signal
+    v_3 &lt;- sin((x - 40) * pi / 30)
+    v_3 &lt;- set_zero_n_scale(v_3, 1:b_2)
+
+    ## Step 3, the noise
+    eps &lt;- matrix(rnorm(n * p), n, p)
+
+    ## Step 4, put the pieces together
+    X &lt;- n / 3 * u_1 %*% t(v_1) +
+        n / 5 * u_2 %*% t(v_2) +
+        n / 6 * u_3 %*% t(v_3) +
+        eps
+
+    # Print the noise-to-signal ratio
+    cat(paste(&quot;norm(X) / norm(noise) = &quot;, norm(X) / norm(eps)))
+
+    # Plot the signals
+    yrange &lt;- max(c(v_1, v_2, v_3))
+    plot(v_1,
+        type = &quot;l&quot;,
+        ylim = c(-yrange, yrange),
+        ylab = &quot;v&quot;, xlab = &quot;i&quot;,
+        main = &quot;Plot of Signals&quot;
+    )
+    lines(v_2, col = &quot;blue&quot;)
+    lines(v_3, col = &quot;red&quot;)
+    legend(0, 0.25,
+        legend = expression(v[1], v[2], v[3]),
+        lty = 1,
+        col = c(&quot;black&quot;, &quot;blue&quot;, &quot;red&quot;),
+        cex = 0.6
+    )
+
+    return(list(X=X,L = cbind(u_1,u_2,u_3),FF=cbind(v_1,v_2,v_3)))
+}</code></pre>
+<pre class="r"><code>set.seed(12345)
+Y = get.X(n=100)</code></pre>
+<pre><code>norm(X) / norm(noise) =  1.11002809535406</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>X = Y$X</code></pre>
+<pre class="r"><code>Omega_v &lt;- second_diff_mat(200)
+res &lt;- moma_sfpca(X,
+    center = FALSE,
+    v_sparse = moma_lasso(lambda = 1),
+    v_smooth = moma_smoothness(Omega_v, alpha = 2)
+)</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 1]</code></pre>
+<pre class="r"><code>v_moma &lt;- res$get_mat_by_index()$V
+v_svd &lt;- svd(X)$v[, 1]
+
+par(mfrow = c(1, 2))
+plot(v_moma,
+    type = &quot;l&quot;,
+    ylab = expression(v[MoMA]),
+    main = expression(paste(lambda[v] == 1, &quot;, &quot;, alpha[v] == 2))
+)
+plot(v_svd,
+    type = &quot;l&quot;,
+    ylab = expression(v[SVD]),
+    main = expression(paste(lambda[v] == 0, &quot;, &quot;, alpha[v] == 0))
+)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>res &lt;- moma_sfpca(X,
+    center = FALSE,
+    v_sparse = moma_lasso(lambda = seq(0, 3, length.out = 9)),
+    v_smooth = moma_smoothness(Omega_v, alpha = 2),
+    rank = 1
+)</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 0]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 0.375]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 0.75]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 1.125]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 1.5]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 1.875]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 2.25]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 2.625]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 3]</code></pre>
+<pre class="r"><code>par(mfrow = c(3, 3))
+for (i in 1:9) {
+    res_i &lt;- res$get_mat_by_index(lambda_v = i)
+    plot(res_i$V,
+        main = bquote(lambda[v] == .(res_i$chosen_lambda_v)),
+        ylab = &quot;v&quot;,
+        type = &quot;l&quot;
+    )
+}</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Nested BIC</p>
+<pre class="r"><code>res &lt;- moma_sfpca(
+    X,
+    center = FALSE,
+    v_sparse = moma_lasso(
+        lambda = seq(0, 3, length.out = 40),
+        select_scheme = &quot;b&quot;
+    ),
+    v_smooth = moma_smoothness(Omega_v, alpha = 2)
+)$get_mat_by_index()</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2, 0, 0, 2.92308]</code></pre>
+<pre class="r"><code>par(mfrow=c(1,1))
+plot(res$V,
+    ylab = &quot;v&quot;,
+    type = &quot;l&quot;,
+    main = bquote(lambda[v] == .(res$chosen_lambda_v))
+)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="rank-3" class="section level3">
+<h3>rank 3</h3>
+<p>BIC</p>
+<pre class="r"><code>res &lt;- moma_sfpca(
+    X,
+    center = FALSE,
+    v_sparse = moma_lasso(
+        lambda = seq(0, 3, length.out = 40),
+        select_scheme = &quot;b&quot;
+    ),
+    v_smooth = moma_smoothness(Omega_v, 
+                               alpha = seq(0, 3, length.out = 40),
+                               select_scheme = &quot;b&quot;),
+    rank = 3,
+    deflation_scheme = &quot;PCA_Schur_Complement&quot;
+)</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 2.84615]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 3]</code></pre>
+<pre class="r"><code>plot(res$get_mat_by_index()$V[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(res$get_mat_by_index()$V[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(res$get_mat_by_index()$V[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>grid search.</p>
+<pre class="r"><code>res &lt;- moma_sfpca(
+    X,
+    center = FALSE,
+    v_sparse = moma_lasso(
+        lambda = seq(0, 3, length.out = 6)
+    ),
+    v_smooth = moma_smoothness(Omega_v, alpha = seq(0, 3, length.out = 6)),
+    rank = 3,
+    deflation_scheme = &quot;PCA_Schur_Complement&quot;
+)</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 0]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 0.6]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 1.2]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 1.8]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 2.4]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 3]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 0]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 0.6]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 1.2]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 1.8]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 2.4]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0.6, 0, 0, 3]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 0]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 0.6]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 1.2]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 1.8]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 2.4]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.2, 0, 0, 3]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 0]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 0.6]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 1.2]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 1.8]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 2.4]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [1.8, 0, 0, 3]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 0]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 0.6]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 1.2]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 1.8]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 2.4]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [2.4, 0, 0, 3]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 0]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 0]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 0.6]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 0.6]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 1.2]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 1.2]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 1.8]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 1.8]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 2.4]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 2.4]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 3]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [3, 0, 0, 3]</code></pre>
+<pre class="r"><code>plot(res$get_mat_by_index()$V[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(res$get_mat_by_index()$V[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(res$get_mat_by_index()$V[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-11-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Try flash</p>
+<pre class="r"><code>library(flashr)
+fit.flash = flash(X,var_type = &#39;constant&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -29000.34        Inf</code></pre>
+<pre><code>          2      -28996.37   3.97e+00</code></pre>
+<pre><code>          3      -28996.25   1.29e-01</code></pre>
+<pre><code>          4      -28996.24   1.06e-02</code></pre>
+<pre><code>          5      -28996.23   1.07e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 2.70e+02. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -28996.23</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -28988.95        Inf</code></pre>
+<pre><code>          2      -28979.71   9.23e+00</code></pre>
+<pre><code>          3      -28977.40   2.31e+00</code></pre>
+<pre><code>          4      -28976.56   8.45e-01</code></pre>
+<pre><code>          5      -28976.27   2.88e-01</code></pre>
+<pre><code>          6      -28976.16   1.05e-01</code></pre>
+<pre><code>          7      -28976.12   4.30e-02</code></pre>
+<pre><code>          8      -28976.10   1.93e-02</code></pre>
+<pre><code>          9      -28976.09   9.31e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 2.01e+01. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -28976.09</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -28998.96        Inf</code></pre>
+<pre><code>          2      -28990.99   7.97e+00</code></pre>
+<pre><code>          3      -28989.58   1.41e+00</code></pre>
+<pre><code>          4      -28988.72   8.66e-01</code></pre>
+<pre><code>          5      -28988.11   6.04e-01</code></pre>
+<pre><code>          6      -28987.71   4.03e-01</code></pre>
+<pre><code>          7      -28987.46   2.51e-01</code></pre>
+<pre><code>          8      -28987.31   1.50e-01</code></pre>
+<pre><code>          9      -28987.22   9.03e-02</code></pre>
+<pre><code>         10      -28987.16   5.81e-02</code></pre>
+<pre><code>         11      -28987.12   4.28e-02</code></pre>
+<pre><code>         12      -28987.08   3.77e-02</code></pre>
+<pre><code>         13      -28987.04   3.87e-02</code></pre>
+<pre><code>         14      -28987.00   4.33e-02</code></pre>
+<pre><code>         15      -28986.95   5.02e-02</code></pre>
+<pre><code>         16      -28986.89   5.84e-02</code></pre>
+<pre><code>         17      -28986.82   6.71e-02</code></pre>
+<pre><code>         18      -28986.75   7.54e-02</code></pre>
+<pre><code>         19      -28986.66   8.21e-02</code></pre>
+<pre><code>         20      -28986.58   8.62e-02</code></pre>
+<pre><code>         21      -28986.49   8.67e-02</code></pre>
+<pre><code>         22      -28986.41   8.36e-02</code></pre>
+<pre><code>         23      -28986.33   7.80e-02</code></pre>
+<pre><code>         24      -28986.26   7.13e-02</code></pre>
+<pre><code>         25      -28986.19   6.46e-02</code></pre>
+<pre><code>         26      -28986.14   5.84e-02</code></pre>
+<pre><code>         27      -28986.08   5.24e-02</code></pre>
+<pre><code>         28      -28986.04   4.63e-02</code></pre>
+<pre><code>         29      -28986.00   3.96e-02</code></pre>
+<pre><code>         30      -28985.96   3.28e-02</code></pre>
+<pre><code>         31      -28985.94   2.61e-02</code></pre>
+<pre><code>         32      -28985.92   2.02e-02</code></pre>
+<pre><code>         33      -28985.90   1.53e-02</code></pre>
+<pre><code>         34      -28985.89   1.13e-02</code></pre>
+<pre><code>         35      -28985.88   8.26e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 increases objective by 9.79e+00. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -28976.09</code></pre>
+<pre class="r"><code>plot(fit.flash$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#plot(fit.flash$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p>Try funflash</p>
+<pre class="r"><code>library(funflash)
+datax = funflash_set_data(X,reflect.data = F,
+                          type=&#39;wavelet&#39;,filter.number = 10,
+                          family=&quot;DaubLeAsymm&quot;)
+fit = funflash(datax,var.type = &#39;constant&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -36782.156&quot;
+[1] &quot;Iteration  2 : obj  -36772.364&quot;
+[1] &quot;Iteration  3 : obj  -36772.301&quot;
+[1] &quot;Iteration  4 : obj  -36772.299&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  611.009&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -36694.338&quot;
+[1] &quot;Iteration  2 : obj  -36671.119&quot;
+[1] &quot;Iteration  3 : obj  -36661.472&quot;
+[1] &quot;Iteration  4 : obj  -36659.42&quot;
+[1] &quot;Iteration  5 : obj  -36658.481&quot;
+[1] &quot;Iteration  6 : obj  -36657.742&quot;
+[1] &quot;Iteration  7 : obj  -36656.887&quot;
+[1] &quot;Iteration  8 : obj  -36656.112&quot;
+[1] &quot;Iteration  9 : obj  -36655.655&quot;
+[1] &quot;Iteration  10 : obj  -36655.35&quot;
+[1] &quot;Iteration  11 : obj  -36655.143&quot;
+[1] &quot;Iteration  12 : obj  -36655.004&quot;
+[1] &quot;Iteration  13 : obj  -36654.916&quot;
+[1] &quot;Iteration  14 : obj  -36654.863&quot;
+[1] &quot;Iteration  15 : obj  -36654.832&quot;
+[1] &quot;Iteration  16 : obj  -36654.815&quot;
+[1] &quot;Iteration  17 : obj  -36654.806&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  117.493&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -36599.03&quot;
+[1] &quot;Iteration  2 : obj  -36581.377&quot;
+[1] &quot;Iteration  3 : obj  -36574.177&quot;
+[1] &quot;Iteration  4 : obj  -36570.773&quot;
+[1] &quot;Iteration  5 : obj  -36566.943&quot;
+[1] &quot;Iteration  6 : obj  -36565.47&quot;
+[1] &quot;Iteration  7 : obj  -36565.122&quot;
+[1] &quot;Iteration  8 : obj  -36565.069&quot;
+[1] &quot;Iteration  9 : obj  -36565.068&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  89.738&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -36571.898&quot;
+[1] &quot;Iteration  2 : obj  -36561.885&quot;
+[1] &quot;Iteration  3 : obj  -36559.982&quot;
+[1] &quot;Iteration  4 : obj  -36559.15&quot;
+[1] &quot;Iteration  5 : obj  -36558.687&quot;
+[1] &quot;Iteration  6 : obj  -36558.379&quot;
+[1] &quot;Iteration  7 : obj  -36558.151&quot;
+[1] &quot;Iteration  8 : obj  -36557.973&quot;
+[1] &quot;Iteration  9 : obj  -36557.828&quot;
+[1] &quot;Iteration  10 : obj  -36557.709&quot;
+[1] &quot;Iteration  11 : obj  -36557.606&quot;
+[1] &quot;Iteration  12 : obj  -36557.513&quot;
+[1] &quot;Iteration  13 : obj  -36557.421&quot;
+[1] &quot;Iteration  14 : obj  -36557.324&quot;
+[1] &quot;Iteration  15 : obj  -36557.219&quot;
+[1] &quot;Iteration  16 : obj  -36557.104&quot;
+[1] &quot;Iteration  17 : obj  -36556.979&quot;
+[1] &quot;Iteration  18 : obj  -36556.846&quot;
+[1] &quot;Iteration  19 : obj  -36556.707&quot;
+[1] &quot;Iteration  20 : obj  -36556.562&quot;
+[1] &quot;Iteration  21 : obj  -36556.41&quot;
+[1] &quot;Iteration  22 : obj  -36556.245&quot;
+[1] &quot;Iteration  23 : obj  -36556.062&quot;
+[1] &quot;Iteration  24 : obj  -36555.848&quot;
+[1] &quot;Iteration  25 : obj  -36555.585&quot;
+[1] &quot;Iteration  26 : obj  -36555.251&quot;
+[1] &quot;Iteration  27 : obj  -36554.881&quot;
+[1] &quot;Iteration  28 : obj  -36554.583&quot;
+[1] &quot;Iteration  29 : obj  -36554.375&quot;
+[1] &quot;Iteration  30 : obj  -36554.21&quot;
+[1] &quot;Iteration  31 : obj  -36554.059&quot;
+[1] &quot;Iteration  32 : obj  -36553.915&quot;
+[1] &quot;Iteration  33 : obj  -36553.8&quot;
+[1] &quot;Iteration  34 : obj  -36553.705&quot;
+[1] &quot;Iteration  35 : obj  -36553.622&quot;
+[1] &quot;Iteration  36 : obj  -36553.546&quot;
+[1] &quot;Iteration  37 : obj  -36553.474&quot;
+[1] &quot;Iteration  38 : obj  -36553.403&quot;
+[1] &quot;Iteration  39 : obj  -36553.332&quot;
+[1] &quot;Iteration  40 : obj  -36553.256&quot;
+[1] &quot;Iteration  41 : obj  -36553.173&quot;
+[1] &quot;Iteration  42 : obj  -36553.076&quot;
+[1] &quot;Iteration  43 : obj  -36552.957&quot;
+[1] &quot;Iteration  44 : obj  -36552.801&quot;
+[1] &quot;Iteration  45 : obj  -36552.583&quot;
+[1] &quot;Iteration  46 : obj  -36552.305&quot;
+[1] &quot;Iteration  47 : obj  -36552.006&quot;
+[1] &quot;Iteration  48 : obj  -36551.659&quot;
+[1] &quot;Iteration  49 : obj  -36551.23&quot;
+[1] &quot;Iteration  50 : obj  -36550.671&quot;
+[1] &quot;Iteration  51 : obj  -36549.993&quot;
+[1] &quot;Iteration  52 : obj  -36549.282&quot;
+[1] &quot;Iteration  53 : obj  -36548.781&quot;
+[1] &quot;Iteration  54 : obj  -36548.542&quot;
+[1] &quot;Iteration  55 : obj  -36548.382&quot;
+[1] &quot;Iteration  56 : obj  -36548.261&quot;
+[1] &quot;Iteration  57 : obj  -36548.162&quot;
+[1] &quot;Iteration  58 : obj  -36548.075&quot;
+[1] &quot;Iteration  59 : obj  -36547.989&quot;
+[1] &quot;Iteration  60 : obj  -36547.892&quot;
+[1] &quot;Iteration  61 : obj  -36547.76&quot;
+[1] &quot;Iteration  62 : obj  -36547.557&quot;
+[1] &quot;Iteration  63 : obj  -36553.154&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  decreases objective by  11.914&quot;
+[1] &quot;Fitting dimension  5&quot;
+[1] &quot;Iteration  1 : obj  -36561.189&quot;
+[1] &quot;Iteration  2 : obj  -36551.135&quot;
+[1] &quot;Iteration  3 : obj  -36548.844&quot;
+[1] &quot;Iteration  4 : obj  -36547.444&quot;
+[1] &quot;Iteration  5 : obj  -36546.371&quot;
+[1] &quot;Iteration  6 : obj  -36545.469&quot;
+[1] &quot;Iteration  7 : obj  -36544.66&quot;
+[1] &quot;Iteration  8 : obj  -36543.914&quot;
+[1] &quot;Iteration  9 : obj  -36543.192&quot;
+[1] &quot;Iteration  10 : obj  -36542.476&quot;
+[1] &quot;Iteration  11 : obj  -36541.897&quot;
+[1] &quot;Iteration  12 : obj  -36541.456&quot;
+[1] &quot;Iteration  13 : obj  -36541.028&quot;
+[1] &quot;Iteration  14 : obj  -36540.483&quot;
+[1] &quot;Iteration  15 : obj  -36539.719&quot;
+[1] &quot;Iteration  16 : obj  -36538.874&quot;
+[1] &quot;Iteration  17 : obj  -36538.237&quot;
+[1] &quot;Iteration  18 : obj  -36537.829&quot;
+[1] &quot;Iteration  19 : obj  -36537.583&quot;
+[1] &quot;Iteration  20 : obj  -36537.455&quot;
+[1] &quot;Iteration  21 : obj  -36537.407&quot;
+[1] &quot;Iteration  22 : obj  -36537.386&quot;
+[1] &quot;Iteration  23 : obj  -36537.376&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  5  decreases objective by  15.764&quot;
+[1] &quot;Fitting dimension  6&quot;
+[1] &quot;Iteration  1 : obj  -36555.83&quot;
+[1] &quot;Iteration  2 : obj  -36546.617&quot;
+[1] &quot;Iteration  3 : obj  -36545.169&quot;
+[1] &quot;Iteration  4 : obj  -36543.693&quot;
+[1] &quot;Iteration  5 : obj  -36541.957&quot;
+[1] &quot;Iteration  6 : obj  -36541.069&quot;
+[1] &quot;Iteration  7 : obj  -36540.398&quot;
+[1] &quot;Iteration  8 : obj  -36539.768&quot;
+[1] &quot;Iteration  9 : obj  -36539.029&quot;
+[1] &quot;Iteration  10 : obj  -36538.015&quot;
+[1] &quot;Iteration  11 : obj  -36536.674&quot;
+[1] &quot;Iteration  12 : obj  -36535.364&quot;
+[1] &quot;Iteration  13 : obj  -36534.462&quot;
+[1] &quot;Iteration  14 : obj  -36533.887&quot;
+[1] &quot;Iteration  15 : obj  -36533.466&quot;
+[1] &quot;Iteration  16 : obj  -36533.11&quot;
+[1] &quot;Iteration  17 : obj  -36532.782&quot;
+[1] &quot;Iteration  18 : obj  -36532.474&quot;
+[1] &quot;Iteration  19 : obj  -36532.189&quot;
+[1] &quot;Iteration  20 : obj  -36531.919&quot;
+[1] &quot;Iteration  21 : obj  -36531.652&quot;
+[1] &quot;Iteration  22 : obj  -36531.398&quot;
+[1] &quot;Iteration  23 : obj  -36531.184&quot;
+[1] &quot;Iteration  24 : obj  -36531.02&quot;
+[1] &quot;Iteration  25 : obj  -36530.888&quot;
+[1] &quot;Iteration  26 : obj  -36530.77&quot;
+[1] &quot;Iteration  27 : obj  -36530.653&quot;
+[1] &quot;Iteration  28 : obj  -36530.572&quot;
+[1] &quot;Iteration  29 : obj  -36530.545&quot;
+[1] &quot;Iteration  30 : obj  -36530.53&quot;
+[1] &quot;Iteration  31 : obj  -36530.52&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  6  decreases objective by  6.856&quot;
+[1] &quot;Fitting dimension  7&quot;
+[1] &quot;Iteration  1 : obj  -36551.284&quot;
+[1] &quot;Iteration  2 : obj  -36540.887&quot;
+[1] &quot;Iteration  3 : obj  -36539.045&quot;
+[1] &quot;Iteration  4 : obj  -36538.041&quot;
+[1] &quot;Iteration  5 : obj  -36537.387&quot;
+[1] &quot;Iteration  6 : obj  -36536.901&quot;
+[1] &quot;Iteration  7 : obj  -36536.513&quot;
+[1] &quot;Iteration  8 : obj  -36536.183&quot;
+[1] &quot;Iteration  9 : obj  -36535.901&quot;
+[1] &quot;Iteration  10 : obj  -36535.667&quot;
+[1] &quot;Iteration  11 : obj  -36535.463&quot;
+[1] &quot;Iteration  12 : obj  -36535.271&quot;
+[1] &quot;Iteration  13 : obj  -36535.063&quot;
+[1] &quot;Iteration  14 : obj  -36534.758&quot;
+[1] &quot;Iteration  15 : obj  -36534.196&quot;
+[1] &quot;Iteration  16 : obj  -36533.311&quot;
+[1] &quot;Iteration  17 : obj  -36532.281&quot;
+[1] &quot;Iteration  18 : obj  -36531.466&quot;
+[1] &quot;Iteration  19 : obj  -36531.051&quot;
+[1] &quot;Iteration  20 : obj  -36530.857&quot;
+[1] &quot;Iteration  21 : obj  -36530.754&quot;
+[1] &quot;Iteration  22 : obj  -36530.689&quot;
+[1] &quot;Iteration  23 : obj  -36530.64&quot;
+[1] &quot;Iteration  24 : obj  -36530.596&quot;
+[1] &quot;Iteration  25 : obj  -36530.552&quot;
+[1] &quot;Iteration  26 : obj  -36530.502&quot;
+[1] &quot;Iteration  27 : obj  -36530.443&quot;
+[1] &quot;Iteration  28 : obj  -36530.366&quot;
+[1] &quot;Iteration  29 : obj  -36530.431&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  7  decreases objective by  0.089&quot;
+[1] &quot;Fitting dimension  8&quot;
+[1] &quot;Iteration  1 : obj  -36555.419&quot;
+[1] &quot;Iteration  2 : obj  -36544.1&quot;
+[1] &quot;Iteration  3 : obj  -36541.481&quot;
+[1] &quot;Iteration  4 : obj  -36539.907&quot;
+[1] &quot;Iteration  5 : obj  -36538.924&quot;
+[1] &quot;Iteration  6 : obj  -36538.113&quot;
+[1] &quot;Iteration  7 : obj  -36537.403&quot;
+[1] &quot;Iteration  8 : obj  -36536.816&quot;
+[1] &quot;Iteration  9 : obj  -36536.26&quot;
+[1] &quot;Iteration  10 : obj  -36535.608&quot;
+[1] &quot;Iteration  11 : obj  -36534.841&quot;
+[1] &quot;Iteration  12 : obj  -36532.196&quot;
+[1] &quot;Iteration  13 : obj  -36530.562&quot;
+[1] &quot;Iteration  14 : obj  -36529.037&quot;
+[1] &quot;Iteration  15 : obj  -36527.231&quot;
+[1] &quot;Iteration  16 : obj  -36525.214&quot;
+[1] &quot;Iteration  17 : obj  -36523.883&quot;
+[1] &quot;Iteration  18 : obj  -36523.192&quot;
+[1] &quot;Iteration  19 : obj  -36522.795&quot;
+[1] &quot;Iteration  20 : obj  -36522.487&quot;
+[1] &quot;Iteration  21 : obj  -36522.229&quot;
+[1] &quot;Iteration  22 : obj  -36522.021&quot;
+[1] &quot;Iteration  23 : obj  -36521.876&quot;
+[1] &quot;Iteration  24 : obj  -36521.791&quot;
+[1] &quot;Iteration  25 : obj  -36521.747&quot;
+[1] &quot;Iteration  26 : obj  -36521.727&quot;
+[1] &quot;Iteration  27 : obj  -36521.717&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  8  decreases objective by  8.711&quot;
+[1] &quot;Fitting dimension  9&quot;
+[1] &quot;Iteration  1 : obj  -36549.717&quot;
+[1] &quot;Iteration  2 : obj  -36537.425&quot;
+[1] &quot;Iteration  3 : obj  -36532.999&quot;
+[1] &quot;Iteration  4 : obj  -36527.859&quot;
+[1] &quot;Iteration  5 : obj  -36522.708&quot;
+[1] &quot;Iteration  6 : obj  -36518.923&quot;
+[1] &quot;Iteration  7 : obj  -36516.479&quot;
+[1] &quot;Iteration  8 : obj  -36515.16&quot;
+[1] &quot;Iteration  9 : obj  -36514.725&quot;
+[1] &quot;Iteration  10 : obj  -36514.555&quot;
+[1] &quot;Iteration  11 : obj  -36514.464&quot;
+[1] &quot;Iteration  12 : obj  -36514.406&quot;
+[1] &quot;Iteration  13 : obj  -36514.365&quot;
+[1] &quot;Iteration  14 : obj  -36514.333&quot;
+[1] &quot;Iteration  15 : obj  -36514.308&quot;
+[1] &quot;Iteration  16 : obj  -36514.287&quot;
+[1] &quot;Iteration  17 : obj  -36514.27&quot;
+[1] &quot;Iteration  18 : obj  -36514.255&quot;
+[1] &quot;Iteration  19 : obj  -36514.242&quot;
+[1] &quot;Iteration  20 : obj  -36514.231&quot;
+[1] &quot;Iteration  21 : obj  -36514.223&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  9  decreases objective by  7.494&quot;
+[1] &quot;Fitting dimension  10&quot;
+[1] &quot;Iteration  1 : obj  -36547.686&quot;
+[1] &quot;Iteration  2 : obj  -36538.185&quot;
+[1] &quot;Iteration  3 : obj  -36537.024&quot;
+[1] &quot;Iteration  4 : obj  -36536.284&quot;
+[1] &quot;Iteration  5 : obj  -36535.419&quot;
+[1] &quot;Iteration  6 : obj  -36534.125&quot;
+[1] &quot;Iteration  7 : obj  -36531.989&quot;
+[1] &quot;Iteration  8 : obj  -36528.791&quot;
+[1] &quot;Iteration  9 : obj  -36525.073&quot;
+[1] &quot;Iteration  10 : obj  -36521.385&quot;
+[1] &quot;Iteration  11 : obj  -36517.71&quot;
+[1] &quot;Iteration  12 : obj  -36515.125&quot;
+[1] &quot;Iteration  13 : obj  -36514.075&quot;
+[1] &quot;Iteration  14 : obj  -36513.245&quot;
+[1] &quot;Iteration  15 : obj  -36511.74&quot;
+[1] &quot;Iteration  16 : obj  -36509.491&quot;
+[1] &quot;Iteration  17 : obj  -36507.784&quot;
+[1] &quot;Iteration  18 : obj  -36506.909&quot;
+[1] &quot;Iteration  19 : obj  -36506.694&quot;
+[1] &quot;Iteration  20 : obj  -36506.662&quot;
+[1] &quot;Iteration  21 : obj  -36506.658&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  10  decreases objective by  7.565&quot;</code></pre>
+<pre class="r"><code>plot(fit$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,4],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-13-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,5],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-13-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,6],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-13-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,7],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-13-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There are some redundant factors. Why?</p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = T,
+                          type=&#39;wavelet&#39;,filter.number = 10,
+                          family=&quot;DaubLeAsymm&quot;)
+fit = funflash(datax,Kmax = 3,var.type = &#39;constant&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -73483.412&quot;
+[1] &quot;Iteration  2 : obj  -73465.576&quot;
+[1] &quot;Iteration  3 : obj  -73465.353&quot;
+[1] &quot;Iteration  4 : obj  -73465.352&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  1397.816&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -73192.658&quot;
+[1] &quot;Iteration  2 : obj  -73149.365&quot;
+[1] &quot;Iteration  3 : obj  -73125.475&quot;
+[1] &quot;Iteration  4 : obj  -73118.567&quot;
+[1] &quot;Iteration  5 : obj  -73114.206&quot;
+[1] &quot;Iteration  6 : obj  -73110.957&quot;
+[1] &quot;Iteration  7 : obj  -73108.745&quot;
+[1] &quot;Iteration  8 : obj  -73107.178&quot;
+[1] &quot;Iteration  9 : obj  -73106.179&quot;
+[1] &quot;Iteration  10 : obj  -73105.662&quot;
+[1] &quot;Iteration  11 : obj  -73105.452&quot;
+[1] &quot;Iteration  12 : obj  -73105.588&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  359.764&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -72884.33&quot;
+[1] &quot;Iteration  2 : obj  -72857.562&quot;
+[1] &quot;Iteration  3 : obj  -72846.97&quot;
+[1] &quot;Iteration  4 : obj  -72841.59&quot;
+[1] &quot;Iteration  5 : obj  -72838.345&quot;
+[1] &quot;Iteration  6 : obj  -72835.914&quot;
+[1] &quot;Iteration  7 : obj  -72837.2&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  268.388&quot;</code></pre>
+<pre class="r"><code>plot(fit$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-14-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = T,
+                          type=&#39;station&#39;,filter.number = 10,
+                          family=&quot;DaubLeAsymm&quot;)
+dim(datax$Y)</code></pre>
+<pre><code>[1]  100 4608</code></pre>
+<pre class="r"><code>fit = funflash(datax,Kmax = 5,var.type = &#39;constant&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -691136.438&quot;
+[1] &quot;Iteration  2 : obj  -691100.483&quot;
+[1] &quot;Iteration  3 : obj  -691095.705&quot;
+[1] &quot;Iteration  4 : obj  -691094.215&quot;
+[1] &quot;Iteration  5 : obj  -691093.677&quot;
+[1] &quot;Iteration  6 : obj  -691093.472&quot;
+[1] &quot;Iteration  7 : obj  -691093.394&quot;
+[1] &quot;Iteration  8 : obj  -691093.363&quot;
+[1] &quot;Iteration  9 : obj  -691093.351&quot;
+[1] &quot;Iteration  10 : obj  -691093.347&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  63744.485&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -641961.359&quot;
+[1] &quot;Iteration  2 : obj  -641942.001&quot;
+[1] &quot;Iteration  3 : obj  -641941.964&quot;
+[1] &quot;Iteration  4 : obj  -641941.96&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  49151.387&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -612132.893&quot;
+[1] &quot;Iteration  2 : obj  -612106.241&quot;
+[1] &quot;Iteration  3 : obj  -612105.853&quot;
+[1] &quot;Iteration  4 : obj  -612105.828&quot;
+[1] &quot;Iteration  5 : obj  -612105.825&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  29836.134&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -590926.131&quot;
+[1] &quot;Iteration  2 : obj  -590892.56&quot;
+[1] &quot;Iteration  3 : obj  -590891.418&quot;
+[1] &quot;Iteration  4 : obj  -590891.275&quot;
+[1] &quot;Iteration  5 : obj  -590891.249&quot;
+[1] &quot;Iteration  6 : obj  -590891.244&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  decreases objective by  21214.581&quot;
+[1] &quot;Fitting dimension  5&quot;
+[1] &quot;Iteration  1 : obj  -579265.803&quot;
+[1] &quot;Iteration  2 : obj  -579193.455&quot;
+[1] &quot;Iteration  3 : obj  -579168.247&quot;
+[1] &quot;Iteration  4 : obj  -579150.284&quot;
+[1] &quot;Iteration  5 : obj  -579136.604&quot;
+[1] &quot;Iteration  6 : obj  -579126.244&quot;
+[1] &quot;Iteration  7 : obj  -579118.611&quot;
+[1] &quot;Iteration  8 : obj  -579113.167&quot;
+[1] &quot;Iteration  9 : obj  -579109.377&quot;
+[1] &quot;Iteration  10 : obj  -579106.774&quot;
+[1] &quot;Iteration  11 : obj  -579104.993&quot;
+[1] &quot;Iteration  12 : obj  -579103.781&quot;
+[1] &quot;Iteration  13 : obj  -579103.28&quot;
+[1] &quot;Iteration  14 : obj  -579103.066&quot;
+[1] &quot;Iteration  15 : obj  -579102.565&quot;
+[1] &quot;Iteration  16 : obj  -579102.211&quot;
+[1] &quot;Iteration  17 : obj  -579101.967&quot;
+[1] &quot;Iteration  18 : obj  -579101.798&quot;
+[1] &quot;Iteration  19 : obj  -579101.681&quot;
+[1] &quot;Iteration  20 : obj  -579101.6&quot;
+[1] &quot;Iteration  21 : obj  -579101.542&quot;
+[1] &quot;Iteration  22 : obj  -579101.502&quot;
+[1] &quot;Iteration  23 : obj  -579101.473&quot;
+[1] &quot;Iteration  24 : obj  -579101.452&quot;
+[1] &quot;Iteration  25 : obj  -579101.436&quot;
+[1] &quot;Iteration  26 : obj  -579101.425&quot;
+[1] &quot;Iteration  27 : obj  -579101.417&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  5  decreases objective by  11789.828&quot;</code></pre>
+<pre class="r"><code>plot(fit$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,4],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-15-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,5],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-15-5.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="another-example" class="section level2">
+<h2>Another example</h2>
+<pre class="r"><code>set.seed(12345)
+n &lt;- 50
+p &lt;- 256
+K &lt;- 3
+snr &lt;- 1
+
+## Step 1: sample U, an orthogonal matrix
+rand_semdef_sym_mat &lt;- crossprod(matrix(runif(n * n), n, n))
+rand_ortho_mat &lt;- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+u_1 &lt;- rand_ortho_mat[, 1]
+u_2 &lt;- rand_ortho_mat[, 2]
+u_3 &lt;- rand_ortho_mat[, 3]
+
+f1 = c(rep(0,p/8), rep(1, p/4), rep(0, p/4), rep(0, p/4),rep(0,p/8))
+f2 = c(rep(0,p/8), rep(0, p/4), rep(1, p/4), rep(0, p/4),rep(0,p/8))
+f3 = c(rep(0,p/8), rep(0, p/4), rep(0, p/4), rep(1, p/4),rep(0,p/8))
+
+L = cbind(u_1,u_2,u_3)
+FF=cbind(f1,f2,f3)
+
+plot(f1,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f2,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f3,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-16-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>M = n / 3 * u_1 %*% t(f1) +
+        n / 5 * u_2 %*% t(f2) +
+        n / 6 * u_3 %*% t(f3)
+v = var(c(M))/snr
+X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)</code></pre>
+<pre class="r"><code>Omega_v &lt;- second_diff_mat(p)
+res &lt;- moma_sfpca(
+    X,
+    center = FALSE,
+    v_sparse = moma_lasso(
+        lambda = seq(0, 3, length.out = 40),
+        select_scheme = &quot;b&quot;
+    ),
+    v_smooth = moma_smoothness(Omega_v, 
+                               alpha = seq(0, 3, length.out = 40),
+                               select_scheme = &quot;b&quot;),
+    rank = 3,
+    deflation_scheme = &quot;PCA_Schur_Complement&quot;
+)</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 2.84615]</code></pre>
+<pre><code>Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 2.92308]
+Start a final run on the chosen parameters.[av, au, lu, lv] = [0, 0, 0, 2.92308]</code></pre>
+<pre class="r"><code>plot(res$get_mat_by_index()$V[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(res$get_mat_by_index()$V[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(res$get_mat_by_index()$V[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-18-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.flash = flash(X,var_type = &#39;constant&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -25062.76        Inf</code></pre>
+<pre><code>          2      -25060.49   2.27e+00</code></pre>
+<pre><code>          3      -25060.49   3.93e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 2.21e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -25060.49</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -24123.63        Inf</code></pre>
+<pre><code>          2      -24119.47   4.16e+00</code></pre>
+<pre><code>          3      -24119.33   1.38e-01</code></pre>
+<pre><code>          4      -24119.32   7.29e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 9.41e+02. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -24119.32</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -23307.99        Inf</code></pre>
+<pre><code>          2      -23305.42   2.58e+00</code></pre>
+<pre><code>          3      -23305.41   6.30e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 8.14e+02. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -23305.41</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -23335.07        Inf</code></pre>
+<pre><code>          2      -23326.57   8.50e+00</code></pre>
+<pre><code>          3      -23325.95   6.21e-01</code></pre>
+<pre><code>          4      -23325.81   1.41e-01</code></pre>
+<pre><code>          5      -23325.76   5.10e-02</code></pre>
+<pre><code>          6      -23325.73   2.39e-02</code></pre>
+<pre><code>          7      -23325.72   1.33e-02</code></pre>
+<pre><code>          8      -23325.71   8.41e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 2.03e+01. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -23305.41</code></pre>
+<pre class="r"><code>plot(fit.flash$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-19-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = F,
+                          type=&#39;wavelet&#39;,filter.number = 1,
+                          family=&quot;DaubExPhase&quot;)
+fit = funflash(datax,var.type = &#39;constant&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -23950.971&quot;
+[1] &quot;Iteration  2 : obj  -23948.958&quot;
+[1] &quot;Iteration  3 : obj  -23948.958&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  2319.822&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -22788.057&quot;
+[1] &quot;Iteration  2 : obj  -22784.019&quot;
+[1] &quot;Iteration  3 : obj  -22784.013&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  1164.945&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -22466.143&quot;
+[1] &quot;Iteration  2 : obj  -22458.425&quot;
+[1] &quot;Iteration  3 : obj  -22458.378&quot;
+[1] &quot;Iteration  4 : obj  -22458.377&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  325.636&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -22483.151&quot;
+[1] &quot;Iteration  2 : obj  -22475.424&quot;
+[1] &quot;Iteration  3 : obj  -22474.966&quot;
+[1] &quot;Iteration  4 : obj  -22474.858&quot;
+[1] &quot;Iteration  5 : obj  -22474.799&quot;
+[1] &quot;Iteration  6 : obj  -22474.75&quot;
+[1] &quot;Iteration  7 : obj  -22474.704&quot;
+[1] &quot;Iteration  8 : obj  -22474.657&quot;
+[1] &quot;Iteration  9 : obj  -22474.608&quot;
+[1] &quot;Iteration  10 : obj  -22474.554&quot;
+[1] &quot;Iteration  11 : obj  -22474.494&quot;
+[1] &quot;Iteration  12 : obj  -22474.427&quot;
+[1] &quot;Iteration  13 : obj  -22474.35&quot;
+[1] &quot;Iteration  14 : obj  -22474.262&quot;
+[1] &quot;Iteration  15 : obj  -22474.159&quot;
+[1] &quot;Iteration  16 : obj  -22474.037&quot;
+[1] &quot;Iteration  17 : obj  -22473.89&quot;
+[1] &quot;Iteration  18 : obj  -22473.708&quot;
+[1] &quot;Iteration  19 : obj  -22473.475&quot;
+[1] &quot;Iteration  20 : obj  -22473.163&quot;
+[1] &quot;Iteration  21 : obj  -22472.728&quot;
+[1] &quot;Iteration  22 : obj  -22472.173&quot;
+[1] &quot;Iteration  23 : obj  -22471.494&quot;
+[1] &quot;Iteration  24 : obj  -22468.783&quot;
+[1] &quot;Iteration  25 : obj  -22465.491&quot;
+[1] &quot;Iteration  26 : obj  -22464.863&quot;
+[1] &quot;Iteration  27 : obj  -22462.601&quot;
+[1] &quot;Iteration  28 : obj  -22462.197&quot;
+[1] &quot;Iteration  29 : obj  -22462.014&quot;
+[1] &quot;Iteration  30 : obj  -22461.889&quot;
+[1] &quot;Iteration  31 : obj  -22461.744&quot;
+[1] &quot;Iteration  32 : obj  -22461.573&quot;
+[1] &quot;Iteration  33 : obj  -22461.429&quot;
+[1] &quot;Iteration  34 : obj  -22461.346&quot;
+[1] &quot;Iteration  35 : obj  -22461.305&quot;
+[1] &quot;Iteration  36 : obj  -22461.287&quot;
+[1] &quot;Iteration  37 : obj  -22461.278&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  increases objective by  2.901&quot;</code></pre>
+<pre class="r"><code>plot(fit$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-20-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = F,
+                          type=&#39;wavelet&#39;,filter.number = 1,
+                          family=&quot;DaubExPhase&quot;)
+fit = funflash(datax,var.type = &#39;constant&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -23950.971&quot;
+[1] &quot;Iteration  2 : obj  -23948.958&quot;
+[1] &quot;Iteration  3 : obj  -23948.958&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  2319.822&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -22788.057&quot;
+[1] &quot;Iteration  2 : obj  -22784.019&quot;
+[1] &quot;Iteration  3 : obj  -22784.013&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  1164.945&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -22466.143&quot;
+[1] &quot;Iteration  2 : obj  -22458.425&quot;
+[1] &quot;Iteration  3 : obj  -22458.378&quot;
+[1] &quot;Iteration  4 : obj  -22458.377&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  325.636&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -22483.151&quot;
+[1] &quot;Iteration  2 : obj  -22475.424&quot;
+[1] &quot;Iteration  3 : obj  -22474.966&quot;
+[1] &quot;Iteration  4 : obj  -22474.858&quot;
+[1] &quot;Iteration  5 : obj  -22474.799&quot;
+[1] &quot;Iteration  6 : obj  -22474.75&quot;
+[1] &quot;Iteration  7 : obj  -22474.704&quot;
+[1] &quot;Iteration  8 : obj  -22474.657&quot;
+[1] &quot;Iteration  9 : obj  -22474.608&quot;
+[1] &quot;Iteration  10 : obj  -22474.554&quot;
+[1] &quot;Iteration  11 : obj  -22474.494&quot;
+[1] &quot;Iteration  12 : obj  -22474.427&quot;
+[1] &quot;Iteration  13 : obj  -22474.35&quot;
+[1] &quot;Iteration  14 : obj  -22474.262&quot;
+[1] &quot;Iteration  15 : obj  -22474.159&quot;
+[1] &quot;Iteration  16 : obj  -22474.037&quot;
+[1] &quot;Iteration  17 : obj  -22473.89&quot;
+[1] &quot;Iteration  18 : obj  -22473.708&quot;
+[1] &quot;Iteration  19 : obj  -22473.475&quot;
+[1] &quot;Iteration  20 : obj  -22473.163&quot;
+[1] &quot;Iteration  21 : obj  -22472.728&quot;
+[1] &quot;Iteration  22 : obj  -22472.173&quot;
+[1] &quot;Iteration  23 : obj  -22471.494&quot;
+[1] &quot;Iteration  24 : obj  -22468.783&quot;
+[1] &quot;Iteration  25 : obj  -22465.491&quot;
+[1] &quot;Iteration  26 : obj  -22464.863&quot;
+[1] &quot;Iteration  27 : obj  -22462.601&quot;
+[1] &quot;Iteration  28 : obj  -22462.197&quot;
+[1] &quot;Iteration  29 : obj  -22462.014&quot;
+[1] &quot;Iteration  30 : obj  -22461.889&quot;
+[1] &quot;Iteration  31 : obj  -22461.744&quot;
+[1] &quot;Iteration  32 : obj  -22461.573&quot;
+[1] &quot;Iteration  33 : obj  -22461.429&quot;
+[1] &quot;Iteration  34 : obj  -22461.346&quot;
+[1] &quot;Iteration  35 : obj  -22461.305&quot;
+[1] &quot;Iteration  36 : obj  -22461.287&quot;
+[1] &quot;Iteration  37 : obj  -22461.278&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  increases objective by  2.901&quot;</code></pre>
+<pre class="r"><code>plot(fit$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-21-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = F,
+                          type=&#39;station&#39;,filter.number = 1,
+                          family=&quot;DaubExPhase&quot;)
+fit = funflash(datax,var.type = &#39;constant&#39;,Kmax = 3)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -264122.596&quot;
+[1] &quot;Iteration  2 : obj  -264116.019&quot;
+[1] &quot;Iteration  3 : obj  -264115.895&quot;
+[1] &quot;Iteration  4 : obj  -264115.879&quot;
+[1] &quot;Iteration  5 : obj  -264115.877&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  50831.67&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -212286.49&quot;
+[1] &quot;Iteration  2 : obj  -212277.643&quot;
+[1] &quot;Iteration  3 : obj  -212277.579&quot;
+[1] &quot;Iteration  4 : obj  -212277.574&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  51838.302&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -177725.355&quot;
+[1] &quot;Iteration  2 : obj  -177711.544&quot;
+[1] &quot;Iteration  3 : obj  -177711.537&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  34566.037&quot;</code></pre>
+<pre class="r"><code>plot(fit$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-22-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = F,
+                          type=&#39;wavelet&#39;,filter.number = 1,
+                          family=&quot;DaubExPhase&quot;)
+fit = funflash(datax,var.type = &#39;zero&#39;,sigma2=v,Kmax = 3)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -24181.963&quot;
+[1] &quot;Iteration  2 : obj  -24181.162&quot;
+[1] &quot;Iteration  3 : obj  -24181.162&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  3754.444&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -22795.111&quot;
+[1] &quot;Iteration  2 : obj  -22792.818&quot;
+[1] &quot;Iteration  3 : obj  -22792.811&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  1388.351&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -22462.922&quot;
+[1] &quot;Iteration  2 : obj  -22456.809&quot;
+[1] &quot;Iteration  3 : obj  -22456.773&quot;
+[1] &quot;Iteration  4 : obj  -22456.773&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  336.038&quot;</code></pre>
+<pre class="r"><code>plot(fit$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-23-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>source(&#39;code/smooth_flash.R&#39;)</code></pre>
+<pre><code>Loading required package: usethis</code></pre>
+<pre><code>ℹ Loading flashr</code></pre>
+<pre><code>Loading required package: MASS</code></pre>
+<pre><code>WaveThresh: R wavelet software, release 4.6.8, installed</code></pre>
+<pre><code>Copyright Guy Nason and others 1993-2016</code></pre>
+<pre><code>Note: nlevels has been renamed to nlevelsWT</code></pre>
+<pre><code>
+Attaching package: &#39;wavethresh&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:devtools&#39;:
+
+    wd</code></pre>
+<pre class="r"><code>fit = smooth_flash(X)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -24584.51        Inf</code></pre>
+<pre><code>          2      -24579.00   5.50e+00</code></pre>
+<pre><code>          3      -24578.47   5.30e-01</code></pre>
+<pre><code>          4      -24578.39   7.98e-02</code></pre>
+<pre><code>          5      -24578.38   1.21e-02</code></pre>
+<pre><code>          6      -24578.38   1.95e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 2.60e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -24578.38</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -23488.39        Inf</code></pre>
+<pre><code>          2      -23483.47   4.93e+00</code></pre>
+<pre><code>          3      -23483.06   4.02e-01</code></pre>
+<pre><code>          4      -23482.79   2.74e-01</code></pre>
+<pre><code>          5      -23482.69   1.05e-01</code></pre>
+<pre><code>          6      -23482.66   2.95e-02</code></pre>
+<pre><code>          7      -23482.65   7.57e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 1.10e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -23482.65</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -22557.11        Inf</code></pre>
+<pre><code>          2      -22548.98   8.13e+00</code></pre>
+<pre><code>          3      -22548.86   1.20e-01</code></pre>
+<pre><code>          4      -22548.86   8.44e-04</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 9.34e+02. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -22548.86</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -22582.57        Inf</code></pre>
+<pre><code>          2      -22571.55   1.10e+01</code></pre>
+<pre><code>          3      -22570.54   1.01e+00</code></pre>
+<pre><code>          4      -22570.09   4.44e-01</code></pre>
+<pre><code>          5      -22569.64   4.58e-01</code></pre>
+<pre><code>          6      -22569.05   5.82e-01</code></pre>
+<pre><code>          7      -22568.42   6.34e-01</code></pre>
+<pre><code>          8      -22567.74   6.76e-01</code></pre>
+<pre><code>          9      -22567.04   7.02e-01</code></pre>
+<pre><code>         10      -22566.43   6.15e-01</code></pre>
+<pre><code>         11      -22566.07   3.56e-01</code></pre>
+<pre><code>         12      -22565.84   2.33e-01</code></pre>
+<pre><code>         13      -22565.67   1.67e-01</code></pre>
+<pre><code>         14      -22565.54   1.35e-01</code></pre>
+<pre><code>         15      -22565.41   1.27e-01</code></pre>
+<pre><code>         16      -22565.28   1.32e-01</code></pre>
+<pre><code>         17      -22565.14   1.40e-01</code></pre>
+<pre><code>         18      -22564.99   1.46e-01</code></pre>
+<pre><code>         19      -22564.84   1.48e-01</code></pre>
+<pre><code>         20      -22564.69   1.48e-01</code></pre>
+<pre><code>         21      -22564.55   1.46e-01</code></pre>
+<pre><code>         22      -22564.41   1.39e-01</code></pre>
+<pre><code>         23      -22564.28   1.27e-01</code></pre>
+<pre><code>         24      -22564.19   9.46e-02</code></pre>
+<pre><code>         25      -22564.12   6.59e-02</code></pre>
+<pre><code>         26      -22564.07   5.39e-02</code></pre>
+<pre><code>         27      -22564.02   4.84e-02</code></pre>
+<pre><code>         28      -22563.97   4.72e-02</code></pre>
+<pre><code>         29      -22563.92   5.00e-02</code></pre>
+<pre><code>         30      -22563.86   5.77e-02</code></pre>
+<pre><code>         31      -22563.79   7.33e-02</code></pre>
+<pre><code>         32      -22563.69   1.04e-01</code></pre>
+<pre><code>         33      -22563.52   1.69e-01</code></pre>
+<pre><code>         34      -22563.21   3.12e-01</code></pre>
+<pre><code>         35      -22562.62   5.88e-01</code></pre>
+<pre><code>         36      -22561.79   8.24e-01</code></pre>
+<pre><code>Warning in verbose_obj_decrease_warning(): An iteration decreased the objective.
+This happens occasionally, perhaps due to numeric reasons. You could ignore this
+warning, but you might like to check out https://github.com/stephenslab/flashr/
+issues/26 for more details.</code></pre>
+<pre><code>         37      -22565.28  -3.49e+00</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 1.64e+01. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -22548.86</code></pre>
+<pre class="r"><code>plot(fit$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/moma.Rmd/unnamed-chunk-24-3.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] wavethresh_4.6.8 MASS_7.3-54      flashr_0.6-7     testthat_3.1.2  
+[5] devtools_2.4.3   usethis_2.1.5    funflash_0.1.0   MoMA_0.1        
+[9] workflowr_1.7.0 
+
+loaded via a namespace (and not attached):
+ [1] httr_1.4.2        pkgload_1.2.4     splines_4.1.2     brio_1.1.3       
+ [5] assertthat_0.2.1  getPass_0.2-2     horseshoe_0.2.0   mixsqp_0.3-43    
+ [9] highr_0.9         deconvolveR_1.2-1 remotes_2.4.2     yaml_2.2.2       
+[13] sessioninfo_1.2.2 ebnm_1.0-9        pillar_1.7.0      lattice_0.20-45  
+[17] glue_1.6.1        digest_0.6.29     promises_1.2.0.1  colorspace_2.0-3 
+[21] htmltools_0.5.2   httpuv_1.6.5      Matrix_1.3-4      plyr_1.8.6       
+[25] pkgconfig_2.0.3   invgamma_1.1      purrr_0.3.4       scales_1.1.1     
+[29] processx_3.5.2    whisker_0.4       later_1.3.0       git2r_0.29.0     
+[33] tibble_3.1.6      generics_0.1.2    ggplot2_3.3.5     ellipsis_0.3.2   
+[37] cachem_1.0.6      withr_2.4.3       ashr_2.2-47       cli_3.1.1        
+[41] magrittr_2.0.2    crayon_1.4.2      memoise_2.0.1     evaluate_0.14    
+[45] ps_1.6.0          fs_1.5.2          fansi_1.0.2       truncnorm_1.0-8  
+[49] pkgbuild_1.3.1    tools_4.1.2       prettyunits_1.1.1 softImpute_1.4-1 
+[53] lifecycle_1.0.1   stringr_1.4.0     trust_0.1-8       munsell_0.5.0    
+[57] irlba_2.3.5       callr_3.7.0       compiler_4.1.2    jquerylib_0.1.4  
+[61] rlang_1.0.1       grid_4.1.2        rstudioapi_0.13   rmarkdown_2.11   
+[65] gtable_0.3.0      DBI_1.1.2         reshape2_1.4.4    R6_2.5.1         
+[69] knitr_1.37        dplyr_1.0.8       fastmap_1.1.0     utf8_1.2.2       
+[73] rprojroot_2.0.2   desc_1.4.0        stringi_1.7.6     SQUAREM_2021.1   
+[77] Rcpp_1.0.8        vctrs_0.3.8       tidyselect_1.1.2  xfun_0.29        </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
