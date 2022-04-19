@@ -1,0 +1,150 @@
+---
+title: "biwhitening"
+author: "DongyueXie"
+date: "2022-03-25"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Let $Y = X + E$, the biwhitening method proposed by [Landa et al 2021](https://arxiv.org/abs/2103.13840) transforms $Y$ to 
+
+$\tilde Y = D(u) Y D(v) = \tilde X + \tilde E$ such that 
+
+\[\mathbb{E}(\tilde E\tilde E^T/n) = I_m,\mathbb{E}(\tilde E^T \tilde E/m) = I_n.\]
+
+That is, the average variance in each row and column of $\tilde E$ is 1. When $Y$ is Poisson distributed, this says 
+\[\sum_i^m u_i^2 X_{ij} v_j^2 = m, \sum_j^n u_i^2X_{ij}v_j^2 = n.\]
+
+To find $u$ and $v$, the algorithm 2 in the paper presents the Sinkhorn-Knopp algorithm.
+
+**Input**: Nonnegative matrix $A$, target row sums $\boldsymbol r$, and target column sums $\boldsymbol c$, tolerance $\delta>0$.
+
+\begin{itermize}
+
+\item[1] Initialize: $x=1_m$, and $y = 1_n$, $\tau = 0$.
+
+\item[2] While not converged: y_j = c_j/(\sum_iA_{ij}x_i); x_i = r_i/(\sum_j A_{ij}y_j)
+
+\end{itermize}
+
+Code below:
+
+
+```{r}
+#'@param A nonnegative matrix
+#'@param rs target row sums, a vector of length m
+#'@param cs target col sums, a vector of length n
+#'@param tol tol to stop the iterations
+Sinkhorn_Knopp = function(A,rs=NULL,cs=NULL,tol=1e-5,maxiter=100){
+  
+  m = nrow(A)
+  n = ncol(A)
+  
+  if(is.null(rs)){
+    rs = rep(n,m)
+  }
+  if(is.null(cs)){
+    cs = rep(m,n)
+  }
+  
+  x = rep(1,m)
+  y = rep(1,n)
+  
+  
+  niter = 0
+  while(niter<=maxiter) {
+    Ax = c(crossprod(A,x))
+    if(max(abs(y*Ax))<= tol){
+      break
+    }
+    y = cs/Ax
+    Ay = c(A%*%y)
+    x = rs/Ay
+    #if(max(abs(x*Ay-rs))<=tol & max(abs(y*c(crossprod(A,x))-cs))<= tol){
+    #  break
+    #}
+    niter = niter + 1
+  }
+  
+  return(list(x=x,y=y))
+  
+}
+
+# example in Appendix C.2
+m = 50
+n = 100
+X = matrix(runif(m*n,1,2),nrow=m,ncol=n)
+X = t(t(X*exp(runif(m,-2,2)))*exp(runif(n,-2,2)))
+Y = matrix(rpois(m*n,X),nrow=m,ncol=n)
+
+out = Sinkhorn_Knopp(Y,tol=1e-11)
+d = diag(c((out$x)))%*%Y%*%diag(c((out$y)))
+rowSums(d)
+colSums(d)
+```
+
+The u, v in the Poisson case would be $u = sqrt(x), v = sqrt(y)$. The transformed matrix is then
+
+```{r}
+Y_tilde = diag(c(sqrt(out$x)))%*%Y%*%diag(c(sqrt(out$y)))
+plot(rowMeans(Y),rowMeans(Y_tilde))
+plot(colMeans(Y),colMeans(Y_tilde))
+```
+
+Maybe we can simulate data 100 times, and calculate the variance of each entry, plot the distribution and see how the transforamtion works(on variance and distribution).
+
+```{r}
+set.seed(12345)
+Y_tilde = array(dim=c(m,n,100))
+for(i in 1:100){
+  Y = matrix(rpois(m*n,X),nrow=m,ncol=n)
+  out = Sinkhorn_Knopp(Y,tol=1e-11)
+  Y_tilde[,,i] = diag(c(sqrt(out$x)))%*%Y%*%diag(c(sqrt(out$y)))
+}
+```
+
+Look at the variance before and after transformation
+
+```{r}
+plot(X,apply(Y_tilde,c(1,2),var),xlab = 'Poisson variance', ylab = 'variance after transformation',pch='.')
+```
+
+Non of true poisson lambda is 0. Variance after transformation seems to have mean around 1.
+
+Look at some distribution.
+
+```{r}
+par(mfrow=c(3,3))
+for(i in 1:9){
+  print(X[i,i])
+  hist(Y_tilde[i,i,],breaks = 20,freq = F,main=paste(i))
+  x = seq(range(Y_tilde[i,i,])[1],range(Y_tilde[i,i,])[2],length.out = 100)
+  curve(dnorm(x,mean=mean(Y_tilde[i,i,]),sd=sd(Y_tilde[i,i,])), add=TRUE)
+}
+
+for(i in 1:9){
+  r = 30
+  print(X[r,i])
+  hist(Y_tilde[r,i,],breaks = 20,freq = F,main=paste(i))
+  x = seq(range(Y_tilde[r,i,])[1],range(Y_tilde[r,i,])[2],length.out = 100)
+  curve(dnorm(x,mean=mean(Y_tilde[r,i,]),sd=sd(Y_tilde[r,i,])), add=TRUE)
+}
+
+for(i in 1:9){
+  r = 40
+  print(X[r,i])
+  hist(Y_tilde[r,i,],breaks = 20,freq = F,main=paste(i))
+  x = seq(range(Y_tilde[r,i,])[1],range(Y_tilde[r,i,])[2],length.out = 100)
+  curve(dnorm(x,mean=mean(Y_tilde[r,i,]),sd=sd(Y_tilde[r,i,])), add=TRUE)
+}
+```
+
+
+
+
+
+
+
