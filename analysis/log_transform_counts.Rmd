@@ -1,0 +1,21 @@
+---
+title: "log transform counts"
+author: "Dongyue Xie"
+date: "2022-03-23"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+For count $y_{ij}$, the transformation takes the form
+
+\[x_{ij} = \log\left(\frac{y_{ij}}{\alpha c_{ij}}+1\right),\]
+
+where $c_{i} = \frac{\sum_jy_{ij}}{\sum_{i,j}y_{ij}/n}$ and $\alpha = max\{1,\frac{1}{min_i c_i}-\frac{1}{max_i c_i}\}$. This is from Jason's thesis, page 76 - page 78.
+
+```{r}
+
+```
+
