@@ -1,0 +1,26 @@
+---
+title: "new poisson matrix lik expansion"
+author: "Dongyue Xie"
+date: "2022-03-25"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+The model we are interested in is 
+
+\[y_{ij}\sim Poisson(\lambda_{ij}),\]
+\[\log\lambda_{ij} = \alpha_i+\beta_j+\gamma_{ij},\]
+\[\gamma_{ij} = \sum_k l_{ik} f_{jk}.\]
+
+
+To fit the model, first estimate $\alpha_i,\beta_j$ by fitting $x_{ij}\sim Poisson(e^{\alpha_i}e^{\beta_j})$. Then obtain a normal approximation to the likelihood for $\gamma_{ij}$ around 0? 
+
+```{r}
+gamma_lik_expansion = function(Y){
+  
+}
+```
+
