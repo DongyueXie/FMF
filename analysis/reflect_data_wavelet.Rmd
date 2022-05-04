@@ -1,0 +1,81 @@
+---
+title: "reflect data before wavelet transformation"
+author: "Dongyue Xie"
+date: "2021-10-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Do we need to reflect data to make the starting and end point the same when doing DWT and NDWT?
+
+```{r}
+n = 2^10
+mu = c(rep(0,n/2),rep(10,n/2))
+x = mu + rnorm(n)
+```
+
+First, we try DWT, no reflecting.
+
+```{r}
+library(funflash)
+fit = smash_dwt(x,1,filter.number = 1,family = 'DaubExPhase',ebnm_fn = 'ebnm_ash')
+plot(x,col='grey80')
+lines(fit$mu.est)
+```
+
+Now with reflecting.
+
+```{r}
+library(smashr)
+x.r = smashr::reflect(x)
+fit = smash_dwt(x.r$x,1,filter.number = 1,family = 'DaubExPhase',ebnm_fn='ebnm_ash')
+plot(x,col='grey80')
+lines(fit$mu.est[x.r$idx])
+```
+
+
+How about other wavelet that (does not fit this datastet)?
+
+DWT, no reflecting.
+
+```{r}
+fit = smash_dwt(x,1,filter.number = 10,family = 'DaubLeAsymm',ebnm_fn = 'ebnm_ash')
+plot(x,col='grey80')
+lines(fit$mu.est)
+```
+
+With reflecting.
+
+```{r}
+fit = smash_dwt(x.r$x,1,filter.number = 10,family = 'DaubLeAsymm',ebnm_fn='ebnm_ash')
+plot(x,col='grey80')
+lines(fit$mu.est[x.r$idx])
+```
+
+
+Then we try NDWT. No reflecting
+
+```{r}
+fit = ti.thresh(x,1)
+plot(x,col='grey80')
+lines(fit)
+```
+
+Now with reflecting.
+
+```{r}
+fit = ti.thresh(x.r$x,1)
+plot(x,col='grey80')
+lines(fit[x.r$idx])
+```
+
+## Conclusion
+
+If using NDWT, we need to reflect the data. 
+
+If using DWT and non-Haar basis, it seems better to reflect data.
+
+
