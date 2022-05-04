@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Dongyue Xie" />
+
+<meta name="date" content="2021-11-13" />
+
+<title>wave flash structure different from flash</title>
+
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SMF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/DongyueXie/SMF">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">wave flash structure different from flash</h1>
+<h4 class="author">Dongyue Xie</h4>
+<h4 class="date">2021-11-13</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-05-04
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190719code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190719)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190719code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190719)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree4001d96086eb7cf842a753f8afcbf9d544aef114targetblank4001d96a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/4001d96086eb7cf842a753f8afcbf9d544aef114" target="_blank">4001d96</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree4001d96086eb7cf842a753f8afcbf9d544aef114targetblank4001d96a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/4001d96086eb7cf842a753f8afcbf9d544aef114" target="_blank">4001d96</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/external_data/
+    Ignored:    output/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/collect_of_examples.Rmd
+    Untracked:  analysis/sparse_smoothing.Rmd
+    Untracked:  code/mr_ash.R
+    Untracked:  data/luis/
+    Untracked:  output/flash_on_cmc2_reduced.rds
+    Untracked:  output/flash_on_cmc2_reduced_2000kb.rds
+    Untracked:  output/luis/
+    Untracked:  output/wave_flash_on_cmc2_reduced_2000kb.rds
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/luis_data.Rmd
+    Modified:   analysis/moma.Rmd
+    Modified:   analysis/smooth_flash.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/waveflash_structure.Rmd</code>) and HTML (<code>docs/waveflash_structure.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/4001d96086eb7cf842a753f8afcbf9d544aef114/analysis/waveflash_structure.Rmd" target="_blank">4001d96</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-04
+</td>
+<td>
+wflow_publish("analysis/waveflash_structure.Rmd")
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Explore why there’s different structure between waveflash and flash. Waveflash model is <span class="math inline">\(YW = LFW + EW\)</span>.</p>
+<pre class="r"><code>library(funflash)
+
+set.seed(12345)
+n &lt;- 150
+p &lt;- 256
+K &lt;- 3
+snr &lt;- 1
+
+## Step 1: sample U, an orthogonal matrix
+#rand_semdef_sym_mat &lt;- crossprod(matrix(runif(n * n), n, n))
+#rand_ortho_mat &lt;- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+# u_1 &lt;- rand_ortho_mat[, 1]
+# u_2 &lt;- rand_ortho_mat[, 2]
+# u_3 &lt;- rand_ortho_mat[, 3]
+
+L = matrix(0,nrow=n,ncol=K)
+pi0=1/3
+while(sum(rowSums(L)==0)&gt;0){
+  for(k in 1:K){
+    l1 = c(rep(0,n*pi0),
+           rnorm(n*(1-pi0)/2,0,sqrt(0.25)),
+           rnorm(n*(1-pi0)/2,0,sqrt(1)))
+    L[,k] =  l1[sample(1:n)]
+  }
+}
+
+f0 = 0
+f1 = c(rep(f0,p/8), rep(1, p/4), rep(f0, p/4), rep(f0, p/4),rep(f0,p/8))
+f2 = c(rep(f0,p/8), rep(f0, p/4), rep(-1, p/4), rep(f0, p/4),rep(f0,p/8))
+f3 = c(rep(f0,p/8), rep(f0, p/4), rep(f0, p/4), rep(1, p/4),rep(f0,p/8))
+
+#f1 = c(rep(1,p/8), rep(5, p/4), rep(1, p/4), rep(1, p/4),rep(1,p/8))
+#f2 = c(rep(1,p/8), rep(1, p/4), rep(-5, p/4), rep(1, p/4),rep(1,p/8))
+#f3 = c(rep(1,p/8), rep(1, p/4), rep(1, p/4), rep(5, p/4),rep(1,p/8))
+
+#L = cbind(u_1,u_2,u_3)
+#L = matrix(rnorm(n*K),n,K)
+FF=cbind(f1,f2,f3)
+
+plot(f1,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f2,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f3,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-1-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>M = tcrossprod(L,FF)
+v = var(c(M))/snr
+X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)</code></pre>
+<pre class="r"><code>library(flashr)
+fit.flash = flash(X,var_type = &#39;constant&#39;,ebnm_fn = &#39;ebnm_pl&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -46287.07        Inf</code></pre>
+<pre><code>          2      -46241.92   4.52e+01</code></pre>
+<pre><code>          3      -46232.43   9.49e+00</code></pre>
+<pre><code>          4      -46231.77   6.59e-01</code></pre>
+<pre><code>          5      -46231.73   3.13e-02</code></pre>
+<pre><code>          6      -46231.73   1.33e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 4.50e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -46231.73</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -43580.67        Inf</code></pre>
+<pre><code>          2      -43549.48   3.12e+01</code></pre>
+<pre><code>          3      -43547.76   1.72e+00</code></pre>
+<pre><code>          4      -43547.71   5.40e-02</code></pre>
+<pre><code>          5      -43547.71   2.00e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 2.68e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -43547.71</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -39314.90        Inf</code></pre>
+<pre><code>          2      -39313.21   1.69e+00</code></pre>
+<pre><code>          3      -39313.21   4.13e-04</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 4.23e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -39313.21</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -39375.18        Inf</code></pre>
+<pre><code>          2      -39357.83   1.73e+01</code></pre>
+<pre><code>          3      -39354.35   3.48e+00</code></pre>
+<pre><code>          4      -39350.80   3.55e+00</code></pre>
+<pre><code>          5      -39343.76   7.04e+00</code></pre>
+<pre><code>          6      -39337.81   5.95e+00</code></pre>
+<pre><code>          7      -39332.35   5.46e+00</code></pre>
+<pre><code>          8      -39332.32   2.79e-02</code></pre>
+<pre><code>          9      -39332.32   0.00e+00</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 1.91e+01. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -39313.21</code></pre>
+<pre class="r"><code>plot(fit.flash$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = FALSE,type=&#39;wavelet&#39;)
+fit.dwt = funflash(datax,var.type = &#39;constant&#39;,seed=123,ebnm_fn = &#39;ebnm_pl&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -43170.11&quot;
+[1] &quot;Iteration  2 : obj  -43168.178&quot;
+[1] &quot;Iteration  3 : obj  -43168.115&quot;
+[1] &quot;Iteration  4 : obj  -43168.094&quot;
+[1] &quot;Iteration  5 : obj  -43168.088&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  4904.253&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -39374.341&quot;
+[1] &quot;Iteration  2 : obj  -39372.254&quot;
+[1] &quot;Iteration  3 : obj  -39372.254&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  3795.834&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -38250.418&quot;
+[1] &quot;Iteration  2 : obj  -38242.538&quot;
+[1] &quot;Iteration  3 : obj  -38242.505&quot;
+[1] &quot;Iteration  4 : obj  -38243.517&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  1128.737&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -38299.976&quot;
+[1] &quot;Iteration  2 : obj  -38282.185&quot;
+[1] &quot;Iteration  3 : obj  -38276.904&quot;
+[1] &quot;Iteration  4 : obj  -38271.374&quot;
+[1] &quot;Iteration  5 : obj  -38268.737&quot;
+[1] &quot;Iteration  6 : obj  -38266.181&quot;
+[1] &quot;Iteration  7 : obj  -38262.042&quot;
+[1] &quot;Iteration  8 : obj  -38256.285&quot;
+[1] &quot;Iteration  9 : obj  -38253.884&quot;
+[1] &quot;Iteration  10 : obj  -38253.667&quot;
+[1] &quot;Iteration  11 : obj  -38253.535&quot;
+[1] &quot;Iteration  12 : obj  -38253.326&quot;
+[1] &quot;Iteration  13 : obj  -38252.875&quot;
+[1] &quot;Iteration  14 : obj  -38251.768&quot;
+[1] &quot;Iteration  15 : obj  -38250.541&quot;
+[1] &quot;Iteration  16 : obj  -38250.425&quot;
+[1] &quot;Iteration  17 : obj  -38250.399&quot;
+[1] &quot;Iteration  18 : obj  -38250.385&quot;
+[1] &quot;Iteration  19 : obj  -38250.377&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  increases objective by  6.863&quot;</code></pre>
+<pre class="r"><code>plot(fit.dwt$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = FALSE,type=&#39;station&#39;)
+fit.ndwt = funflash(datax,var.type = &#39;constant&#39;,seed=123,Kmax=3,ebnm_fn = &#39;ebnm_pl&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -566380.673&quot;
+[1] &quot;Iteration  2 : obj  -566374.883&quot;
+[1] &quot;Iteration  3 : obj  -566373.685&quot;
+[1] &quot;Iteration  4 : obj  -566373.304&quot;
+[1] &quot;Iteration  5 : obj  -566373.182&quot;
+[1] &quot;Iteration  6 : obj  -566373.143&quot;
+[1] &quot;Iteration  7 : obj  -566373.131&quot;
+[1] &quot;Iteration  8 : obj  -566373.127&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  114003.723&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -405738.089&quot;
+[1] &quot;Iteration  2 : obj  -405734.257&quot;
+[1] &quot;Iteration  3 : obj  -405734.136&quot;
+[1] &quot;Iteration  4 : obj  -405734.125&quot;
+[1] &quot;Iteration  5 : obj  -405734.125&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  160639.002&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -283132.053&quot;
+[1] &quot;Iteration  2 : obj  -283126.644&quot;
+[1] &quot;Iteration  3 : obj  -283126.643&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  122607.481&quot;</code></pre>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.smooth_flash = smooth_flash(X,var_type=&#39;constant&#39;,ebnm_fn = &#39;ebnm_pl&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -45855.53        Inf</code></pre>
+<pre><code>          2      -45853.82   1.70e+00</code></pre>
+<pre><code>          3      -45853.69   1.34e-01</code></pre>
+<pre><code>          4      -45853.64   4.42e-02</code></pre>
+<pre><code>          5      -45853.63   1.46e-02</code></pre>
+<pre><code>          6      -45853.63   4.85e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 4.88e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -45853.63</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -42202.69        Inf</code></pre>
+<pre><code>          2      -42200.29   2.40e+00</code></pre>
+<pre><code>          3      -42199.76   5.25e-01</code></pre>
+<pre><code>          4      -42199.47   2.96e-01</code></pre>
+<pre><code>          5      -42199.32   1.44e-01</code></pre>
+<pre><code>          6      -42199.26   6.70e-02</code></pre>
+<pre><code>          7      -42199.23   3.04e-02</code></pre>
+<pre><code>          8      -42199.21   1.36e-02</code></pre>
+<pre><code>          9      -42199.21   6.07e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 3.65e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -42199.21</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -38427.06        Inf</code></pre>
+<pre><code>          2      -38424.28   2.78e+00</code></pre>
+<pre><code>          3      -38424.28   3.11e-04</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 3.77e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -38424.28</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -38480.72        Inf</code></pre>
+<pre><code>          2      -38462.78   1.79e+01</code></pre>
+<pre><code>          3      -38457.27   5.51e+00</code></pre>
+<pre><code>          4      -38451.85   5.42e+00</code></pre>
+<pre><code>          5      -38449.21   2.64e+00</code></pre>
+<pre><code>          6      -38446.58   2.63e+00</code></pre>
+<pre><code>          7      -38442.64   3.94e+00</code></pre>
+<pre><code>          8      -38437.73   4.92e+00</code></pre>
+<pre><code>          9      -38435.08   2.64e+00</code></pre>
+<pre><code>         10      -38434.23   8.54e-01</code></pre>
+<pre><code>         11      -38433.88   3.43e-01</code></pre>
+<pre><code>         12      -38433.30   5.84e-01</code></pre>
+<pre><code>         13      -38431.60   1.70e+00</code></pre>
+<pre><code>         14      -38430.68   9.17e-01</code></pre>
+<pre><code>         15      -38430.63   5.68e-02</code></pre>
+<pre><code>         16      -38430.61   1.67e-02</code></pre>
+<pre><code>         17      -38430.60   8.42e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 6.32e+00. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -38424.28</code></pre>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="another-example" class="section level2">
+<h2>Another example</h2>
+<pre class="r"><code>library(funflash)
+
+set.seed(12345)
+n &lt;- 150
+p &lt;- 256
+K &lt;- 3
+snr &lt;- 1
+
+## Step 1: sample U, an orthogonal matrix
+#rand_semdef_sym_mat &lt;- crossprod(matrix(runif(n * n), n, n))
+#rand_ortho_mat &lt;- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+# u_1 &lt;- rand_ortho_mat[, 1]
+# u_2 &lt;- rand_ortho_mat[, 2]
+# u_3 &lt;- rand_ortho_mat[, 3]
+
+L = matrix(0,nrow=n,ncol=K)
+pi0=1/3
+while(sum(rowSums(L)==0)&gt;0){
+  for(k in 1:K){
+    l1 = c(rep(0,n*pi0),
+           rnorm(n*(1-pi0)/2,0,sqrt(0.25)),
+           rnorm(n*(1-pi0)/2,0,sqrt(1)))
+    L[,k] =  l1[sample(1:n)]
+  }
+}
+
+f0 = 0.5
+f1 = c(rep(f0,p/8), rep(1, p/4), rep(f0, p/4), rep(f0, p/4),rep(f0,p/8))
+f2 = c(rep(f0,p/8), rep(f0, p/4), rep(-1, p/4), rep(f0, p/4),rep(f0,p/8))
+f3 = c(rep(f0,p/8), rep(f0, p/4), rep(f0, p/4), rep(1, p/4),rep(f0,p/8))
+
+#f1 = c(rep(1,p/8), rep(5, p/4), rep(1, p/4), rep(1, p/4),rep(1,p/8))
+#f2 = c(rep(1,p/8), rep(1, p/4), rep(-5, p/4), rep(1, p/4),rep(1,p/8))
+#f3 = c(rep(1,p/8), rep(1, p/4), rep(1, p/4), rep(5, p/4),rep(1,p/8))
+
+#L = cbind(u_1,u_2,u_3)
+#L = matrix(rnorm(n*K),n,K)
+FF=cbind(f1,f2,f3)
+
+plot(f1,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f2,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f3,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>M = tcrossprod(L,FF)
+v = var(c(M))/snr
+X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)</code></pre>
+<pre class="r"><code>library(flashr)
+fit.flash = flash(X,var_type = &#39;constant&#39;,ebnm_fn = &#39;ebnm_pl&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -55024.53        Inf</code></pre>
+<pre><code>          2      -55023.34   1.19e+00</code></pre>
+<pre><code>          3      -55023.33   8.21e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 7.70e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -55023.33</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -52020.22        Inf</code></pre>
+<pre><code>          2      -52018.48   1.74e+00</code></pre>
+<pre><code>          3      -52018.47   7.57e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 3.00e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -52018.47</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -51709.90        Inf</code></pre>
+<pre><code>          2      -51707.35   2.55e+00</code></pre>
+<pre><code>          3      -51707.31   3.72e-02</code></pre>
+<pre><code>          4      -51707.31   2.66e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 3.11e+02. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -51707.31</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -51769.45        Inf</code></pre>
+<pre><code>          2      -51752.01   1.74e+01</code></pre>
+<pre><code>          3      -51748.43   3.58e+00</code></pre>
+<pre><code>          4      -51743.80   4.63e+00</code></pre>
+<pre><code>          5      -51735.66   8.14e+00</code></pre>
+<pre><code>          6      -51729.20   6.46e+00</code></pre>
+<pre><code>          7      -51726.08   3.12e+00</code></pre>
+<pre><code>Warning in verbose_obj_decrease_warning(): An iteration decreased the objective.
+This happens occasionally, perhaps due to numeric reasons. You could ignore this
+warning, but you might like to check out https://github.com/stephenslab/flashr/
+issues/26 for more details.</code></pre>
+<pre><code>          8      -51791.07  -6.50e+01</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 8.38e+01. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -51707.31</code></pre>
+<pre class="r"><code>plot(fit.flash$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = FALSE,type=&#39;wavelet&#39;)
+fit.dwt = funflash(datax,var.type = &#39;constant&#39;,seed=123,ebnm_fn = &#39;ebnm_pl&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -50767.421&quot;
+[1] &quot;Iteration  2 : obj  -50765.193&quot;
+[1] &quot;Iteration  3 : obj  -50765.191&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  4106.547&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -50095.985&quot;
+[1] &quot;Iteration  2 : obj  -50087.08&quot;
+[1] &quot;Iteration  3 : obj  -50086.837&quot;
+[1] &quot;Iteration  4 : obj  -50086.836&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  678.354&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -50005.041&quot;
+[1] &quot;Iteration  2 : obj  -49968.707&quot;
+[1] &quot;Iteration  3 : obj  -49964.193&quot;
+[1] &quot;Iteration  4 : obj  -49964.02&quot;
+[1] &quot;Iteration  5 : obj  -49963.404&quot;
+[1] &quot;Iteration  6 : obj  -49963.42&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  123.416&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -50019.556&quot;
+[1] &quot;Iteration  2 : obj  -50001.954&quot;
+[1] &quot;Iteration  3 : obj  -49997.196&quot;
+[1] &quot;Iteration  4 : obj  -49991.593&quot;
+[1] &quot;Iteration  5 : obj  -49988.811&quot;
+[1] &quot;Iteration  6 : obj  -49985.618&quot;
+[1] &quot;Iteration  7 : obj  -49980.317&quot;
+[1] &quot;Iteration  8 : obj  -49975.095&quot;
+[1] &quot;Iteration  9 : obj  -49973.7&quot;
+[1] &quot;Iteration  10 : obj  -49973.55&quot;
+[1] &quot;Iteration  11 : obj  -49973.474&quot;
+[1] &quot;Iteration  12 : obj  -49973.395&quot;
+[1] &quot;Iteration  13 : obj  -49973.272&quot;
+[1] &quot;Iteration  14 : obj  -49972.971&quot;
+[1] &quot;Iteration  15 : obj  -49971.94&quot;
+[1] &quot;Iteration  16 : obj  -49970.464&quot;
+[1] &quot;Iteration  17 : obj  -49970.272&quot;
+[1] &quot;Iteration  18 : obj  -49970.245&quot;
+[1] &quot;Iteration  19 : obj  -49970.231&quot;
+[1] &quot;Iteration  20 : obj  -49970.223&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  increases objective by  6.803&quot;</code></pre>
+<pre class="r"><code>plot(fit.dwt$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = FALSE,type=&#39;station&#39;)
+fit.ndwt = funflash(datax,var.type = &#39;constant&#39;,seed=123,Kmax=3,ebnm_fn = &#39;ebnm_pl&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -500856.854&quot;
+[1] &quot;Iteration  2 : obj  -500852.425&quot;
+[1] &quot;Iteration  3 : obj  -500852.349&quot;
+[1] &quot;Iteration  4 : obj  -500852.345&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  168384.752&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -405901.408&quot;
+[1] &quot;Iteration  2 : obj  -405896.586&quot;
+[1] &quot;Iteration  3 : obj  -405896.58&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  94955.765&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -374626.832&quot;
+[1] &quot;Iteration  2 : obj  -374618.323&quot;
+[1] &quot;Iteration  3 : obj  -374618.282&quot;
+[1] &quot;Iteration  4 : obj  -374618.281&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  31278.299&quot;</code></pre>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit.smooth_flash = smooth_flash(X,var_type=&#39;constant&#39;,ebnm_fn = &#39;ebnm_pl&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -54390.11        Inf</code></pre>
+<pre><code>          2      -54388.79   1.32e+00</code></pre>
+<pre><code>          3      -54388.79   4.62e-04</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 8.34e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -54388.79</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -50988.75        Inf</code></pre>
+<pre><code>          2      -50985.80   2.96e+00</code></pre>
+<pre><code>          3      -50985.80   2.56e-04</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 3.40e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -50985.8</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -50430.96        Inf</code></pre>
+<pre><code>          2      -50420.13   1.08e+01</code></pre>
+<pre><code>          3      -50419.82   3.09e-01</code></pre>
+<pre><code>          4      -50419.82   7.40e-05</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 5.66e+02. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -50419.82</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -50476.19        Inf</code></pre>
+<pre><code>          2      -50458.95   1.72e+01</code></pre>
+<pre><code>          3      -50453.97   4.98e+00</code></pre>
+<pre><code>          4      -50448.21   5.77e+00</code></pre>
+<pre><code>          5      -50445.61   2.60e+00</code></pre>
+<pre><code>          6      -50443.70   1.91e+00</code></pre>
+<pre><code>          7      -50441.36   2.34e+00</code></pre>
+<pre><code>          8      -50437.05   4.31e+00</code></pre>
+<pre><code>          9      -50431.75   5.30e+00</code></pre>
+<pre><code>         10      -50429.89   1.87e+00</code></pre>
+<pre><code>         11      -50429.59   2.98e-01</code></pre>
+<pre><code>         12      -50429.16   4.29e-01</code></pre>
+<pre><code>         13      -50428.24   9.16e-01</code></pre>
+<pre><code>         14      -50426.88   1.36e+00</code></pre>
+<pre><code>         15      -50426.70   1.85e-01</code></pre>
+<pre><code>         16      -50426.67   2.91e-02</code></pre>
+<pre><code>         17      -50426.66   1.47e-02</code></pre>
+<pre><code>         18      -50426.65   8.49e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 6.82e+00. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -50419.82</code></pre>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/waveflash_structure.Rmd/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>n = 45
+p = 256
+K= 2
+
+f0=0.5
+FF = matrix(f0, nrow=p, ncol=3)
+f1 = 5
+f2 = 1
+FF[(p/8*1):(p/8*2),1] = f1
+FF[(p/8*3):(p/8*4),2] = f2
+FF[(p/8*5):(p/8*7),3] = f1
+
+FF2 = matrix(f0, nrow=p, ncol=3)
+FF2[(p/8*1):(p/8*2),1] = f2
+FF2[(p/8*3+10):(p/8*4-10),2] = f1
+FF2[(p/8*5):(p/8*7),3] = f2
+
+FFF = cbind(c(FF[,1],FF2[,3]),c(FF[,2],FF2[,2]),c(FF[,3],FF2[,1]))
+
+
+for(k in 1:K){
+  plot(FFF[,k],type=&#39;l&#39;,ylim = range(FFF),ylab=&#39;&#39;,xlab=&#39;&#39;)
+}
+
+set.seed(123)
+L = matrix(0,nrow=n,ncol=K)
+pi0=1/3
+while(sum(rowSums(L)==0)&gt;0){
+  for(k in 1:K){
+    l1 = c(rep(0,n*pi0),
+           rnorm(n*(1-pi0)/2,0,sqrt(0.25)),
+           rnorm(n*(1-pi0)/2,0,sqrt(1)))
+    L[,k] =  l1[sample(1:n)]
+  }
+}
+
+s = mean(apply(tcrossprod(L,FFF[,1:K]),1,sd))
+X = tcrossprod(L,FFF[,1:K]) + matrix(rnorm(n*p*2,0,s),nrow=n,ncol=p*2)
+
+datax = funflash_set_data(X,reflect.data = FALSE,type=&#39;station&#39;)
+fit.dwt = funflash(datax,var.type = &#39;constant&#39;,Kmax=2,seed=123)
+plot(fit.dwt$ldf$f[,1],type=&#39;l&#39;)
+plot(fit.dwt$ldf$f[,2],type=&#39;l&#39;)
+
+fit.flash = flash(X)
+plot(fit.flash$ldf$f[,1],type=&#39;l&#39;)
+plot(fit.flash$ldf$f[,2],type=&#39;l&#39;)
+
+fit.smooth_flash = smooth_flash(X,var_type=&#39;constant&#39;)
+plot(fit.smooth_flash$ldf$f[,1],type=&#39;l&#39;)
+plot(fit.smooth_flash$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.0 (2022-04-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur/Monterey 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] flashr_0.6-8    funflash_0.1.0  workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.8.3      horseshoe_0.2.0   invgamma_1.1      lattice_0.20-45  
+ [5] getPass_0.2-2     ps_1.7.0          assertthat_0.2.1  rprojroot_2.0.3  
+ [9] digest_0.6.29     utf8_1.2.2        truncnorm_1.0-8   R6_2.5.1         
+[13] plyr_1.8.7        evaluate_0.15     highr_0.9         httr_1.4.2       
+[17] ggplot2_3.3.5     pillar_1.7.0      rlang_1.0.2       wavethresh_4.6.8 
+[21] ebnm_1.0-9        data.table_1.14.2 rstudioapi_0.13   irlba_2.3.5      
+[25] whisker_0.4       callr_3.7.0       jquerylib_0.1.4   Matrix_1.4-1     
+[29] rmarkdown_2.13    splines_4.2.0     smashr_1.2-9      stringr_1.4.0    
+[33] munsell_0.5.0     mixsqp_0.3-47     compiler_4.2.0    httpuv_1.6.5     
+[37] xfun_0.30         pkgconfig_2.0.3   SQUAREM_2021.1    htmltools_0.5.2  
+[41] tidyselect_1.1.2  tibble_3.1.6      fansi_1.0.3       crayon_1.5.1     
+[45] dplyr_1.0.8       later_1.3.0       MASS_7.3-56       bitops_1.0-7     
+[49] grid_4.2.0        jsonlite_1.8.0    gtable_0.3.0      lifecycle_1.0.1  
+[53] DBI_1.1.2         git2r_0.30.1      magrittr_2.0.3    scales_1.2.0     
+[57] cli_3.3.0         stringi_1.7.6     reshape2_1.4.4    fs_1.5.2         
+[61] promises_1.2.0.1  bslib_0.3.1       ellipsis_0.3.2    vctrs_0.4.1      
+[65] generics_0.1.2    trust_0.1-8       tools_4.2.0       glue_1.6.2       
+[69] softImpute_1.4-1  purrr_0.3.4       processx_3.5.3    fastmap_1.1.0    
+[73] yaml_2.3.5        colorspace_2.0-3  ashr_2.2-54       caTools_1.18.2   
+[77] deconvolveR_1.2-1 knitr_1.38        sass_0.4.1       </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
