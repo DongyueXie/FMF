@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Dongyue Xie" />
+
+<meta name="date" content="2021-10-04" />
+
+<title>Redundant factors after NDWT and reflecting data</title>
+
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SMF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/DongyueXie/SMF">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Redundant factors after NDWT and reflecting data</h1>
+<h4 class="author">Dongyue Xie</h4>
+<h4 class="date">2021-10-04</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-05-04
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190719code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190719)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190719code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190719)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreee16463f608450b5b88b84b86ca048a7a4bb7da72targetblanke16463fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/e16463f608450b5b88b84b86ca048a7a4bb7da72" target="_blank">e16463f</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreee16463f608450b5b88b84b86ca048a7a4bb7da72targetblanke16463fa" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/e16463f608450b5b88b84b86ca048a7a4bb7da72" target="_blank">e16463f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/external_data/
+    Ignored:    output/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/collect_of_examples.Rmd
+    Untracked:  analysis/sparse_smoothing.Rmd
+    Untracked:  code/mr_ash.R
+    Untracked:  data/luis/
+    Untracked:  output/flash_on_cmc2_reduced.rds
+    Untracked:  output/flash_on_cmc2_reduced_2000kb.rds
+    Untracked:  output/luis/
+    Untracked:  output/wave_flash_on_cmc2_reduced_2000kb.rds
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/luis_data.Rmd
+    Modified:   analysis/moma.Rmd
+    Modified:   analysis/smooth_flash.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/redundant_factors_reflect.Rmd</code>) and HTML (<code>docs/redundant_factors_reflect.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/e16463f608450b5b88b84b86ca048a7a4bb7da72/analysis/redundant_factors_reflect.Rmd" target="_blank">e16463f</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-04
+</td>
+<td>
+wflow_publish("analysis/redundant_factors_reflect.Rmd")
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Two possible reasons for causing redundant factors.</p>
+<ol style="list-style-type: decimal">
+<li><p>If using NDWT, the transformation introduces correlations.</p></li>
+<li><p>To perform <span class="math inline">\(YW = LFW+EW\)</span>, we need the number of columns of <span class="math inline">\(Y\)</span> to be a power of 2. If it’s not, we usually extend the matrix <span class="math inline">\(Y\)</span> to the left and right, by mirroring the left and right data. After making <span class="math inline">\(\#\)</span>col a power of 2, we can also reflect the whole data matrix by <span class="math inline">\(cbind(Y,Y[,p:1])\)</span> so that the starting and ending point are the same. This reflecting is important for NDWT.</p></li>
+</ol>
+<p>Now look at some simple examples.</p>
+</div>
+<div id="ndwt" class="section level2">
+<h2>NDWT</h2>
+<pre class="r"><code>set.seed(12345)
+n &lt;- 50
+p &lt;- 256
+K &lt;- 3
+snr &lt;- 1
+
+## Step 1: sample U, an orthogonal matrix
+rand_semdef_sym_mat &lt;- crossprod(matrix(runif(n * n), n, n))
+rand_ortho_mat &lt;- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+u_1 &lt;- rand_ortho_mat[, 1]
+u_2 &lt;- rand_ortho_mat[, 2]
+u_3 &lt;- rand_ortho_mat[, 3]
+
+f1 = c(rep(0,p/8), rep(1, p/4), rep(0, p/4), rep(0, p/4),rep(0,p/8))
+f2 = c(rep(0,p/8), rep(0, p/4), rep(1, p/4), rep(0, p/4),rep(0,p/8))
+f3 = c(rep(0,p/8), rep(0, p/4), rep(0, p/4), rep(1, p/4),rep(0,p/8))
+
+L = cbind(u_1,u_2,u_3)
+FF=cbind(f1,f2,f3)
+
+plot(f1,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f2,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f3,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-1-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>M = n / 3 * u_1 %*% t(f1) +
+        n / 5 * u_2 %*% t(f2) +
+        n / 6 * u_3 %*% t(f3)
+v = var(c(M))/snr
+X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)</code></pre>
+<p>First fit flash as baseline</p>
+<pre class="r"><code>library(flashr)
+fit.flash = flash(X,var_type=&#39;constant&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -25062.76        Inf</code></pre>
+<pre><code>          2      -25060.49   2.27e+00</code></pre>
+<pre><code>          3      -25060.49   3.93e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 2.21e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -25060.49</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -24123.63        Inf</code></pre>
+<pre><code>          2      -24119.47   4.16e+00</code></pre>
+<pre><code>          3      -24119.33   1.38e-01</code></pre>
+<pre><code>          4      -24119.32   7.29e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 9.41e+02. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -24119.32</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -23307.99        Inf</code></pre>
+<pre><code>          2      -23305.42   2.58e+00</code></pre>
+<pre><code>          3      -23305.41   6.30e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 8.14e+02. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -23305.41</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -23335.07        Inf</code></pre>
+<pre><code>          2      -23326.57   8.50e+00</code></pre>
+<pre><code>          3      -23325.95   6.21e-01</code></pre>
+<pre><code>          4      -23325.81   1.41e-01</code></pre>
+<pre><code>          5      -23325.76   5.10e-02</code></pre>
+<pre><code>          6      -23325.73   2.39e-02</code></pre>
+<pre><code>          7      -23325.72   1.33e-02</code></pre>
+<pre><code>          8      -23325.71   8.41e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 2.03e+01. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -23305.41</code></pre>
+<pre class="r"><code>plot(fit.flash$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Then fit smooth_flash. Haar wavelet, DWT.</p>
+<pre class="r"><code>library(funflash)
+fit.smooth_flash = smooth_flash(X,var_type = &#39;constant&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -24783.70        Inf</code></pre>
+<pre><code>          2      -24782.01   1.69e+00</code></pre>
+<pre><code>          3      -24781.99   1.71e-02</code></pre>
+<pre><code>          4      -24781.99   1.01e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 2.49e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -24781.99</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -23604.66        Inf</code></pre>
+<pre><code>          2      -23601.01   3.65e+00</code></pre>
+<pre><code>          3      -23600.10   9.13e-01</code></pre>
+<pre><code>          4      -23599.54   5.59e-01</code></pre>
+<pre><code>          5      -23599.40   1.38e-01</code></pre>
+<pre><code>          6      -23599.38   2.54e-02</code></pre>
+<pre><code>          7      -23599.37   4.30e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 1.18e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -23599.37</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -22565.51        Inf</code></pre>
+<pre><code>          2      -22561.20   4.31e+00</code></pre>
+<pre><code>          3      -22561.17   2.91e-02</code></pre>
+<pre><code>          4      -22561.17   2.27e-05</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 1.04e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -22561.17</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -22586.35        Inf</code></pre>
+<pre><code>          2      -22578.56   7.79e+00</code></pre>
+<pre><code>          3      -22578.07   4.83e-01</code></pre>
+<pre><code>          4      -22577.92   1.48e-01</code></pre>
+<pre><code>          5      -22577.77   1.54e-01</code></pre>
+<pre><code>          6      -22577.53   2.43e-01</code></pre>
+<pre><code>          7      -22577.12   4.06e-01</code></pre>
+<pre><code>          8      -22576.46   6.61e-01</code></pre>
+<pre><code>          9      -22575.47   9.86e-01</code></pre>
+<pre><code>         10      -22574.17   1.31e+00</code></pre>
+<pre><code>         11      -22572.35   1.82e+00</code></pre>
+<pre><code>         12      -22570.16   2.19e+00</code></pre>
+<pre><code>         13      -22568.75   1.42e+00</code></pre>
+<pre><code>         14      -22568.23   5.11e-01</code></pre>
+<pre><code>         15      -22567.88   3.50e-01</code></pre>
+<pre><code>         16      -22567.47   4.17e-01</code></pre>
+<pre><code>         17      -22566.88   5.88e-01</code></pre>
+<pre><code>         18      -22566.21   6.74e-01</code></pre>
+<pre><code>         19      -22565.90   3.05e-01</code></pre>
+<pre><code>         20      -22565.77   1.30e-01</code></pre>
+<pre><code>         21      -22565.67   9.68e-02</code></pre>
+<pre><code>         22      -22565.58   9.17e-02</code></pre>
+<pre><code>         23      -22565.49   9.32e-02</code></pre>
+<pre><code>         24      -22565.40   8.87e-02</code></pre>
+<pre><code>         25      -22565.32   8.41e-02</code></pre>
+<pre><code>         26      -22565.20   1.16e-01</code></pre>
+<pre><code>         27      -22564.94   2.63e-01</code></pre>
+<pre><code>         28      -22564.41   5.24e-01</code></pre>
+<pre><code>         29      -22564.11   3.03e-01</code></pre>
+<pre><code>         30      -22564.07   4.44e-02</code></pre>
+<pre><code>         31      -22564.06   9.40e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 increases objective by 2.89e+00. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -22561.17</code></pre>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now DWT funflash.</p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = FALSE,type=&#39;wavelet&#39;)
+fit.dwt = funflash(datax,var.type = &#39;constant&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -23950.971&quot;
+[1] &quot;Iteration  2 : obj  -23948.958&quot;
+[1] &quot;Iteration  3 : obj  -23948.958&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  2319.822&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -22788.057&quot;
+[1] &quot;Iteration  2 : obj  -22784.019&quot;
+[1] &quot;Iteration  3 : obj  -22784.013&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  1164.945&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -22466.143&quot;
+[1] &quot;Iteration  2 : obj  -22458.425&quot;
+[1] &quot;Iteration  3 : obj  -22458.378&quot;
+[1] &quot;Iteration  4 : obj  -22458.377&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  325.636&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -22483.151&quot;
+[1] &quot;Iteration  2 : obj  -22475.424&quot;
+[1] &quot;Iteration  3 : obj  -22474.966&quot;
+[1] &quot;Iteration  4 : obj  -22474.858&quot;
+[1] &quot;Iteration  5 : obj  -22474.799&quot;
+[1] &quot;Iteration  6 : obj  -22474.75&quot;
+[1] &quot;Iteration  7 : obj  -22474.704&quot;
+[1] &quot;Iteration  8 : obj  -22474.657&quot;
+[1] &quot;Iteration  9 : obj  -22474.608&quot;
+[1] &quot;Iteration  10 : obj  -22474.554&quot;
+[1] &quot;Iteration  11 : obj  -22474.494&quot;
+[1] &quot;Iteration  12 : obj  -22474.427&quot;
+[1] &quot;Iteration  13 : obj  -22474.35&quot;
+[1] &quot;Iteration  14 : obj  -22474.262&quot;
+[1] &quot;Iteration  15 : obj  -22474.159&quot;
+[1] &quot;Iteration  16 : obj  -22474.037&quot;
+[1] &quot;Iteration  17 : obj  -22473.89&quot;
+[1] &quot;Iteration  18 : obj  -22473.708&quot;
+[1] &quot;Iteration  19 : obj  -22473.475&quot;
+[1] &quot;Iteration  20 : obj  -22473.163&quot;
+[1] &quot;Iteration  21 : obj  -22472.728&quot;
+[1] &quot;Iteration  22 : obj  -22472.173&quot;
+[1] &quot;Iteration  23 : obj  -22471.494&quot;
+[1] &quot;Iteration  24 : obj  -22468.783&quot;
+[1] &quot;Iteration  25 : obj  -22465.491&quot;
+[1] &quot;Iteration  26 : obj  -22464.863&quot;
+[1] &quot;Iteration  27 : obj  -22462.601&quot;
+[1] &quot;Iteration  28 : obj  -22462.197&quot;
+[1] &quot;Iteration  29 : obj  -22462.014&quot;
+[1] &quot;Iteration  30 : obj  -22461.889&quot;
+[1] &quot;Iteration  31 : obj  -22461.744&quot;
+[1] &quot;Iteration  32 : obj  -22461.573&quot;
+[1] &quot;Iteration  33 : obj  -22461.429&quot;
+[1] &quot;Iteration  34 : obj  -22461.346&quot;
+[1] &quot;Iteration  35 : obj  -22461.305&quot;
+[1] &quot;Iteration  36 : obj  -22461.287&quot;
+[1] &quot;Iteration  37 : obj  -22461.278&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  increases objective by  2.901&quot;</code></pre>
+<pre class="r"><code>fit.dwt$nfactors</code></pre>
+<pre><code>[1] 3</code></pre>
+<pre class="r"><code>plot(fit.dwt$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now NDWT funflash.</p>
+<pre class="r"><code>datax = funflash_set_data(X,reflect.data = FALSE,type=&#39;station&#39;)
+fit.ndwt = funflash(datax,var.type = &#39;constant&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -264122.596&quot;
+[1] &quot;Iteration  2 : obj  -264116.019&quot;
+[1] &quot;Iteration  3 : obj  -264115.895&quot;
+[1] &quot;Iteration  4 : obj  -264115.879&quot;
+[1] &quot;Iteration  5 : obj  -264115.877&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  50831.67&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -212286.49&quot;
+[1] &quot;Iteration  2 : obj  -212277.643&quot;
+[1] &quot;Iteration  3 : obj  -212277.579&quot;
+[1] &quot;Iteration  4 : obj  -212277.574&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  51838.302&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -177725.355&quot;
+[1] &quot;Iteration  2 : obj  -177711.544&quot;
+[1] &quot;Iteration  3 : obj  -177711.537&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  34566.037&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -176534.481&quot;
+[1] &quot;Iteration  2 : obj  -176514.327&quot;
+[1] &quot;Iteration  3 : obj  -176510.312&quot;
+[1] &quot;Iteration  4 : obj  -176506.987&quot;
+[1] &quot;Iteration  5 : obj  -176503.959&quot;
+[1] &quot;Iteration  6 : obj  -176501.553&quot;
+[1] &quot;Iteration  7 : obj  -176498.256&quot;
+[1] &quot;Iteration  8 : obj  -176495.575&quot;
+[1] &quot;Iteration  9 : obj  -176493.333&quot;
+[1] &quot;Iteration  10 : obj  -176491.447&quot;
+[1] &quot;Iteration  11 : obj  -176489.878&quot;
+[1] &quot;Iteration  12 : obj  -176488.6&quot;
+[1] &quot;Iteration  13 : obj  -176487.574&quot;
+[1] &quot;Iteration  14 : obj  -176486.737&quot;
+[1] &quot;Iteration  15 : obj  -176486.014&quot;
+[1] &quot;Iteration  16 : obj  -176485.367&quot;
+[1] &quot;Iteration  17 : obj  -176484.772&quot;
+[1] &quot;Iteration  18 : obj  -176484.218&quot;
+[1] &quot;Iteration  19 : obj  -176483.699&quot;
+[1] &quot;Iteration  20 : obj  -176483.212&quot;
+[1] &quot;Iteration  21 : obj  -176482.756&quot;
+[1] &quot;Iteration  22 : obj  -176482.33&quot;
+[1] &quot;Iteration  23 : obj  -176481.931&quot;
+[1] &quot;Iteration  24 : obj  -176481.558&quot;
+[1] &quot;Iteration  25 : obj  -176481.211&quot;
+[1] &quot;Iteration  26 : obj  -176480.888&quot;
+[1] &quot;Iteration  27 : obj  -176480.59&quot;
+[1] &quot;Iteration  28 : obj  -176480.314&quot;
+[1] &quot;Iteration  29 : obj  -176480.06&quot;
+[1] &quot;Iteration  30 : obj  -176479.827&quot;
+[1] &quot;Iteration  31 : obj  -176479.613&quot;
+[1] &quot;Iteration  32 : obj  -176479.422&quot;
+[1] &quot;Iteration  33 : obj  -176479.26&quot;
+[1] &quot;Iteration  34 : obj  -176479.126&quot;
+[1] &quot;Iteration  35 : obj  -176479.014&quot;
+[1] &quot;Iteration  36 : obj  -176478.921&quot;
+[1] &quot;Iteration  37 : obj  -176478.845&quot;
+[1] &quot;Iteration  38 : obj  -176478.821&quot;
+[1] &quot;Iteration  39 : obj  -176478.77&quot;
+[1] &quot;Iteration  40 : obj  -176478.724&quot;
+[1] &quot;Iteration  41 : obj  -176478.685&quot;
+[1] &quot;Iteration  42 : obj  -176478.652&quot;
+[1] &quot;Iteration  43 : obj  -176478.624&quot;
+[1] &quot;Iteration  44 : obj  -176478.601&quot;
+[1] &quot;Iteration  45 : obj  -176478.549&quot;
+[1] &quot;Iteration  46 : obj  -176478.536&quot;
+[1] &quot;Iteration  47 : obj  -176478.527&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  decreases objective by  1233.01&quot;
+[1] &quot;Fitting dimension  5&quot;
+[1] &quot;Iteration  1 : obj  -175409.402&quot;
+[1] &quot;Iteration  2 : obj  -175388.973&quot;
+[1] &quot;Iteration  3 : obj  -175387.878&quot;
+[1] &quot;Iteration  4 : obj  -175387.591&quot;
+[1] &quot;Iteration  5 : obj  -175387.469&quot;
+[1] &quot;Iteration  6 : obj  -175387.406&quot;
+[1] &quot;Iteration  7 : obj  -175387.369&quot;
+[1] &quot;Iteration  8 : obj  -175387.344&quot;
+[1] &quot;Iteration  9 : obj  -175387.327&quot;
+[1] &quot;Iteration  10 : obj  -175387.314&quot;
+[1] &quot;Iteration  11 : obj  -175387.304&quot;
+[1] &quot;Iteration  12 : obj  -175387.295&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  5  decreases objective by  1091.231&quot;
+[1] &quot;Fitting dimension  6&quot;
+[1] &quot;Iteration  1 : obj  -174410.46&quot;
+[1] &quot;Iteration  2 : obj  -174390.548&quot;
+[1] &quot;Iteration  3 : obj  -174388.968&quot;
+[1] &quot;Iteration  4 : obj  -174388.412&quot;
+[1] &quot;Iteration  5 : obj  -174388.152&quot;
+[1] &quot;Iteration  6 : obj  -174388.012&quot;
+[1] &quot;Iteration  7 : obj  -174387.93&quot;
+[1] &quot;Iteration  8 : obj  -174387.881&quot;
+[1] &quot;Iteration  9 : obj  -174387.85&quot;
+[1] &quot;Iteration  10 : obj  -174387.83&quot;
+[1] &quot;Iteration  11 : obj  -174387.817&quot;
+[1] &quot;Iteration  12 : obj  -174387.809&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  6  decreases objective by  999.486&quot;
+[1] &quot;Fitting dimension  7&quot;
+[1] &quot;Iteration  1 : obj  -173721.395&quot;
+[1] &quot;Iteration  2 : obj  -173689.535&quot;
+[1] &quot;Iteration  3 : obj  -173683.532&quot;
+[1] &quot;Iteration  4 : obj  -173680.871&quot;
+[1] &quot;Iteration  5 : obj  -173679.48&quot;
+[1] &quot;Iteration  6 : obj  -173678.676&quot;
+[1] &quot;Iteration  7 : obj  -173678.18&quot;
+[1] &quot;Iteration  8 : obj  -173677.862&quot;
+[1] &quot;Iteration  9 : obj  -173677.652&quot;
+[1] &quot;Iteration  10 : obj  -173677.513&quot;
+[1] &quot;Iteration  11 : obj  -173677.419&quot;
+[1] &quot;Iteration  12 : obj  -173677.356&quot;
+[1] &quot;Iteration  13 : obj  -173677.313&quot;
+[1] &quot;Iteration  14 : obj  -173677.284&quot;
+[1] &quot;Iteration  15 : obj  -173677.264&quot;
+[1] &quot;Iteration  16 : obj  -173677.25&quot;
+[1] &quot;Iteration  17 : obj  -173677.241&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  7  decreases objective by  710.568&quot;
+[1] &quot;Fitting dimension  8&quot;
+[1] &quot;Iteration  1 : obj  -173219.016&quot;
+[1] &quot;Iteration  2 : obj  -173192.116&quot;
+[1] &quot;Iteration  3 : obj  -173186.701&quot;
+[1] &quot;Iteration  4 : obj  -173183.651&quot;
+[1] &quot;Iteration  5 : obj  -173181.886&quot;
+[1] &quot;Iteration  6 : obj  -173180.827&quot;
+[1] &quot;Iteration  7 : obj  -173180.164&quot;
+[1] &quot;Iteration  8 : obj  -173179.732&quot;
+[1] &quot;Iteration  9 : obj  -173179.439&quot;
+[1] &quot;Iteration  10 : obj  -173179.232&quot;
+[1] &quot;Iteration  11 : obj  -173179.078&quot;
+[1] &quot;Iteration  12 : obj  -173178.958&quot;
+[1] &quot;Iteration  13 : obj  -173178.858&quot;
+[1] &quot;Iteration  14 : obj  -173178.772&quot;
+[1] &quot;Iteration  15 : obj  -173178.693&quot;
+[1] &quot;Iteration  16 : obj  -173178.618&quot;
+[1] &quot;Iteration  17 : obj  -173178.544&quot;
+[1] &quot;Iteration  18 : obj  -173178.469&quot;
+[1] &quot;Iteration  19 : obj  -173178.393&quot;
+[1] &quot;Iteration  20 : obj  -173178.315&quot;
+[1] &quot;Iteration  21 : obj  -173178.235&quot;
+[1] &quot;Iteration  22 : obj  -173178.152&quot;
+[1] &quot;Iteration  23 : obj  -173178.067&quot;
+[1] &quot;Iteration  24 : obj  -173177.978&quot;
+[1] &quot;Iteration  25 : obj  -173177.876&quot;
+[1] &quot;Iteration  26 : obj  -173177.754&quot;
+[1] &quot;Iteration  27 : obj  -173177.609&quot;
+[1] &quot;Iteration  28 : obj  -173177.437&quot;
+[1] &quot;Iteration  29 : obj  -173177.236&quot;
+[1] &quot;Iteration  30 : obj  -173177.004&quot;
+[1] &quot;Iteration  31 : obj  -173176.741&quot;
+[1] &quot;Iteration  32 : obj  -173176.45&quot;
+[1] &quot;Iteration  33 : obj  -173176.133&quot;
+[1] &quot;Iteration  34 : obj  -173175.798&quot;
+[1] &quot;Iteration  35 : obj  -173175.449&quot;
+[1] &quot;Iteration  36 : obj  -173175.097&quot;
+[1] &quot;Iteration  37 : obj  -173174.749&quot;
+[1] &quot;Iteration  38 : obj  -173174.413&quot;
+[1] &quot;Iteration  39 : obj  -173174.096&quot;
+[1] &quot;Iteration  40 : obj  -173173.802&quot;
+[1] &quot;Iteration  41 : obj  -173173.535&quot;
+[1] &quot;Iteration  42 : obj  -173173.287&quot;
+[1] &quot;Iteration  43 : obj  -173173.054&quot;
+[1] &quot;Iteration  44 : obj  -173172.835&quot;
+[1] &quot;Iteration  45 : obj  -173172.63&quot;
+[1] &quot;Iteration  46 : obj  -173172.437&quot;
+[1] &quot;Iteration  47 : obj  -173172.255&quot;
+[1] &quot;Iteration  48 : obj  -173172.082&quot;
+[1] &quot;Iteration  49 : obj  -173171.917&quot;
+[1] &quot;Iteration  50 : obj  -173171.761&quot;
+[1] &quot;Iteration  51 : obj  -173171.615&quot;
+[1] &quot;Iteration  52 : obj  -173171.483&quot;
+[1] &quot;Iteration  53 : obj  -173171.368&quot;
+[1] &quot;Iteration  54 : obj  -173171.272&quot;
+[1] &quot;Iteration  55 : obj  -173171.195&quot;
+[1] &quot;Iteration  56 : obj  -173171.135&quot;
+[1] &quot;Iteration  57 : obj  -173171.09&quot;
+[1] &quot;Iteration  58 : obj  -173171.057&quot;
+[1] &quot;Iteration  59 : obj  -173171.033&quot;
+[1] &quot;Iteration  60 : obj  -173171.016&quot;
+[1] &quot;Iteration  61 : obj  -173171.003&quot;
+[1] &quot;Iteration  62 : obj  -173170.994&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  8  decreases objective by  506.247&quot;
+[1] &quot;Fitting dimension  9&quot;
+[1] &quot;Iteration  1 : obj  -172723&quot;
+[1] &quot;Iteration  2 : obj  -172703.147&quot;
+[1] &quot;Iteration  3 : obj  -172699.764&quot;
+[1] &quot;Iteration  4 : obj  -172697.873&quot;
+[1] &quot;Iteration  5 : obj  -172696.569&quot;
+[1] &quot;Iteration  6 : obj  -172695.541&quot;
+[1] &quot;Iteration  7 : obj  -172694.718&quot;
+[1] &quot;Iteration  8 : obj  -172694.381&quot;
+[1] &quot;Iteration  9 : obj  -172693.605&quot;
+[1] &quot;Iteration  10 : obj  -172693.016&quot;
+[1] &quot;Iteration  11 : obj  -172692.575&quot;
+[1] &quot;Iteration  12 : obj  -172692.23&quot;
+[1] &quot;Iteration  13 : obj  -172691.951&quot;
+[1] &quot;Iteration  14 : obj  -172691.722&quot;
+[1] &quot;Iteration  15 : obj  -172691.529&quot;
+[1] &quot;Iteration  16 : obj  -172691.367&quot;
+[1] &quot;Iteration  17 : obj  -172691.23&quot;
+[1] &quot;Iteration  18 : obj  -172691.112&quot;
+[1] &quot;Iteration  19 : obj  -172691.012&quot;
+[1] &quot;Iteration  20 : obj  -172690.926&quot;
+[1] &quot;Iteration  21 : obj  -172690.853&quot;
+[1] &quot;Iteration  22 : obj  -172690.79&quot;
+[1] &quot;Iteration  23 : obj  -172690.737&quot;
+[1] &quot;Iteration  24 : obj  -172690.691&quot;
+[1] &quot;Iteration  25 : obj  -172690.651&quot;
+[1] &quot;Iteration  26 : obj  -172690.618&quot;
+[1] &quot;Iteration  27 : obj  -172690.589&quot;
+[1] &quot;Iteration  28 : obj  -172690.564&quot;
+[1] &quot;Iteration  29 : obj  -172690.543&quot;
+[1] &quot;Iteration  30 : obj  -172690.525&quot;
+[1] &quot;Iteration  31 : obj  -172690.51&quot;
+[1] &quot;Iteration  32 : obj  -172690.497&quot;
+[1] &quot;Iteration  33 : obj  -172690.486&quot;
+[1] &quot;Iteration  34 : obj  -172690.477&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  9  decreases objective by  480.518&quot;
+[1] &quot;Fitting dimension  10&quot;
+[1] &quot;Iteration  1 : obj  -172301.63&quot;
+[1] &quot;Iteration  2 : obj  -172276.725&quot;
+[1] &quot;Iteration  3 : obj  -172271.721&quot;
+[1] &quot;Iteration  4 : obj  -172268.676&quot;
+[1] &quot;Iteration  5 : obj  -172266.516&quot;
+[1] &quot;Iteration  6 : obj  -172265.182&quot;
+[1] &quot;Iteration  7 : obj  -172263.538&quot;
+[1] &quot;Iteration  8 : obj  -172262.514&quot;
+[1] &quot;Iteration  9 : obj  -172261.862&quot;
+[1] &quot;Iteration  10 : obj  -172261.444&quot;
+[1] &quot;Iteration  11 : obj  -172261.183&quot;
+[1] &quot;Iteration  12 : obj  -172261.015&quot;
+[1] &quot;Iteration  13 : obj  -172260.905&quot;
+[1] &quot;Iteration  14 : obj  -172260.831&quot;
+[1] &quot;Iteration  15 : obj  -172260.781&quot;
+[1] &quot;Iteration  16 : obj  -172260.747&quot;
+[1] &quot;Iteration  17 : obj  -172260.724&quot;
+[1] &quot;Iteration  18 : obj  -172260.707&quot;
+[1] &quot;Iteration  19 : obj  -172260.696&quot;
+[1] &quot;Iteration  20 : obj  -172260.688&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  10  decreases objective by  429.789&quot;</code></pre>
+<pre class="r"><code>fit.ndwt$nfactors</code></pre>
+<pre><code>[1] 10</code></pre>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,4],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-7-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,5],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-7-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.ndwt$ldf$f[,6],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-7-6.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="power-of-two" class="section level2">
+<h2>power of two</h2>
+<p>Now create an example that needs extending the data.</p>
+<pre class="r"><code>set.seed(12345)
+n &lt;- 50
+p &lt;- 8*4*10
+K &lt;- 3
+snr &lt;- 1
+
+## Step 1: sample U, an orthogonal matrix
+rand_semdef_sym_mat &lt;- crossprod(matrix(runif(n * n), n, n))
+rand_ortho_mat &lt;- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+u_1 &lt;- rand_ortho_mat[, 1]
+u_2 &lt;- rand_ortho_mat[, 2]
+u_3 &lt;- rand_ortho_mat[, 3]
+
+f1 = c(rep(0,p/8), rep(1, p/4), rep(0, p/4), rep(0, p/4),rep(0,p/8))
+f2 = c(rep(0,p/8), rep(0, p/4), rep(1, p/4), rep(0, p/4),rep(0,p/8))
+f3 = c(rep(0,p/8), rep(0, p/4), rep(0, p/4), rep(1, p/4),rep(0,p/8))
+
+L = cbind(u_1,u_2,u_3)
+FF=cbind(f1,f2,f3)
+
+plot(f1,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f2,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(f3,type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>M = n / 3 * u_1 %*% t(f1) +
+        n / 5 * u_2 %*% t(f2) +
+        n / 6 * u_3 %*% t(f3)
+v = var(c(M))/snr
+X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)</code></pre>
+<p>extend the data</p>
+<pre class="r"><code>X.e = funflash:::reflect(X,F)</code></pre>
+<p>First fit flash as baseline</p>
+<pre class="r"><code>idx = X.e$idx
+fit.flash = flash(X.e$x,var_type=&#39;constant&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -49049.41        Inf</code></pre>
+<pre><code>          2      -49046.85   2.57e+00</code></pre>
+<pre><code>          3      -49046.85   1.94e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 5.12e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -49046.85</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -47577.68        Inf</code></pre>
+<pre><code>          2      -47573.44   4.25e+00</code></pre>
+<pre><code>          3      -47573.37   6.54e-02</code></pre>
+<pre><code>          4      -47573.37   6.44e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 1.47e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -47573.37</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -46089.57        Inf</code></pre>
+<pre><code>          2      -46083.91   5.66e+00</code></pre>
+<pre><code>          3      -46083.90   1.03e-02</code></pre>
+<pre><code>          4      -46083.90   5.88e-05</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 1.49e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -46083.9</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -46105.16        Inf</code></pre>
+<pre><code>          2      -46095.15   1.00e+01</code></pre>
+<pre><code>          3      -46094.73   4.15e-01</code></pre>
+<pre><code>          4      -46094.47   2.59e-01</code></pre>
+<pre><code>          5      -46094.16   3.11e-01</code></pre>
+<pre><code>          6      -46093.79   3.70e-01</code></pre>
+<pre><code>          7      -46093.37   4.21e-01</code></pre>
+<pre><code>          8      -46092.91   4.58e-01</code></pre>
+<pre><code>          9      -46092.43   4.80e-01</code></pre>
+<pre><code>         10      -46091.94   4.92e-01</code></pre>
+<pre><code>         11      -46091.44   5.02e-01</code></pre>
+<pre><code>         12      -46090.93   5.14e-01</code></pre>
+<pre><code>         13      -46090.40   5.28e-01</code></pre>
+<pre><code>         14      -46089.86   5.40e-01</code></pre>
+<pre><code>         15      -46089.31   5.44e-01</code></pre>
+<pre><code>         16      -46088.77   5.47e-01</code></pre>
+<pre><code>         17      -46088.20   5.64e-01</code></pre>
+<pre><code>         18      -46087.60   6.05e-01</code></pre>
+<pre><code>         19      -46086.93   6.70e-01</code></pre>
+<pre><code>         20      -46086.17   7.57e-01</code></pre>
+<pre><code>         21      -46085.27   8.97e-01</code></pre>
+<pre><code>         22      -46084.11   1.17e+00</code></pre>
+<pre><code>         23      -46082.50   1.61e+00</code></pre>
+<pre><code>         24      -46080.33   2.17e+00</code></pre>
+<pre><code>         25      -46077.84   2.49e+00</code></pre>
+<pre><code>         26      -46075.78   2.05e+00</code></pre>
+<pre><code>         27      -46074.48   1.31e+00</code></pre>
+<pre><code>         28      -46073.74   7.36e-01</code></pre>
+<pre><code>         29      -46073.50   2.41e-01</code></pre>
+<pre><code>         30      -46073.45   4.35e-02</code></pre>
+<pre><code>         31      -46073.45   6.93e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 decreases objective by 1.05e+01. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -46073.45</code></pre>
+<pre><code>Fitting factor/loading 5 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -46094.86        Inf</code></pre>
+<pre><code>          2      -46084.76   1.01e+01</code></pre>
+<pre><code>          3      -46084.34   4.19e-01</code></pre>
+<pre><code>          4      -46084.17   1.68e-01</code></pre>
+<pre><code>          5      -46084.05   1.25e-01</code></pre>
+<pre><code>          6      -46083.95   9.76e-02</code></pre>
+<pre><code>          7      -46083.87   7.73e-02</code></pre>
+<pre><code>          8      -46083.81   6.27e-02</code></pre>
+<pre><code>          9      -46083.76   5.26e-02</code></pre>
+<pre><code>         10      -46083.71   4.60e-02</code></pre>
+<pre><code>         11      -46083.67   4.20e-02</code></pre>
+<pre><code>         12      -46083.63   4.00e-02</code></pre>
+<pre><code>         13      -46083.59   3.96e-02</code></pre>
+<pre><code>         14      -46083.55   4.04e-02</code></pre>
+<pre><code>         15      -46083.51   4.23e-02</code></pre>
+<pre><code>         16      -46083.46   4.51e-02</code></pre>
+<pre><code>         17      -46083.41   4.89e-02</code></pre>
+<pre><code>         18      -46083.36   5.35e-02</code></pre>
+<pre><code>         19      -46083.30   5.91e-02</code></pre>
+<pre><code>         20      -46083.24   6.57e-02</code></pre>
+<pre><code>         21      -46083.16   7.33e-02</code></pre>
+<pre><code>         22      -46083.08   8.20e-02</code></pre>
+<pre><code>         23      -46082.99   9.18e-02</code></pre>
+<pre><code>         24      -46082.89   1.03e-01</code></pre>
+<pre><code>         25      -46082.77   1.15e-01</code></pre>
+<pre><code>         26      -46082.64   1.28e-01</code></pre>
+<pre><code>         27      -46082.50   1.42e-01</code></pre>
+<pre><code>         28      -46082.34   1.57e-01</code></pre>
+<pre><code>         29      -46082.17   1.73e-01</code></pre>
+<pre><code>         30      -46081.98   1.90e-01</code></pre>
+<pre><code>         31      -46081.77   2.10e-01</code></pre>
+<pre><code>         32      -46081.54   2.33e-01</code></pre>
+<pre><code>         33      -46081.28   2.59e-01</code></pre>
+<pre><code>         34      -46080.99   2.88e-01</code></pre>
+<pre><code>         35      -46080.67   3.17e-01</code></pre>
+<pre><code>         36      -46080.33   3.44e-01</code></pre>
+<pre><code>         37      -46079.97   3.65e-01</code></pre>
+<pre><code>         38      -46079.59   3.76e-01</code></pre>
+<pre><code>         39      -46079.21   3.77e-01</code></pre>
+<pre><code>         40      -46078.85   3.67e-01</code></pre>
+<pre><code>         41      -46078.50   3.48e-01</code></pre>
+<pre><code>         42      -46078.18   3.22e-01</code></pre>
+<pre><code>         43      -46077.89   2.88e-01</code></pre>
+<pre><code>         44      -46077.64   2.48e-01</code></pre>
+<pre><code>         45      -46077.43   2.05e-01</code></pre>
+<pre><code>         46      -46077.27   1.63e-01</code></pre>
+<pre><code>         47      -46077.14   1.28e-01</code></pre>
+<pre><code>         48      -46077.04   1.01e-01</code></pre>
+<pre><code>         49      -46076.96   8.18e-02</code></pre>
+<pre><code>         50      -46076.89   6.83e-02</code></pre>
+<pre><code>         51      -46076.83   5.87e-02</code></pre>
+<pre><code>         52      -46076.78   5.20e-02</code></pre>
+<pre><code>         53      -46076.73   4.74e-02</code></pre>
+<pre><code>         54      -46076.69   4.45e-02</code></pre>
+<pre><code>         55      -46076.65   4.30e-02</code></pre>
+<pre><code>         56      -46076.60   4.28e-02</code></pre>
+<pre><code>         57      -46076.56   4.41e-02</code></pre>
+<pre><code>         58      -46076.51   4.67e-02</code></pre>
+<pre><code>         59      -46076.46   5.06e-02</code></pre>
+<pre><code>         60      -46076.41   5.59e-02</code></pre>
+<pre><code>         61      -46076.34   6.24e-02</code></pre>
+<pre><code>         62      -46076.27   7.05e-02</code></pre>
+<pre><code>         63      -46076.19   8.05e-02</code></pre>
+<pre><code>         64      -46076.10   9.36e-02</code></pre>
+<pre><code>         65      -46075.99   1.12e-01</code></pre>
+<pre><code>         66      -46075.85   1.39e-01</code></pre>
+<pre><code>         67      -46075.67   1.83e-01</code></pre>
+<pre><code>         68      -46075.41   2.54e-01</code></pre>
+<pre><code>         69      -46075.05   3.67e-01</code></pre>
+<pre><code>         70      -46074.53   5.17e-01</code></pre>
+<pre><code>         71      -46073.90   6.25e-01</code></pre>
+<pre><code>         72      -46073.34   5.63e-01</code></pre>
+<pre><code>         73      -46072.97   3.74e-01</code></pre>
+<pre><code>         74      -46072.76   2.05e-01</code></pre>
+<pre><code>         75      -46072.66   1.04e-01</code></pre>
+<pre><code>         76      -46072.60   5.31e-02</code></pre>
+<pre><code>         77      -46072.57   2.96e-02</code></pre>
+<pre><code>         78      -46072.56   1.87e-02</code></pre>
+<pre><code>         79      -46072.54   1.34e-02</code></pre>
+<pre><code>         80      -46072.53   1.07e-02</code></pre>
+<pre><code>         81      -46072.52   9.03e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 5 decreases objective by 9.25e-01. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -46072.52</code></pre>
+<pre><code>Fitting factor/loading 6 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -46092.84        Inf</code></pre>
+<pre><code>          2      -46082.68   1.02e+01</code></pre>
+<pre><code>          3      -46082.05   6.32e-01</code></pre>
+<pre><code>          4      -46081.71   3.43e-01</code></pre>
+<pre><code>          5      -46081.41   3.02e-01</code></pre>
+<pre><code>          6      -46081.09   3.14e-01</code></pre>
+<pre><code>          7      -46080.76   3.34e-01</code></pre>
+<pre><code>          8      -46080.43   3.32e-01</code></pre>
+<pre><code>          9      -46080.12   3.05e-01</code></pre>
+<pre><code>         10      -46079.85   2.68e-01</code></pre>
+<pre><code>         11      -46079.62   2.38e-01</code></pre>
+<pre><code>         12      -46079.39   2.27e-01</code></pre>
+<pre><code>         13      -46079.15   2.40e-01</code></pre>
+<pre><code>         14      -46078.88   2.71e-01</code></pre>
+<pre><code>         15      -46078.57   3.07e-01</code></pre>
+<pre><code>         16      -46078.25   3.19e-01</code></pre>
+<pre><code>         17      -46077.96   2.95e-01</code></pre>
+<pre><code>         18      -46077.69   2.63e-01</code></pre>
+<pre><code>         19      -46077.45   2.39e-01</code></pre>
+<pre><code>         20      -46077.23   2.24e-01</code></pre>
+<pre><code>         21      -46077.02   2.10e-01</code></pre>
+<pre><code>         22      -46076.84   1.78e-01</code></pre>
+<pre><code>         23      -46076.72   1.21e-01</code></pre>
+<pre><code>         24      -46076.65   6.71e-02</code></pre>
+<pre><code>         25      -46076.62   3.43e-02</code></pre>
+<pre><code>         26      -46076.60   1.80e-02</code></pre>
+<pre><code>         27      -46076.59   9.94e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 6 increases objective by 4.07e+00. Factor zeroed out.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -46072.52</code></pre>
+<pre class="r"><code>fit.flash$nfactors</code></pre>
+<pre><code>[1] 5</code></pre>
+<pre class="r"><code>plot(fit.flash$ldf$f[idx,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[idx,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[idx,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[idx,4],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-10-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.flash$ldf$f[idx,5],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-10-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Then fit smooth_flash. Haar wavelet, DWT.</p>
+<pre class="r"><code>fit.smooth_flash = smooth_flash(X.e$x,var_type = &#39;constant&#39;)</code></pre>
+<pre><code>Fitting factor/loading 1 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -48506.67        Inf</code></pre>
+<pre><code>          2      -48504.12   2.55e+00</code></pre>
+<pre><code>          3      -48504.12   5.84e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 1 decreases objective by 5.66e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -48504.12</code></pre>
+<pre><code>Fitting factor/loading 2 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -46618.39        Inf</code></pre>
+<pre><code>          2      -46610.96   7.43e+00</code></pre>
+<pre><code>          3      -46610.66   2.99e-01</code></pre>
+<pre><code>          4      -46610.53   1.28e-01</code></pre>
+<pre><code>          5      -46610.48   5.25e-02</code></pre>
+<pre><code>          6      -46610.46   2.05e-02</code></pre>
+<pre><code>          7      -46610.45   7.75e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 2 decreases objective by 1.89e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -46610.45</code></pre>
+<pre><code>Fitting factor/loading 3 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -44820.49        Inf</code></pre>
+<pre><code>          2      -44812.41   8.08e+00</code></pre>
+<pre><code>          3      -44812.41   1.01e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 3 decreases objective by 1.80e+03. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -44812.41</code></pre>
+<pre><code>Fitting factor/loading 4 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -44828.10        Inf</code></pre>
+<pre><code>          2      -44817.60   1.05e+01</code></pre>
+<pre><code>          3      -44816.55   1.05e+00</code></pre>
+<pre><code>          4      -44815.76   7.87e-01</code></pre>
+<pre><code>          5      -44815.02   7.38e-01</code></pre>
+<pre><code>          6      -44814.34   6.80e-01</code></pre>
+<pre><code>          7      -44813.86   4.83e-01</code></pre>
+<pre><code>          8      -44813.45   4.06e-01</code></pre>
+<pre><code>          9      -44813.06   3.99e-01</code></pre>
+<pre><code>         10      -44812.63   4.30e-01</code></pre>
+<pre><code>         11      -44812.14   4.85e-01</code></pre>
+<pre><code>         12      -44811.59   5.48e-01</code></pre>
+<pre><code>         13      -44810.99   6.00e-01</code></pre>
+<pre><code>         14      -44810.37   6.25e-01</code></pre>
+<pre><code>         15      -44809.75   6.15e-01</code></pre>
+<pre><code>         16      -44809.18   5.76e-01</code></pre>
+<pre><code>         17      -44808.66   5.19e-01</code></pre>
+<pre><code>         18      -44808.20   4.59e-01</code></pre>
+<pre><code>         19      -44807.80   4.01e-01</code></pre>
+<pre><code>         20      -44807.45   3.49e-01</code></pre>
+<pre><code>         21      -44807.15   3.02e-01</code></pre>
+<pre><code>         22      -44806.88   2.63e-01</code></pre>
+<pre><code>         23      -44806.65   2.32e-01</code></pre>
+<pre><code>         24      -44806.44   2.08e-01</code></pre>
+<pre><code>         25      -44806.25   1.90e-01</code></pre>
+<pre><code>         26      -44806.08   1.75e-01</code></pre>
+<pre><code>         27      -44805.91   1.68e-01</code></pre>
+<pre><code>         28      -44805.74   1.68e-01</code></pre>
+<pre><code>         29      -44805.60   1.47e-01</code></pre>
+<pre><code>         30      -44805.46   1.37e-01</code></pre>
+<pre><code>         31      -44805.32   1.40e-01</code></pre>
+<pre><code>         32      -44805.17   1.45e-01</code></pre>
+<pre><code>         33      -44805.02   1.50e-01</code></pre>
+<pre><code>         34      -44804.87   1.56e-01</code></pre>
+<pre><code>         35      -44804.70   1.64e-01</code></pre>
+<pre><code>         36      -44804.53   1.76e-01</code></pre>
+<pre><code>         37      -44804.34   1.92e-01</code></pre>
+<pre><code>         38      -44804.13   2.08e-01</code></pre>
+<pre><code>         39      -44803.91   2.21e-01</code></pre>
+<pre><code>         40      -44803.68   2.28e-01</code></pre>
+<pre><code>         41      -44803.45   2.30e-01</code></pre>
+<pre><code>         42      -44803.22   2.27e-01</code></pre>
+<pre><code>         43      -44803.01   2.16e-01</code></pre>
+<pre><code>         44      -44802.81   1.98e-01</code></pre>
+<pre><code>         45      -44802.64   1.70e-01</code></pre>
+<pre><code>         46      -44802.50   1.36e-01</code></pre>
+<pre><code>         47      -44802.40   9.85e-02</code></pre>
+<pre><code>         48      -44802.34   6.64e-02</code></pre>
+<pre><code>         49      -44802.29   4.27e-02</code></pre>
+<pre><code>         50      -44802.27   2.66e-02</code></pre>
+<pre><code>         51      -44802.25   1.64e-02</code></pre>
+<pre><code>         52      -44802.24   1.01e-02</code></pre>
+<pre><code>         53      -44802.24   6.25e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 4 decreases objective by 1.02e+01. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -44802.24</code></pre>
+<pre><code>Fitting factor/loading 5 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -44813.18        Inf</code></pre>
+<pre><code>          2      -44803.02   1.02e+01</code></pre>
+<pre><code>          3      -44802.29   7.22e-01</code></pre>
+<pre><code>          4      -44801.95   3.45e-01</code></pre>
+<pre><code>          5      -44801.69   2.55e-01</code></pre>
+<pre><code>          6      -44801.47   2.22e-01</code></pre>
+<pre><code>          7      -44801.27   2.01e-01</code></pre>
+<pre><code>          8      -44801.09   1.83e-01</code></pre>
+<pre><code>          9      -44800.92   1.69e-01</code></pre>
+<pre><code>         10      -44800.76   1.60e-01</code></pre>
+<pre><code>         11      -44800.61   1.54e-01</code></pre>
+<pre><code>         12      -44800.46   1.48e-01</code></pre>
+<pre><code>         13      -44800.32   1.40e-01</code></pre>
+<pre><code>         14      -44800.19   1.30e-01</code></pre>
+<pre><code>         15      -44800.07   1.22e-01</code></pre>
+<pre><code>         16      -44799.95   1.14e-01</code></pre>
+<pre><code>         17      -44799.85   1.04e-01</code></pre>
+<pre><code>         18      -44799.76   8.99e-02</code></pre>
+<pre><code>         19      -44799.68   7.25e-02</code></pre>
+<pre><code>         20      -44799.63   5.62e-02</code></pre>
+<pre><code>         21      -44799.59   4.30e-02</code></pre>
+<pre><code>         22      -44799.55   3.10e-02</code></pre>
+<pre><code>         23      -44799.53   2.23e-02</code></pre>
+<pre><code>         24      -44799.52   1.63e-02</code></pre>
+<pre><code>         25      -44799.50   1.21e-02</code></pre>
+<pre><code>         26      -44799.49   9.12e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 5 decreases objective by 2.74e+00. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -44799.49</code></pre>
+<pre><code>Fitting factor/loading 6 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -44813.84        Inf</code></pre>
+<pre><code>          2      -44799.53   1.43e+01</code></pre>
+<pre><code>          3      -44797.00   2.53e+00</code></pre>
+<pre><code>          4      -44795.95   1.05e+00</code></pre>
+<pre><code>          5      -44795.28   6.70e-01</code></pre>
+<pre><code>          6      -44794.79   4.91e-01</code></pre>
+<pre><code>          7      -44794.43   3.62e-01</code></pre>
+<pre><code>          8      -44794.14   2.87e-01</code></pre>
+<pre><code>          9      -44793.90   2.46e-01</code></pre>
+<pre><code>         10      -44793.74   1.62e-01</code></pre>
+<pre><code>         11      -44793.54   2.01e-01</code></pre>
+<pre><code>         12      -44793.07   4.69e-01</code></pre>
+<pre><code>         13      -44792.79   2.76e-01</code></pre>
+<pre><code>         14      -44792.53   2.62e-01</code></pre>
+<pre><code>         15      -44792.22   3.06e-01</code></pre>
+<pre><code>         16      -44791.85   3.73e-01</code></pre>
+<pre><code>         17      -44791.42   4.34e-01</code></pre>
+<pre><code>         18      -44790.94   4.72e-01</code></pre>
+<pre><code>         19      -44790.44   5.04e-01</code></pre>
+<pre><code>         20      -44789.88   5.58e-01</code></pre>
+<pre><code>         21      -44789.22   6.64e-01</code></pre>
+<pre><code>         22      -44788.36   8.61e-01</code></pre>
+<pre><code>         23      -44787.12   1.24e+00</code></pre>
+<pre><code>         24      -44785.60   1.52e+00</code></pre>
+<pre><code>         25      -44782.76   2.84e+00</code></pre>
+<pre><code>         26      -44782.00   7.60e-01</code></pre>
+<pre><code>         27      -44781.68   3.20e-01</code></pre>
+<pre><code>         28      -44781.49   1.87e-01</code></pre>
+<pre><code>         29      -44781.25   2.45e-01</code></pre>
+<pre><code>         30      -44780.86   3.83e-01</code></pre>
+<pre><code>         31      -44780.51   3.54e-01</code></pre>
+<pre><code>         32      -44780.36   1.47e-01</code></pre>
+<pre><code>         33      -44780.32   4.53e-02</code></pre>
+<pre><code>         34      -44780.30   1.54e-02</code></pre>
+<pre><code>         35      -44780.30   5.73e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 6 decreases objective by 1.92e+01. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -44780.3</code></pre>
+<pre><code>Fitting factor/loading 7 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -44798.06        Inf</code></pre>
+<pre><code>          2      -44785.48   1.26e+01</code></pre>
+<pre><code>          3      -44783.25   2.23e+00</code></pre>
+<pre><code>          4      -44781.59   1.66e+00</code></pre>
+<pre><code>          5      -44780.22   1.36e+00</code></pre>
+<pre><code>          6      -44778.24   1.99e+00</code></pre>
+<pre><code>          7      -44777.04   1.20e+00</code></pre>
+<pre><code>          8      -44776.26   7.78e-01</code></pre>
+<pre><code>          9      -44775.75   5.04e-01</code></pre>
+<pre><code>         10      -44775.42   3.33e-01</code></pre>
+<pre><code>         11      -44775.18   2.36e-01</code></pre>
+<pre><code>         12      -44775.00   1.82e-01</code></pre>
+<pre><code>         13      -44774.85   1.53e-01</code></pre>
+<pre><code>         14      -44774.71   1.43e-01</code></pre>
+<pre><code>         15      -44774.55   1.52e-01</code></pre>
+<pre><code>         16      -44774.37   1.85e-01</code></pre>
+<pre><code>         17      -44774.13   2.41e-01</code></pre>
+<pre><code>         18      -44773.81   3.16e-01</code></pre>
+<pre><code>         19      -44773.41   4.05e-01</code></pre>
+<pre><code>         20      -44772.92   4.91e-01</code></pre>
+<pre><code>         21      -44772.37   5.46e-01</code></pre>
+<pre><code>         22      -44771.82   5.47e-01</code></pre>
+<pre><code>         23      -44771.32   5.06e-01</code></pre>
+<pre><code>         24      -44770.83   4.89e-01</code></pre>
+<pre><code>         25      -44770.22   6.02e-01</code></pre>
+<pre><code>         26      -44769.27   9.56e-01</code></pre>
+<pre><code>Warning in verbose_obj_decrease_warning(): An iteration decreased the objective.
+This happens occasionally, perhaps due to numeric reasons. You could ignore this
+warning, but you might like to check out https://github.com/stephenslab/flashr/
+issues/26 for more details.</code></pre>
+<pre><code>         27      -44775.09  -5.82e+00</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 7 decreases objective by 5.21e+00. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -44775.09</code></pre>
+<pre><code>Fitting factor/loading 8 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -44797.24        Inf</code></pre>
+<pre><code>          2      -44785.04   1.22e+01</code></pre>
+<pre><code>          3      -44782.79   2.25e+00</code></pre>
+<pre><code>          4      -44781.29   1.50e+00</code></pre>
+<pre><code>          5      -44779.98   1.31e+00</code></pre>
+<pre><code>          6      -44778.82   1.16e+00</code></pre>
+<pre><code>          7      -44777.88   9.31e-01</code></pre>
+<pre><code>          8      -44777.22   6.61e-01</code></pre>
+<pre><code>          9      -44776.75   4.74e-01</code></pre>
+<pre><code>         10      -44776.36   3.84e-01</code></pre>
+<pre><code>         11      -44776.02   3.40e-01</code></pre>
+<pre><code>         12      -44775.72   3.02e-01</code></pre>
+<pre><code>         13      -44775.47   2.56e-01</code></pre>
+<pre><code>         14      -44775.25   2.14e-01</code></pre>
+<pre><code>         15      -44775.07   1.84e-01</code></pre>
+<pre><code>         16      -44774.91   1.62e-01</code></pre>
+<pre><code>         17      -44774.77   1.37e-01</code></pre>
+<pre><code>         18      -44774.66   1.09e-01</code></pre>
+<pre><code>         19      -44774.58   8.19e-02</code></pre>
+<pre><code>         20      -44774.52   6.04e-02</code></pre>
+<pre><code>         21      -44774.47   4.51e-02</code></pre>
+<pre><code>         22      -44774.44   3.47e-02</code></pre>
+<pre><code>         23      -44774.41   2.75e-02</code></pre>
+<pre><code>         24      -44774.39   2.23e-02</code></pre>
+<pre><code>         25      -44774.37   1.85e-02</code></pre>
+<pre><code>         26      -44774.35   1.56e-02</code></pre>
+<pre><code>         27      -44774.34   1.35e-02</code></pre>
+<pre><code>         28      -44774.33   1.19e-02</code></pre>
+<pre><code>         29      -44774.32   1.06e-02</code></pre>
+<pre><code>         30      -44774.31   9.75e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 8 decreases objective by 7.47e-01. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -44774.31</code></pre>
+<pre><code>Fitting factor/loading 9 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -44798.47        Inf</code></pre>
+<pre><code>          2      -44785.97   1.25e+01</code></pre>
+<pre><code>          3      -44783.84   2.13e+00</code></pre>
+<pre><code>          4      -44782.26   1.59e+00</code></pre>
+<pre><code>          5      -44780.92   1.33e+00</code></pre>
+<pre><code>          6      -44779.71   1.22e+00</code></pre>
+<pre><code>          7      -44778.42   1.29e+00</code></pre>
+<pre><code>          8      -44776.75   1.67e+00</code></pre>
+<pre><code>          9      -44774.23   2.52e+00</code></pre>
+<pre><code>         10      -44770.07   4.16e+00</code></pre>
+<pre><code>         11      -44767.07   3.00e+00</code></pre>
+<pre><code>         12      -44766.31   7.65e-01</code></pre>
+<pre><code>         13      -44766.00   3.06e-01</code></pre>
+<pre><code>         14      -44765.93   6.92e-02</code></pre>
+<pre><code>         15      -44765.89   4.53e-02</code></pre>
+<pre><code>         16      -44765.85   3.53e-02</code></pre>
+<pre><code>         17      -44765.82   2.91e-02</code></pre>
+<pre><code>         18      -44765.79   3.09e-02</code></pre>
+<pre><code>         19      -44765.75   4.01e-02</code></pre>
+<pre><code>         20      -44765.71   3.97e-02</code></pre>
+<pre><code>         21      -44765.68   3.02e-02</code></pre>
+<pre><code>         22      -44765.66   1.98e-02</code></pre>
+<pre><code>         23      -44765.65   1.19e-02</code></pre>
+<pre><code>         24      -44765.64   6.84e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 9 decreases objective by 8.67e+00. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -44765.64</code></pre>
+<pre><code>Fitting factor/loading 10 (stop when difference in obj. is &lt; 1.00e-02):</code></pre>
+<pre><code>  Iteration      Objective   Obj Diff</code></pre>
+<pre><code>          1      -44794.78        Inf</code></pre>
+<pre><code>          2      -44782.85   1.19e+01</code></pre>
+<pre><code>          3      -44781.60   1.25e+00</code></pre>
+<pre><code>          4      -44780.64   9.57e-01</code></pre>
+<pre><code>          5      -44779.66   9.85e-01</code></pre>
+<pre><code>          6      -44778.69   9.70e-01</code></pre>
+<pre><code>          7      -44777.82   8.68e-01</code></pre>
+<pre><code>          8      -44776.92   9.01e-01</code></pre>
+<pre><code>          9      -44775.84   1.08e+00</code></pre>
+<pre><code>         10      -44774.43   1.41e+00</code></pre>
+<pre><code>         11      -44773.10   1.33e+00</code></pre>
+<pre><code>         12      -44771.33   1.77e+00</code></pre>
+<pre><code>         13      -44770.29   1.04e+00</code></pre>
+<pre><code>         14      -44769.45   8.40e-01</code></pre>
+<pre><code>         15      -44768.62   8.25e-01</code></pre>
+<pre><code>         16      -44767.71   9.17e-01</code></pre>
+<pre><code>         17      -44766.55   1.16e+00</code></pre>
+<pre><code>         18      -44765.11   1.44e+00</code></pre>
+<pre><code>         19      -44763.94   1.17e+00</code></pre>
+<pre><code>         20      -44763.41   5.32e-01</code></pre>
+<pre><code>         21      -44763.17   2.34e-01</code></pre>
+<pre><code>         22      -44762.97   2.07e-01</code></pre>
+<pre><code>         23      -44762.63   3.34e-01</code></pre>
+<pre><code>         24      -44762.11   5.24e-01</code></pre>
+<pre><code>         25      -44761.74   3.71e-01</code></pre>
+<pre><code>         26      -44761.65   8.34e-02</code></pre>
+<pre><code>         27      -44761.64   1.16e-02</code></pre>
+<pre><code>         28      -44761.64   2.09e-03</code></pre>
+<pre><code>Performing nullcheck...</code></pre>
+<pre><code>  Deleting factor 10 decreases objective by 4.00e+00. Factor retained.</code></pre>
+<pre><code>  Nullcheck complete. Objective: -44761.64</code></pre>
+<pre class="r"><code>fit.smooth_flash$nfactors</code></pre>
+<pre><code>[1] 10</code></pre>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[idx,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[idx,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[idx,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-11-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[idx,4],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-11-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.smooth_flash$ldf$f[idx,5],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-11-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now DWT funflash.</p>
+<pre class="r"><code>datax = funflash_set_data(X.e$x,reflect.data = FALSE,type=&#39;wavelet&#39;)
+fit.dwt = funflash(datax,var.type = &#39;constant&#39;)</code></pre>
+<pre><code>[1] &quot;Fitting dimension  1&quot;
+[1] &quot;Iteration  1 : obj  -47296.434&quot;
+[1] &quot;Iteration  2 : obj  -47292.519&quot;
+[1] &quot;Iteration  3 : obj  -47292.472&quot;
+[1] &quot;Iteration  4 : obj  -47292.47&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  1  decreases objective by  4934.154&quot;
+[1] &quot;Fitting dimension  2&quot;
+[1] &quot;Iteration  1 : obj  -45488.043&quot;
+[1] &quot;Iteration  2 : obj  -45480.169&quot;
+[1] &quot;Iteration  3 : obj  -45480.082&quot;
+[1] &quot;Iteration  4 : obj  -45480.069&quot;
+[1] &quot;Iteration  5 : obj  -45480.067&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  2  decreases objective by  1812.402&quot;
+[1] &quot;Fitting dimension  3&quot;
+[1] &quot;Iteration  1 : obj  -44741.386&quot;
+[1] &quot;Iteration  2 : obj  -44726.834&quot;
+[1] &quot;Iteration  3 : obj  -44726.764&quot;
+[1] &quot;Iteration  4 : obj  -44726.763&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  3  decreases objective by  753.304&quot;
+[1] &quot;Fitting dimension  4&quot;
+[1] &quot;Iteration  1 : obj  -44742.788&quot;
+[1] &quot;Iteration  2 : obj  -44732.286&quot;
+[1] &quot;Iteration  3 : obj  -44731.031&quot;
+[1] &quot;Iteration  4 : obj  -44729.945&quot;
+[1] &quot;Iteration  5 : obj  -44728.999&quot;
+[1] &quot;Iteration  6 : obj  -44728.284&quot;
+[1] &quot;Iteration  7 : obj  -44727.632&quot;
+[1] &quot;Iteration  8 : obj  -44726.968&quot;
+[1] &quot;Iteration  9 : obj  -44726.265&quot;
+[1] &quot;Iteration  10 : obj  -44725.526&quot;
+[1] &quot;Iteration  11 : obj  -44724.788&quot;
+[1] &quot;Iteration  12 : obj  -44724.125&quot;
+[1] &quot;Iteration  13 : obj  -44723.547&quot;
+[1] &quot;Iteration  14 : obj  -44723.045&quot;
+[1] &quot;Iteration  15 : obj  -44722.607&quot;
+[1] &quot;Iteration  16 : obj  -44722.22&quot;
+[1] &quot;Iteration  17 : obj  -44721.878&quot;
+[1] &quot;Iteration  18 : obj  -44721.577&quot;
+[1] &quot;Iteration  19 : obj  -44721.313&quot;
+[1] &quot;Iteration  20 : obj  -44721.08&quot;
+[1] &quot;Iteration  21 : obj  -44720.873&quot;
+[1] &quot;Iteration  22 : obj  -44720.685&quot;
+[1] &quot;Iteration  23 : obj  -44720.512&quot;
+[1] &quot;Iteration  24 : obj  -44720.343&quot;
+[1] &quot;Iteration  25 : obj  -44720.176&quot;
+[1] &quot;Iteration  26 : obj  -44720.014&quot;
+[1] &quot;Iteration  27 : obj  -44719.843&quot;
+[1] &quot;Iteration  28 : obj  -44719.667&quot;
+[1] &quot;Iteration  29 : obj  -44719.495&quot;
+[1] &quot;Iteration  30 : obj  -44719.335&quot;
+[1] &quot;Iteration  31 : obj  -44719.191&quot;
+[1] &quot;Iteration  32 : obj  -44719.059&quot;
+[1] &quot;Iteration  33 : obj  -44718.937&quot;
+[1] &quot;Iteration  34 : obj  -44718.824&quot;
+[1] &quot;Iteration  35 : obj  -44718.718&quot;
+[1] &quot;Iteration  36 : obj  -44718.621&quot;
+[1] &quot;Iteration  37 : obj  -44718.53&quot;
+[1] &quot;Iteration  38 : obj  -44718.444&quot;
+[1] &quot;Iteration  39 : obj  -44718.358&quot;
+[1] &quot;Iteration  40 : obj  -44718.27&quot;
+[1] &quot;Iteration  41 : obj  -44718.178&quot;
+[1] &quot;Iteration  42 : obj  -44718.079&quot;
+[1] &quot;Iteration  43 : obj  -44717.974&quot;
+[1] &quot;Iteration  44 : obj  -44717.863&quot;
+[1] &quot;Iteration  45 : obj  -44717.749&quot;
+[1] &quot;Iteration  46 : obj  -44717.638&quot;
+[1] &quot;Iteration  47 : obj  -44717.534&quot;
+[1] &quot;Iteration  48 : obj  -44717.445&quot;
+[1] &quot;Iteration  49 : obj  -44717.372&quot;
+[1] &quot;Iteration  50 : obj  -44717.316&quot;
+[1] &quot;Iteration  51 : obj  -44717.279&quot;
+[1] &quot;Iteration  52 : obj  -44717.255&quot;
+[1] &quot;Iteration  53 : obj  -44717.239&quot;
+[1] &quot;Iteration  54 : obj  -44717.229&quot;
+[1] &quot;Iteration  55 : obj  -44717.223&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  4  decreases objective by  9.541&quot;
+[1] &quot;Fitting dimension  5&quot;
+[1] &quot;Iteration  1 : obj  -44730.365&quot;
+[1] &quot;Iteration  2 : obj  -44720.13&quot;
+[1] &quot;Iteration  3 : obj  -44719.17&quot;
+[1] &quot;Iteration  4 : obj  -44718.552&quot;
+[1] &quot;Iteration  5 : obj  -44718.048&quot;
+[1] &quot;Iteration  6 : obj  -44717.607&quot;
+[1] &quot;Iteration  7 : obj  -44717.207&quot;
+[1] &quot;Iteration  8 : obj  -44716.819&quot;
+[1] &quot;Iteration  9 : obj  -44716.451&quot;
+[1] &quot;Iteration  10 : obj  -44716.158&quot;
+[1] &quot;Iteration  11 : obj  -44715.979&quot;
+[1] &quot;Iteration  12 : obj  -44715.892&quot;
+[1] &quot;Iteration  13 : obj  -44715.852&quot;
+[1] &quot;Iteration  14 : obj  -44715.833&quot;
+[1] &quot;Iteration  15 : obj  -44715.823&quot;
+[1] &quot;Iteration  16 : obj  -44715.817&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  5  decreases objective by  1.406&quot;
+[1] &quot;Fitting dimension  6&quot;
+[1] &quot;Iteration  1 : obj  -44728.815&quot;
+[1] &quot;Iteration  2 : obj  -44714.717&quot;
+[1] &quot;Iteration  3 : obj  -44712.285&quot;
+[1] &quot;Iteration  4 : obj  -44711.129&quot;
+[1] &quot;Iteration  5 : obj  -44710.359&quot;
+[1] &quot;Iteration  6 : obj  -44709.807&quot;
+[1] &quot;Iteration  7 : obj  -44709.384&quot;
+[1] &quot;Iteration  8 : obj  -44709.061&quot;
+[1] &quot;Iteration  9 : obj  -44708.694&quot;
+[1] &quot;Iteration  10 : obj  -44707.932&quot;
+[1] &quot;Iteration  11 : obj  -44707.369&quot;
+[1] &quot;Iteration  12 : obj  -44706.817&quot;
+[1] &quot;Iteration  13 : obj  -44706.244&quot;
+[1] &quot;Iteration  14 : obj  -44705.628&quot;
+[1] &quot;Iteration  15 : obj  -44704.929&quot;
+[1] &quot;Iteration  16 : obj  -44704.077&quot;
+[1] &quot;Iteration  17 : obj  -44702.923&quot;
+[1] &quot;Iteration  18 : obj  -44701.436&quot;
+[1] &quot;Iteration  19 : obj  -44698.721&quot;
+[1] &quot;Iteration  20 : obj  -44697.817&quot;
+[1] &quot;Iteration  21 : obj  -44697.432&quot;
+[1] &quot;Iteration  22 : obj  -44697.138&quot;
+[1] &quot;Iteration  23 : obj  -44696.716&quot;
+[1] &quot;Iteration  24 : obj  -44696.251&quot;
+[1] &quot;Iteration  25 : obj  -44696.014&quot;
+[1] &quot;Iteration  26 : obj  -44695.936&quot;
+[1] &quot;Iteration  27 : obj  -44695.91&quot;
+[1] &quot;Iteration  28 : obj  -44695.901&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  6  decreases objective by  19.916&quot;
+[1] &quot;Fitting dimension  7&quot;
+[1] &quot;Iteration  1 : obj  -44715.347&quot;
+[1] &quot;Iteration  2 : obj  -44702.648&quot;
+[1] &quot;Iteration  3 : obj  -44700.247&quot;
+[1] &quot;Iteration  4 : obj  -44698.4&quot;
+[1] &quot;Iteration  5 : obj  -44696.995&quot;
+[1] &quot;Iteration  6 : obj  -44696.002&quot;
+[1] &quot;Iteration  7 : obj  -44694.883&quot;
+[1] &quot;Iteration  8 : obj  -44694.42&quot;
+[1] &quot;Iteration  9 : obj  -44694.165&quot;
+[1] &quot;Iteration  10 : obj  -44694&quot;
+[1] &quot;Iteration  11 : obj  -44693.878&quot;
+[1] &quot;Iteration  12 : obj  -44693.776&quot;
+[1] &quot;Iteration  13 : obj  -44693.682&quot;
+[1] &quot;Iteration  14 : obj  -44693.59&quot;
+[1] &quot;Iteration  15 : obj  -44693.499&quot;
+[1] &quot;Iteration  16 : obj  -44693.41&quot;
+[1] &quot;Iteration  17 : obj  -44693.323&quot;
+[1] &quot;Iteration  18 : obj  -44693.241&quot;
+[1] &quot;Iteration  19 : obj  -44693.164&quot;
+[1] &quot;Iteration  20 : obj  -44693.091&quot;
+[1] &quot;Iteration  21 : obj  -44693.021&quot;
+[1] &quot;Iteration  22 : obj  -44692.954&quot;
+[1] &quot;Iteration  23 : obj  -44692.888&quot;
+[1] &quot;Iteration  24 : obj  -44692.822&quot;
+[1] &quot;Iteration  25 : obj  -44692.756&quot;
+[1] &quot;Iteration  26 : obj  -44692.69&quot;
+[1] &quot;Iteration  27 : obj  -44692.625&quot;
+[1] &quot;Iteration  28 : obj  -44692.562&quot;
+[1] &quot;Iteration  29 : obj  -44692.502&quot;
+[1] &quot;Iteration  30 : obj  -44692.445&quot;
+[1] &quot;Iteration  31 : obj  -44692.391&quot;
+[1] &quot;Iteration  32 : obj  -44692.342&quot;
+[1] &quot;Iteration  33 : obj  -44692.297&quot;
+[1] &quot;Iteration  34 : obj  -44692.248&quot;
+[1] &quot;Iteration  35 : obj  -44692.188&quot;
+[1] &quot;Iteration  36 : obj  -44692.111&quot;
+[1] &quot;Iteration  37 : obj  -44692.012&quot;
+[1] &quot;Iteration  38 : obj  -44691.887&quot;
+[1] &quot;Iteration  39 : obj  -44691.735&quot;
+[1] &quot;Iteration  40 : obj  -44691.556&quot;
+[1] &quot;Iteration  41 : obj  -44691.351&quot;
+[1] &quot;Iteration  42 : obj  -44691.124&quot;
+[1] &quot;Iteration  43 : obj  -44690.877&quot;
+[1] &quot;Iteration  44 : obj  -44690.614&quot;
+[1] &quot;Iteration  45 : obj  -44690.345&quot;
+[1] &quot;Iteration  46 : obj  -44690.084&quot;
+[1] &quot;Iteration  47 : obj  -44689.847&quot;
+[1] &quot;Iteration  48 : obj  -44689.65&quot;
+[1] &quot;Iteration  49 : obj  -44689.498&quot;
+[1] &quot;Iteration  50 : obj  -44689.387&quot;
+[1] &quot;Iteration  51 : obj  -44689.307&quot;
+[1] &quot;Iteration  52 : obj  -44689.248&quot;
+[1] &quot;Iteration  53 : obj  -44689.201&quot;
+[1] &quot;Iteration  54 : obj  -44689.162&quot;
+[1] &quot;Iteration  55 : obj  -44689.124&quot;
+[1] &quot;Iteration  56 : obj  -44689.083&quot;
+[1] &quot;Iteration  57 : obj  -44689.036&quot;
+[1] &quot;Iteration  58 : obj  -44688.971&quot;
+[1] &quot;Iteration  59 : obj  -44688.877&quot;
+[1] &quot;Iteration  60 : obj  -44688.727&quot;
+[1] &quot;Iteration  61 : obj  -44688.489&quot;
+[1] &quot;Iteration  62 : obj  -44688.115&quot;
+[1] &quot;Iteration  63 : obj  -44687.529&quot;
+[1] &quot;Iteration  64 : obj  -44686.476&quot;
+[1] &quot;Iteration  65 : obj  -44684.05&quot;
+[1] &quot;Iteration  66 : obj  -44680.699&quot;
+[1] &quot;Iteration  67 : obj  -44690.53&quot;
+[1] &quot;An iteration decreased the objective&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  7  decreases objective by  5.371&quot;
+[1] &quot;Fitting dimension  8&quot;
+[1] &quot;Iteration  1 : obj  -44711.021&quot;
+[1] &quot;Iteration  2 : obj  -44699.226&quot;
+[1] &quot;Iteration  3 : obj  -44697.9&quot;
+[1] &quot;Iteration  4 : obj  -44697.207&quot;
+[1] &quot;Iteration  5 : obj  -44696.692&quot;
+[1] &quot;Iteration  6 : obj  -44696.251&quot;
+[1] &quot;Iteration  7 : obj  -44695.825&quot;
+[1] &quot;Iteration  8 : obj  -44695.38&quot;
+[1] &quot;Iteration  9 : obj  -44694.953&quot;
+[1] &quot;Iteration  10 : obj  -44694.488&quot;
+[1] &quot;Iteration  11 : obj  -44693.941&quot;
+[1] &quot;Iteration  12 : obj  -44693.325&quot;
+[1] &quot;Iteration  13 : obj  -44692.737&quot;
+[1] &quot;Iteration  14 : obj  -44692.17&quot;
+[1] &quot;Iteration  15 : obj  -44691.577&quot;
+[1] &quot;Iteration  16 : obj  -44690.913&quot;
+[1] &quot;Iteration  17 : obj  -44690.089&quot;
+[1] &quot;Iteration  18 : obj  -44688.75&quot;
+[1] &quot;Iteration  19 : obj  -44685.81&quot;
+[1] &quot;Iteration  20 : obj  -44684.738&quot;
+[1] &quot;Iteration  21 : obj  -44684.56&quot;
+[1] &quot;Iteration  22 : obj  -44684.533&quot;
+[1] &quot;Iteration  23 : obj  -44684.528&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  8  decreases objective by  5.979&quot;
+[1] &quot;Fitting dimension  9&quot;
+[1] &quot;Iteration  1 : obj  -44712.82&quot;
+[1] &quot;Iteration  2 : obj  -44700.391&quot;
+[1] &quot;Iteration  3 : obj  -44698.237&quot;
+[1] &quot;Iteration  4 : obj  -44696.137&quot;
+[1] &quot;Iteration  5 : obj  -44693.816&quot;
+[1] &quot;Iteration  6 : obj  -44691.272&quot;
+[1] &quot;Iteration  7 : obj  -44688.524&quot;
+[1] &quot;Iteration  8 : obj  -44684.846&quot;
+[1] &quot;Iteration  9 : obj  -44683.633&quot;
+[1] &quot;Iteration  10 : obj  -44682.856&quot;
+[1] &quot;Iteration  11 : obj  -44681.592&quot;
+[1] &quot;Iteration  12 : obj  -44681.368&quot;
+[1] &quot;Iteration  13 : obj  -44681.261&quot;
+[1] &quot;Iteration  14 : obj  -44681.192&quot;
+[1] &quot;Iteration  15 : obj  -44681.139&quot;
+[1] &quot;Iteration  16 : obj  -44681.098&quot;
+[1] &quot;Iteration  17 : obj  -44681.065&quot;
+[1] &quot;Iteration  18 : obj  -44681.039&quot;
+[1] &quot;Iteration  19 : obj  -44681.019&quot;
+[1] &quot;Iteration  20 : obj  -44681.004&quot;
+[1] &quot;Iteration  21 : obj  -44680.993&quot;
+[1] &quot;Iteration  22 : obj  -44680.984&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  9  decreases objective by  3.544&quot;
+[1] &quot;Fitting dimension  10&quot;
+[1] &quot;Iteration  1 : obj  -44711.009&quot;
+[1] &quot;Iteration  2 : obj  -44698.475&quot;
+[1] &quot;Iteration  3 : obj  -44697.133&quot;
+[1] &quot;Iteration  4 : obj  -44696.406&quot;
+[1] &quot;Iteration  5 : obj  -44695.927&quot;
+[1] &quot;Iteration  6 : obj  -44695.519&quot;
+[1] &quot;Iteration  7 : obj  -44695.152&quot;
+[1] &quot;Iteration  8 : obj  -44694.812&quot;
+[1] &quot;Iteration  9 : obj  -44694.505&quot;
+[1] &quot;Iteration  10 : obj  -44694.233&quot;
+[1] &quot;Iteration  11 : obj  -44693.992&quot;
+[1] &quot;Iteration  12 : obj  -44693.774&quot;
+[1] &quot;Iteration  13 : obj  -44693.57&quot;
+[1] &quot;Iteration  14 : obj  -44693.355&quot;
+[1] &quot;Iteration  15 : obj  -44693.104&quot;
+[1] &quot;Iteration  16 : obj  -44692.806&quot;
+[1] &quot;Iteration  17 : obj  -44692.552&quot;
+[1] &quot;Iteration  18 : obj  -44691.768&quot;
+[1] &quot;Iteration  19 : obj  -44691.448&quot;
+[1] &quot;Iteration  20 : obj  -44691.215&quot;
+[1] &quot;Iteration  21 : obj  -44690.962&quot;
+[1] &quot;Iteration  22 : obj  -44690.637&quot;
+[1] &quot;Iteration  23 : obj  -44690.232&quot;
+[1] &quot;Iteration  24 : obj  -44689.74&quot;
+[1] &quot;Iteration  25 : obj  -44689.222&quot;
+[1] &quot;Iteration  26 : obj  -44688.712&quot;
+[1] &quot;Iteration  27 : obj  -44688.157&quot;
+[1] &quot;Iteration  28 : obj  -44687.46&quot;
+[1] &quot;Iteration  29 : obj  -44686.594&quot;
+[1] &quot;Iteration  30 : obj  -44685.761&quot;
+[1] &quot;Iteration  31 : obj  -44685.241&quot;
+[1] &quot;Iteration  32 : obj  -44685.022&quot;
+[1] &quot;Iteration  33 : obj  -44684.936&quot;
+[1] &quot;Iteration  34 : obj  -44684.895&quot;
+[1] &quot;Iteration  35 : obj  -44684.872&quot;
+[1] &quot;Iteration  36 : obj  -44684.858&quot;
+[1] &quot;Iteration  37 : obj  -44684.849&quot;
+[1] &quot;Performing nullcheck&quot;
+[1] &quot;Deleting factor  10  increases objective by  3.865&quot;</code></pre>
+<pre class="r"><code>fit.dwt$nfactors</code></pre>
+<pre><code>[1] 9</code></pre>
+<pre class="r"><code>plot(fit.dwt$ldf$f[idx,1],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[idx,2],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[idx,3],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[idx,4],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-13-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(fit.dwt$ldf$f[idx,5],type=&#39;l&#39;)</code></pre>
+<p><img src="figure/redundant_factors_reflect.Rmd/unnamed-chunk-13-5.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.0 (2022-04-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur/Monterey 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] funflash_0.1.0  flashr_0.6-8    workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.8.3      horseshoe_0.2.0   invgamma_1.1      lattice_0.20-45  
+ [5] getPass_0.2-2     ps_1.7.0          assertthat_0.2.1  rprojroot_2.0.3  
+ [9] digest_0.6.29     utf8_1.2.2        truncnorm_1.0-8   R6_2.5.1         
+[13] plyr_1.8.7        evaluate_0.15     httr_1.4.2        ggplot2_3.3.5    
+[17] highr_0.9         pillar_1.7.0      rlang_1.0.2       wavethresh_4.6.8 
+[21] data.table_1.14.2 rstudioapi_0.13   ebnm_1.0-9        irlba_2.3.5      
+[25] whisker_0.4       callr_3.7.0       jquerylib_0.1.4   Matrix_1.4-1     
+[29] rmarkdown_2.13    splines_4.2.0     smashr_1.2-9      stringr_1.4.0    
+[33] munsell_0.5.0     mixsqp_0.3-47     compiler_4.2.0    httpuv_1.6.5     
+[37] xfun_0.30         pkgconfig_2.0.3   SQUAREM_2021.1    htmltools_0.5.2  
+[41] tidyselect_1.1.2  tibble_3.1.6      fansi_1.0.3       crayon_1.5.1     
+[45] dplyr_1.0.8       later_1.3.0       MASS_7.3-56       bitops_1.0-7     
+[49] grid_4.2.0        jsonlite_1.8.0    gtable_0.3.0      lifecycle_1.0.1  
+[53] DBI_1.1.2         git2r_0.30.1      magrittr_2.0.3    scales_1.2.0     
+[57] cli_3.3.0         stringi_1.7.6     reshape2_1.4.4    fs_1.5.2         
+[61] promises_1.2.0.1  bslib_0.3.1       ellipsis_0.3.2    vctrs_0.4.1      
+[65] generics_0.1.2    trust_0.1-8       tools_4.2.0       glue_1.6.2       
+[69] softImpute_1.4-1  purrr_0.3.4       processx_3.5.3    fastmap_1.1.0    
+[73] yaml_2.3.5        colorspace_2.0-3  ashr_2.2-54       caTools_1.18.2   
+[77] deconvolveR_1.2-1 knitr_1.38        sass_0.4.1       </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
