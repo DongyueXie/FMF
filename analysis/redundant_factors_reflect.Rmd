@@ -1,0 +1,196 @@
+---
+title: "Redundant factors after NDWT and reflecting data"
+author: "Dongyue Xie"
+date: "2021-10-04"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Two possible reasons for causing redundant factors.
+
+1. If using NDWT, the transformation introduces correlations.
+
+2. To perform $YW = LFW+EW$, we need the number of columns of $Y$ to be a power of 2. If it's not, we usually extend the matrix $Y$ to the left and right, by mirroring the left and right data. After making $\#$col a power of 2, we can also reflect the whole data matrix by $cbind(Y,Y[,p:1])$ so that the starting and ending point are the same. This reflecting  is important for NDWT.
+
+Now look at some simple examples.
+
+## NDWT
+
+```{r}
+set.seed(12345)
+n <- 50
+p <- 256
+K <- 3
+snr <- 1
+
+## Step 1: sample U, an orthogonal matrix
+rand_semdef_sym_mat <- crossprod(matrix(runif(n * n), n, n))
+rand_ortho_mat <- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+u_1 <- rand_ortho_mat[, 1]
+u_2 <- rand_ortho_mat[, 2]
+u_3 <- rand_ortho_mat[, 3]
+
+f1 = c(rep(0,p/8), rep(1, p/4), rep(0, p/4), rep(0, p/4),rep(0,p/8))
+f2 = c(rep(0,p/8), rep(0, p/4), rep(1, p/4), rep(0, p/4),rep(0,p/8))
+f3 = c(rep(0,p/8), rep(0, p/4), rep(0, p/4), rep(1, p/4),rep(0,p/8))
+
+L = cbind(u_1,u_2,u_3)
+FF=cbind(f1,f2,f3)
+
+plot(f1,type='l')
+plot(f2,type='l')
+plot(f3,type='l')
+
+M = n / 3 * u_1 %*% t(f1) +
+        n / 5 * u_2 %*% t(f2) +
+        n / 6 * u_3 %*% t(f3)
+v = var(c(M))/snr
+X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)
+```
+
+First fit flash as baseline
+
+```{r}
+library(flashr)
+fit.flash = flash(X,var_type='constant')
+plot(fit.flash$ldf$f[,1],type='l')
+plot(fit.flash$ldf$f[,2],type='l')
+plot(fit.flash$ldf$f[,3],type='l')
+```
+
+Then fit smooth_flash. Haar wavelet, DWT.
+
+```{r}
+library(funflash)
+fit.smooth_flash = smooth_flash(X,var_type = 'constant')
+plot(fit.smooth_flash$ldf$f[,1],type='l')
+plot(fit.smooth_flash$ldf$f[,2],type='l')
+plot(fit.smooth_flash$ldf$f[,3],type='l')
+```
+
+
+Now DWT funflash.
+
+```{r}
+datax = funflash_set_data(X,reflect.data = FALSE,type='wavelet')
+fit.dwt = funflash(datax,var.type = 'constant')
+```
+
+```{r}
+fit.dwt$nfactors
+plot(fit.dwt$ldf$f[,1],type='l')
+plot(fit.dwt$ldf$f[,2],type='l')
+plot(fit.dwt$ldf$f[,3],type='l')
+```
+
+
+Now NDWT funflash.
+
+```{r}
+datax = funflash_set_data(X,reflect.data = FALSE,type='station')
+fit.ndwt = funflash(datax,var.type = 'constant')
+```
+
+```{r}
+fit.ndwt$nfactors
+plot(fit.ndwt$ldf$f[,1],type='l')
+plot(fit.ndwt$ldf$f[,2],type='l')
+plot(fit.ndwt$ldf$f[,3],type='l')
+plot(fit.ndwt$ldf$f[,4],type='l')
+plot(fit.ndwt$ldf$f[,5],type='l')
+plot(fit.ndwt$ldf$f[,6],type='l')
+```
+
+
+## power of two
+
+
+Now create an example that needs extending the data.
+
+```{r}
+set.seed(12345)
+n <- 50
+p <- 8*4*10
+K <- 3
+snr <- 1
+
+## Step 1: sample U, an orthogonal matrix
+rand_semdef_sym_mat <- crossprod(matrix(runif(n * n), n, n))
+rand_ortho_mat <- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+u_1 <- rand_ortho_mat[, 1]
+u_2 <- rand_ortho_mat[, 2]
+u_3 <- rand_ortho_mat[, 3]
+
+f1 = c(rep(0,p/8), rep(1, p/4), rep(0, p/4), rep(0, p/4),rep(0,p/8))
+f2 = c(rep(0,p/8), rep(0, p/4), rep(1, p/4), rep(0, p/4),rep(0,p/8))
+f3 = c(rep(0,p/8), rep(0, p/4), rep(0, p/4), rep(1, p/4),rep(0,p/8))
+
+L = cbind(u_1,u_2,u_3)
+FF=cbind(f1,f2,f3)
+
+plot(f1,type='l')
+plot(f2,type='l')
+plot(f3,type='l')
+
+M = n / 3 * u_1 %*% t(f1) +
+        n / 5 * u_2 %*% t(f2) +
+        n / 6 * u_3 %*% t(f3)
+v = var(c(M))/snr
+X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)
+```
+
+extend the data
+
+```{r}
+X.e = funflash:::reflect(X,F)
+```
+
+
+First fit flash as baseline
+
+```{r}
+idx = X.e$idx
+fit.flash = flash(X.e$x,var_type='constant')
+fit.flash$nfactors
+plot(fit.flash$ldf$f[idx,1],type='l')
+plot(fit.flash$ldf$f[idx,2],type='l')
+plot(fit.flash$ldf$f[idx,3],type='l')
+plot(fit.flash$ldf$f[idx,4],type='l')
+plot(fit.flash$ldf$f[idx,5],type='l')
+```
+
+Then fit smooth_flash. Haar wavelet, DWT.
+
+```{r}
+fit.smooth_flash = smooth_flash(X.e$x,var_type = 'constant')
+fit.smooth_flash$nfactors
+plot(fit.smooth_flash$ldf$f[idx,1],type='l')
+plot(fit.smooth_flash$ldf$f[idx,2],type='l')
+plot(fit.smooth_flash$ldf$f[idx,3],type='l')
+plot(fit.smooth_flash$ldf$f[idx,4],type='l')
+plot(fit.smooth_flash$ldf$f[idx,5],type='l')
+```
+
+Now DWT funflash.
+
+```{r}
+datax = funflash_set_data(X.e$x,reflect.data = FALSE,type='wavelet')
+fit.dwt = funflash(datax,var.type = 'constant')
+```
+
+```{r}
+fit.dwt$nfactors
+plot(fit.dwt$ldf$f[idx,1],type='l')
+plot(fit.dwt$ldf$f[idx,2],type='l')
+plot(fit.dwt$ldf$f[idx,3],type='l')
+plot(fit.dwt$ldf$f[idx,4],type='l')
+plot(fit.dwt$ldf$f[idx,5],type='l')
+```
+
+
+
+
+
