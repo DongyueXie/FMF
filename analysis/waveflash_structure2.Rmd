@@ -1,0 +1,175 @@
+---
+title: "waveflash structure a detailed look"
+author: "Dongyue Xie"
+date: "2022-05-06"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Solve the issue
+
+We look into why running flash on wavelet coefficients yields different factorization from flash. See [examples](redundant_factors_reflect.html) and [More examples](waveflash_structure.html)
+
+Here we generate orthogonal loadings as the eigen-vectors of a random matrix whose entries are drawn iid from a uniform[0,1] distribution.
+
+Factors are orthogonal step functions.
+
+```{r}
+set.seed(12345)
+n <- 50
+p <- 256
+K <- 3
+snr <- 1
+
+## Step 1: sample U, an orthogonal matrix
+rand_semdef_sym_mat <- crossprod(matrix(runif(n * n), n, n))
+rand_ortho_mat <- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+u_1 <- rand_ortho_mat[, 1]
+u_2 <- rand_ortho_mat[, 2]
+u_3 <- rand_ortho_mat[, 3]
+
+f1 = c(rep(0,p/8), rep(1, p/4), rep(0, p/4), rep(0, p/4),rep(0,p/8))
+f2 = c(rep(0,p/8), rep(0, p/4), rep(1, p/4), rep(0, p/4),rep(0,p/8))
+f3 = c(rep(0,p/8), rep(0, p/4), rep(0, p/4), rep(1, p/4),rep(0,p/8))
+
+f1 = f1/sqrt(sum(f1^2))
+f2 = f2/sqrt(sum(f2^2))
+f3 = f3/sqrt(sum(f3^2))
+
+FF=cbind(f1,f2,f3)
+
+plot(f1,type='l')
+plot(f2,type='l')
+plot(f3,type='l')
+
+M = n / 3 * u_1 %*% t(f1) +
+        n / 5 * u_2 %*% t(f2) +
+        n / 6 * u_3 %*% t(f3)
+v = var(c(M))/snr
+X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)
+```
+
+
+```{r}
+library(funflash)
+datax = funflash_set_data(X,reflect.data = FALSE,type='wavelet')
+plot(datax$Y[1,])
+plot(datax$Y[2,])
+plot(datax$Y[3,])
+```
+
+Look at the initialization.
+
+```{r}
+init_fn = 'udv_si_svd'
+init1 = funflash:::init_fl(datax$Y,init_fn)
+plot(init1$v)
+init1$d
+```
+
+Now transform the initialization back to data space and see if it is the same as the initialization directly on $Y$.
+
+```{r}
+library(wavethresh)
+wd.temp = wd(rep(0,p),filter.number = 1,family = 'DaubExPhase')
+wd.temp$D = init1$v
+#wd.temp$C[length(wd.temp$C)] = 1
+v = wr(wd.temp)
+v = v/sqrt(sum(v^2))
+plot(v,main='v transformed from wavespace')
+
+init_Y = funflash:::init_fl(X,init_fn)
+init_Y$d
+plot(init_Y$v,main='v from dataspace')
+```
+
+They look different!
+
+Or transform the v from data space to wavespace.
+
+```{r}
+plot(wd(init_Y$v,filter.number = 1,family = 'DaubExPhase')$D,main='Wv, v from dataspace')
+```
+
+Ok, they are differenct confirmed.
+
+One reason is that when performing rank1 svd (the initialization) in the wavelet space, I did not include the summation term. Now I include the summation term then do the initialization.
+
+
+```{r}
+init2 = funflash:::init_fl(cbind(datax$Y,datax$energy),init_fn)
+plot(init2$v)
+init2$d
+```
+
+
+```{r}
+wd.temp = wd(rep(0,p),filter.number = 1,family = 'DaubExPhase')
+wd.temp$D = init2$v[1:(p-1)]
+wd.temp$C[length(wd.temp$C)] = init2$v[p]
+v = wr(wd.temp)
+v = v/sqrt(sum(v^2))
+plot(v,main='v transformed from wavespace, with energy term when svd1')
+```
+
+Now they look the same!
+
+```{r}
+plot(v,init_Y$v)
+```
+
+They are the same, confirmed.
+
+We need to consider the energy term when running the method and the results then should improve.
+
+
+## SVD on Y,YW
+
+If the SVD of $Y$ is $Y = UDV^T$ then $YW^T = UDV^TW^T=UD(WV)^T$ where $W$ is othornormal. The matrix $WV$ is also othornormal and $WV$ can be regarded as performing DWT on each $v$(column of V).
+
+Is this true? Check it. 
+
+```{r}
+svd_Y = svd(X)
+plot(svd_Y$v[,1],type='l')
+plot(svd_Y$v[,2],type='l')
+plot(svd_Y$v[,3],type='l')
+```
+
+```{r}
+W = GenW(p,1,'DaubExPhase')
+XW = X%*%W
+
+svd_YW = svd(XW)
+
+plot(svd_YW$d)
+```
+
+
+```{r}
+plot(W%*%svd_YW$v[,1],type='l')
+plot(W%*%svd_YW$v[,2],type='l')
+plot(W%*%svd_YW$v[,3],type='l')
+```
+
+Also check the loadings(U).
+
+```{r}
+plot(svd_Y$u[,1],svd_YW$u[,1],col='grey80')
+abline(a=0,b=1)
+```
+
+```{r}
+plot(svd_Y$u[,2],svd_YW$u[,2],col='grey80')
+abline(a=0,b=1)
+```
+
+```{r}
+plot(svd_Y$u[,3],svd_YW$u[,3],col='grey80')
+abline(a=0,b=1)
+```
+
+
+
+
