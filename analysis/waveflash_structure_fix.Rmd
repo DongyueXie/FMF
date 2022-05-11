@@ -7,6 +7,10 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(fig.width=9,fig.height=3)
+```
+
 ## Introduction
 
 Previously we have found a problem with waveflash that it does not reveal structuresd very well. See an example [here](redundant_factors_reflect.html)
@@ -69,6 +73,7 @@ Then fit smooth_flash. Haar wavelet, DWT.
 ```{r}
 library(funflash)
 fit.smooth_flash = smooth_flash(X,var_type = 'by_row')
+par(mfrow=c(1,3))
 plot(fit.smooth_flash$ldf$f[,1],type='l')
 plot(fit.smooth_flash$ldf$f[,2],type='l')
 plot(fit.smooth_flash$ldf$f[,3],type='l')
@@ -84,6 +89,7 @@ fit.dwt = funflash(datax,var.type = 'by_row',nullcheck = F,Kmax=3)
 
 ```{r}
 fit.dwt$nfactors
+par(mfrow=c(1,3))
 plot(fit.dwt$ldf$f[,1],type='l')
 plot(fit.dwt$ldf$f[,2],type='l')
 plot(fit.dwt$ldf$f[,3],type='l')
@@ -92,24 +98,28 @@ plot(fit.dwt$ldf$f[,3],type='l')
 Compare the loadings.
 
 ```{r}
+par(mfrow=c(1,3))
 plot(u_1)
 plot(u_2)
 plot(u_3)
 ```
 
 ```{r}
+par(mfrow=c(1,3))
 plot(fit.flash$ldf$l[,1])
 plot(fit.flash$ldf$l[,2])
 plot(fit.flash$ldf$l[,3])
 ```
 
 ```{r}
+par(mfrow=c(1,3))
 plot(fit.smooth_flash$ldf$l[,1])
 plot(fit.smooth_flash$ldf$l[,2])
 plot(fit.smooth_flash$ldf$l[,3])
 ```
 
 ```{r}
+par(mfrow=c(1,3))
 plot(fit.dwt$ldf$l[,1])
 plot(fit.dwt$ldf$l[,2])
 plot(fit.dwt$ldf$l[,3])
