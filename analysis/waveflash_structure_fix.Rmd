@@ -39,6 +39,8 @@ f3 = f3/sqrt(sum(f3^2))
 
 FF=cbind(f1,f2,f3)
 
+par(mfrow=c(1,3))
+
 plot(f1,type='l')
 plot(f2,type='l')
 plot(f3,type='l')
