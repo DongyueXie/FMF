@@ -15,7 +15,7 @@ Later we found it's due to the missing energy term and the initialization(svd) w
 
 Now I re-implemented the model and considered the energy term. Let's see if it fixes the issue.
 
-```{r}
+```{r,fig.width=9,fig.height=3}
 set.seed(12345)
 n <- 50
 p <- 256
@@ -55,9 +55,10 @@ X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)
 
 First fit flash as baseline
 
-```{r}
+```{r,fig.width=9,fig.height=3}
 library(flashr)
 fit.flash = flash(X,var_type='by_row')
+par(mfrow=c(1,3))
 plot(fit.flash$ldf$f[,1],type='l')
 plot(fit.flash$ldf$f[,2],type='l')
 plot(fit.flash$ldf$f[,3],type='l')
