@@ -1,0 +1,113 @@
+---
+title: "waveflash structure fix"
+author: "Dongyue Xie"
+date: "2022-05-07"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Previously we have found a problem with waveflash that it does not reveal structuresd very well. See an example [here](redundant_factors_reflect.html)
+
+Later we found it's due to the missing energy term and the initialization(svd) without energy term in the wave coefficient space is different from what it should be. See an analysis [here](waveflash_structure2.html)
+
+Now I re-implemented the model and considered the energy term. Let's see if it fixes the issue.
+
+```{r}
+set.seed(12345)
+n <- 50
+p <- 256
+K <- 3
+snr <- 1
+
+## Step 1: sample U, an orthogonal matrix
+rand_semdef_sym_mat <- crossprod(matrix(runif(n * n), n, n))
+rand_ortho_mat <- eigen(rand_semdef_sym_mat)$vector[, 1:K]
+u_1 <- rand_ortho_mat[, 1]
+u_2 <- rand_ortho_mat[, 2]
+u_3 <- rand_ortho_mat[, 3]
+
+f1 = c(rep(0,p/8), rep(1, p/4), rep(0, p/4), rep(0, p/4),rep(0,p/8))
+f2 = c(rep(0,p/8), rep(0, p/4), rep(1, p/4), rep(0, p/4),rep(0,p/8))
+f3 = c(rep(0,p/8), rep(0, p/4), rep(0, p/4), rep(1, p/4),rep(0,p/8))
+
+f1 = f1/sqrt(sum(f1^2))
+f2 = f2/sqrt(sum(f2^2))
+f3 = f3/sqrt(sum(f3^2))
+
+FF=cbind(f1,f2,f3)
+
+plot(f1,type='l')
+plot(f2,type='l')
+plot(f3,type='l')
+
+M = n / 3 * u_1 %*% t(f1) +
+        n / 5 * u_2 %*% t(f2) +
+        n / 6 * u_3 %*% t(f3)
+v = var(c(M))/snr
+X = M + matrix(rnorm(n*p,0,sqrt(v)),nrow=n,ncol=p)
+```
+
+
+First fit flash as baseline
+
+```{r}
+library(flashr)
+fit.flash = flash(X,var_type='by_row')
+plot(fit.flash$ldf$f[,1],type='l')
+plot(fit.flash$ldf$f[,2],type='l')
+plot(fit.flash$ldf$f[,3],type='l')
+```
+
+Then fit smooth_flash. Haar wavelet, DWT.
+
+```{r}
+library(funflash)
+fit.smooth_flash = smooth_flash(X,var_type = 'by_row')
+plot(fit.smooth_flash$ldf$f[,1],type='l')
+plot(fit.smooth_flash$ldf$f[,2],type='l')
+plot(fit.smooth_flash$ldf$f[,3],type='l')
+```
+
+
+Now DWT funflash.
+
+```{r}
+datax = funflash_set_data(X,reflect.data = FALSE,type='wavelet')
+fit.dwt = funflash(datax,var.type = 'by_row',nullcheck = F,Kmax=3)
+```
+
+```{r}
+fit.dwt$nfactors
+plot(fit.dwt$ldf$f[,1],type='l')
+plot(fit.dwt$ldf$f[,2],type='l')
+plot(fit.dwt$ldf$f[,3],type='l')
+```
+
+Compare the loadings.
+
+```{r}
+plot(u_1)
+plot(u_2)
+plot(u_3)
+```
+
+```{r}
+plot(fit.flash$ldf$l[,1])
+plot(fit.flash$ldf$l[,2])
+plot(fit.flash$ldf$l[,3])
+```
+
+```{r}
+plot(fit.smooth_flash$ldf$l[,1])
+plot(fit.smooth_flash$ldf$l[,2])
+plot(fit.smooth_flash$ldf$l[,3])
+```
+
+```{r}
+plot(fit.dwt$ldf$l[,1])
+plot(fit.dwt$ldf$l[,2])
+plot(fit.dwt$ldf$l[,3])
+```
