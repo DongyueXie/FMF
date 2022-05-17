@@ -68,6 +68,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 9. [Robust smashgen](outlierSmashgen.html)
 10. [Biwhitening](biwhitening.html)
 11. [try MoMA](moma.html)
+12. [Second derivatives of $\log f(x)$](bound_log_marginal.html)
 
 ## Dynamics
 
@@ -77,6 +78,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 ## Wavelet
 
 1.[Fast calculate diag($WDW^T$)](wdw.html)
+2.[the need to reflect data](reflect_data_wavelet.html)
 
 ## Ref
 
