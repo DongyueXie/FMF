@@ -84,7 +84,7 @@ simu_func2(w1 = 0.9, s2 = 1, s1_2 = 0.1, s2_2 = 3)
 ```
 
 
-It seems not but one observation is that the function achieves the minimum at $\mu=0$. We can plug $\mu = 0$ to $(\log f(\mu))''$. 
+It seems not but one observation is that the function achieves the minimum at $\mu=0$. This can be assured by evaluate $(\log f(\mu))'''$ at $\mu=0$ and it is 0. We can plug $\mu = 0$ to $(\log f(\mu))''$. 
 
 I'll derive the formulas using a mixture of $K$ components for simplicity.
 
