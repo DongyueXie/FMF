@@ -13,7 +13,7 @@
 
 <title>Smoothed Matrix Factorization</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
@@ -72,6 +72,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -92,6 +93,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -244,7 +248,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -305,7 +309,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-19
+<strong>Last updated:</strong> 2022-05-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -336,16 +340,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree595ac2438796c68d0cda28ee5291b037ce0dc09ctargetblank595ac24a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/595ac2438796c68d0cda28ee5291b037ce0dc09c" target="_blank">595ac24</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree58c5285ada02de39069ced0ecf424c4b3dbe02a9targetblank58c5285a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/58c5285ada02de39069ced0ecf424c4b3dbe02a9" target="_blank">58c5285</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree595ac2438796c68d0cda28ee5291b037ce0dc09ctargetblank595ac24a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree58c5285ada02de39069ced0ecf424c4b3dbe02a9targetblank58c5285a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/595ac2438796c68d0cda28ee5291b037ce0dc09c" target="_blank">595ac24</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/58c5285ada02de39069ced0ecf424c4b3dbe02a9" target="_blank">58c5285</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -361,7 +365,9 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
+    Untracked:  analysis/collect_of_examples.Rmd
     Untracked:  analysis/sparse_smoothing.Rmd
+    Untracked:  code/mr_ash.R
     Untracked:  data/luis/
     Untracked:  output/flash_on_cmc2_reduced.rds
     Untracked:  output/flash_on_cmc2_reduced_2000kb.rds
@@ -370,6 +376,7 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/luis_data.Rmd
+    Modified:   analysis/moma.Rmd
     Modified:   analysis/smooth_flash.Rmd
 
 </code></pre>
@@ -409,6 +416,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/58c5285ada02de39069ced0ecf424c4b3dbe02a9/analysis/index.Rmd" target="_blank">58c5285</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-17
+</td>
+<td>
+wflow_publish("analysis/index.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/f444b947a6d093cf218359f460118532824d7f46/docs/index.html" target="_blank">f444b94</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-04-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2204,6 +2245,7 @@ Start workflowr project.
 <li><a href="outlierSmashgen.html">Robust smashgen</a></li>
 <li><a href="biwhitening.html">Biwhitening</a></li>
 <li><a href="moma.html">try MoMA</a></li>
+<li><a href="bound_log_marginal.html">Second derivatives of <span class="math inline">\(\log f(x)\)</span></a></li>
 </ol>
 </div>
 <div id="dynamics" class="section level2">
@@ -2215,7 +2257,7 @@ Start workflowr project.
 </div>
 <div id="wavelet" class="section level2">
 <h2>Wavelet</h2>
-<p>1.<a href="wdw.html">Fast calculate diag(<span class="math inline">\(WDW^T\)</span>)</a></p>
+<p>1.<a href="wdw.html">Fast calculate diag(<span class="math inline">\(WDW^T\)</span>)</a> 2.<a href="reflect_data_wavelet.html">the need to reflect data</a></p>
 </div>
 <div id="ref" class="section level2">
 <h2>Ref</h2>
