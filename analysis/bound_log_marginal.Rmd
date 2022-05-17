@@ -1,0 +1,119 @@
+---
+title: "bound log marginal"
+author: "Dongyue Xie"
+date: "2022-05-14"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Consider the model 
+\[\mu|b\sim N(b,\sigma^2), b\sim g(\cdot).\]
+
+The marginal density of $\mu$ is $f(\mu) = \int p(\mu|b)dG(b)$. We have shown that $-\frac{1}{\sigma^2}$ is a lower bound of $(\log f(\mu))''$. 
+
+When $g(\cdot)$ is a normal with variance $\tau^2$, then $(\log f(\mu))'' = -1/(\sigma^2+\tau^2)$. And apparently, $-1/(\sigma^2+\tau^2) > -1/\sigma^2$.
+
+When $g(\cdot)$ is a mixture of zero mean Gaussians, it's harder to find a tighter lower bound of $(\log f(\mu))''$ because the log sum terms.
+
+Here we try to do some simple plots and explore what's a possible lower bound of $(\log f(\mu))''$.
+
+We let $b\sim \pi_0N(0,\sigma_0^2) + \pi_1 N(0,\sigma_1^2)$, then $f(\mu) = \pi_0N(\mu;0,\sigma^2+\sigma^2_0)+\pi_1N(\mu;0,\sigma^2+\sigma^2_1)$.
+
+We use the R function `D()` to evaluate the derivatives symbolically.
+
+```{r}
+f = expression(log(w1/sqrt((s1_2+s2)*2*pi)*exp(-x^2/2/(s1_2+s2))+w2/sqrt((s2_2+s2)*2*pi)*exp(-x^2/2/(s2_2+s2))))
+g = D(f,'x')
+g2 = D(g,'x')
+
+simu_func = function(x = seq(-5,5,length.out = 100),
+                     s2 = 1,
+                     w1 = 1,
+                     s1_2 = 0.1,
+                     s2_2 = 2){
+  w2 = 1-w1
+  y = eval(g2)
+  plot(x,y,type='l',ylim=c(-1/s2,range(y)[2]),ylab="(log f(mu))''",xlab='mu')
+  abline(h = -1/s2,lty=2)
+}
+
+```
+
+We first verify if the calculations are correct by using only one component.
+
+```{r}
+x = seq(-5,5,length.out = 100)
+s2 = 1
+s1_2 = 0
+s2_2=0
+w1=1
+w2 = 0
+eval(g2)
+```
+
+Now try different parameter values. The dashed line is $-1/\sigma^2$.
+
+```{r}
+simu_func(w1 = 0.5, s2 = 1, s1_2 = 0.1, s2_2 = 3)
+simu_func(w1 = 0.1, s2 = 1, s1_2 = 0.1, s2_2 = 3)
+simu_func(w1 = 0.9, s2 = 1, s1_2 = 0.1, s2_2 = 3)
+```
+
+Is $-\sum_k w_k\frac{1}{\sigma^2+\sigma^2_k}$ a lower bound? 
+
+```{r}
+simu_func2 = function(x = seq(-5,5,length.out = 100),
+                     s2 = 1,
+                     w1 = 1,
+                     s1_2 = 0.1,
+                     s2_2 = 2){
+  w2 = 1-w1
+  y = eval(g2)
+  plot(x,y,type='l',ylim=c(-1/s2,range(y)[2]),ylab="(log f(mu))''",xlab='mu')
+  abline(h = -(w1/(s2+s1_2)+w2/(s2+s2_2)),lty=2)
+}
+```
+
+```{r}
+simu_func2(w1 = 0.5, s2 = 1, s1_2 = 0.1, s2_2 = 3)
+simu_func2(w1 = 0.1, s2 = 1, s1_2 = 0.1, s2_2 = 3)
+simu_func2(w1 = 0.9, s2 = 1, s1_2 = 0.1, s2_2 = 3)
+```
+
+
+It seems not but one observation is that the function achieves the minimum at $\mu=0$. We can plug $\mu = 0$ to $(\log f(\mu))''$. 
+
+I'll derive the formulas using a mixture of $K$ components for simplicity.
+
+\[(\log f(\mu))'' = \frac{\sum_k\frac{w_k}{\sqrt{2\pi(\sigma^2_k+\sigma^2)}}e^{-\frac{\mu^2}{2(\sigma^2_k+\sigma^2)}}\left((\frac{\mu^2}{\sigma^2+\sigma^2_k})^2-\frac{1}{\sigma^2+\sigma^2_k}\right)}{\sum_k\frac{w_k}{\sqrt{2\pi(\sigma^2_k+\sigma^2)}}e^{-\frac{\mu^2}{2(\sigma^2_k+\sigma^2)}}}
+\\
+-\left(\frac{\sum_k\frac{w_k}{\sqrt{2\pi(\sigma^2_k+\sigma^2)}}e^{-\frac{\mu^2}{2(\sigma^2_k+\sigma^2)}}\frac{\mu}{\sigma^2_k+\sigma^2}}{\sum_k\frac{w_k}{\sqrt{2\pi(\sigma^2_k+\sigma^2)}}e^{-\frac{\mu^2}{2(\sigma^2_k+\sigma^2)}}}\right)^2\]
+
+At $\mu = 0$, we have 
+
+\[\log f(\mu))''|_{\mu=0} = -\frac{\sum_k\frac{w_k}{\sqrt{2\pi(\sigma^2_k+\sigma^2)}}\frac{1}{\sigma^2_k+\sigma^2}}{\sum_k\frac{w_k}{\sqrt{2\pi(\sigma^2_k+\sigma^2)}}}\]
+
+```{r}
+simu_func3 = function(x = seq(-5,5,length.out = 100),
+                     s2 = 1,
+                     w1 = 1,
+                     s1_2 = 0.1,
+                     s2_2 = 2){
+  w2 = 1-w1
+  y = eval(g2)
+  plot(x,y,type='l',ylim=c(-1/s2,range(y)[2]),ylab="(log f(mu))''",xlab='mu')
+  n1 = w1/sqrt(2*pi*(s1_2+s2))/(s1_2+s2) + w2/sqrt(2*pi*(s2_2+s2))/(s2_2+s2) 
+  d1 = w1/sqrt(2*pi*(s1_2+s2)) + w2/sqrt(2*pi*(s2_2+s2))
+  abline(h = -n1/d1,lty=2)
+}
+```
+
+```{r}
+simu_func3(w1 = 0.5, s2 = 1, s1_2 = 0.1, s2_2 = 3)
+simu_func3(w1 = 0.1, s2 = 1, s1_2 = 0.1, s2_2 = 3)
+simu_func3(w1 = 0.9, s2 = 1, s1_2 = 0.1, s2_2 = 3)
+```
+
