@@ -15,6 +15,8 @@ A concave function $f(\cdot)$ satisfies for any $\alpha\in[0,1]$,
 
 \[f((1-\alpha)x+\alpha y)\geq (1-\alpha)f(x)+\alpha f(y)\]
 
+A twice differentiable function is concave iff its second derivative is non-positive.
+
 ```{r}
 #'second derivative of log g(x) where g() is a mixture of Gaussian
 #'@param x observation, a scalar.
