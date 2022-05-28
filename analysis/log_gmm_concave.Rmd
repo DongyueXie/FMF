@@ -22,7 +22,7 @@ A concave function $f(\cdot)$ satisfies for any $\alpha\in[0,1]$,
 #'@param s2 variances of mixture components.
 lg_d2 = function(x,w,s2){
   n1 = sum(w/sqrt(2*pi*s2)*exp(-x^2/2/s2)*((x/s2)^2-1/s2))
-  d = lg(x,w,s2)
+  d = sum(w/sqrt(2*pi*s2)*exp(-x^2/2/s2))
   n2 = -sum(w/sqrt(2*pi*s2)*exp(-x^2/2/s2)*x/s2)
   return(n1/d - (n2/d)^2)
 }
@@ -60,10 +60,10 @@ plot_lg = function(x,w,s2){
        main=paste('w=(',paste(w,collapse = ", "),'); s2=(',paste(s2,collapse = ", "),')',sep=''))
 }
 
-# plot_lg_d2 = function(x,w,s2){
-#   plot(x,lg_d2_vec(x,w,s2),type='l',xlab='x',ylab="(log g)''",
-#        main=paste('w=(',paste(w,collapse = ", "),'); s2=(',paste(s2,collapse = ", "),')',sep=''))
-# }
+plot_lg_d2 = function(x,w,s2){
+  plot(x,lg_d2_vec(x,w,s2),type='l',xlab='x',ylab="(log g)''",
+       main=paste('w=(',paste(w,collapse = ", "),'); s2=(',paste(s2,collapse = ", "),')',sep=''))
+}
 ```
 
 
@@ -72,6 +72,7 @@ x = seq(-5,5,length.out = 1000)
 w = c(0.9,0.1)
 s2 = c(0.1,3)
 plot_lg(x,w,s2)
+plot_lg_d2(x,w,s2)
 ```
 
 ```{r}
@@ -79,6 +80,7 @@ x = seq(-5,5,length.out = 1000)
 w = c(0.1,0.9)
 s2 = c(0.1,3)
 plot_lg(x,w,s2)
+plot_lg_d2(x,w,s2)
 ```
 
 
@@ -89,9 +91,51 @@ softmax = function(a){
 }
 s2 = exp(seq(-8,5,by=log(2)))
 w = softmax(log(1/s2))
-plot(w,type='l')
-plot(s2,type='l')
+#plot(w,type='l')
+#plot(s2,type='l')
 plot_lg(x,w,s2)
+plot_lg_d2(x,w,s2)
 ```
 
+```{r}
+x = seq(-5,5,length.out = 1000)
+w = c(0.9,0.1)
+s2 = c(1,3)
+plot_lg(x,w,s2)
+plot_lg_d2(x,w,s2)
+```
+
+## concave case
+
+```{r}
+x = seq(-10,10,length.out = 1000)
+w = c(0.5,0.5)
+s2 = c(1,3)
+plot_lg(x,w,s2)
+plot_lg_d2(x,w,s2)
+```
+
+```{r}
+x = seq(-10,10,length.out = 1000)
+w = c(0.1,0.9)
+s2 = c(1,3)
+plot_lg(x,w,s2)
+plot_lg_d2(x,w,s2)
+```
+
+```{r}
+x = seq(-20,20,length.out = 1000)
+w = c(0.9,0.1)
+s2 = c(2,3)
+plot_lg(x,w,s2)
+plot_lg_d2(x,w,s2)
+```
+
+```{r}
+x = seq(-5,5,length.out = 1000)
+w = c(0.9,0.1)
+s2 = c(0.2,0.3)
+plot_lg(x,w,s2)
+plot_lg_d2(x,w,s2)
+```
 
