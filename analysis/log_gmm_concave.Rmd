@@ -1,0 +1,97 @@
+---
+title: "Can log(Mixture of normal density) be concave?"
+author: "Dongyue Xie"
+date: "2022-05-27"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+Plot log of density function 
+
+\[g(x) = \sum_k w_k N(x;0,\sigma^2_k).\]
+
+A concave function $f(\cdot)$ satisfies for any $\alpha\in[0,1]$, 
+
+\[f((1-\alpha)x+\alpha y)\geq (1-\alpha)f(x)+\alpha f(y)\]
+
+```{r}
+#'second derivative of log g(x) where g() is a mixture of Gaussian
+#'@param x observation, a scalar.
+#'@param w mixture weights.
+#'@param s2 variances of mixture components.
+lg_d2 = function(x,w,s2){
+  n1 = sum(w/sqrt(2*pi*s2)*exp(-x^2/2/s2)*((x/s2)^2-1/s2))
+  d = lg(x,w,s2)
+  n2 = -sum(w/sqrt(2*pi*s2)*exp(-x^2/2/s2)*x/s2)
+  return(n1/d - (n2/d)^2)
+}
+
+#'second derivative of log g(x) where g() is a mixture of Gaussian
+#'x is a vector
+lg_d2_vec = function(x,w,s2){
+  n = length(x)
+  out = rep(0,n)
+  for(i in 1:n){
+    out[i] = lg_d2(x[i],w,s2)
+  }
+  return(out)
+}
+
+#'density of log g(x)
+#'x is a scalar
+lg = function(x,w,s2){
+  return(log(sum(w/sqrt(2*pi*s2)*exp(-x^2/2/s2))))
+}
+
+#'density of log g(x)
+#'x is a vector
+lg_vec = function(x,w,s2){
+  n = length(x)
+  out = rep(0,n)
+  for(i in 1:n){
+    out[i] = lg(x[i],w,s2)
+  }
+  return(out)
+}
+
+plot_lg = function(x,w,s2){
+  plot(x,lg_vec(x,w,s2),type='l',xlab='x',ylab='log(g)',
+       main=paste('w=(',paste(w,collapse = ", "),'); s2=(',paste(s2,collapse = ", "),')',sep=''))
+}
+
+# plot_lg_d2 = function(x,w,s2){
+#   plot(x,lg_d2_vec(x,w,s2),type='l',xlab='x',ylab="(log g)''",
+#        main=paste('w=(',paste(w,collapse = ", "),'); s2=(',paste(s2,collapse = ", "),')',sep=''))
+# }
+```
+
+
+```{r}
+x = seq(-5,5,length.out = 1000)
+w = c(0.9,0.1)
+s2 = c(0.1,3)
+plot_lg(x,w,s2)
+```
+
+```{r}
+x = seq(-5,5,length.out = 1000)
+w = c(0.1,0.9)
+s2 = c(0.1,3)
+plot_lg(x,w,s2)
+```
+
+
+```{r}
+#'softmax
+softmax = function(a){
+  exp(a-max(a))/sum(exp(a-max(a)))
+}
+s2 = exp(seq(-8,5,by=log(2)))
+w = softmax(log(1/s2))
+plot(w,type='l')
+plot(s2,type='l')
+plot_lg(x,w,s2)
+```
+
+
