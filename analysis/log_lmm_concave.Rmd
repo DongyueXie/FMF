@@ -48,10 +48,33 @@ plot_lg = function(x,w,s2){
 ```
 
 ```{r}
+lg_p = expression(log(w1*1/2/b1*exp(-x/b1)+w2*1/2/b2*exp(-x/b2)))
+lg_n = expression(log(w1*1/2/b1*exp(x/b1)+w2*1/2/b2*exp(x/b2)))
+lg2_p = D(D(lg_p,'x'),'x')
+lg2_n = D(D(lg_n,'x'),'x')
+
+plot_lg_d2 = function(r,w1,
+                    b1 = 0.1,
+                    b2 = 2){
+  w2 = 1-w1
+  xx = c()
+  x = seq(-r,0,length.out = 500)
+  xx = c(xx,x)
+  y_n = eval(lg2_n)
+  x = seq(0,r,length.out = 500)
+  xx = c(xx,x)
+  y_p = eval(lg2_p)
+  plot(xx,c(y_n,y_p),type='l',ylab="(log g)''",xlab='x')
+  print(range(c(y_n,y_p)))
+}
+```
+
+```{r}
 x = seq(-5,5,length.out = 1000)
 w = c(0.9,0.1)
 s2 = c(0.1,3)
 plot_lg(x,w,s2)
+plot_lg_d2(5,w[1],s2[1],s2[2])
 ```
 
 ```{r}
@@ -59,6 +82,7 @@ x = seq(-5,5,length.out = 1000)
 w = c(0.1,0.9)
 s2 = c(0.1,3)
 plot_lg(x,w,s2)
+plot_lg_d2(5,w[1],s2[1],s2[2])
 ```
 
 ```{r}
@@ -71,4 +95,33 @@ w = softmax(log(1/s2))
 #plot(w,type='l')
 #plot(s2,type='l')
 plot_lg(x,w,s2)
+```
+
+
+more cases, let mixture components be close
+
+
+
+```{r}
+x = seq(-20,20,length.out = 1000)
+w = c(0.5,0.5)
+s2 = c(2,3)
+plot_lg(x,w,s2)
+plot_lg_d2(20,w[1],s2[1],s2[2])
+```
+
+```{r}
+x = seq(-20,20,length.out = 1000)
+w = c(0.1,0.9)
+s2 = c(2,3)
+plot_lg(x,w,s2)
+plot_lg_d2(20,w[1],s2[1],s2[2])
+```
+
+```{r}
+x = seq(-20,20,length.out = 1000)
+w = c(0.5,0.5)
+s2 = c(2.9,3)
+plot_lg(x,w,s2)
+plot_lg_d2(20,w[1],s2[1],s2[2])
 ```
