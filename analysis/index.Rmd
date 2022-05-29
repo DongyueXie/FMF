@@ -80,6 +80,13 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 1.[Fast calculate diag($WDW^T$)](wdw.html)
 2.[the need to reflect data](reflect_data_wavelet.html)
 
+## Normal mean penalty form
+
+1. [bound on (log g)''](bound_log_marginal.html)
+2. [log density of normal mixture](log_gmm_concave.html)
+3. [log density of laplace mixture](log_lmm_concave.html)
+4. [normal mean penalty plots](normal_mean_penalty.html)
+
 ## Ref
 
 1. [Variational EM ppt](http://www.cs.cmu.edu/~tom/10-702/Zoubin-702.pdf), [Variational EM paper](http://mlg.eng.cam.ac.uk/zoubin/papers/valencia02.pdf)
