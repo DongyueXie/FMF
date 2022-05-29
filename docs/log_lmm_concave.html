@@ -389,7 +389,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-28
+<strong>Last updated:</strong> 2022-05-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -480,16 +480,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree228d2fe5d4508feef81c834838ca191afb2510dftargetblank228d2fea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/228d2fe5d4508feef81c834838ca191afb2510df" target="_blank">228d2fe</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree4880dba554a733fc77ed1501824dae32f9787deetargetblank4880dbaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/4880dba554a733fc77ed1501824dae32f9787dee" target="_blank">4880dba</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree228d2fe5d4508feef81c834838ca191afb2510dftargetblank228d2fea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree4880dba554a733fc77ed1501824dae32f9787deetargetblank4880dbaa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/228d2fe5d4508feef81c834838ca191afb2510df" target="_blank">228d2fe</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/4880dba554a733fc77ed1501824dae32f9787dee" target="_blank">4880dba</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -562,6 +562,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/4880dba554a733fc77ed1501824dae32f9787dee/analysis/log_lmm_concave.Rmd" target="_blank">4880dba</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-29
+</td>
+<td>
+wflow_publish("analysis/log_lmm_concave.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/9e1e5b041545b76abc93b2391723e5ebda9dc1b3/docs/log_lmm_concave.html" target="_blank">9e1e5b0</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/228d2fe5d4508feef81c834838ca191afb2510df/analysis/log_lmm_concave.Rmd" target="_blank">228d2fe</a>
 </td>
 <td>
@@ -613,16 +647,115 @@ plot_lg = function(x,w,s2){
   plot(x,lg_vec(x,w,s2),type=&#39;l&#39;,xlab=&#39;x&#39;,ylab=&#39;log(g)&#39;,
        main=paste(&#39;w=(&#39;,paste(w,collapse = &quot;, &quot;),&#39;); s2=(&#39;,paste(s2,collapse = &quot;, &quot;),&#39;)&#39;,sep=&#39;&#39;))
 }</code></pre>
+<pre class="r"><code>lg_p = expression(log(w1*1/2/b1*exp(-x/b1)+w2*1/2/b2*exp(-x/b2)))
+lg_n = expression(log(w1*1/2/b1*exp(x/b1)+w2*1/2/b2*exp(x/b2)))
+lg2_p = D(D(lg_p,&#39;x&#39;),&#39;x&#39;)
+lg2_n = D(D(lg_n,&#39;x&#39;),&#39;x&#39;)
+
+plot_lg_d2 = function(r,w1,
+                    b1 = 0.1,
+                    b2 = 2){
+  w2 = 1-w1
+  xx = c()
+  x = seq(-r,0,length.out = 500)
+  xx = c(xx,x)
+  y_n = eval(lg2_n)
+  x = seq(0,r,length.out = 500)
+  xx = c(xx,x)
+  y_p = eval(lg2_p)
+  plot(xx,c(y_n,y_p),type=&#39;l&#39;,ylab=&quot;(log g)&#39;&#39;&quot;,xlab=&#39;x&#39;)
+  print(range(c(y_n,y_p)))
+}</code></pre>
 <pre class="r"><code>x = seq(-5,5,length.out = 1000)
 w = c(0.9,0.1)
 s2 = c(0.1,3)
 plot_lg(x,w,s2)</code></pre>
-<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/9e1e5b041545b76abc93b2391723e5ebda9dc1b3/docs/figure/log_lmm_concave.Rmd/unnamed-chunk-3-1.png" target="_blank">9e1e5b0</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot_lg_d2(5,w[1],s2[1],s2[2])</code></pre>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] 1.387779e-17 2.335889e+01</code></pre>
 <pre class="r"><code>x = seq(-5,5,length.out = 1000)
 w = c(0.1,0.9)
 s2 = c(0.1,3)
 plot_lg(x,w,s2)</code></pre>
-<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/9e1e5b041545b76abc93b2391723e5ebda9dc1b3/docs/figure/log_lmm_concave.Rmd/unnamed-chunk-4-1.png" target="_blank">9e1e5b0</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot_lg_d2(5,w[1],s2[1],s2[2])</code></pre>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] -2.775558e-17  2.335098e+01</code></pre>
 <pre class="r"><code>#&#39;softmax
 softmax = function(a){
   exp(a-max(a))/sum(exp(a-max(a)))
@@ -632,7 +765,32 @@ w = softmax(log(1/s2))
 #plot(w,type=&#39;l&#39;)
 #plot(s2,type=&#39;l&#39;)
 plot_lg(x,w,s2)</code></pre>
-<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>more cases, let mixture components be close</p>
+<pre class="r"><code>x = seq(-20,20,length.out = 1000)
+w = c(0.5,0.5)
+s2 = c(2,3)
+plot_lg(x,w,s2)</code></pre>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_lg_d2(20,w[1],s2[1],s2[2])</code></pre>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] 0.001339252 0.006944437</code></pre>
+<pre class="r"><code>x = seq(-20,20,length.out = 1000)
+w = c(0.1,0.9)
+s2 = c(2,3)
+plot_lg(x,w,s2)</code></pre>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_lg_d2(20,w[1],s2[1],s2[2])</code></pre>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] 0.0001632108 0.0034013605</code></pre>
+<pre class="r"><code>x = seq(-20,20,length.out = 1000)
+w = c(0.5,0.5)
+s2 = c(2.9,3)
+plot_lg(x,w,s2)</code></pre>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_lg_d2(20,w[1],s2[1],s2[2])</code></pre>
+<p><img src="figure/log_lmm_concave.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] 3.271432e-05 3.302946e-05</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
