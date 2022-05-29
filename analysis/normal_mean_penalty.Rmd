@@ -57,10 +57,58 @@ penalty_vec = function(x,g,s){
   return(out)
 }
 
+
+
+
+#'posterior mean operator
+S = function(z,g,s){
+  pw = log(g$pi)+dnorm(z,mean=0,sd=sqrt(s^2+g$sd^2),log=TRUE)
+  pw = pw - max(pw)
+  pw = exp(pw)/sum(exp(pw))
+  pm = z/(1+s^2/g$sd^2)
+  return(sum(pw*pm))
+}
+
+#'Solve S(z) = theta for a given theta
+#'@param theta 
+#'@param g a normalmix object with weights pi and sd
+#'@param s known standard error
+inv_S = function(theta,g,s=1){
+  eqn = function(z,theta,g,s){
+    S(z,g,s) - theta
+  }
+  if(theta==0){
+    sol = 0
+  }else if(theta>0){
+    sol = uniroot(eqn,interval=c(0,theta/min(1/(1+s^2/g$sd^2))),theta=theta,g=g,s=s)$root
+  }else{
+    sol = uniroot(eqn,interval=c(theta/min(1/(1+s^2/g$sd^2)),0),theta=theta,g=g,s=s)$root
+  }
+  return(sol)
+}
+
+inv_S_vec = function(x,g,s=1){
+  n = length(x)
+  out = c()
+  for(i in 1:n){
+    out[i] = inv_S(x[i],g,s)
+  }
+  out
+}
+
+
 plot_penalty = function(x,g,s=1){
-  plot(x,penalty_vec(x,g,s),type='l',xlab='theta',ylab='penalty',
-       main=paste('w=(',paste(g$pi,collapse = ", "),'); sd=(',paste(g$sd,collapse = ", "),')',sep=''))
   
+  
+  # plot compound penalty
+  compound_penalty = penalty_vec(x,g,s)
+  z = inv_S_vec(x,g,s)
+  original_penalty = penalty_vec(z,g,s)
+  
+  plot(x,compound_penalty,type='l',xlab='theta',ylab='penalty',ylim=range(c(compound_penalty,original_penalty)),
+       main=paste('w=(',paste(g$pi,collapse = ", "),'); sd=(',paste(g$sd,collapse = ", "),')',sep=''))
+  lines(x,original_penalty,col='blue',lty=2)
+  legend('bottomright',c(expression(rho(S(theta))),expression(rho(theta))),lty=c(1,2),col=c(1,'blue'))
 }
 
 ```
@@ -95,8 +143,8 @@ g = normalmix(pi = c(0.1,0.9),mean=rep(0,2),sd = c(1,2))
 plot_penalty(x,g)
 ```
 
-```{r}
-x = seq(-30,30,length.out = 201)
+```{r,eval=FALSE}
+x = seq(-5,5,length.out = 101)
 g = normalmix(pi = c(0.9,0.1),mean=rep(0,2),sd = c(0.1,0.2))
 plot_penalty(x,g)
 ```
@@ -110,6 +158,7 @@ s2 = exp(seq(-8,5,by=log(2)))
 w = softmax(log(1/s2))
 K = length(w)
 g = normalmix(pi = w,mean=rep(0,K),sd = sqrt(s2))
-plot(x,penalty_vec(x,g,1),type='l',xlab='theta',ylab='penalty')
+x = seq(-10,10,length.out = 101)
+plot_penalty(x,g)
 ```
 
