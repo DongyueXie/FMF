@@ -1,0 +1,115 @@
+---
+title: "Normal Mean problem Penalty"
+author: "Dongyue Xie"
+date: "2022-05-28"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+The normal mean penalty term evaluated at $S(\cdot)$, the posterior mean operator, is 
+
+\[c(\theta) = \rho(S(\theta)) = -l_{NM}(\theta;g,s^2)-\frac{(\theta-S_{g,s}(\theta))^2}{2s^2}\]
+
+```{r}
+#'density of log g(x)
+#'x is a scalar
+lg = function(x,w,s2){
+  return(log(sum(w*dnorm(x,0,sd=sqrt(s2)))))
+}
+
+#'density of log g(x)
+#'x is a vector
+lg_vec = function(x,w,s2){
+  n = length(x)
+  out = rep(0,n)
+  for(i in 1:n){
+    out[i] = lg(x[i],w,s2)
+  }
+  return(out)
+}
+```
+
+```{r}
+library(ashr)
+library(ebnm)
+#g = normalmix(pi = c(0,w),mean=rep(0,K+1),sd = c(0,sqrt(s2)))
+
+
+nm = function(z,g,s){
+  fit = ash(z,s,g = g,fixg = T)
+  return(list(l_nm = fit$loglik, pm=fit$result$PosteriorMean))
+}
+
+penalty = function(theta,g,s){
+  temp = nm(theta,g,s)
+  return(-temp$l_nm - (theta-temp$pm)^2/2/s^2)
+}
+
+penalty_vec = function(x,g,s){
+  n = length(x)
+  out = rep(0,n)
+  for(i in 1:n){
+    out[i] = penalty(x[i],g,s)
+  }
+  return(out)
+}
+
+plot_penalty = function(x,g,s=1){
+  plot(x,penalty_vec(x,g,s),type='l',xlab='theta',ylab='penalty',
+       main=paste('w=(',paste(g$pi,collapse = ", "),'); sd=(',paste(g$sd,collapse = ", "),')',sep=''))
+  
+}
+
+```
+
+```{r}
+x = seq(-10,10,length.out = 101)
+g = normalmix(pi = c(0.9,0.1),mean=rep(0,2),sd = c(0.1,2))
+plot_penalty(x,g)
+```
+
+```{r}
+x = seq(-10,10,length.out = 101)
+g = normalmix(pi = c(0.5,0.5),mean=rep(0,2),sd = c(0.1,2))
+plot_penalty(x,g)
+```
+
+```{r}
+x = seq(-30,30,length.out = 101)
+g = normalmix(pi = c(0.1,0.9),mean=rep(0,2),sd = c(0.1,2))
+plot_penalty(x,g)
+```
+
+```{r}
+x = seq(-10,10,length.out = 101)
+g = normalmix(pi = c(0.9,0.1),mean=rep(0,2),sd = c(1,2))
+plot_penalty(x,g)
+```
+
+```{r}
+x = seq(-20,20,length.out = 101)
+g = normalmix(pi = c(0.1,0.9),mean=rep(0,2),sd = c(1,2))
+plot_penalty(x,g)
+```
+
+```{r}
+x = seq(-30,30,length.out = 201)
+g = normalmix(pi = c(0.9,0.1),mean=rep(0,2),sd = c(0.1,0.2))
+plot_penalty(x,g)
+```
+
+```{r}
+#'softmax
+softmax = function(a){
+  exp(a-max(a))/sum(exp(a-max(a)))
+}
+s2 = exp(seq(-8,5,by=log(2)))
+w = softmax(log(1/s2))
+K = length(w)
+g = normalmix(pi = w,mean=rep(0,K),sd = sqrt(s2))
+plot(x,penalty_vec(x,g,1),type='l',xlab='theta',ylab='penalty')
+```
+
