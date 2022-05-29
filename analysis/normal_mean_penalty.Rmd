@@ -13,6 +13,8 @@ The normal mean penalty term evaluated at $S(\cdot)$, the posterior mean operato
 
 \[c(\theta) = \rho(S(\theta)) = -l_{NM}(\theta;g,s^2)-\frac{(\theta-S_{g,s}(\theta))^2}{2s^2}\]
 
+To evaluate $\rho(\theta)$, we find $z$ such that $S(z) = \theta$ then $\rho(\theta) = \rho(S(z))$.
+
 ```{r}
 #'density of log g(x)
 #'x is a scalar
@@ -149,6 +151,8 @@ g = normalmix(pi = c(0.9,0.1),mean=rep(0,2),sd = c(0.1,0.2))
 plot_penalty(x,g)
 ```
 
+Scale mixture of 19 normal distributions.
+
 ```{r}
 #'softmax
 softmax = function(a){
@@ -156,6 +160,8 @@ softmax = function(a){
 }
 s2 = exp(seq(-8,5,by=log(2)))
 w = softmax(log(1/s2))
+round(w,2)
+round(s2,2)
 K = length(w)
 g = normalmix(pi = w,mean=rep(0,K),sd = sqrt(s2))
 x = seq(-10,10,length.out = 101)
