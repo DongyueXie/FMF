@@ -1,0 +1,138 @@
+---
+title: "poisson mean loglik expansion optimization"
+author: "Dongyue Xie"
+date: "2022-05-26"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+
+\[\tilde F(q,g) = l(\bar\mu) + \frac{1}{2}l''(\bar\mu)V_\mu + E_q\log\frac{g(\mu)}{q_\mu}.\]
+
+\[h(\bar \mu,g) = -l(\bar\mu) - \frac{1}{2}\log 2\pi (-l''(\bar\mu))^{-1} +\rho_{g,s^2 = -l''(\bar\mu)^{-1}}(\bar\mu),\]
+where 
+\[\rho_{g,s^2 = -{l''(\bar\mu)}^{-1}}(\bar\mu) = \min_{q:\E_q\mu=\bar\mu}\left(\frac{1}{2s^2}V_\mu+KL(q||g)+\frac{1}{2}\log2\pi s^2\right).\]
+
+In the Poisson case, the optimization problem is 
+\[\min_{\bar\mu,g} h(\bar\mu,g) = e^{\bar\mu}-(y-0.5)\bar\mu +\rho_{g,s^2=\exp(-\bar\mu)}(\bar\mu).\]
+
+
+We minimize the objective function
+
+\[h(\bar\mu,g) = e^{\bar\mu+e^{-\bar\mu}l'_{nm}(\bar\mu;g,e^{-\bar\mu})}-(y-0.5)(\bar\mu+e^{-\bar\mu}l'_{nm}(\bar\mu;g,e^{-\bar\mu}))\\-l_{nm}(\bar\mu;g,e^{-\bar\mu})-\frac{e^{-\bar\mu}(l'_{nm}(\bar\mu;g,e^{-\bar\mu}))^2}{2}\]
+
+
+```{r}
+#'log marginal likelihood of normal mean model
+#'@param x scalar 
+#'@param g prior, normal mixture
+l_nm = function(x,w,grid){
+  s = sqrt(exp(-x))
+  log(sum(w*dnorm(x,0,sqrt(grid^2+s^2))))
+}
+
+#'first order derivative of log marginal likelihood of normal mean model
+#'@param x scalar 
+#'@param g prior, normal mixture
+l_nm_d1 = function(x,w,grid){
+  s = sqrt(exp(-x))
+  f = sum(w*dnorm(x,0,sqrt(grid^2+s^2)))
+  f_d1 = sum(w*dnorm(x,0,sqrt(grid^2+s^2))*x/(grid^2+s^2))
+  f_d1/f
+}
+
+softmax = function(a){
+  exp(a-max(a))/sum(exp(a-max(a)))
+}
+
+#'posterior mean operator
+S = function(x,w,grid){
+  K = length(w)
+  s = sqrt(exp(-x))
+  g = normalmix(pi=w,mean=rep(0,K),sd=grid)
+  fit.ash = ashr::ash(x,s,g=g,fixg=T)
+  fit.ash$result$PosteriorMean
+}
+
+#'objective function
+#'@param theta (mu_bar,w)
+#'@param grid prior sds
+f_obj = function(theta,y,grid){
+  n = length(y)
+  res = 0
+  w = softmax(theta[-(1:n)])
+  for(i in 1:n){
+    res = res + exp(theta[i]+exp(-theta[i])*l_nm_d1(theta[i],w,grid)) - (y[i]-0.5)*(theta[i]+exp(-theta[i])*l_nm_d1(theta[i],w,grid)) - l_nm(theta[i],w,grid) - exp(-theta[i])*(l_nm_d1(theta[i],w,grid))^2/2
+  }
+  res
+}
+```
+
+```{r}
+set.seed(12345)
+n = 100
+w0 = 0.9
+#lambda = c(rep(0.1,round(n*w0)),rep(10,n-round(n*w0)))
+mu = c(rep(0,round(n*w0)),rep(log(20),n-round(n*w0)))
+lambda = exp(mu)
+y = rpois(n,lambda)
+library(ashr)
+fit.ash = ashr::ash(log(y+0.01),sqrt(exp(-log(y+0.01))),pointmass=F,mixcompdist='normal',prior='uniform')
+#plot(y,col='grey80',xlab='',main='ash')
+#lines(exp(fit.ash$result$PosteriorMean),col=4)
+grid = fit.ash$fitted_g$sd
+K = length(grid)
+
+fit.ash = ashr::ash_pois(y,1,link='log',pointmass=F,mixcompdist='uniform',prior='uniform')
+plot(y,col='grey80',main='ash_pois log link')
+lines(fit.ash$result$PosteriorMean,col=4)
+```
+
+
+```{r}
+mu_init = log(y+1)
+w_init = rep(1/K,K)
+fit = optim(c(mu_init,w_init),f_obj,method='SANN',y=y,grid=grid)
+fit$convergence
+fit$value
+```
+
+```{r}
+plot(mu,col='grey80',xlab='',main='penalized, z',ylim = range(fit$par[1:n]))
+lines(fit$par[1:n],col=2)
+#plot(log(y+0.01),col='grey80',xlab='',main='penalized, theta = S(z) ')
+#lines(lambda,col='grey80')
+plot(mu,col='grey80',main='penalized, S(z)',ylim = range(S(fit$par[1:n],softmax(fit$par[-(1:n)]),grid)))
+lines(S(fit$par[1:n],softmax(fit$par[-(1:n)]),grid),col=2)
+
+plot(y,col='grey80',xlab='',main='data space',ylim=range(exp(S(fit$par[1:n],softmax(fit$par[-(1:n)]),grid))))
+lines(exp(S(fit$par[1:n],softmax(fit$par[-(1:n)]),grid)),col=2)
+round(softmax(fit$par[-(1:n)]),2)
+plot(grid,softmax(fit$par[-(1:n)]),ylab='w')
+```
+
+```{r}
+library(nloptr)
+fit = nloptr(c(mu_init,w_init),f_obj,
+             opts=list(algorithm='NLOPT_LN_NELDERMEAD',maxeval=10000),
+             y=y,grid=grid)
+z = fit$solution[1:n]
+w_est = softmax(fit$solution[-(1:n)])
+```
+
+```{r}
+plot(mu,col='grey80',xlab='',main='penalized, z',ylim = range(z))
+lines(z,col=2)
+#plot(log(y+0.01),col='grey80',xlab='',main='penalized, theta = S(z) ')
+#lines(lambda,col='grey80')
+plot(mu,col='grey80',main='penalized, S(z)',ylim = range(S(z,w_est,grid)))
+lines(S(z,w_est,grid),col=2)
+
+plot(y,col='grey80',xlab='',main='data space',ylim=range(exp(S(z,w_est,grid))))
+lines(exp(S(z,w_est,grid)),col=2)
+round(w_est,2)
+plot(grid,w_est,ylab='w')
+```
