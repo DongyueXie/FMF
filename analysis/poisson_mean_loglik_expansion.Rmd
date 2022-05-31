@@ -1,0 +1,95 @@
+---
+title: "poisson mean loglik expansion"
+author: "Dongyue Xie"
+date: "2022-05-26"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Solve, for fixed $g$, 
+
+\[min_{\bar\mu} h(\bar\mu) = e^{S(\bar\mu)}-(y-0.5)S(\bar\mu) + \rho(S(\bar\mu)).\]
+
+Rewrite the objective function as 
+
+\[h(\bar\mu) = e^{\bar\mu+e^{-\bar\mu}l'_{nm}(\bar\mu;g,e^{-\bar\mu})}-(y-0.5)(\bar\mu+e^{-\bar\mu}l'_{nm}(\bar\mu;g,e^{-\bar\mu}))\\-l_{nm}(\bar\mu;g,e^{-\bar\mu})-\frac{e^{-\bar\mu}(l'_{nm}(\bar\mu;g,e^{-\bar\mu}))^2}{2}\]
+
+
+```{r}
+#'log marginal likelihood of normal mean model
+#'@param x scalar 
+#'@param g prior, normal mixture
+l_nm = function(x,g){
+  s = sqrt(exp(-x))
+  log(sum(g$pi*dnorm(x,g$mean,sqrt(g$sd^2+s^2))))
+}
+
+#'first order derivative of log marginal likelihood of normal mean model
+#'@param x scalar 
+#'@param g prior, normal mixture
+l_nm_d1 = function(x,g){
+  s = sqrt(exp(-x))
+  f = sum(g$pi*dnorm(x,g$mean,sqrt(g$sd^2+s^2)))
+  f_d1 = sum(g$pi*dnorm(x,g$mean,sqrt(g$sd^2+s^2))*x/(g$sd^2+s^2))
+  f_d1/f
+}
+
+#'objective function
+#'@param x a scalar
+#'@param g prior, normal mixture
+f_obj = function(x,y,g){
+  exp(x+exp(-x)*l_nm_d1(x,g)) - (y-0.5)*(x+exp(-x)*l_nm_d1(x,g)) - l_nm(x,g) - exp(-x)*(l_nm_d1(x,g))^2/2
+}
+```
+
+
+```{r}
+library(ashr)
+library(ebnm)
+g = normalmix(pi=c(0.9,0.1),mean=c(0,0),sd=c(0.1,1))
+y = 3
+x = seq(-1,log(y)+1,length.out  =1000)
+
+out = c()
+for(i in 1:1000){
+  out[i] = f_obj(x[i],y,g)
+}
+plot(x,out,type='l',ylab='obj',main='y=3')
+x[which.min(out)]
+```
+
+```{r}
+library(ashr)
+library(ebnm)
+g = normalmix(pi=c(0.9,0.1),mean=c(0,0),sd=c(0.1,1))
+y = 30
+x = seq(-1,log(y)+1,length.out  =1000)
+
+out = c()
+for(i in 1:1000){
+  out[i] = f_obj(x[i],y,g)
+}
+plot(x,out,type='l',ylab='obj',main='y=30')
+x[which.min(out)]
+```
+
+```{r}
+res = c()
+for(j in 1:100){
+  y = j
+x = seq(-1,log(y)+1,length.out  =1000)
+out = c()
+for(i in 1:1000){
+  out[i] = f_obj(x[i],y,g)
+}
+res[j] = x[which.min(out)]
+}
+plot(log(1:100),res,type='l')
+abline(a=0,b=1,lty=2)
+```
+
+
+
