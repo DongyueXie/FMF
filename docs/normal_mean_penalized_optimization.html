@@ -480,16 +480,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreedd05197c4458fe5da16edc912899f55cfcca3a56targetblankdd05197a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/dd05197c4458fe5da16edc912899f55cfcca3a56" target="_blank">dd05197</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree1a66c76cb753dbc928282d6bd9ed1f562d9c5bd2targetblank1a66c76a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/FMF/tree/1a66c76cb753dbc928282d6bd9ed1f562d9c5bd2" target="_blank">1a66c76</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtreedd05197c4458fe5da16edc912899f55cfcca3a56targetblankdd05197a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieFMFtree1a66c76cb753dbc928282d6bd9ed1f562d9c5bd2targetblank1a66c76a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/dd05197c4458fe5da16edc912899f55cfcca3a56" target="_blank">dd05197</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/DongyueXie/FMF/tree/1a66c76cb753dbc928282d6bd9ed1f562d9c5bd2" target="_blank">1a66c76</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -565,6 +565,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/FMF/blob/1a66c76cb753dbc928282d6bd9ed1f562d9c5bd2/analysis/normal_mean_penalized_optimization.Rmd" target="_blank">1a66c76</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-31
+</td>
+<td>
+wflow_publish("analysis/normal_mean_penalized_optimization.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/FMF/1c6fa805b0047fef3b6b2f50b8635d38e96f770c/docs/normal_mean_penalized_optimization.html" target="_blank">1c6fa80</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/FMF/blob/dd05197c4458fe5da16edc912899f55cfcca3a56/analysis/normal_mean_penalized_optimization.Rmd" target="_blank">dd05197</a>
 </td>
 <td>
@@ -591,6 +625,7 @@ wflow_publish("analysis/normal_mean_penalized_optimization.Rmd")
 <p><span class="math display">\[S(\theta) = \theta +s^2l&#39;_{NM}(\theta;g,s^2)\]</span></p>
 <p>Use the compound penalty term <span class="math inline">\(c(\theta) = \rho(S(\theta))\)</span>,</p>
 <p><span class="math display">\[\tilde h(\theta,g) = \frac{1}{2s^2}(y-S(\theta))^2-l_{NM}(\theta;g,s^2)-(\theta-S_{\theta})^2/(2s^2)\]</span></p>
+<p>Then set <span class="math inline">\(\bar\mu = S(\theta)\)</span>.</p>
 <pre class="r"><code>#&#39;log marginal likelihood of normal mean model
 #&#39;@param x scalar 
 #&#39;@param g prior, normal mixture
@@ -609,6 +644,14 @@ l_nm_d1 = function(x,s,w,grid){
 
 softmax = function(a){
   exp(a-max(a))/sum(exp(a-max(a)))
+}
+
+#&#39;posterior mean operator
+S = function(x,s,w,grid){
+  K = length(w)
+  g = normalmix(pi=w,mean=rep(0,K),sd=grid)
+  fit.ash = ash(x,s,g=g,fixg=T)
+  fit.ash$result$PosteriorMean
 }
 
 #&#39;objective function
@@ -634,6 +677,43 @@ fit.ash = ashr::ash(y,s,pointmass=F,mixcompdist=&#39;normal&#39;,prior=&#39;unif
 #grid = exp(seq(log(s/100),log(sqrt(max(abs(y^2-s^2)))),by=log(sqrt(2))))
 plot(fit.ash$fitted_g$sd,fit.ash$fitted_g$pi)</code></pre>
 <p><img src="figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1c6fa805b0047fef3b6b2f50b8635d38e96f770c/docs/figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-2-1.png" target="_blank">1c6fa80</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>grid = fit.ash$fitted_g$sd
 K = length(grid)</code></pre>
 </div>
@@ -642,13 +722,91 @@ K = length(grid)</code></pre>
 <pre class="r"><code>mu_init = y
 w_init = rep(1/K,K)
 fit = optim(c(mu_init,w_init),f_obj,method=&#39;BFGS&#39;,y=y,grid=grid,s=s)</code></pre>
-<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;penalized&#39;)
+<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;penalized, z&#39;)
 lines(lambda,col=&#39;grey80&#39;)
 lines(fit$par[1:n],col=2)</code></pre>
 <p><img src="figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;ash&#39;)
-lines(fit.ash$result$PosteriorMean,col=4,lty=2)</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1c6fa805b0047fef3b6b2f50b8635d38e96f770c/docs/figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-4-1.png" target="_blank">1c6fa80</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;penalized, theta = S(z) &#39;)
+lines(lambda,col=&#39;grey80&#39;)
+lines(S(fit$par[1:n],s,softmax(fit$par[-(1:n)]),grid),col=2)</code></pre>
 <p><img src="figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
+Past versions of unnamed-chunk-4-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1c6fa805b0047fef3b6b2f50b8635d38e96f770c/docs/figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-4-2.png" target="_blank">1c6fa80</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;ash&#39;)
+lines(fit.ash$result$PosteriorMean,col=4)</code></pre>
+<p><img src="figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>round(softmax(fit$par[-(1:n)]),2)</code></pre>
 <pre><code> [1] 0.89 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.11 0.00
 [16] 0.00 0.00</code></pre>
@@ -671,18 +829,91 @@ round(fit.ash$fitted_g$pi,2)</code></pre>
 <pre class="r"><code>mu_init = rep(0,n)
 w_init = rep(1/K,K)
 fit = optim(c(mu_init,w_init),f_obj,method=&#39;BFGS&#39;,y=y,grid=grid,s=s)</code></pre>
-<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;penalized&#39;)
+<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;penalized, z&#39;)
 lines(lambda,col=&#39;grey80&#39;)
 lines(fit$par[1:n],col=2)</code></pre>
 <p><img src="figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;ash&#39;)
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1c6fa805b0047fef3b6b2f50b8635d38e96f770c/docs/figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-8-1.png" target="_blank">1c6fa80</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;penalized, theta = S(z) &#39;)
 lines(lambda,col=&#39;grey80&#39;)
-lines(fit.ash$result$PosteriorMean,col=4)</code></pre>
+lines(S(fit$par[1:n],s,softmax(fit$par[-(1:n)]),grid),col=2)</code></pre>
 <p><img src="figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>fit$par[-(1:n)]</code></pre>
-<pre><code> [1]  34.229453  17.995686  16.781059  15.855254  14.616792  12.447641
- [7]   4.502113   6.215474  -5.414021 -20.388027 -25.066850 -21.516327
-[13] -16.112583 -11.753889  -8.801039  -6.902452  -5.688283</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
+Past versions of unnamed-chunk-8-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/FMF/blob/1c6fa805b0047fef3b6b2f50b8635d38e96f770c/docs/figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-8-2.png" target="_blank">1c6fa80</a>
+</td>
+<td>
+Dongyue Xie
+</td>
+<td>
+2022-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot(y,col=&#39;grey80&#39;,xlab=&#39;&#39;,main=&#39;ash&#39;)
+lines(fit.ash$result$PosteriorMean,col=4)</code></pre>
+<p><img src="figure/normal_mean_penalized_optimization.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>round(softmax(fit$par[-(1:n)]),2)</code></pre>
 <pre><code> [1] 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
 <pre class="r"><code>round(fit.ash$fitted_g$pi,2)</code></pre>
