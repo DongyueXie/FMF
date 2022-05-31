@@ -20,6 +20,9 @@ Use the compound penalty term $c(\theta) = \rho(S(\theta))$,
 
 \[\tilde h(\theta,g) = \frac{1}{2s^2}(y-S(\theta))^2-l_{NM}(\theta;g,s^2)-(\theta-S_{\theta})^2/(2s^2)\]
 
+Then set $\bar\mu = S(\theta)$. 
+
+
 
 ```{r}
 #'log marginal likelihood of normal mean model
@@ -40,6 +43,14 @@ l_nm_d1 = function(x,s,w,grid){
 
 softmax = function(a){
   exp(a-max(a))/sum(exp(a-max(a)))
+}
+
+#'posterior mean operator
+S = function(x,s,w,grid){
+  K = length(w)
+  g = normalmix(pi=w,mean=rep(0,K),sd=grid)
+  fit.ash = ash(x,s,g=g,fixg=T)
+  fit.ash$result$PosteriorMean
 }
 
 #'objective function
@@ -81,11 +92,14 @@ fit = optim(c(mu_init,w_init),f_obj,method='BFGS',y=y,grid=grid,s=s)
 ```
 
 ```{r}
-plot(y,col='grey80',xlab='',main='penalized')
+plot(y,col='grey80',xlab='',main='penalized, z')
 lines(lambda,col='grey80')
 lines(fit$par[1:n],col=2)
+plot(y,col='grey80',xlab='',main='penalized, theta = S(z) ')
+lines(lambda,col='grey80')
+lines(S(fit$par[1:n],s,softmax(fit$par[-(1:n)]),grid),col=2)
 plot(y,col='grey80',xlab='',main='ash')
-lines(fit.ash$result$PosteriorMean,col=4,lty=2)
+lines(fit.ash$result$PosteriorMean,col=4)
 round(softmax(fit$par[-(1:n)]),2)
 round(fit.ash$fitted_g$pi,2)
 ```
@@ -116,18 +130,17 @@ fit = optim(c(mu_init,w_init),f_obj,method='BFGS',y=y,grid=grid,s=s)
 ```
 
 ```{r}
-plot(y,col='grey80',xlab='',main='penalized')
+plot(y,col='grey80',xlab='',main='penalized, z')
 lines(lambda,col='grey80')
 lines(fit$par[1:n],col=2)
-plot(y,col='grey80',xlab='',main='ash')
+plot(y,col='grey80',xlab='',main='penalized, theta = S(z) ')
 lines(lambda,col='grey80')
+lines(S(fit$par[1:n],s,softmax(fit$par[-(1:n)]),grid),col=2)
+plot(y,col='grey80',xlab='',main='ash')
 lines(fit.ash$result$PosteriorMean,col=4)
-fit$par[-(1:n)]
 round(softmax(fit$par[-(1:n)]),2)
 round(fit.ash$fitted_g$pi,2)
 ```
-
-
 
 
 
