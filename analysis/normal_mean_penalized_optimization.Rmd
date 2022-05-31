@@ -1,0 +1,133 @@
+---
+title: "normal mean penalized form optimization"
+author: "Dongyue Xie"
+date: "2022-05-25"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Minimize 
+
+\[h(\theta,g) = \frac{1}{2s^2}(y-\theta)^2+\rho_{g,s}(\theta).\]
+
+
+\[S(\theta) = \theta +s^2l'_{NM}(\theta;g,s^2)\]
+
+Use the compound penalty term $c(\theta) = \rho(S(\theta))$,
+
+\[\tilde h(\theta,g) = \frac{1}{2s^2}(y-S(\theta))^2-l_{NM}(\theta;g,s^2)-(\theta-S_{\theta})^2/(2s^2)\]
+
+
+```{r}
+#'log marginal likelihood of normal mean model
+#'@param x scalar 
+#'@param g prior, normal mixture
+l_nm = function(x,s,w,grid){
+  log(sum(w*dnorm(x,0,sqrt(grid^2+s^2))))
+}
+
+#'first order derivative of log marginal likelihood of normal mean model
+#'@param x scalar 
+#'@param g prior, normal mixture
+l_nm_d1 = function(x,s,w,grid){
+  f = sum(w*dnorm(x,0,sqrt(grid^2+s^2)))
+  f_d1 = sum(w*dnorm(x,0,sqrt(grid^2+s^2))*x/(grid^2+s^2))
+  f_d1/f
+}
+
+softmax = function(a){
+  exp(a-max(a))/sum(exp(a-max(a)))
+}
+
+#'objective function
+#'@param theta (mu_bar,w)
+#'@param grid prior sds
+f_obj = function(theta,y,s,grid){
+  n = length(y)
+  res = 0
+  w = softmax(theta[-(1:n)])
+  for(i in 1:n){
+    res = res + (y[i]-theta[i]-s^2*l_nm_d1(theta[i],s,w,grid))^2/2/s^2 - l_nm(theta[i],s,w,grid) - s^2*(l_nm_d1(theta[i],s,w,grid))^2/2
+  }
+  res
+}
+```
+
+
+```{r}
+set.seed(12345)
+n = 200
+w0 = 0.9
+lambda = c(rep(0,round(n*w0)),rep(10,n-round(n*w0)))
+s = 1
+y = rnorm(n,lambda,s)
+library(ashr)
+fit.ash = ashr::ash(y,s,pointmass=F,mixcompdist='normal',prior='uniform')
+#grid = exp(seq(log(s/100),log(sqrt(max(abs(y^2-s^2)))),by=log(sqrt(2))))
+plot(fit.ash$fitted_g$sd,fit.ash$fitted_g$pi)
+grid = fit.ash$fitted_g$sd
+K = length(grid)
+```
+
+## init at y
+
+```{r}
+mu_init = y
+w_init = rep(1/K,K)
+fit = optim(c(mu_init,w_init),f_obj,method='BFGS',y=y,grid=grid,s=s)
+```
+
+```{r}
+plot(y,col='grey80',xlab='',main='penalized')
+lines(lambda,col='grey80')
+lines(fit$par[1:n],col=2)
+plot(y,col='grey80',xlab='',main='ash')
+lines(fit.ash$result$PosteriorMean,col=4,lty=2)
+round(softmax(fit$par[-(1:n)]),2)
+round(fit.ash$fitted_g$pi,2)
+```
+
+
+```{r,eval=F}
+mu_init = y
+w_init = rep(1/K,K)
+fit.lbfgsb = optim(c(mu_init,w_init),f_obj,method='L-BFGS-B',y=y,grid=grid,s=s)
+```
+
+```{r,eval=F}
+plot(y,col='grey80',xlab='',main='penalized')
+lines(lambda,col='grey80')
+lines(fit.lbfgsb$par[1:n],col=2)
+plot(y,col='grey80',xlab='',main='ash')
+lines(fit.ash$result$PosteriorMean,col=4)
+round(softmax(fit.lbfgsb$par[-(1:n)]),2)
+round(fit.ash$fitted_g$pi,2)
+```
+
+## init at 0
+
+```{r}
+mu_init = rep(0,n)
+w_init = rep(1/K,K)
+fit = optim(c(mu_init,w_init),f_obj,method='BFGS',y=y,grid=grid,s=s)
+```
+
+```{r}
+plot(y,col='grey80',xlab='',main='penalized')
+lines(lambda,col='grey80')
+lines(fit$par[1:n],col=2)
+plot(y,col='grey80',xlab='',main='ash')
+lines(lambda,col='grey80')
+lines(fit.ash$result$PosteriorMean,col=4)
+fit$par[-(1:n)]
+round(softmax(fit$par[-(1:n)]),2)
+round(fit.ash$fitted_g$pi,2)
+```
+
+
+
+
+
