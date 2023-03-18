@@ -67,7 +67,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 7. [Principal Curves](princurves.html)
 8. [Outlier in wavelet smoothing](outlierWavelet.html)
 9. [Robust smashgen](outlierSmashgen.html)
-10. [Biwhitening](biwhitening.html)
+10. [Biwhitening](biwhitening.html), [biwhitening PMF](biwhitening_PMF.html)
 11. [try MoMA](moma.html)
 12. [Second derivatives of $\log f(x)$](bound_log_marginal.html)
 
