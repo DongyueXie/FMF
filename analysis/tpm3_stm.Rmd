@@ -1,0 +1,68 @@
+---
+title: "Illustrative example on running STM on TPM3 gene"
+author: "DongyueXie"
+date: "2023-03-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+In this example, we illustrate running stm on TPM3 gene, per base pair reads from GTEX.
+
+## Model fitting
+
+```{r,eval=FALSE}
+datax = read.csv('/project2/mstephens/gtex-stm/Counts/TPM3.Counts.csv.gz')
+rownames(datax) = datax[,1]
+datax = datax[,-1]
+datax = as.matrix(datax)
+datax = datax[,colSums(datax)!=0]
+library(Matrix)
+library(fastTopics)
+X = Matrix(datax,sparse=T)
+
+fit_fasttopics = fit_topic_model(X,k=7)
+
+library(ebpmf)
+tpm3_fit_fasttopics <- readRDS("~/Rpackages/gsmash/output/tpm3_fit_fasttopics.rds")
+fit_stm = ebpmf_identity(datax,K=7,init = list(L_init = tpm3_fit_fasttopics$L,F_init = tpm3_fit_fasttopics$F))
+```
+
+## Visualize factors
+
+```{r}
+fit_fasttopics = readRDS("~/Rpackages/gsmash/output/tpm3_fit_fasttopics.rds")
+fit_stm = readRDS("~/Rpackages/gsmash/output/tpm3_fit_stm.rds")
+```
+
+```{r,fig.height=6,fig.width=10}
+par(mfrow=c(2,1))
+for(i in 1:7){
+  plot(fit_fasttopics$F[,i],col='grey50',pch='.',cex=2,type='l',xlab='position',ylab='',main=paste('topic model, factor', i))
+  plot(fit_stm$res$qf$Ef_smooth[,i],col='grey50',pch='.',cex=2,type='l',xlab='position',ylab='',main=paste('smoothed topic model, factor', i))
+}
+```
+
+## Visualize loadings Using structure plot
+
+## Post-processing factors
+
+We see that there are spikes at the beginning/ending of exons. Large reads at the beginning/ending of exons may due to splitting reads.
+
+To get a better visualization of smoothed factors, we can post-process them using robust `runmed` method.
+
+The function `runmed(x,k)` returns the running median of `x` over window size `k`. We can tune $k$ for each topic to achieve best visualization. Here I choose $k=43$. Usually $k$ between 11 to 111 should be good.
+
+```{r,fig.width=9,fig.height=4}
+par(mfrow=c(1,1))
+for(k in 1:7){
+plot(fit_stm$EF[,k],col='grey80',pch='.',cex=3,xlab='position',ylab='')
+lines(runmed(fit_stm$EF[,k],k=43),type='l',col=1)
+legend('topright',c('smoothed factors', 'post-processed using runmed'),pch=c(20,NA),lty=c(NA,1),col=c('grey80',1))
+}
+
+
+```
+
