@@ -14,6 +14,7 @@ Explore functional/smoothed matrix factorization(MF): consider the MF problem $Y
 
 ### EBMPMF
 
+* [TPM3, stm fit example](tpm3_stm.html)
 
 1. [Smoothed EBMF](SmoothMF.html): Wavelet Smoothing + EBMF
 2. [Smoothed PMD](SmoothPMD.html): Wavelet Smoothing + PMD, compared with 1.
