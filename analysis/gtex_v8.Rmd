@@ -1,0 +1,121 @@
+---
+title: "gtex v8 data pre-processing"
+author: "DongyueXie"
+date: "2023-03-18"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+The [tutorial](https://github.com/broadinstitute/gtex-tutorials/blob/master/GTEx_data_tutorial_R.ipynb) is very helpful.
+
+Downloaded `GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz` from GTEX portal.
+
+Read data:
+
+```{r}
+############### gtex #################
+sample.df <- read.delim("/project2/mstephens/dongyue/gtex/V8/data/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt", as.is=TRUE, header=TRUE, row.names=1)
+subject.df<- read.delim('/project2/mstephens/dongyue/gtex/V8/data/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt', as.is=TRUE, header=TRUE, row.names=1)
+
+count.df <- read.delim("/project2/mstephens/dongyue/gtex/V8/data/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz",
+                     as.is=T, row.names=1, check.names=FALSE, skip=2)
+dim(count.df)
+```
+
+## subject phenotypes
+
+This is a dataframe of subject attributes.
+
+```{r}
+dim(subject.df)
+head(subject.df)
+```
+
+The last col is the death classification.
+
+## sample attributes
+
+```{r}
+dim(sample.df)
+head(sample.df)
+```
+
+Each subject can have multiple samples.
+
+We only focus on RNA-seq samples.
+
+```{r}
+table(sample.df['SMAFRZE'])
+rnaseq.sample.df <- sample.df[sample.df['SMAFRZE']=='RNASEQ', ]
+```
+
+The column `SMTSD` gives the Tissue of the sample.
+
+```{r}
+as.matrix(sort(table(rnaseq.sample.df['SMTSD']), decreasing=TRUE))
+```
+
+
+## Gene Expression
+
+Rows are genes, columns are samples.
+
+```{r}
+count.df[1:5,1:5]
+gene.names.df <- count.df[, 'Description', drop=FALSE]
+
+count.df = count.df[,-1]
+dim(count.df)
+```
+
+We see that the number of columns matches the number of RNA_seq samples. So all expressions are RNAseq?
+
+## save data
+
+Save the rnaseq sample annotation data, and gene expression count data.
+
+```{r}
+library(Matrix)
+sample_info = rnaseq.sample.df[match(rownames(rnaseq.sample.df),names(count.df)),]
+sample_info_tissue = sample_info[,c('SMTS','SMTSD')]
+count.df = Matrix(as.matrix(count.df),sparse = T)
+#remove genes that have no expression in all samples
+count.df = count.df[rowSums(count.df)!=0,]
+```
+
+We only need a subset of genes. [And the gene list is obtained here](http://stephenslab.github.io/count-clustering/project/utilities/gene_names_all_gtex.txt).
+
+There are total 16069 genes, "We analyzed 16,069 genes that satisfied filters (e.g. exceeding certain minimum expression levels) that were used during eQTL analyses by the GTEx project" - from countclust paper.
+
+
+```{r}
+gene_names = read.table('/project2/mstephens/dongyue/gtex/V8/data/gene_names_all_gtex.txt')
+gene_names_all = rownames(count.df)
+# remove the . in gene names all?
+for(i in 1:length(gene_names_all)){
+  gene_names_all[i] = strsplit(gene_names_all[i],split = "[.]")[[1]][1]
+}
+gene_idx = match(gene_names$V1,gene_names_all)
+sum(is.na(gene_idx))
+```
+
+
+Some genes are not found in the gene names from GTEX V8. Maybe the names are different?
+
+Save the matched ones.
+
+```{r}
+gene_idx = gene_idx[!is.na(gene_idx)]
+counts = count.df[gene_idx,]
+counts = as.matrix(counts)
+counts = t(counts)
+saveRDS(list(counts = counts,samples=sample_info_tissue),'/project2/mstephens/dongyue/gtex/V8/data/gtex_v8.rds')
+```
+
+
+
+
+
