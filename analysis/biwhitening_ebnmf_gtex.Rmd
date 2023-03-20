@@ -21,11 +21,20 @@ sample_info_tissue = datax$samples
 fit_list     <- list(L = fit$ldf$l[,-1]%*%diag(fit$ldf$d[-1]),F = fit$ldf$f[,-1])
 class(fit_list) <- c("multinom_topic_model_fit", "list")
 colors = randomcoloR::distinctColorPalette(30)
-structure_plot(fit_list,grouping = sample_info_tissue$SMTS,colors = colors,gap=20)
+structure_plot(fit_list,grouping = sample_info_tissue$SMTS,colors = colors,gap=20,verbose=0)
 ```
 
 ```{r,fig.width=15,fig.height=5}
-structure_plot(fit_list,grouping = sample_info_tissue$SMTSD,colors = colors,gap=20)
+fit_tm = readRDS('/project2/mstephens/dongyue/gtex/V8/analysis/topic_model_fit.rds')
+structure_plot(fit_tm,grouping = sample_info_tissue$SMTS,colors = colors,gap=20,verbose=0)
+```
+
+```{r,fig.width=15,fig.height=5}
+structure_plot(fit_list,grouping = sample_info_tissue$SMTSD,colors = colors,gap=20,verbose=0)
+```
+
+```{r,fig.width=15,fig.height=5}
+structure_plot(fit_tm,grouping = sample_info_tissue$SMTSD,colors = colors,gap=20,verbose=0)
 ```
 
 ```{r}
@@ -69,9 +78,6 @@ saveRDS(fit_sf,file='/project2/mstephens/dongyue/gtex/V8/analysis/biwhite_ebnmf_
 ```
 
 ```{r,fig.width=13,fig.height=5}
-fit_topic = readRDS('/project2/mstephens/dongyue/gtex/V8/analysis/topic_model_brain.rds')
-structure_plot(fit_topic,grouping=sample_info_tissue$SMTSD[sample_info_tissue$SMTS=='Brain'])
-
 fit_sf = readRDS('/project2/mstephens/dongyue/gtex/V8/analysis/biwhite_ebnmf_brain.rds')
 fit_list     <- list(L = fit_sf$ldf$l[,-1]%*%diag(fit_sf$ldf$d[-1]),F = fit_sf$ldf$f[,-1])
 class(fit_list) <- c("multinom_topic_model_fit", "list")
@@ -86,6 +92,11 @@ structure_plot(fit_list,grouping = sample_info_tissue$SMTSD[sample_info_tissue$S
                                                                                                          '#cab2d6',
                                                                                                          '#6a3d9a',
                                                                                                          '#ffff99',
-                                                                                                         '#b15928'),gap=40)
+                                                                                                         '#b15928'),gap=40,verbose=0)
+
+fit_topic = readRDS('/project2/mstephens/dongyue/gtex/V8/analysis/topic_model_brain.rds')
+structure_plot(fit_topic,grouping=sample_info_tissue$SMTSD[sample_info_tissue$SMTS=='Brain'],verbose=0)
+
+
 ```
 
