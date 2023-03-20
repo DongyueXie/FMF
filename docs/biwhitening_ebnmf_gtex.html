@@ -389,7 +389,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-19
+<strong>Last updated:</strong> 2023-03-20
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -520,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreee6de2d3197cc4f5c45e6e9ac0663c6ac7556788etargetblanke6de2d3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree8b68c6383901b9e235f21f236437bc0c01f86b3ftargetblank8b68c63a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/DongyueXie/SMF/tree/e6de2d3197cc4f5c45e6e9ac0663c6ac7556788e" target="_blank">e6de2d3</a>
+<a href="https://github.com/DongyueXie/SMF/tree/8b68c6383901b9e235f21f236437bc0c01f86b3f" target="_blank">8b68c63</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreee6de2d3197cc4f5c45e6e9ac0663c6ac7556788etargetblanke6de2d3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree8b68c6383901b9e235f21f236437bc0c01f86b3ftargetblank8b68c63a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -538,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/DongyueXie/SMF/tree/e6de2d3197cc4f5c45e6e9ac0663c6ac7556788e" target="_blank">e6de2d3</a>.
+<a href="https://github.com/DongyueXie/SMF/tree/8b68c6383901b9e235f21f236437bc0c01f86b3f" target="_blank">8b68c63</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -557,11 +557,14 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  Rplot.pdf
     Untracked:  data/count_files.RData
     Untracked:  data/lowgene/
     Untracked:  data/stmGTEx/
     Untracked:  output/luis/
+
+Unstaged changes:
+    Deleted:    example.sbatch
+    Deleted:    slurm-65782790.out
 
 </code></pre>
 <p>
@@ -613,6 +616,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/8b68c6383901b9e235f21f236437bc0c01f86b3f/analysis/biwhitening_ebnmf_gtex.Rmd" target="_blank">8b68c63</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-20
+</td>
+<td>
+wflow_publish("analysis/biwhitening_ebnmf_gtex.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/c2969aa88c2798f8fc05558c2a8a2335880959d1/docs/biwhitening_ebnmf_gtex.html" target="_blank">c2969aa</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/e6de2d3197cc4f5c45e6e9ac0663c6ac7556788e/analysis/biwhitening_ebnmf_gtex.Rmd" target="_blank">e6de2d3</a>
 </td>
 <td>
@@ -642,1866 +679,216 @@ sample_info_tissue = datax$samples</code></pre>
 <pre class="r"><code>fit_list     &lt;- list(L = fit$ldf$l[,-1]%*%diag(fit$ldf$d[-1]),F = fit$ldf$f[,-1])
 class(fit_list) &lt;- c(&quot;multinom_topic_model_fit&quot;, &quot;list&quot;)
 colors = randomcoloR::distinctColorPalette(30)
-structure_plot(fit_list,grouping = sample_info_tissue$SMTS,colors = colors,gap=20)</code></pre>
+structure_plot(fit_list,grouping = sample_info_tissue$SMTS,colors = colors,gap=20,verbose=0)</code></pre>
 <pre><code>Running tsne on 135 x 29 matrix.</code></pre>
-<pre><code>Read the 135 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 43.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.990288)!
-Learning embedding...
-Iteration 50: error is 46.401502 (50 iterations in 0.02 seconds)
-Iteration 100: error is 48.543833 (50 iterations in 0.01 seconds)
-Iteration 150: error is 48.976848 (50 iterations in 0.01 seconds)
-Iteration 200: error is 50.903329 (50 iterations in 0.02 seconds)
-Iteration 250: error is 48.871837 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.652649 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.533821 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.533680 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.533688 (50 iterations in 0.03 seconds)
-Iteration 700: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.533688 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.533688 (50 iterations in 0.01 seconds)
-Fitting performed in 0.24 seconds.</code></pre>
 <pre><code>Running tsne on 27 x 29 matrix.</code></pre>
-<pre><code>Read the 27 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 7.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.899863)!
-Learning embedding...
-Iteration 50: error is 66.566852 (50 iterations in 0.00 seconds)
-Iteration 100: error is 69.631191 (50 iterations in 0.00 seconds)
-Iteration 150: error is 63.394526 (50 iterations in 0.00 seconds)
-Iteration 200: error is 67.868672 (50 iterations in 0.00 seconds)
-Iteration 250: error is 68.552293 (50 iterations in 0.01 seconds)
-Iteration 300: error is 4.873951 (50 iterations in 0.00 seconds)
-Iteration 350: error is 6.846111 (50 iterations in 0.00 seconds)
-Iteration 400: error is 3.153280 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.873328 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.805528 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.793224 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.793203 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.793202 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.793202 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.793202 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.793202 (50 iterations in 0.01 seconds)
-Iteration 850: error is 2.793202 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.793202 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.793201 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.793201 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
 <pre><code>Running tsne on 110 x 29 matrix.</code></pre>
-<pre><code>Read the 110 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 35.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.988430)!
-Learning embedding...
-Iteration 50: error is 47.275907 (50 iterations in 0.01 seconds)
-Iteration 100: error is 50.258059 (50 iterations in 0.01 seconds)
-Iteration 150: error is 50.020751 (50 iterations in 0.01 seconds)
-Iteration 200: error is 51.094191 (50 iterations in 0.01 seconds)
-Iteration 250: error is 51.665367 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.094354 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.605376 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.544688 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.543993 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.543993 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.543993 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.543992 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.543994 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.543993 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.543993 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.543993 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.543990 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.543991 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.543991 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.543993 (50 iterations in 0.01 seconds)
-Fitting performed in 0.16 seconds.</code></pre>
 <pre><code>Running tsne on 156 x 29 matrix.</code></pre>
-<pre><code>Read the 156 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 50.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.04 seconds (sparsity = 0.991535)!
-Learning embedding...
-Iteration 50: error is 44.681675 (50 iterations in 0.01 seconds)
-Iteration 100: error is 44.997072 (50 iterations in 0.02 seconds)
-Iteration 150: error is 44.960341 (50 iterations in 0.02 seconds)
-Iteration 200: error is 44.645784 (50 iterations in 0.01 seconds)
-Iteration 250: error is 45.689270 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.886737 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.677647 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.676346 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.676349 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.676346 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.676349 (50 iterations in 0.02 seconds)
-Iteration 600: error is 0.676349 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.676346 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.676346 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.676346 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.676346 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.676346 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.676349 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.676349 (50 iterations in 0.02 seconds)
-Iteration 1000: error is 0.676349 (50 iterations in 0.01 seconds)
-Fitting performed in 0.27 seconds.</code></pre>
 <pre><code>Running tsne on 313 x 29 matrix.</code></pre>
-<pre><code>Read the 313 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 100.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.16 seconds (sparsity = 0.993865)!
-Learning embedding...
-Iteration 50: error is 42.148390 (50 iterations in 0.05 seconds)
-Iteration 100: error is 42.150041 (50 iterations in 0.05 seconds)
-Iteration 150: error is 42.148852 (50 iterations in 0.04 seconds)
-Iteration 200: error is 42.149553 (50 iterations in 0.04 seconds)
-Iteration 250: error is 42.146924 (50 iterations in 0.04 seconds)
-Iteration 300: error is 0.471079 (50 iterations in 0.04 seconds)
-Iteration 350: error is 0.470319 (50 iterations in 0.04 seconds)
-Iteration 400: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 450: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 500: error is 0.470315 (50 iterations in 0.04 seconds)
-Iteration 550: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 600: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 650: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 700: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 750: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 800: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 850: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 900: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 950: error is 0.470314 (50 iterations in 0.04 seconds)
-Iteration 1000: error is 0.470314 (50 iterations in 0.04 seconds)
-Fitting performed in 0.82 seconds.</code></pre>
 <pre><code>Running tsne on 51 x 29 matrix.</code></pre>
-<pre><code>Read the 51 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 15.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.961169)!
-Learning embedding...
-Iteration 50: error is 52.788392 (50 iterations in 0.01 seconds)
-Iteration 100: error is 53.308064 (50 iterations in 0.00 seconds)
-Iteration 150: error is 51.610098 (50 iterations in 0.00 seconds)
-Iteration 200: error is 46.403477 (50 iterations in 0.00 seconds)
-Iteration 250: error is 44.694294 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.311287 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.821423 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.705963 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.696194 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.696130 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.696131 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.696131 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.696130 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.696130 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.696130 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.696130 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.696130 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.696130 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.696130 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.696130 (50 iterations in 0.00 seconds)
-Fitting performed in 0.05 seconds.</code></pre>
 <pre><code>Running tsne on 87 x 29 matrix.</code></pre>
-<pre><code>Read the 87 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 27.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.982164)!
-Learning embedding...
-Iteration 50: error is 50.330622 (50 iterations in 0.00 seconds)
-Iteration 100: error is 50.600489 (50 iterations in 0.00 seconds)
-Iteration 150: error is 51.296204 (50 iterations in 0.01 seconds)
-Iteration 200: error is 52.602951 (50 iterations in 0.00 seconds)
-Iteration 250: error is 50.078511 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.879135 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.518113 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.456392 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.456433 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.456433 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.456433 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.456433 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.456433 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.456433 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.456433 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.456433 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.456433 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.456433 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.456433 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.456433 (50 iterations in 0.00 seconds)
-Fitting performed in 0.08 seconds.</code></pre>
 <pre><code>Running tsne on 160 x 29 matrix.</code></pre>
-<pre><code>Read the 160 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 52.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.04 seconds (sparsity = 0.993047)!
-Learning embedding...
-Iteration 50: error is 39.033451 (50 iterations in 0.01 seconds)
-Iteration 100: error is 41.122176 (50 iterations in 0.02 seconds)
-Iteration 150: error is 39.587239 (50 iterations in 0.02 seconds)
-Iteration 200: error is 40.607513 (50 iterations in 0.01 seconds)
-Iteration 250: error is 40.001540 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.402500 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.243015 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.241256 (50 iterations in 0.02 seconds)
-Iteration 450: error is 0.241251 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.241252 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.241258 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.241258 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.241252 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.241251 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.241258 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.241258 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.241252 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.241252 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.241252 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.241252 (50 iterations in 0.01 seconds)
-Fitting performed in 0.27 seconds.</code></pre>
 <pre><code>Running tsne on 90 x 29 matrix.</code></pre>
-<pre><code>Read the 90 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 28.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.982716)!
-Learning embedding...
-Iteration 50: error is 46.733543 (50 iterations in 0.01 seconds)
-Iteration 100: error is 49.354237 (50 iterations in 0.01 seconds)
-Iteration 150: error is 48.683885 (50 iterations in 0.00 seconds)
-Iteration 200: error is 50.301221 (50 iterations in 0.01 seconds)
-Iteration 250: error is 50.162401 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.402206 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.585728 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.584398 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.584401 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.584401 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.584400 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.584401 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.584401 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.584401 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.584401 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.584401 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.584400 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.584401 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.584400 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.584401 (50 iterations in 0.00 seconds)
-Fitting performed in 0.11 seconds.</code></pre>
 <pre><code>Running tsne on 37 x 29 matrix.</code></pre>
-<pre><code>Read the 37 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 11.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.959825)!
-Learning embedding...
-Iteration 50: error is 58.863424 (50 iterations in 0.00 seconds)
-Iteration 100: error is 53.494967 (50 iterations in 0.01 seconds)
-Iteration 150: error is 61.320571 (50 iterations in 0.00 seconds)
-Iteration 200: error is 58.501593 (50 iterations in 0.00 seconds)
-Iteration 250: error is 56.179780 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.801841 (50 iterations in 0.00 seconds)
-Iteration 350: error is 2.687206 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.992730 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.510734 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.507805 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.507790 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.507791 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.507791 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.507791 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.507791 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.507791 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.507791 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.507791 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.507791 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.507791 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
 <pre><code>Running tsne on 62 x 29 matrix.</code></pre>
-<pre><code>Read the 62 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 19.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.975546)!
-Learning embedding...
-Iteration 50: error is 54.207103 (50 iterations in 0.01 seconds)
-Iteration 100: error is 56.754564 (50 iterations in 0.00 seconds)
-Iteration 150: error is 52.661005 (50 iterations in 0.01 seconds)
-Iteration 200: error is 55.063779 (50 iterations in 0.00 seconds)
-Iteration 250: error is 53.633380 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.528563 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.442804 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.363932 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.363903 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.363903 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.363903 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.363903 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.363903 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.363903 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.363903 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.363903 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.363903 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.363903 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.363903 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.363903 (50 iterations in 0.00 seconds)
-Fitting performed in 0.07 seconds.</code></pre>
 <pre><code>Running tsne on 91 x 29 matrix.</code></pre>
-<pre><code>Read the 91 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 29.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.986837)!
-Learning embedding...
-Iteration 50: error is 48.384959 (50 iterations in 0.01 seconds)
-Iteration 100: error is 48.680368 (50 iterations in 0.00 seconds)
-Iteration 150: error is 51.088120 (50 iterations in 0.01 seconds)
-Iteration 200: error is 47.055584 (50 iterations in 0.01 seconds)
-Iteration 250: error is 49.624294 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.485989 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.738766 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.723835 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.723826 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.723824 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.723826 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.723823 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.723826 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.723828 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.723831 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.723832 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.723825 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.723829 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.723830 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.723831 (50 iterations in 0.00 seconds)
-Fitting performed in 0.12 seconds.</code></pre>
 <pre><code>Running tsne on 78 x 29 matrix.</code></pre>
-<pre><code>Read the 78 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 24.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.980276)!
-Learning embedding...
-Iteration 50: error is 54.089465 (50 iterations in 0.00 seconds)
-Iteration 100: error is 55.532287 (50 iterations in 0.01 seconds)
-Iteration 150: error is 49.638759 (50 iterations in 0.01 seconds)
-Iteration 200: error is 50.723481 (50 iterations in 0.00 seconds)
-Iteration 250: error is 54.533267 (50 iterations in 0.01 seconds)
-Iteration 300: error is 2.133457 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.977515 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.867501 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.867441 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.867441 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.867441 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.867440 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.867440 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.867441 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.867440 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.867440 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.867441 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.867440 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.867441 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.867440 (50 iterations in 0.01 seconds)
-Fitting performed in 0.09 seconds.</code></pre>
 <pre><code>Running tsne on 24 x 29 matrix.</code></pre>
-<pre><code>Read the 24 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 6.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.875000)!
-Learning embedding...
-Iteration 50: error is 76.624856 (50 iterations in 0.00 seconds)
-Iteration 100: error is 73.453629 (50 iterations in 0.00 seconds)
-Iteration 150: error is 69.231988 (50 iterations in 0.00 seconds)
-Iteration 200: error is 67.861216 (50 iterations in 0.00 seconds)
-Iteration 250: error is 66.916632 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.426750 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.912863 (50 iterations in 0.00 seconds)
-Iteration 400: error is 2.976020 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.850860 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.812038 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.784409 (50 iterations in 0.01 seconds)
-Iteration 600: error is 2.751046 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.665013 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.645495 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.640354 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.639409 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.639355 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.639353 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.639353 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.639353 (50 iterations in 0.00 seconds)
-Fitting performed in 0.01 seconds.</code></pre>
 <pre><code>Running tsne on 36 x 29 matrix.</code></pre>
-<pre><code>Read the 36 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 10.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.936728)!
-Learning embedding...
-Iteration 50: error is 61.368782 (50 iterations in 0.00 seconds)
-Iteration 100: error is 61.722733 (50 iterations in 0.00 seconds)
-Iteration 150: error is 58.469802 (50 iterations in 0.01 seconds)
-Iteration 200: error is 58.025563 (50 iterations in 0.00 seconds)
-Iteration 250: error is 59.911695 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.296543 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.912062 (50 iterations in 0.00 seconds)
-Iteration 400: error is 4.673741 (50 iterations in 0.00 seconds)
-Iteration 450: error is 4.474689 (50 iterations in 0.01 seconds)
-Iteration 500: error is 5.158519 (50 iterations in 0.00 seconds)
-Iteration 550: error is 3.611497 (50 iterations in 0.00 seconds)
-Iteration 600: error is 3.328865 (50 iterations in 0.00 seconds)
-Iteration 650: error is 3.302460 (50 iterations in 0.00 seconds)
-Iteration 700: error is 3.279820 (50 iterations in 0.00 seconds)
-Iteration 750: error is 3.260546 (50 iterations in 0.00 seconds)
-Iteration 800: error is 3.242779 (50 iterations in 0.00 seconds)
-Iteration 850: error is 3.223678 (50 iterations in 0.01 seconds)
-Iteration 900: error is 3.212261 (50 iterations in 0.00 seconds)
-Iteration 950: error is 3.199920 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 3.184258 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
 <pre><code>Running tsne on 38 x 29 matrix.</code></pre>
-<pre><code>Read the 38 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 11.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.951524)!
-Learning embedding...
-Iteration 50: error is 58.602173 (50 iterations in 0.00 seconds)
-Iteration 100: error is 63.696714 (50 iterations in 0.01 seconds)
-Iteration 150: error is 58.213191 (50 iterations in 0.00 seconds)
-Iteration 200: error is 55.394358 (50 iterations in 0.00 seconds)
-Iteration 250: error is 59.720480 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.032879 (50 iterations in 0.00 seconds)
-Iteration 350: error is 5.008497 (50 iterations in 0.00 seconds)
-Iteration 400: error is 5.915194 (50 iterations in 0.00 seconds)
-Iteration 450: error is 3.245362 (50 iterations in 0.00 seconds)
-Iteration 500: error is 3.217413 (50 iterations in 0.00 seconds)
-Iteration 550: error is 3.215365 (50 iterations in 0.00 seconds)
-Iteration 600: error is 3.215232 (50 iterations in 0.00 seconds)
-Iteration 650: error is 3.215226 (50 iterations in 0.00 seconds)
-Iteration 700: error is 3.215221 (50 iterations in 0.00 seconds)
-Iteration 750: error is 3.215213 (50 iterations in 0.01 seconds)
-Iteration 800: error is 3.215202 (50 iterations in 0.00 seconds)
-Iteration 850: error is 3.215189 (50 iterations in 0.00 seconds)
-Iteration 900: error is 3.215175 (50 iterations in 0.01 seconds)
-Iteration 950: error is 3.215158 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 3.215141 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
 <pre><code>Running tsne on 30 x 29 matrix.</code></pre>
-<pre><code>Read the 30 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 8.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.911111)!
-Learning embedding...
-Iteration 50: error is 68.940329 (50 iterations in 0.00 seconds)
-Iteration 100: error is 70.993526 (50 iterations in 0.01 seconds)
-Iteration 150: error is 65.236652 (50 iterations in 0.00 seconds)
-Iteration 200: error is 64.978472 (50 iterations in 0.00 seconds)
-Iteration 250: error is 68.547806 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.126438 (50 iterations in 0.00 seconds)
-Iteration 350: error is 5.101133 (50 iterations in 0.00 seconds)
-Iteration 400: error is 4.525456 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.719755 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.504163 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.488376 (50 iterations in 0.01 seconds)
-Iteration 600: error is 2.484823 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.483644 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.483298 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.483208 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.483162 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.483162 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.483162 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.483162 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.483162 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
 <pre><code>Running tsne on 21 x 29 matrix.</code></pre>
-<pre><code>Read the 21 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 5.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.870748)!
-Learning embedding...
-Iteration 50: error is 69.958408 (50 iterations in 0.00 seconds)
-Iteration 100: error is 70.407102 (50 iterations in 0.01 seconds)
-Iteration 150: error is 74.727332 (50 iterations in 0.00 seconds)
-Iteration 200: error is 71.008240 (50 iterations in 0.00 seconds)
-Iteration 250: error is 75.592085 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.548535 (50 iterations in 0.00 seconds)
-Iteration 350: error is 2.681925 (50 iterations in 0.00 seconds)
-Iteration 400: error is 2.583283 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.571805 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.568698 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.568232 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.568227 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.568227 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.568227 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.568226 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.568226 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.568226 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.568225 (50 iterations in 0.01 seconds)
-Iteration 950: error is 2.568225 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.568224 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
 <pre><code>Running tsne on 205 x 29 matrix.</code></pre>
-<pre><code>Read the 205 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 67.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.06 seconds (sparsity = 0.994646)!
-Learning embedding...
-Iteration 50: error is 41.630206 (50 iterations in 0.02 seconds)
-Iteration 100: error is 41.710744 (50 iterations in 0.03 seconds)
-Iteration 150: error is 41.643827 (50 iterations in 0.02 seconds)
-Iteration 200: error is 41.633716 (50 iterations in 0.03 seconds)
-Iteration 250: error is 41.674842 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.277167 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.273933 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 450: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 500: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 550: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 600: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 650: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 800: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 850: error is 0.273930 (50 iterations in 0.02 seconds)
-Iteration 900: error is 0.273931 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.273930 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.273930 (50 iterations in 0.01 seconds)
-Fitting performed in 0.39 seconds.</code></pre>
 <pre><code>Running tsne on 27 x 29 matrix.</code></pre>
-<pre><code>Read the 27 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 7.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.897119)!
-Learning embedding...
-Iteration 50: error is 65.325595 (50 iterations in 0.00 seconds)
-Iteration 100: error is 69.845278 (50 iterations in 0.00 seconds)
-Iteration 150: error is 63.599487 (50 iterations in 0.00 seconds)
-Iteration 200: error is 69.812923 (50 iterations in 0.00 seconds)
-Iteration 250: error is 67.621406 (50 iterations in 0.01 seconds)
-Iteration 300: error is 5.177033 (50 iterations in 0.00 seconds)
-Iteration 350: error is 5.049327 (50 iterations in 0.00 seconds)
-Iteration 400: error is 6.434565 (50 iterations in 0.00 seconds)
-Iteration 450: error is 3.287544 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.884134 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.820295 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.781742 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.741182 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.716290 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.711907 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.711562 (50 iterations in 0.01 seconds)
-Iteration 850: error is 2.711554 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.711554 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.711554 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.711554 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
 <pre><code>Running tsne on 37 x 29 matrix.</code></pre>
-<pre><code>Read the 37 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 11.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.959825)!
-Learning embedding...
-Iteration 50: error is 58.656351 (50 iterations in 0.00 seconds)
-Iteration 100: error is 55.150697 (50 iterations in 0.00 seconds)
-Iteration 150: error is 56.844069 (50 iterations in 0.01 seconds)
-Iteration 200: error is 63.063470 (50 iterations in 0.00 seconds)
-Iteration 250: error is 60.785935 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.912730 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.713248 (50 iterations in 0.00 seconds)
-Iteration 400: error is 5.472318 (50 iterations in 0.00 seconds)
-Iteration 450: error is 5.479385 (50 iterations in 0.01 seconds)
-Iteration 500: error is 6.052819 (50 iterations in 0.00 seconds)
-Iteration 550: error is 3.431112 (50 iterations in 0.00 seconds)
-Iteration 600: error is 3.256735 (50 iterations in 0.00 seconds)
-Iteration 650: error is 3.187696 (50 iterations in 0.00 seconds)
-Iteration 700: error is 3.135876 (50 iterations in 0.00 seconds)
-Iteration 750: error is 3.098242 (50 iterations in 0.00 seconds)
-Iteration 800: error is 3.093630 (50 iterations in 0.01 seconds)
-Iteration 850: error is 3.093430 (50 iterations in 0.00 seconds)
-Iteration 900: error is 3.093401 (50 iterations in 0.00 seconds)
-Iteration 950: error is 3.093394 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 3.093394 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
 <pre><code>Running tsne on 38 x 29 matrix.</code></pre>
-<pre><code>Read the 38 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 11.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.951524)!
-Learning embedding...
-Iteration 50: error is 59.200698 (50 iterations in 0.00 seconds)
-Iteration 100: error is 60.420194 (50 iterations in 0.01 seconds)
-Iteration 150: error is 58.024421 (50 iterations in 0.00 seconds)
-Iteration 200: error is 57.559925 (50 iterations in 0.00 seconds)
-Iteration 250: error is 57.080648 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.265583 (50 iterations in 0.00 seconds)
-Iteration 350: error is 3.002702 (50 iterations in 0.01 seconds)
-Iteration 400: error is 2.733467 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.715550 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.712966 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.708923 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.703999 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.698028 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.689398 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.676484 (50 iterations in 0.01 seconds)
-Iteration 800: error is 2.652158 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.605708 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.323028 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.960313 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.583708 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
 <pre><code>Running tsne on 85 x 29 matrix.</code></pre>
-<pre><code>Read the 85 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 27.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.985744)!
-Learning embedding...
-Iteration 50: error is 49.905251 (50 iterations in 0.01 seconds)
-Iteration 100: error is 49.447341 (50 iterations in 0.01 seconds)
-Iteration 150: error is 50.966412 (50 iterations in 0.00 seconds)
-Iteration 200: error is 50.293762 (50 iterations in 0.01 seconds)
-Iteration 250: error is 49.932812 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.086345 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.825766 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.775502 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.775472 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.775472 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.775472 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.775462 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.775463 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.775462 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.775472 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.775463 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.775463 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.775462 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.775472 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.775463 (50 iterations in 0.00 seconds)
-Fitting performed in 0.10 seconds.</code></pre>
 <p><img src="figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-2-1.png" width="1440" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>structure_plot(fit_list,grouping = sample_info_tissue$SMTSD,colors = colors,gap=20)</code></pre>
-<pre><code>Running tsne on 82 x 29 matrix.</code></pre>
-<pre><code>Read the 82 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 26.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.984830)!
-Learning embedding...
-Iteration 50: error is 53.024257 (50 iterations in 0.00 seconds)
-Iteration 100: error is 51.581125 (50 iterations in 0.01 seconds)
-Iteration 150: error is 52.643334 (50 iterations in 0.01 seconds)
-Iteration 200: error is 50.635624 (50 iterations in 0.00 seconds)
-Iteration 250: error is 51.911593 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.986750 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.672726 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.630549 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.630506 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.630507 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.630506 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.630507 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.630507 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.630483 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.630507 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.630507 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.630507 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.630504 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.630507 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.630507 (50 iterations in 0.00 seconds)
-Fitting performed in 0.10 seconds.</code></pre>
-<pre><code>Running tsne on 62 x 29 matrix.</code></pre>
-<pre><code>Read the 62 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 19.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.977107)!
-Learning embedding...
-Iteration 50: error is 55.795581 (50 iterations in 0.00 seconds)
-Iteration 100: error is 55.510634 (50 iterations in 0.00 seconds)
-Iteration 150: error is 54.973172 (50 iterations in 0.01 seconds)
-Iteration 200: error is 54.093613 (50 iterations in 0.00 seconds)
-Iteration 250: error is 53.422985 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.452594 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.764175 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.735255 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.735227 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.735229 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.735229 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.735229 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.735228 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.735229 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.735229 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.735229 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.735229 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.735229 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.735229 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.735229 (50 iterations in 0.00 seconds)
-Fitting performed in 0.05 seconds.</code></pre>
-<pre><code>Running tsne on 33 x 29 matrix.</code></pre>
-<pre><code>Read the 33 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 9.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.921947)!
-Learning embedding...
-Iteration 50: error is 71.239489 (50 iterations in 0.00 seconds)
-Iteration 100: error is 61.829393 (50 iterations in 0.01 seconds)
-Iteration 150: error is 65.751307 (50 iterations in 0.00 seconds)
-Iteration 200: error is 64.811704 (50 iterations in 0.00 seconds)
-Iteration 250: error is 65.874544 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.574170 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.222465 (50 iterations in 0.00 seconds)
-Iteration 400: error is 6.176729 (50 iterations in 0.01 seconds)
-Iteration 450: error is 3.313140 (50 iterations in 0.00 seconds)
-Iteration 500: error is 3.080387 (50 iterations in 0.00 seconds)
-Iteration 550: error is 3.055177 (50 iterations in 0.00 seconds)
-Iteration 600: error is 3.026585 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.999851 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.982026 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.978918 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.978739 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.978734 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.978734 (50 iterations in 0.01 seconds)
-Iteration 950: error is 2.978734 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.978733 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
-<pre><code>Running tsne on 46 x 29 matrix.</code></pre>
-<pre><code>Read the 46 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 14.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.969754)!
-Learning embedding...
-Iteration 50: error is 59.284742 (50 iterations in 0.00 seconds)
-Iteration 100: error is 60.476899 (50 iterations in 0.01 seconds)
-Iteration 150: error is 57.557404 (50 iterations in 0.00 seconds)
-Iteration 200: error is 53.970372 (50 iterations in 0.00 seconds)
-Iteration 250: error is 60.629186 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.010541 (50 iterations in 0.01 seconds)
-Iteration 350: error is 2.640466 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.887491 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.699433 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.658556 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.596154 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.595639 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.595638 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.595639 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.595636 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.595639 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.595638 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.595639 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.595637 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.595639 (50 iterations in 0.00 seconds)
-Fitting performed in 0.04 seconds.</code></pre>
-<pre><code>Running tsne on 28 x 29 matrix.</code></pre>
-<pre><code>Read the 28 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 8.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.941327)!
-Learning embedding...
-Iteration 50: error is 64.213197 (50 iterations in 0.01 seconds)
-Iteration 100: error is 73.956911 (50 iterations in 0.00 seconds)
-Iteration 150: error is 65.950911 (50 iterations in 0.00 seconds)
-Iteration 200: error is 61.912993 (50 iterations in 0.00 seconds)
-Iteration 250: error is 65.679987 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.593632 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.339300 (50 iterations in 0.00 seconds)
-Iteration 400: error is 6.686633 (50 iterations in 0.00 seconds)
-Iteration 450: error is 3.009394 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.858579 (50 iterations in 0.01 seconds)
-Iteration 550: error is 2.823085 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.812628 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.809525 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.808645 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.808521 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.808513 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.808513 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.808513 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.808513 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.808513 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 79 x 29 matrix.</code></pre>
-<pre><code>Read the 79 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 25.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.984778)!
-Learning embedding...
-Iteration 50: error is 54.250508 (50 iterations in 0.01 seconds)
-Iteration 100: error is 49.235977 (50 iterations in 0.00 seconds)
-Iteration 150: error is 51.516800 (50 iterations in 0.01 seconds)
-Iteration 200: error is 49.506812 (50 iterations in 0.00 seconds)
-Iteration 250: error is 52.409429 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.361631 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.633589 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.350405 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.347505 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.347502 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.347504 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.347502 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.347504 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.347504 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.347502 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.347504 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.347504 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.347504 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.347502 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.347504 (50 iterations in 0.00 seconds)
-Fitting performed in 0.09 seconds.</code></pre>
-<pre><code>Running tsne on 28 x 29 matrix.</code></pre>
-<pre><code>Read the 28 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 8.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.941327)!
-Learning embedding...
-Iteration 50: error is 66.357896 (50 iterations in 0.00 seconds)
-Iteration 100: error is 65.921659 (50 iterations in 0.00 seconds)
-Iteration 150: error is 69.115561 (50 iterations in 0.00 seconds)
-Iteration 200: error is 73.388750 (50 iterations in 0.00 seconds)
-Iteration 250: error is 60.630936 (50 iterations in 0.01 seconds)
-Iteration 300: error is 4.051059 (50 iterations in 0.00 seconds)
-Iteration 350: error is 5.990474 (50 iterations in 0.00 seconds)
-Iteration 400: error is 3.536577 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.973183 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.948979 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.943983 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.942183 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.941854 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.941836 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.941844 (50 iterations in 0.01 seconds)
-Iteration 800: error is 2.941844 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.941844 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.941844 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.941844 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.941844 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 21 x 29 matrix.</code></pre>
-<pre><code>Read the 21 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 5.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.861678)!
-Learning embedding...
-Iteration 50: error is 68.779742 (50 iterations in 0.00 seconds)
-Iteration 100: error is 78.667234 (50 iterations in 0.00 seconds)
-Iteration 150: error is 79.057555 (50 iterations in 0.00 seconds)
-Iteration 200: error is 74.804079 (50 iterations in 0.00 seconds)
-Iteration 250: error is 64.186338 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.255696 (50 iterations in 0.00 seconds)
-Iteration 350: error is 3.656031 (50 iterations in 0.00 seconds)
-Iteration 400: error is 3.358234 (50 iterations in 0.00 seconds)
-Iteration 450: error is 3.207987 (50 iterations in 0.01 seconds)
-Iteration 500: error is 3.101783 (50 iterations in 0.00 seconds)
-Iteration 550: error is 3.082025 (50 iterations in 0.00 seconds)
-Iteration 600: error is 3.070069 (50 iterations in 0.00 seconds)
-Iteration 650: error is 3.053952 (50 iterations in 0.00 seconds)
-Iteration 700: error is 3.031938 (50 iterations in 0.00 seconds)
-Iteration 750: error is 3.002971 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.987347 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.987094 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.987073 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.987073 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.987073 (50 iterations in 0.00 seconds)
-Fitting performed in 0.01 seconds.</code></pre>
-<pre><code>Running tsne on 25 x 29 matrix.</code></pre>
-<pre><code>Read the 25 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 7.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.928000)!
-Learning embedding...
-Iteration 50: error is 64.813598 (50 iterations in 0.00 seconds)
-Iteration 100: error is 67.360593 (50 iterations in 0.00 seconds)
-Iteration 150: error is 65.623999 (50 iterations in 0.00 seconds)
-Iteration 200: error is 70.233888 (50 iterations in 0.01 seconds)
-Iteration 250: error is 66.456782 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.972432 (50 iterations in 0.00 seconds)
-Iteration 350: error is 6.895528 (50 iterations in 0.00 seconds)
-Iteration 400: error is 3.560624 (50 iterations in 0.00 seconds)
-Iteration 450: error is 3.272944 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.895606 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.740735 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.658629 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.617375 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.589076 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.563417 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.545131 (50 iterations in 0.01 seconds)
-Iteration 850: error is 2.527680 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.520113 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.519694 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.519599 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 21 x 29 matrix.</code></pre>
-<pre><code>Read the 21 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 5.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.834467)!
-Learning embedding...
-Iteration 50: error is 73.121758 (50 iterations in 0.00 seconds)
-Iteration 100: error is 72.928977 (50 iterations in 0.00 seconds)
-Iteration 150: error is 70.991986 (50 iterations in 0.00 seconds)
-Iteration 200: error is 69.219273 (50 iterations in 0.00 seconds)
-Iteration 250: error is 71.115598 (50 iterations in 0.00 seconds)
-Iteration 300: error is 5.486004 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.020619 (50 iterations in 0.00 seconds)
-Iteration 400: error is 2.816757 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.742912 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.697945 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.676556 (50 iterations in 0.01 seconds)
-Iteration 600: error is 2.675789 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.675683 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.675681 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.675681 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.675680 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.675680 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.675680 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.675680 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.675680 (50 iterations in 0.00 seconds)
-Fitting performed in 0.01 seconds.</code></pre>
-<pre><code>Running tsne on 29 x 29 matrix.</code></pre>
-<pre><code>Read the 29 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 8.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.932224)!
-Learning embedding...
-Iteration 50: error is 65.536306 (50 iterations in 0.00 seconds)
-Iteration 100: error is 67.101607 (50 iterations in 0.00 seconds)
-Iteration 150: error is 61.862718 (50 iterations in 0.00 seconds)
-Iteration 200: error is 65.842428 (50 iterations in 0.01 seconds)
-Iteration 250: error is 61.132199 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.419215 (50 iterations in 0.00 seconds)
-Iteration 350: error is 3.773228 (50 iterations in 0.00 seconds)
-Iteration 400: error is 2.924666 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.795379 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.695121 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.689213 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.688885 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.688883 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.688882 (50 iterations in 0.01 seconds)
-Iteration 750: error is 2.688881 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.688880 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.688879 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.688877 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.688875 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.688872 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 21 x 29 matrix.</code></pre>
-<pre><code>Read the 21 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 5.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.870748)!
-Learning embedding...
-Iteration 50: error is 71.181650 (50 iterations in 0.00 seconds)
-Iteration 100: error is 79.147424 (50 iterations in 0.01 seconds)
-Iteration 150: error is 74.469505 (50 iterations in 0.00 seconds)
-Iteration 200: error is 77.200924 (50 iterations in 0.00 seconds)
-Iteration 250: error is 70.738452 (50 iterations in 0.00 seconds)
-Iteration 300: error is 6.061350 (50 iterations in 0.00 seconds)
-Iteration 350: error is 3.062609 (50 iterations in 0.01 seconds)
-Iteration 400: error is 2.752142 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.638270 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.606079 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.560343 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.541041 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.540584 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.540569 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.540569 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.540569 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.540569 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.540569 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.540568 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.540568 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 21 x 29 matrix.</code></pre>
-<pre><code>Read the 21 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 5.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.839002)!
-Learning embedding...
-Iteration 50: error is 66.887236 (50 iterations in 0.00 seconds)
-Iteration 100: error is 61.401139 (50 iterations in 0.00 seconds)
-Iteration 150: error is 70.292811 (50 iterations in 0.01 seconds)
-Iteration 200: error is 73.480065 (50 iterations in 0.00 seconds)
-Iteration 250: error is 69.778432 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.347958 (50 iterations in 0.00 seconds)
-Iteration 350: error is 2.949082 (50 iterations in 0.00 seconds)
-Iteration 400: error is 2.832342 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.809832 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.804952 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.804875 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.804875 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.804874 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.804874 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.804874 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.804874 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.804873 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.804873 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.804872 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.804872 (50 iterations in 0.01 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 25 x 29 matrix.</code></pre>
-<pre><code>Read the 25 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 7.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.931200)!
-Learning embedding...
-Iteration 50: error is 73.504122 (50 iterations in 0.00 seconds)
-Iteration 100: error is 76.977920 (50 iterations in 0.00 seconds)
-Iteration 150: error is 71.127422 (50 iterations in 0.00 seconds)
-Iteration 200: error is 68.710775 (50 iterations in 0.00 seconds)
-Iteration 250: error is 71.737940 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.708044 (50 iterations in 0.00 seconds)
-Iteration 350: error is 3.960055 (50 iterations in 0.00 seconds)
-Iteration 400: error is 3.113836 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.950873 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.883588 (50 iterations in 0.01 seconds)
-Iteration 550: error is 2.865859 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.862551 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.861771 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.861708 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.861706 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.861706 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.861706 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.861706 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.861706 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.861706 (50 iterations in 0.00 seconds)
-Fitting performed in 0.01 seconds.</code></pre>
-<pre><code>Running tsne on 34 x 29 matrix.</code></pre>
-<pre><code>Read the 34 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 10.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.955017)!
-Learning embedding...
-Iteration 50: error is 60.366998 (50 iterations in 0.00 seconds)
-Iteration 100: error is 62.130107 (50 iterations in 0.00 seconds)
-Iteration 150: error is 61.658216 (50 iterations in 0.00 seconds)
-Iteration 200: error is 59.474563 (50 iterations in 0.00 seconds)
-Iteration 250: error is 69.137372 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.223802 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.449954 (50 iterations in 0.01 seconds)
-Iteration 400: error is 3.654054 (50 iterations in 0.00 seconds)
-Iteration 450: error is 3.146939 (50 iterations in 0.00 seconds)
-Iteration 500: error is 3.014134 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.991157 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.965431 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.925570 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.904124 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.904014 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.904021 (50 iterations in 0.01 seconds)
-Iteration 850: error is 2.904020 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.904019 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.904018 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.904016 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 28 x 29 matrix.</code></pre>
-<pre><code>Read the 28 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 8.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.941327)!
-Learning embedding...
-Iteration 50: error is 66.522530 (50 iterations in 0.00 seconds)
-Iteration 100: error is 73.122314 (50 iterations in 0.00 seconds)
-Iteration 150: error is 60.272728 (50 iterations in 0.00 seconds)
-Iteration 200: error is 70.511770 (50 iterations in 0.01 seconds)
-Iteration 250: error is 64.940031 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.442648 (50 iterations in 0.00 seconds)
-Iteration 350: error is 5.869016 (50 iterations in 0.00 seconds)
-Iteration 400: error is 3.104500 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.892223 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.825079 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.801396 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.786732 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.772597 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.768332 (50 iterations in 0.01 seconds)
-Iteration 750: error is 2.768202 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.768192 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.768192 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.768192 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.768192 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.768192 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 49 x 29 matrix.</code></pre>
-<pre><code>Read the 49 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 15.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.972095)!
-Learning embedding...
-Iteration 50: error is 55.120283 (50 iterations in 0.00 seconds)
-Iteration 100: error is 54.676478 (50 iterations in 0.01 seconds)
-Iteration 150: error is 49.754236 (50 iterations in 0.00 seconds)
-Iteration 200: error is 55.998495 (50 iterations in 0.00 seconds)
-Iteration 250: error is 53.341188 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.823897 (50 iterations in 0.01 seconds)
-Iteration 350: error is 2.167611 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.734348 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.360693 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.353386 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.353380 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.353380 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.353380 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.353380 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.353380 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.353380 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.353380 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.353380 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.353380 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.353380 (50 iterations in 0.00 seconds)
-Fitting performed in 0.05 seconds.</code></pre>
-<pre><code>Running tsne on 67 x 29 matrix.</code></pre>
-<pre><code>Read the 67 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 21.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.981065)!
-Learning embedding...
-Iteration 50: error is 53.717031 (50 iterations in 0.01 seconds)
-Iteration 100: error is 52.506893 (50 iterations in 0.00 seconds)
-Iteration 150: error is 49.839356 (50 iterations in 0.01 seconds)
-Iteration 200: error is 50.175981 (50 iterations in 0.00 seconds)
-Iteration 250: error is 53.888905 (50 iterations in 0.01 seconds)
-Iteration 300: error is 2.439736 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.935209 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.777167 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.776944 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.776944 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.776944 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.776944 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.776944 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.776944 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.776944 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.776944 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.776944 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.776944 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.776944 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.776944 (50 iterations in 0.00 seconds)
-Fitting performed in 0.08 seconds.</code></pre>
-<pre><code>Running tsne on 44 x 29 matrix.</code></pre>
-<pre><code>Read the 44 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 13.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.960744)!
-Learning embedding...
-Iteration 50: error is 55.547959 (50 iterations in 0.00 seconds)
-Iteration 100: error is 56.629335 (50 iterations in 0.01 seconds)
-Iteration 150: error is 58.555436 (50 iterations in 0.00 seconds)
-Iteration 200: error is 58.663442 (50 iterations in 0.00 seconds)
-Iteration 250: error is 56.433135 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.492000 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.879513 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.808124 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.807983 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.807985 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.807982 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.807982 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.807985 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.807982 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.807982 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.807982 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.807982 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.807982 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.807982 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.807982 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
-<pre><code>Running tsne on 41 x 29 matrix.</code></pre>
-<pre><code>Read the 41 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 12.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.960143)!
-Learning embedding...
-Iteration 50: error is 56.620090 (50 iterations in 0.01 seconds)
-Iteration 100: error is 58.761450 (50 iterations in 0.00 seconds)
-Iteration 150: error is 57.960446 (50 iterations in 0.00 seconds)
-Iteration 200: error is 59.785237 (50 iterations in 0.00 seconds)
-Iteration 250: error is 55.922145 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.877253 (50 iterations in 0.01 seconds)
-Iteration 350: error is 2.600144 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.798026 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.588231 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.587913 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.587912 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.587912 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.587913 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.587912 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.587913 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.587912 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.587912 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.587912 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.587912 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.587912 (50 iterations in 0.00 seconds)
-Fitting performed in 0.04 seconds.</code></pre>
-<pre><code>Running tsne on 51 x 29 matrix.</code></pre>
-<pre><code>Read the 51 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 15.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.961169)!
-Learning embedding...
-Iteration 50: error is 55.744357 (50 iterations in 0.01 seconds)
-Iteration 100: error is 54.046268 (50 iterations in 0.00 seconds)
-Iteration 150: error is 51.430551 (50 iterations in 0.00 seconds)
-Iteration 200: error is 52.343578 (50 iterations in 0.00 seconds)
-Iteration 250: error is 53.727522 (50 iterations in 0.01 seconds)
-Iteration 300: error is 2.455360 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.399285 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.353176 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.352499 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.352501 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.352503 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.352500 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.352500 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.352501 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.352501 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.352502 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.352502 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.352503 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.352501 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.352501 (50 iterations in 0.00 seconds)
-Fitting performed in 0.04 seconds.</code></pre>
-<pre><code>Running tsne on 56 x 29 matrix.</code></pre>
-<pre><code>Read the 56 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 17.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.971939)!
-Learning embedding...
-Iteration 50: error is 53.103171 (50 iterations in 0.00 seconds)
-Iteration 100: error is 56.727214 (50 iterations in 0.00 seconds)
-Iteration 150: error is 53.676615 (50 iterations in 0.01 seconds)
-Iteration 200: error is 54.604530 (50 iterations in 0.00 seconds)
-Iteration 250: error is 56.424453 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.547487 (50 iterations in 0.01 seconds)
-Iteration 350: error is 1.058697 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.860314 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.859954 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.859954 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.859954 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.859954 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.859953 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.859951 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.859954 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.859954 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.859953 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.859952 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.859954 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.859953 (50 iterations in 0.00 seconds)
-Fitting performed in 0.04 seconds.</code></pre>
-<pre><code>Running tsne on 53 x 29 matrix.</code></pre>
-<pre><code>Read the 53 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 16.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.972588)!
-Learning embedding...
-Iteration 50: error is 53.754053 (50 iterations in 0.00 seconds)
-Iteration 100: error is 54.024649 (50 iterations in 0.00 seconds)
-Iteration 150: error is 54.986528 (50 iterations in 0.00 seconds)
-Iteration 200: error is 58.587569 (50 iterations in 0.01 seconds)
-Iteration 250: error is 55.011667 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.249093 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.601413 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.559154 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.559129 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.559130 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.559142 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.559143 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.559143 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.559144 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.559142 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.559142 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.559129 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.559143 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.559142 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.559129 (50 iterations in 0.00 seconds)
-Fitting performed in 0.05 seconds.</code></pre>
-<pre><code>Running tsne on 41 x 29 matrix.</code></pre>
-<pre><code>Read the 41 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 12.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.956573)!
-Learning embedding...
-Iteration 50: error is 58.506042 (50 iterations in 0.00 seconds)
-Iteration 100: error is 58.005670 (50 iterations in 0.00 seconds)
-Iteration 150: error is 59.866496 (50 iterations in 0.01 seconds)
-Iteration 200: error is 56.702332 (50 iterations in 0.00 seconds)
-Iteration 250: error is 59.563208 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.961376 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.980115 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.603079 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.560175 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.560081 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.560080 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.560080 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.560080 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.560080 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.560080 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.560080 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.560080 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.560080 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.560081 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.560080 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 50 x 29 matrix.</code></pre>
-<pre><code>Read the 50 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 15.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.967200)!
-Learning embedding...
-Iteration 50: error is 53.184372 (50 iterations in 0.00 seconds)
-Iteration 100: error is 51.163782 (50 iterations in 0.01 seconds)
-Iteration 150: error is 57.153241 (50 iterations in 0.00 seconds)
-Iteration 200: error is 52.495293 (50 iterations in 0.00 seconds)
-Iteration 250: error is 53.098474 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.953502 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.870608 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.695928 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.694338 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.694329 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.694333 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.694334 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.694334 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.694330 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.694334 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.694330 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.694335 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.694330 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.694329 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.694334 (50 iterations in 0.00 seconds)
-Fitting performed in 0.05 seconds.</code></pre>
-<pre><code>Running tsne on 34 x 29 matrix.</code></pre>
-<pre><code>Read the 34 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 10.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.956747)!
-Learning embedding...
-Iteration 50: error is 64.632230 (50 iterations in 0.00 seconds)
-Iteration 100: error is 64.775628 (50 iterations in 0.00 seconds)
-Iteration 150: error is 56.812181 (50 iterations in 0.00 seconds)
-Iteration 200: error is 57.136624 (50 iterations in 0.01 seconds)
-Iteration 250: error is 61.885887 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.415034 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.120247 (50 iterations in 0.00 seconds)
-Iteration 400: error is 3.310271 (50 iterations in 0.00 seconds)
-Iteration 450: error is 3.001025 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.943785 (50 iterations in 0.01 seconds)
-Iteration 550: error is 2.914239 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.901842 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.901839 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.901831 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.901819 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.901802 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.901781 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.901756 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.901729 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 2.901700 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
-<pre><code>Running tsne on 63 x 29 matrix.</code></pre>
-<pre><code>Read the 63 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 19.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.971025)!
-Learning embedding...
-Iteration 50: error is 54.932491 (50 iterations in 0.01 seconds)
-Iteration 100: error is 57.594003 (50 iterations in 0.00 seconds)
-Iteration 150: error is 55.224861 (50 iterations in 0.00 seconds)
-Iteration 200: error is 56.321850 (50 iterations in 0.01 seconds)
-Iteration 250: error is 57.930518 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.844215 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.712620 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.660877 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.660851 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.660850 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.660850 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.660850 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.660848 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.660850 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.660848 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.660850 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.660848 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.660850 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.660849 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.660850 (50 iterations in 0.00 seconds)
-Fitting performed in 0.07 seconds.</code></pre>
-<pre><code>Running tsne on 93 x 29 matrix.</code></pre>
-<pre><code>Read the 93 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 29.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.984160)!
-Learning embedding...
-Iteration 50: error is 48.949473 (50 iterations in 0.01 seconds)
-Iteration 100: error is 45.370182 (50 iterations in 0.01 seconds)
-Iteration 150: error is 48.267517 (50 iterations in 0.00 seconds)
-Iteration 200: error is 46.779908 (50 iterations in 0.01 seconds)
-Iteration 250: error is 46.940162 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.399264 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.705691 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.695068 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.695047 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.695047 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.695047 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.695048 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.695048 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.695047 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.695048 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.695048 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.695048 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.695048 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.695048 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.695048 (50 iterations in 0.01 seconds)
-Fitting performed in 0.12 seconds.</code></pre>
-<pre><code>Running tsne on 68 x 29 matrix.</code></pre>
-<pre><code>Read the 68 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 21.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.978806)!
-Learning embedding...
-Iteration 50: error is 52.163734 (50 iterations in 0.00 seconds)
-Iteration 100: error is 53.413466 (50 iterations in 0.01 seconds)
-Iteration 150: error is 50.644396 (50 iterations in 0.00 seconds)
-Iteration 200: error is 53.290991 (50 iterations in 0.00 seconds)
-Iteration 250: error is 53.230171 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.431379 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.718993 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.716405 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.716407 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.716408 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.716408 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.716408 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.716408 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.716408 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.716408 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.716408 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.716408 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.716408 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.716408 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.716408 (50 iterations in 0.00 seconds)
-Fitting performed in 0.06 seconds.</code></pre>
-<pre><code>Running tsne on 28 x 29 matrix.</code></pre>
-<pre><code>Read the 28 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 8.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.941327)!
-Learning embedding...
-Iteration 50: error is 55.818139 (50 iterations in 0.00 seconds)
-Iteration 100: error is 66.532557 (50 iterations in 0.00 seconds)
-Iteration 150: error is 62.010435 (50 iterations in 0.00 seconds)
-Iteration 200: error is 66.735611 (50 iterations in 0.00 seconds)
-Iteration 250: error is 63.002456 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.427566 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.078360 (50 iterations in 0.00 seconds)
-Iteration 400: error is 4.537184 (50 iterations in 0.00 seconds)
-Iteration 450: error is 3.324518 (50 iterations in 0.01 seconds)
-Iteration 500: error is 2.765374 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.697400 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.613949 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.559750 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.554746 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.553770 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.553549 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.553480 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.553461 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.553458 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.553457 (50 iterations in 0.00 seconds)
-Fitting performed in 0.01 seconds.</code></pre>
-<pre><code>Running tsne on 38 x 29 matrix.</code></pre>
-<pre><code>Read the 38 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 11.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.955679)!
-Learning embedding...
-Iteration 50: error is 58.114037 (50 iterations in 0.00 seconds)
-Iteration 100: error is 55.810850 (50 iterations in 0.00 seconds)
-Iteration 150: error is 54.863912 (50 iterations in 0.00 seconds)
-Iteration 200: error is 55.715246 (50 iterations in 0.00 seconds)
-Iteration 250: error is 61.137840 (50 iterations in 0.01 seconds)
-Iteration 300: error is 3.684789 (50 iterations in 0.00 seconds)
-Iteration 350: error is 4.450240 (50 iterations in 0.00 seconds)
-Iteration 400: error is 5.281036 (50 iterations in 0.00 seconds)
-Iteration 450: error is 6.243116 (50 iterations in 0.00 seconds)
-Iteration 500: error is 4.473124 (50 iterations in 0.00 seconds)
-Iteration 550: error is 4.212525 (50 iterations in 0.01 seconds)
-Iteration 600: error is 3.144489 (50 iterations in 0.00 seconds)
-Iteration 650: error is 3.089321 (50 iterations in 0.00 seconds)
-Iteration 700: error is 3.066909 (50 iterations in 0.00 seconds)
-Iteration 750: error is 3.051435 (50 iterations in 0.00 seconds)
-Iteration 800: error is 3.038858 (50 iterations in 0.00 seconds)
-Iteration 850: error is 3.032540 (50 iterations in 0.00 seconds)
-Iteration 900: error is 3.031207 (50 iterations in 0.01 seconds)
-Iteration 950: error is 3.031056 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 3.031035 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
-<pre><code>Running tsne on 32 x 29 matrix.</code></pre>
-<pre><code>Read the 32 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 9.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.937500)!
-Learning embedding...
-Iteration 50: error is 61.414905 (50 iterations in 0.00 seconds)
-Iteration 100: error is 61.567984 (50 iterations in 0.00 seconds)
-Iteration 150: error is 59.610586 (50 iterations in 0.00 seconds)
-Iteration 200: error is 65.586936 (50 iterations in 0.01 seconds)
-Iteration 250: error is 65.047116 (50 iterations in 0.00 seconds)
-Iteration 300: error is 4.624549 (50 iterations in 0.00 seconds)
-Iteration 350: error is 5.718874 (50 iterations in 0.00 seconds)
-Iteration 400: error is 5.847766 (50 iterations in 0.00 seconds)
-Iteration 450: error is 3.260142 (50 iterations in 0.00 seconds)
-Iteration 500: error is 3.209072 (50 iterations in 0.00 seconds)
-Iteration 550: error is 3.166016 (50 iterations in 0.00 seconds)
-Iteration 600: error is 3.131147 (50 iterations in 0.01 seconds)
-Iteration 650: error is 3.101096 (50 iterations in 0.00 seconds)
-Iteration 700: error is 3.075316 (50 iterations in 0.00 seconds)
-Iteration 750: error is 3.059798 (50 iterations in 0.00 seconds)
-Iteration 800: error is 3.051871 (50 iterations in 0.00 seconds)
-Iteration 850: error is 3.051392 (50 iterations in 0.00 seconds)
-Iteration 900: error is 3.051331 (50 iterations in 0.00 seconds)
-Iteration 950: error is 3.051329 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 3.051329 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 35 x 29 matrix.</code></pre>
-<pre><code>Read the 35 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 10.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.948571)!
-Learning embedding...
-Iteration 50: error is 58.951731 (50 iterations in 0.01 seconds)
-Iteration 100: error is 61.262684 (50 iterations in 0.00 seconds)
-Iteration 150: error is 60.043332 (50 iterations in 0.00 seconds)
-Iteration 200: error is 58.700020 (50 iterations in 0.00 seconds)
-Iteration 250: error is 59.007567 (50 iterations in 0.00 seconds)
-Iteration 300: error is 3.239045 (50 iterations in 0.01 seconds)
-Iteration 350: error is 4.950173 (50 iterations in 0.00 seconds)
-Iteration 400: error is 5.107036 (50 iterations in 0.00 seconds)
-Iteration 450: error is 5.529442 (50 iterations in 0.00 seconds)
-Iteration 500: error is 7.398897 (50 iterations in 0.00 seconds)
-Iteration 550: error is 3.318651 (50 iterations in 0.00 seconds)
-Iteration 600: error is 3.121035 (50 iterations in 0.00 seconds)
-Iteration 650: error is 3.108685 (50 iterations in 0.00 seconds)
-Iteration 700: error is 3.101078 (50 iterations in 0.00 seconds)
-Iteration 750: error is 3.096147 (50 iterations in 0.01 seconds)
-Iteration 800: error is 3.093442 (50 iterations in 0.00 seconds)
-Iteration 850: error is 3.092530 (50 iterations in 0.00 seconds)
-Iteration 900: error is 3.092326 (50 iterations in 0.00 seconds)
-Iteration 950: error is 3.092294 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 3.092291 (50 iterations in 0.00 seconds)
-Fitting performed in 0.03 seconds.</code></pre>
-<pre><code>Running tsne on 67 x 29 matrix.</code></pre>
-<pre><code>Read the 67 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 21.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.981065)!
-Learning embedding...
-Iteration 50: error is 48.498166 (50 iterations in 0.00 seconds)
-Iteration 100: error is 50.869352 (50 iterations in 0.01 seconds)
-Iteration 150: error is 50.839555 (50 iterations in 0.00 seconds)
-Iteration 200: error is 52.737104 (50 iterations in 0.01 seconds)
-Iteration 250: error is 49.439140 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.938390 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.546864 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.539369 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.539372 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.539378 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.539372 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.539378 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.539378 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.539378 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.539378 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.539378 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.539378 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.539378 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.539372 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.539378 (50 iterations in 0.00 seconds)
-Fitting performed in 0.06 seconds.</code></pre>
-<pre><code>Running tsne on 97 x 29 matrix.</code></pre>
-<pre><code>Read the 97 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 31.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.987778)!
-Learning embedding...
-Iteration 50: error is 48.863535 (50 iterations in 0.00 seconds)
-Iteration 100: error is 48.799535 (50 iterations in 0.01 seconds)
-Iteration 150: error is 49.818892 (50 iterations in 0.01 seconds)
-Iteration 200: error is 48.442488 (50 iterations in 0.01 seconds)
-Iteration 250: error is 50.610947 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.553879 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.250589 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.158851 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.158697 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.158700 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.158700 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.158699 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.158699 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.158695 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.158700 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.158700 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.158700 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.158700 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.158700 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.158700 (50 iterations in 0.00 seconds)
-Fitting performed in 0.11 seconds.</code></pre>
-<pre><code>Running tsne on 20 x 29 matrix.</code></pre>
-<pre><code>Read the 20 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 5.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.880000)!
-Learning embedding...
-Iteration 50: error is 65.428389 (50 iterations in 0.00 seconds)
-Iteration 100: error is 72.118188 (50 iterations in 0.00 seconds)
-Iteration 150: error is 65.325498 (50 iterations in 0.01 seconds)
-Iteration 200: error is 63.279804 (50 iterations in 0.00 seconds)
-Iteration 250: error is 76.246288 (50 iterations in 0.00 seconds)
-Iteration 300: error is 5.526452 (50 iterations in 0.00 seconds)
-Iteration 350: error is 2.389822 (50 iterations in 0.00 seconds)
-Iteration 400: error is 2.350725 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.342300 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.334964 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.327017 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.320858 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.319916 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.319904 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.319904 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.319904 (50 iterations in 0.00 seconds)
-Iteration 850: error is 2.319904 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.319904 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.319903 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.319903 (50 iterations in 0.00 seconds)
-Fitting performed in 0.01 seconds.</code></pre>
-<pre><code>Running tsne on 20 x 29 matrix.</code></pre>
-<pre><code>Read the 20 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 5.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.870000)!
-Learning embedding...
-Iteration 50: error is 75.867726 (50 iterations in 0.00 seconds)
-Iteration 100: error is 73.253843 (50 iterations in 0.00 seconds)
-Iteration 150: error is 67.797018 (50 iterations in 0.00 seconds)
-Iteration 200: error is 74.994844 (50 iterations in 0.00 seconds)
-Iteration 250: error is 66.128975 (50 iterations in 0.00 seconds)
-Iteration 300: error is 6.768668 (50 iterations in 0.00 seconds)
-Iteration 350: error is 2.819794 (50 iterations in 0.00 seconds)
-Iteration 400: error is 2.682640 (50 iterations in 0.00 seconds)
-Iteration 450: error is 2.676449 (50 iterations in 0.00 seconds)
-Iteration 500: error is 2.676330 (50 iterations in 0.00 seconds)
-Iteration 550: error is 2.676317 (50 iterations in 0.00 seconds)
-Iteration 600: error is 2.676314 (50 iterations in 0.00 seconds)
-Iteration 650: error is 2.676314 (50 iterations in 0.00 seconds)
-Iteration 700: error is 2.676314 (50 iterations in 0.00 seconds)
-Iteration 750: error is 2.676313 (50 iterations in 0.00 seconds)
-Iteration 800: error is 2.676313 (50 iterations in 0.01 seconds)
-Iteration 850: error is 2.676313 (50 iterations in 0.00 seconds)
-Iteration 900: error is 2.676313 (50 iterations in 0.00 seconds)
-Iteration 950: error is 2.676313 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 2.676313 (50 iterations in 0.00 seconds)
-Fitting performed in 0.01 seconds.</code></pre>
-<pre><code>Running tsne on 45 x 29 matrix.</code></pre>
-<pre><code>Read the 45 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 13.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.953086)!
-Learning embedding...
-Iteration 50: error is 54.507689 (50 iterations in 0.00 seconds)
-Iteration 100: error is 58.547987 (50 iterations in 0.00 seconds)
-Iteration 150: error is 59.625485 (50 iterations in 0.00 seconds)
-Iteration 200: error is 54.989211 (50 iterations in 0.00 seconds)
-Iteration 250: error is 59.297641 (50 iterations in 0.00 seconds)
-Iteration 300: error is 2.843757 (50 iterations in 0.00 seconds)
-Iteration 350: error is 2.427469 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.914748 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.369006 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.367244 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.367247 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.367245 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.367248 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.367246 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.367244 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.367247 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.367245 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.367247 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.367248 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.367247 (50 iterations in 0.00 seconds)
-Fitting performed in 0.02 seconds.</code></pre>
-<pre><code>Running tsne on 39 x 29 matrix.</code></pre>
-<pre><code>Read the 39 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 11.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.941486)!
-Learning embedding...
-Iteration 50: error is 59.057918 (50 iterations in 0.01 seconds)
-Iteration 100: error is 62.662972 (50 iterations in 0.00 seconds)
-Iteration 150: error is 58.624560 (50 iterations in 0.00 seconds)
-Iteration 200: error is 59.642697 (50 iterations in 0.00 seconds)
-Iteration 250: error is 55.406527 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.835969 (50 iterations in 0.01 seconds)
-Iteration 350: error is 1.133922 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.870474 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.663899 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.661461 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.661462 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.661462 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.661461 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.661461 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.661462 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.661462 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.661461 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.661461 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.661462 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.661461 (50 iterations in 0.01 seconds)
-Fitting performed in 0.05 seconds.</code></pre>
-<pre><code>Running tsne on 67 x 29 matrix.</code></pre>
-<pre><code>Read the 67 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 21.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.00 seconds (sparsity = 0.981510)!
-Learning embedding...
-Iteration 50: error is 53.458035 (50 iterations in 0.01 seconds)
-Iteration 100: error is 52.187352 (50 iterations in 0.00 seconds)
-Iteration 150: error is 53.679745 (50 iterations in 0.01 seconds)
-Iteration 200: error is 52.676056 (50 iterations in 0.00 seconds)
-Iteration 250: error is 54.693571 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.974169 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.627555 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.620600 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.620596 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.620578 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.620582 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.620595 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.620596 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.620591 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.620595 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.620592 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.620595 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.620595 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.620596 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.620596 (50 iterations in 0.01 seconds)
-Fitting performed in 0.07 seconds.</code></pre>
-<pre><code>Running tsne on 90 x 29 matrix.</code></pre>
-<pre><code>Read the 90 x 29 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 28.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.983704)!
-Learning embedding...
-Iteration 50: error is 50.330193 (50 iterations in 0.00 seconds)
-Iteration 100: error is 49.607545 (50 iterations in 0.01 seconds)
-Iteration 150: error is 53.671093 (50 iterations in 0.01 seconds)
-Iteration 200: error is 49.846311 (50 iterations in 0.00 seconds)
-Iteration 250: error is 50.587987 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.608132 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.837663 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.830293 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.830288 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.830288 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.830288 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.830288 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.830288 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.830288 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.830288 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.830288 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.830288 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.830288 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.830288 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.830287 (50 iterations in 0.01 seconds)
-Fitting performed in 0.10 seconds.</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/c2969aa88c2798f8fc05558c2a8a2335880959d1/docs/figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-2-1.png" target="_blank">c2969aa</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>fit_tm = readRDS(&#39;/project2/mstephens/dongyue/gtex/V8/analysis/topic_model_fit.rds&#39;)
+structure_plot(fit_tm,grouping = sample_info_tissue$SMTS,colors = colors,gap=20,verbose=0)</code></pre>
+<pre><code>Running tsne on 144 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 33 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 104 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 153 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 302 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 49 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 85 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 160 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 91 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 34 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 63 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 93 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 68 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 28 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 38 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 32 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 35 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 231 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 20 x 20 matrix.
+Running tsne on 20 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 45 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 39 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 67 x 20 matrix.</code></pre>
 <p><img src="figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-3-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/c2969aa88c2798f8fc05558c2a8a2335880959d1/docs/figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-3-1.png" target="_blank">c2969aa</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>structure_plot(fit_list,grouping = sample_info_tissue$SMTSD,colors = colors,gap=20,verbose=0)</code></pre>
+<pre><code>Running tsne on 79 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 56 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 38 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 51 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 25 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 79 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 23 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 28 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 22 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 26 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 22 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 24 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 32 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 25 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 50 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 65 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 21 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 43 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 52 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 41 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 66 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 58 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 63 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 53 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 27 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 61 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 92 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 64 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 25 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 38 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 32 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 31 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 62 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 69 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 21 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 36 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 34 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 39 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 71 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 24 x 29 matrix.</code></pre>
+<pre><code>Running tsne on 94 x 29 matrix.</code></pre>
+<p><img src="figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-4-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>structure_plot(fit_tm,grouping = sample_info_tissue$SMTSD,colors = colors,gap=20,verbose=0)</code></pre>
+<pre><code>Running tsne on 81 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 64 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 28 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 51 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 31 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 71 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 21 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 29 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 30 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 28 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 26 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 25 x 20 matrix.
+Running tsne on 25 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 33 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 26 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 42 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 47 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 48 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 41 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 45 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 61 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 70 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 37 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 53 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 30 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 67 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 24 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 97 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 71 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 29 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 34 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 21 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 89 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 83 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 24 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 36 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 42 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 40 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 79 x 20 matrix.</code></pre>
+<pre><code>Running tsne on 86 x 20 matrix.</code></pre>
+<p><img src="figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-5-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>source(&quot;~/Rpackages/gsmash/code/poisson_STM/structure_plot.R&quot;)</code></pre>
 <p>structure plot. An error says: Error in (function (cond) : error in
 evaluating the argument ‘x’ in selecting a method for function ‘drop’:
@@ -2533,386 +920,6 @@ fit_sf = scaledflash(Y_tilde$Y,Y_tilde$u,Y_tilde$v,
                      sigma2 = NULL,
                      seed=12345)
 saveRDS(fit_sf,file=&#39;/project2/mstephens/dongyue/gtex/V8/analysis/biwhite_ebnmf_brain.rds&#39;)</code></pre>
-<pre class="r"><code>fit_topic = readRDS(&#39;/project2/mstephens/dongyue/gtex/V8/analysis/topic_model_brain.rds&#39;)
-structure_plot(fit_topic,grouping=sample_info_tissue$SMTSD[sample_info_tissue$SMTS==&#39;Brain&#39;])</code></pre>
-<pre><code>Running tsne on 116 x 6 matrix.</code></pre>
-<pre><code>Read the 116 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 37.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.989150)!
-Learning embedding...
-Iteration 50: error is 50.495060 (50 iterations in 0.01 seconds)
-Iteration 100: error is 49.393533 (50 iterations in 0.01 seconds)
-Iteration 150: error is 51.390877 (50 iterations in 0.01 seconds)
-Iteration 200: error is 48.026510 (50 iterations in 0.01 seconds)
-Iteration 250: error is 50.307476 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.310878 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.881340 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.838427 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.836668 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.836664 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.836664 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.836663 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.836664 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.836663 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.836664 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.836664 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.836663 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.836664 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.836664 (50 iterations in 0.00 seconds)
-Iteration 1000: error is 0.836663 (50 iterations in 0.01 seconds)
-Fitting performed in 0.17 seconds.</code></pre>
-<pre><code>Running tsne on 136 x 6 matrix.</code></pre>
-<pre><code>Read the 136 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 44.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.991890)!
-Learning embedding...
-Iteration 50: error is 47.028378 (50 iterations in 0.02 seconds)
-Iteration 100: error is 49.422971 (50 iterations in 0.01 seconds)
-Iteration 150: error is 48.577697 (50 iterations in 0.02 seconds)
-Iteration 200: error is 45.125553 (50 iterations in 0.01 seconds)
-Iteration 250: error is 45.412445 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.141528 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.857422 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.842631 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.842627 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.842627 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.842627 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.842627 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.842627 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.842625 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.842627 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.842625 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.842625 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.842627 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.842627 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.842625 (50 iterations in 0.01 seconds)
-Fitting performed in 0.22 seconds.</code></pre>
-<pre><code>Running tsne on 195 x 6 matrix.</code></pre>
-<pre><code>Read the 195 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 63.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.04 seconds (sparsity = 0.993715)!
-Learning embedding...
-Iteration 50: error is 42.895066 (50 iterations in 0.02 seconds)
-Iteration 100: error is 42.532245 (50 iterations in 0.02 seconds)
-Iteration 150: error is 43.013231 (50 iterations in 0.02 seconds)
-Iteration 200: error is 42.599706 (50 iterations in 0.02 seconds)
-Iteration 250: error is 42.646680 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.693594 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.691068 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.691048 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.691048 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.691044 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.691044 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.691048 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.691044 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.691048 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.691044 (50 iterations in 0.02 seconds)
-Iteration 800: error is 0.691044 (50 iterations in 0.02 seconds)
-Iteration 850: error is 0.691048 (50 iterations in 0.02 seconds)
-Iteration 900: error is 0.691048 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.691048 (50 iterations in 0.02 seconds)
-Iteration 1000: error is 0.691044 (50 iterations in 0.02 seconds)
-Fitting performed in 0.33 seconds.</code></pre>
-<pre><code>Running tsne on 164 x 6 matrix.</code></pre>
-<pre><code>Read the 164 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 53.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.993010)!
-Learning embedding...
-Iteration 50: error is 44.671510 (50 iterations in 0.02 seconds)
-Iteration 100: error is 43.233387 (50 iterations in 0.02 seconds)
-Iteration 150: error is 43.087066 (50 iterations in 0.02 seconds)
-Iteration 200: error is 43.516911 (50 iterations in 0.01 seconds)
-Iteration 250: error is 44.071991 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.628636 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.536507 (50 iterations in 0.02 seconds)
-Iteration 400: error is 0.536080 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.536076 (50 iterations in 0.02 seconds)
-Iteration 500: error is 0.536076 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.536077 (50 iterations in 0.02 seconds)
-Iteration 600: error is 0.536079 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.536076 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.536079 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.536079 (50 iterations in 0.02 seconds)
-Iteration 800: error is 0.536079 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.536079 (50 iterations in 0.02 seconds)
-Iteration 900: error is 0.536079 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.536076 (50 iterations in 0.02 seconds)
-Iteration 1000: error is 0.536078 (50 iterations in 0.01 seconds)
-Fitting performed in 0.30 seconds.</code></pre>
-<pre><code>Running tsne on 184 x 6 matrix.</code></pre>
-<pre><code>Read the 184 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 60.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.03 seconds (sparsity = 0.994034)!
-Learning embedding...
-Iteration 50: error is 43.435333 (50 iterations in 0.02 seconds)
-Iteration 100: error is 42.739548 (50 iterations in 0.02 seconds)
-Iteration 150: error is 42.330270 (50 iterations in 0.01 seconds)
-Iteration 200: error is 42.804582 (50 iterations in 0.02 seconds)
-Iteration 250: error is 42.503166 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.314069 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.303742 (50 iterations in 0.02 seconds)
-Iteration 400: error is 0.303743 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.303743 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.303743 (50 iterations in 0.02 seconds)
-Iteration 550: error is 0.303743 (50 iterations in 0.02 seconds)
-Iteration 600: error is 0.303743 (50 iterations in 0.02 seconds)
-Iteration 650: error is 0.303743 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.303743 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.303743 (50 iterations in 0.02 seconds)
-Iteration 800: error is 0.303743 (50 iterations in 0.02 seconds)
-Iteration 850: error is 0.303743 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.303743 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.303743 (50 iterations in 0.02 seconds)
-Iteration 1000: error is 0.303743 (50 iterations in 0.01 seconds)
-Fitting performed in 0.33 seconds.</code></pre>
-<pre><code>Running tsne on 180 x 6 matrix.</code></pre>
-<pre><code>Read the 180 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 58.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.03 seconds (sparsity = 0.993086)!
-Learning embedding...
-Iteration 50: error is 43.026599 (50 iterations in 0.02 seconds)
-Iteration 100: error is 42.625887 (50 iterations in 0.02 seconds)
-Iteration 150: error is 42.538708 (50 iterations in 0.02 seconds)
-Iteration 200: error is 43.197367 (50 iterations in 0.02 seconds)
-Iteration 250: error is 42.159805 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.325458 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.319687 (50 iterations in 0.02 seconds)
-Iteration 400: error is 0.319676 (50 iterations in 0.02 seconds)
-Iteration 450: error is 0.319676 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.319676 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.319676 (50 iterations in 0.02 seconds)
-Iteration 600: error is 0.319676 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.319676 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.319676 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.319676 (50 iterations in 0.02 seconds)
-Iteration 800: error is 0.319676 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.319676 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.319676 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.319676 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.319676 (50 iterations in 0.01 seconds)
-Fitting performed in 0.30 seconds.</code></pre>
-<pre><code>Running tsne on 151 x 6 matrix.</code></pre>
-<pre><code>Read the 151 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 49.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.992588)!
-Learning embedding...
-Iteration 50: error is 43.471670 (50 iterations in 0.01 seconds)
-Iteration 100: error is 44.115649 (50 iterations in 0.01 seconds)
-Iteration 150: error is 47.603805 (50 iterations in 0.02 seconds)
-Iteration 200: error is 45.829600 (50 iterations in 0.01 seconds)
-Iteration 250: error is 45.492877 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.560497 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.329617 (50 iterations in 0.02 seconds)
-Iteration 400: error is 0.298457 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.298455 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.298459 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.298459 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.298459 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.298459 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.298459 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.298459 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.298459 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.298459 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.298459 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.298459 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.298459 (50 iterations in 0.01 seconds)
-Fitting performed in 0.24 seconds.</code></pre>
-<pre><code>Running tsne on 143 x 6 matrix.</code></pre>
-<pre><code>Read the 143 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 46.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.991736)!
-Learning embedding...
-Iteration 50: error is 45.040428 (50 iterations in 0.01 seconds)
-Iteration 100: error is 46.232207 (50 iterations in 0.02 seconds)
-Iteration 150: error is 45.380481 (50 iterations in 0.01 seconds)
-Iteration 200: error is 47.190372 (50 iterations in 0.02 seconds)
-Iteration 250: error is 47.083315 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.176442 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.920167 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.911483 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.911476 (50 iterations in 0.02 seconds)
-Iteration 500: error is 0.911477 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.911477 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.911476 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.911477 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.911477 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.911477 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.911477 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.911477 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.911477 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.911477 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.911476 (50 iterations in 0.01 seconds)
-Fitting performed in 0.25 seconds.</code></pre>
-<pre><code>Running tsne on 150 x 6 matrix.</code></pre>
-<pre><code>Read the 150 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 48.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.991467)!
-Learning embedding...
-Iteration 50: error is 44.372352 (50 iterations in 0.01 seconds)
-Iteration 100: error is 45.811132 (50 iterations in 0.02 seconds)
-Iteration 150: error is 44.887812 (50 iterations in 0.01 seconds)
-Iteration 200: error is 44.728103 (50 iterations in 0.02 seconds)
-Iteration 250: error is 46.998010 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.819365 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.761232 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.761193 (50 iterations in 0.02 seconds)
-Iteration 450: error is 0.761192 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.761192 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.761193 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.761193 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.761193 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.761193 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.761192 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.761193 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.761193 (50 iterations in 0.02 seconds)
-Iteration 900: error is 0.761193 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.761193 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.761192 (50 iterations in 0.02 seconds)
-Fitting performed in 0.26 seconds.</code></pre>
-<pre><code>Running tsne on 189 x 6 matrix.</code></pre>
-<pre><code>Read the 189 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 61.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.04 seconds (sparsity = 0.993253)!
-Learning embedding...
-Iteration 50: error is 43.692415 (50 iterations in 0.02 seconds)
-Iteration 100: error is 44.586743 (50 iterations in 0.02 seconds)
-Iteration 150: error is 42.702746 (50 iterations in 0.02 seconds)
-Iteration 200: error is 42.439569 (50 iterations in 0.02 seconds)
-Iteration 250: error is 42.648181 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.445495 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.384466 (50 iterations in 0.02 seconds)
-Iteration 400: error is 0.384254 (50 iterations in 0.02 seconds)
-Iteration 450: error is 0.384254 (50 iterations in 0.02 seconds)
-Iteration 500: error is 0.384254 (50 iterations in 0.02 seconds)
-Iteration 550: error is 0.384254 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.384254 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.384254 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.384254 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.384254 (50 iterations in 0.02 seconds)
-Iteration 800: error is 0.384254 (50 iterations in 0.02 seconds)
-Iteration 850: error is 0.384254 (50 iterations in 0.02 seconds)
-Iteration 900: error is 0.384254 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.384254 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.384255 (50 iterations in 0.01 seconds)
-Fitting performed in 0.35 seconds.</code></pre>
-<pre><code>Running tsne on 169 x 6 matrix.</code></pre>
-<pre><code>Read the 169 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 55.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.03 seconds (sparsity = 0.993243)!
-Learning embedding...
-Iteration 50: error is 43.762358 (50 iterations in 0.01 seconds)
-Iteration 100: error is 43.170040 (50 iterations in 0.02 seconds)
-Iteration 150: error is 43.413565 (50 iterations in 0.02 seconds)
-Iteration 200: error is 43.842048 (50 iterations in 0.02 seconds)
-Iteration 250: error is 43.218465 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.449592 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.368923 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.368504 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.368501 (50 iterations in 0.02 seconds)
-Iteration 500: error is 0.368500 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.368500 (50 iterations in 0.02 seconds)
-Iteration 600: error is 0.368500 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.368500 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.368500 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.368500 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.368500 (50 iterations in 0.02 seconds)
-Iteration 850: error is 0.368500 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.368501 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.368500 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.368501 (50 iterations in 0.02 seconds)
-Fitting performed in 0.31 seconds.</code></pre>
-<pre><code>Running tsne on 118 x 6 matrix.</code></pre>
-<pre><code>Read the 118 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 38.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.990233)!
-Learning embedding...
-Iteration 50: error is 48.168428 (50 iterations in 0.01 seconds)
-Iteration 100: error is 47.284844 (50 iterations in 0.01 seconds)
-Iteration 150: error is 47.814201 (50 iterations in 0.01 seconds)
-Iteration 200: error is 47.514597 (50 iterations in 0.01 seconds)
-Iteration 250: error is 49.908321 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.283138 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.685783 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.514598 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.452855 (50 iterations in 0.02 seconds)
-Iteration 500: error is 0.452834 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.452834 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.452834 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.452834 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.452834 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.452834 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.452835 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.452834 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.452834 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.452834 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.452834 (50 iterations in 0.01 seconds)
-Fitting performed in 0.19 seconds.</code></pre>
-<pre><code>Running tsne on 105 x 6 matrix.</code></pre>
-<pre><code>Read the 105 x 6 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 33.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.01 seconds (sparsity = 0.984671)!
-Learning embedding...
-Iteration 50: error is 48.743337 (50 iterations in 0.01 seconds)
-Iteration 100: error is 50.795338 (50 iterations in 0.01 seconds)
-Iteration 150: error is 52.103316 (50 iterations in 0.01 seconds)
-Iteration 200: error is 51.319824 (50 iterations in 0.01 seconds)
-Iteration 250: error is 49.361391 (50 iterations in 0.00 seconds)
-Iteration 300: error is 1.487400 (50 iterations in 0.00 seconds)
-Iteration 350: error is 0.909149 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.848524 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.847194 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.847191 (50 iterations in 0.00 seconds)
-Iteration 550: error is 0.847191 (50 iterations in 0.00 seconds)
-Iteration 600: error is 0.847190 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.847190 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.847191 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.847191 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.847191 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.847190 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.847190 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.847191 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.847191 (50 iterations in 0.00 seconds)
-Fitting performed in 0.13 seconds.</code></pre>
-<p><img src="figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-7-1.png" width="1248" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>fit_sf = readRDS(&#39;/project2/mstephens/dongyue/gtex/V8/analysis/biwhite_ebnmf_brain.rds&#39;)
 fit_list     &lt;- list(L = fit_sf$ldf$l[,-1]%*%diag(fit_sf$ldf$d[-1]),F = fit_sf$ldf$f[,-1])
 class(fit_list) &lt;- c(&quot;multinom_topic_model_fit&quot;, &quot;list&quot;)
@@ -2927,385 +934,37 @@ structure_plot(fit_list,grouping = sample_info_tissue$SMTSD[sample_info_tissue$S
                                                                                                          &#39;#cab2d6&#39;,
                                                                                                          &#39;#6a3d9a&#39;,
                                                                                                          &#39;#ffff99&#39;,
-                                                                                                         &#39;#b15928&#39;),gap=40)</code></pre>
-<pre><code>Running tsne on 108 x 9 matrix.</code></pre>
-<pre><code>Read the 108 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 34.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.986454)!
-Learning embedding...
-Iteration 50: error is 48.670150 (50 iterations in 0.01 seconds)
-Iteration 100: error is 51.801996 (50 iterations in 0.01 seconds)
-Iteration 150: error is 49.407356 (50 iterations in 0.01 seconds)
-Iteration 200: error is 51.016961 (50 iterations in 0.01 seconds)
-Iteration 250: error is 48.473706 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.220047 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.913476 (50 iterations in 0.00 seconds)
-Iteration 400: error is 0.620438 (50 iterations in 0.00 seconds)
-Iteration 450: error is 0.602129 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.602136 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.602136 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.602136 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.602136 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.602136 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.602136 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.602136 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.602136 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.602136 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.602136 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.602136 (50 iterations in 0.00 seconds)
-Fitting performed in 0.15 seconds.</code></pre>
-<pre><code>Running tsne on 128 x 9 matrix.</code></pre>
-<pre><code>Read the 128 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 41.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.990234)!
-Learning embedding...
-Iteration 50: error is 45.354270 (50 iterations in 0.01 seconds)
-Iteration 100: error is 47.357035 (50 iterations in 0.01 seconds)
-Iteration 150: error is 48.472730 (50 iterations in 0.01 seconds)
-Iteration 200: error is 48.507963 (50 iterations in 0.01 seconds)
-Iteration 250: error is 47.614684 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.972427 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.781430 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.773983 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.773973 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.773973 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.773975 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.773975 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.773973 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.773975 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.773975 (50 iterations in 0.00 seconds)
-Iteration 800: error is 0.773973 (50 iterations in 0.00 seconds)
-Iteration 850: error is 0.773975 (50 iterations in 0.00 seconds)
-Iteration 900: error is 0.773975 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.773973 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.773975 (50 iterations in 0.01 seconds)
-Fitting performed in 0.14 seconds.</code></pre>
-<pre><code>Running tsne on 190 x 9 matrix.</code></pre>
-<pre><code>Read the 190 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 62.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.05 seconds (sparsity = 0.994238)!
-Learning embedding...
-Iteration 50: error is 43.182649 (50 iterations in 0.02 seconds)
-Iteration 100: error is 41.742011 (50 iterations in 0.02 seconds)
-Iteration 150: error is 41.401485 (50 iterations in 0.01 seconds)
-Iteration 200: error is 41.682088 (50 iterations in 0.02 seconds)
-Iteration 250: error is 42.059347 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.136209 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.129816 (50 iterations in 0.02 seconds)
-Iteration 400: error is 0.129811 (50 iterations in 0.02 seconds)
-Iteration 450: error is 0.129811 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.129811 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.129811 (50 iterations in 0.02 seconds)
-Iteration 600: error is 0.129811 (50 iterations in 0.02 seconds)
-Iteration 650: error is 0.129811 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.129811 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.129811 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.129811 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.129811 (50 iterations in 0.02 seconds)
-Iteration 900: error is 0.129811 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.129811 (50 iterations in 0.02 seconds)
-Iteration 1000: error is 0.129811 (50 iterations in 0.02 seconds)
-Fitting performed in 0.35 seconds.</code></pre>
-<pre><code>Running tsne on 162 x 9 matrix.</code></pre>
-<pre><code>Read the 162 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 52.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.03 seconds (sparsity = 0.991922)!
-Learning embedding...
-Iteration 50: error is 41.556463 (50 iterations in 0.01 seconds)
-Iteration 100: error is 41.800375 (50 iterations in 0.01 seconds)
-Iteration 150: error is 41.701913 (50 iterations in 0.02 seconds)
-Iteration 200: error is 41.823070 (50 iterations in 0.02 seconds)
-Iteration 250: error is 41.857748 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.212508 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.138575 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.138496 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.138496 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.138496 (50 iterations in 0.02 seconds)
-Iteration 1000: error is 0.138496 (50 iterations in 0.01 seconds)
-Fitting performed in 0.25 seconds.</code></pre>
-<pre><code>Running tsne on 191 x 9 matrix.</code></pre>
-<pre><code>Read the 191 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 62.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.05 seconds (sparsity = 0.993887)!
-Learning embedding...
-Iteration 50: error is 42.261082 (50 iterations in 0.02 seconds)
-Iteration 100: error is 40.897690 (50 iterations in 0.02 seconds)
-Iteration 150: error is 40.886218 (50 iterations in 0.02 seconds)
-Iteration 200: error is 40.822637 (50 iterations in 0.02 seconds)
-Iteration 250: error is 40.813512 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.065817 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.064987 (50 iterations in 0.02 seconds)
-Iteration 400: error is 0.064985 (50 iterations in 0.02 seconds)
-Iteration 450: error is 0.064986 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.064985 (50 iterations in 0.02 seconds)
-Iteration 550: error is 0.064985 (50 iterations in 0.02 seconds)
-Iteration 600: error is 0.064985 (50 iterations in 0.02 seconds)
-Iteration 650: error is 0.064985 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.064985 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.064985 (50 iterations in 0.02 seconds)
-Iteration 800: error is 0.064985 (50 iterations in 0.02 seconds)
-Iteration 850: error is 0.064986 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.064985 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.064985 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.064985 (50 iterations in 0.02 seconds)
-Fitting performed in 0.34 seconds.</code></pre>
-<pre><code>Running tsne on 196 x 9 matrix.</code></pre>
-<pre><code>Read the 196 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 64.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.05 seconds (sparsity = 0.994429)!
-Learning embedding...
-Iteration 50: error is 41.739221 (50 iterations in 0.02 seconds)
-Iteration 100: error is 41.669717 (50 iterations in 0.02 seconds)
-Iteration 150: error is 41.728688 (50 iterations in 0.02 seconds)
-Iteration 200: error is 41.712338 (50 iterations in 0.02 seconds)
-Iteration 250: error is 41.754408 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.126276 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.110274 (50 iterations in 0.02 seconds)
-Iteration 400: error is 0.110284 (50 iterations in 0.02 seconds)
-Iteration 450: error is 0.110291 (50 iterations in 0.02 seconds)
-Iteration 500: error is 0.110283 (50 iterations in 0.02 seconds)
-Iteration 550: error is 0.110284 (50 iterations in 0.02 seconds)
-Iteration 600: error is 0.110284 (50 iterations in 0.02 seconds)
-Iteration 650: error is 0.110283 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.110292 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.110284 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.110284 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.110284 (50 iterations in 0.02 seconds)
-Iteration 900: error is 0.110284 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.110291 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.110283 (50 iterations in 0.02 seconds)
-Fitting performed in 0.36 seconds.</code></pre>
-<pre><code>Running tsne on 153 x 9 matrix.</code></pre>
-<pre><code>Read the 153 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 49.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.03 seconds (sparsity = 0.991328)!
-Learning embedding...
-Iteration 50: error is 45.380864 (50 iterations in 0.02 seconds)
-Iteration 100: error is 44.599136 (50 iterations in 0.01 seconds)
-Iteration 150: error is 44.317883 (50 iterations in 0.02 seconds)
-Iteration 200: error is 43.605177 (50 iterations in 0.02 seconds)
-Iteration 250: error is 45.311713 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.622870 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.543917 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.543117 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.543116 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.543115 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.543115 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.543116 (50 iterations in 0.02 seconds)
-Iteration 650: error is 0.543116 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.543116 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.543116 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.543115 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.543116 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.543116 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.543116 (50 iterations in 0.02 seconds)
-Iteration 1000: error is 0.543116 (50 iterations in 0.01 seconds)
-Fitting performed in 0.26 seconds.</code></pre>
-<pre><code>Running tsne on 150 x 9 matrix.</code></pre>
-<pre><code>Read the 150 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 48.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.03 seconds (sparsity = 0.991111)!
-Learning embedding...
-Iteration 50: error is 43.279358 (50 iterations in 0.01 seconds)
-Iteration 100: error is 43.684580 (50 iterations in 0.01 seconds)
-Iteration 150: error is 42.071014 (50 iterations in 0.01 seconds)
-Iteration 200: error is 43.289671 (50 iterations in 0.02 seconds)
-Iteration 250: error is 42.908430 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.143294 (50 iterations in 0.02 seconds)
-Iteration 350: error is 0.134845 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.134846 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.134846 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.134846 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.134845 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.134846 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.134847 (50 iterations in 0.02 seconds)
-Iteration 700: error is 0.134846 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.134847 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.134846 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.134846 (50 iterations in 0.02 seconds)
-Iteration 900: error is 0.134846 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.134845 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.134847 (50 iterations in 0.01 seconds)
-Fitting performed in 0.24 seconds.</code></pre>
+                                                                                                         &#39;#b15928&#39;),gap=40,verbose=0)</code></pre>
+<pre><code>Running tsne on 120 x 9 matrix.
+Running tsne on 120 x 9 matrix.</code></pre>
+<pre><code>Running tsne on 186 x 9 matrix.</code></pre>
+<pre><code>Running tsne on 171 x 9 matrix.</code></pre>
+<pre><code>Running tsne on 181 x 9 matrix.</code></pre>
+<pre><code>Running tsne on 193 x 9 matrix.</code></pre>
 <pre><code>Running tsne on 161 x 9 matrix.</code></pre>
-<pre><code>Read the 161 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 52.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.04 seconds (sparsity = 0.992554)!
-Learning embedding...
-Iteration 50: error is 44.418215 (50 iterations in 0.02 seconds)
-Iteration 100: error is 43.075972 (50 iterations in 0.02 seconds)
-Iteration 150: error is 44.979414 (50 iterations in 0.01 seconds)
-Iteration 200: error is 44.329180 (50 iterations in 0.01 seconds)
-Iteration 250: error is 42.445411 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.198059 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.185681 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.185671 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.185671 (50 iterations in 0.02 seconds)
-Iteration 500: error is 0.185671 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.185671 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.185671 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.185671 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.185671 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.185671 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.185671 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.185671 (50 iterations in 0.02 seconds)
-Iteration 900: error is 0.185671 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.185671 (50 iterations in 0.02 seconds)
-Iteration 1000: error is 0.185671 (50 iterations in 0.01 seconds)
-Fitting performed in 0.27 seconds.</code></pre>
-<pre><code>Running tsne on 167 x 9 matrix.</code></pre>
-<pre><code>Read the 167 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 54.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.04 seconds (sparsity = 0.993080)!
-Learning embedding...
-Iteration 50: error is 42.843781 (50 iterations in 0.01 seconds)
-Iteration 100: error is 44.249860 (50 iterations in 0.02 seconds)
-Iteration 150: error is 43.705781 (50 iterations in 0.02 seconds)
-Iteration 200: error is 42.950866 (50 iterations in 0.02 seconds)
-Iteration 250: error is 42.851038 (50 iterations in 0.02 seconds)
-Iteration 300: error is 0.482916 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.305228 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.287756 (50 iterations in 0.02 seconds)
-Iteration 450: error is 0.287766 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.287766 (50 iterations in 0.02 seconds)
-Iteration 550: error is 0.287766 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.287766 (50 iterations in 0.02 seconds)
-Iteration 650: error is 0.287766 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.287765 (50 iterations in 0.02 seconds)
-Iteration 750: error is 0.287766 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.287765 (50 iterations in 0.02 seconds)
-Iteration 850: error is 0.287766 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.287766 (50 iterations in 0.02 seconds)
-Iteration 950: error is 0.287766 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.287765 (50 iterations in 0.02 seconds)
-Fitting performed in 0.31 seconds.</code></pre>
-<pre><code>Running tsne on 160 x 9 matrix.</code></pre>
-<pre><code>Read the 160 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 52.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.03 seconds (sparsity = 0.992891)!
-Learning embedding...
-Iteration 50: error is 43.629310 (50 iterations in 0.02 seconds)
-Iteration 100: error is 44.835580 (50 iterations in 0.01 seconds)
-Iteration 150: error is 43.858399 (50 iterations in 0.02 seconds)
-Iteration 200: error is 44.275932 (50 iterations in 0.02 seconds)
-Iteration 250: error is 43.793354 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.360434 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.211303 (50 iterations in 0.02 seconds)
-Iteration 400: error is 0.211097 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.211095 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.211095 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.211095 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.211095 (50 iterations in 0.02 seconds)
-Iteration 650: error is 0.211094 (50 iterations in 0.01 seconds)
-Iteration 700: error is 0.211096 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.211095 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.211095 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.211095 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.211095 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.211095 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.211095 (50 iterations in 0.02 seconds)
-Fitting performed in 0.26 seconds.</code></pre>
-<pre><code>Running tsne on 123 x 9 matrix.</code></pre>
-<pre><code>Read the 123 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 39.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.988565)!
-Learning embedding...
-Iteration 50: error is 46.390657 (50 iterations in 0.01 seconds)
-Iteration 100: error is 44.652633 (50 iterations in 0.01 seconds)
-Iteration 150: error is 44.198695 (50 iterations in 0.01 seconds)
-Iteration 200: error is 43.890787 (50 iterations in 0.01 seconds)
-Iteration 250: error is 45.342814 (50 iterations in 0.01 seconds)
-Iteration 300: error is 0.565407 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.367785 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.367697 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.367698 (50 iterations in 0.01 seconds)
-Iteration 500: error is 0.367698 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.367698 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.367698 (50 iterations in 0.00 seconds)
-Iteration 650: error is 0.367698 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.367698 (50 iterations in 0.01 seconds)
-Iteration 750: error is 0.367698 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.367698 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.367698 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.367697 (50 iterations in 0.01 seconds)
-Iteration 950: error is 0.367698 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.367698 (50 iterations in 0.01 seconds)
-Fitting performed in 0.18 seconds.</code></pre>
-<pre><code>Running tsne on 111 x 9 matrix.</code></pre>
-<pre><code>Read the 111 x 9 data matrix successfully!
-OpenMP is working. 1 threads.
-Using no_dims = 1, perplexity = 35.000000, and theta = 0.100000
-Computing input similarities...
-Building tree...
-Done in 0.02 seconds (sparsity = 0.986933)!
-Learning embedding...
-Iteration 50: error is 47.987966 (50 iterations in 0.01 seconds)
-Iteration 100: error is 49.694878 (50 iterations in 0.01 seconds)
-Iteration 150: error is 49.002653 (50 iterations in 0.01 seconds)
-Iteration 200: error is 49.347149 (50 iterations in 0.01 seconds)
-Iteration 250: error is 50.457623 (50 iterations in 0.01 seconds)
-Iteration 300: error is 1.474411 (50 iterations in 0.01 seconds)
-Iteration 350: error is 0.303478 (50 iterations in 0.01 seconds)
-Iteration 400: error is 0.287005 (50 iterations in 0.01 seconds)
-Iteration 450: error is 0.287001 (50 iterations in 0.00 seconds)
-Iteration 500: error is 0.287001 (50 iterations in 0.01 seconds)
-Iteration 550: error is 0.287001 (50 iterations in 0.01 seconds)
-Iteration 600: error is 0.287001 (50 iterations in 0.01 seconds)
-Iteration 650: error is 0.287001 (50 iterations in 0.00 seconds)
-Iteration 700: error is 0.287001 (50 iterations in 0.00 seconds)
-Iteration 750: error is 0.287000 (50 iterations in 0.01 seconds)
-Iteration 800: error is 0.287001 (50 iterations in 0.01 seconds)
-Iteration 850: error is 0.287001 (50 iterations in 0.01 seconds)
-Iteration 900: error is 0.287001 (50 iterations in 0.00 seconds)
-Iteration 950: error is 0.287001 (50 iterations in 0.01 seconds)
-Iteration 1000: error is 0.287001 (50 iterations in 0.01 seconds)
-Fitting performed in 0.16 seconds.</code></pre>
-<p><img src="figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-7-2.png" width="1248" style="display: block; margin: auto;" /></p>
+<pre><code>Running tsne on 150 x 9 matrix.</code></pre>
+<pre><code>Running tsne on 154 x 9 matrix.</code></pre>
+<pre><code>Running tsne on 188 x 9 matrix.</code></pre>
+<pre><code>Running tsne on 146 x 9 matrix.</code></pre>
+<pre><code>Running tsne on 116 x 9 matrix.</code></pre>
+<pre><code>Running tsne on 114 x 9 matrix.</code></pre>
+<p><img src="figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-9-1.png" width="1248" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fit_topic = readRDS(&#39;/project2/mstephens/dongyue/gtex/V8/analysis/topic_model_brain.rds&#39;)
+structure_plot(fit_topic,grouping=sample_info_tissue$SMTSD[sample_info_tissue$SMTS==&#39;Brain&#39;],verbose=0)</code></pre>
+<pre><code>Running tsne on 112 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 141 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 191 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 171 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 183 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 202 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 154 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 141 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 151 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 187 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 154 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 115 x 6 matrix.</code></pre>
+<pre><code>Running tsne on 98 x 6 matrix.</code></pre>
+<p><img src="figure/biwhitening_ebnmf_gtex.Rmd/unnamed-chunk-9-2.png" width="1248" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
