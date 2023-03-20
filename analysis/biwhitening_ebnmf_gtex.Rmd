@@ -1,0 +1,91 @@
+---
+title: "biwhitening ebnmf on GTEX data"
+author: "DongyueXie"
+date: "2022-10-19"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(fastTopics)
+# fit the model on 
+fit = readRDS('/project2/mstephens/dongyue/gtex/V8/analysis/biwhite_ebnmf_fit.rds')
+datax = readRDS('/project2/mstephens/dongyue/gtex/V8/data/gtex_v8.rds')
+sample_info_tissue = datax$samples
+```
+
+```{r,fig.width=15,fig.height=5}
+fit_list     <- list(L = fit$ldf$l[,-1]%*%diag(fit$ldf$d[-1]),F = fit$ldf$f[,-1])
+class(fit_list) <- c("multinom_topic_model_fit", "list")
+colors = randomcoloR::distinctColorPalette(30)
+structure_plot(fit_list,grouping = sample_info_tissue$SMTS,colors = colors,gap=20)
+```
+
+```{r,fig.width=15,fig.height=5}
+structure_plot(fit_list,grouping = sample_info_tissue$SMTSD,colors = colors,gap=20)
+```
+
+```{r}
+source("~/Rpackages/gsmash/code/poisson_STM/structure_plot.R")
+```
+
+structure plot. An error says: Error in (function (cond)  : 
+  error in evaluating the argument 'x' in selecting a method for function 'drop': Expecting a single value: [extent=1200].
+
+```{r,eval=F}
+table(sample_info_tissue$SMTS)
+library(randomcoloR)
+colors = randomcoloR::distinctColorPalette(30)
+structure_plot_general(fit$fit$EL,fit$fit$EF,as.factor(sample_info_tissue$SMTS),remove_l0f0 = FALSE,colors = colors,n_samples = 5000)
+```
+
+## Brain
+
+```{r,eval=F}
+brain = datax$counts[sample_info_tissue$SMTS=='Brain',]
+brain = brain[,colSums(brain) > 0]
+fit_brain = fastTopics::fit_topic_model(brain,k=6)
+saveRDS(fit_brain,file='/project2/mstephens/dongyue/gtex/V8/analysis/topic_model_brain.rds')
+
+Y_tilde = biwhitening(brain)
+fit_sf = scaledflash(Y_tilde$Y,Y_tilde$u,Y_tilde$v,
+                     S2 = NULL,
+                     var.type = 'by_column',
+                     Kmax=10,
+                     tol=0.01,
+                     maxiter = 1000,
+                     ebnm_fn = 'ebnm_pe',
+                     init_fn = 'nnmf_r1',
+                     ebnm_param=NULL,
+                     verbose=TRUE,
+                     nullcheck=TRUE,
+                     sigma2 = NULL,
+                     seed=12345)
+saveRDS(fit_sf,file='/project2/mstephens/dongyue/gtex/V8/analysis/biwhite_ebnmf_brain.rds')
+
+```
+
+```{r,fig.width=13,fig.height=5}
+fit_topic = readRDS('/project2/mstephens/dongyue/gtex/V8/analysis/topic_model_brain.rds')
+structure_plot(fit_topic,grouping=sample_info_tissue$SMTSD[sample_info_tissue$SMTS=='Brain'])
+
+fit_sf = readRDS('/project2/mstephens/dongyue/gtex/V8/analysis/biwhite_ebnmf_brain.rds')
+fit_list     <- list(L = fit_sf$ldf$l[,-1]%*%diag(fit_sf$ldf$d[-1]),F = fit_sf$ldf$f[,-1])
+class(fit_list) <- c("multinom_topic_model_fit", "list")
+structure_plot(fit_list,grouping = sample_info_tissue$SMTSD[sample_info_tissue$SMTS=='Brain'],colors = c('#a6cee3',
+                                                                                                         '#1f78b4',
+                                                                                                         '#b2df8a',
+                                                                                                         '#33a02c',
+                                                                                                         '#fb9a99',
+                                                                                                         '#e31a1c',
+                                                                                                         '#fdbf6f',
+                                                                                                         '#ff7f00',
+                                                                                                         '#cab2d6',
+                                                                                                         '#6a3d9a',
+                                                                                                         '#ffff99',
+                                                                                                         '#b15928'),gap=40)
+```
+
