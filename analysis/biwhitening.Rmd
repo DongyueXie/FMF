@@ -72,8 +72,12 @@ Sinkhorn_Knopp = function(A,rs=NULL,cs=NULL,tol=1e-5,maxiter=100){
   return(list(x=x,y=y))
   
 }
+```
 
+
+```{r}
 # example in Appendix C.2
+set.seed(12345)
 m = 50
 n = 100
 X = matrix(runif(m*n,1,2),nrow=m,ncol=n)
@@ -98,18 +102,23 @@ Maybe we can simulate data 100 times, and calculate the variance of each entry, 
 
 ```{r}
 set.seed(12345)
-Y_tilde = array(dim=c(m,n,100))
-for(i in 1:100){
-  Y = matrix(rpois(m*n,X),nrow=m,ncol=n)
-  out = Sinkhorn_Knopp(Y,tol=1e-11)
-  Y_tilde[,,i] = diag(c(sqrt(out$x)))%*%Y%*%diag(c(sqrt(out$y)))
+n_rep = 1000
+Y_tilde = array(dim=c(m,n,n_rep))
+Y = array(dim=c(m,n,n_rep))
+for(i in 1:n_rep){
+  Y[,,i] = matrix(rpois(m*n,X),nrow=m,ncol=n)
+  out = Sinkhorn_Knopp(Y[,,i],tol=1e-11)
+  Y_tilde[,,i] = diag(c(sqrt(out$x)))%*%Y[,,i]%*%diag(c(sqrt(out$y)))
 }
 ```
 
 Look at the variance before and after transformation
 
 ```{r}
-plot(X,apply(Y_tilde,c(1,2),var),xlab = 'Poisson variance', ylab = 'variance after transformation',pch='.')
+plot(X,apply(Y_tilde,c(1,2),var),xlab = 'Poisson variance', ylab = 'variance after biwhitening',pch='.',cex=1,col='grey60')
+par(mfrow=c(1,2))
+hist(apply(Y_tilde,c(1,2),var),breaks = 100,main='',xlab='variance after biwhitening')
+boxplot(c(apply(Y_tilde,c(1,2),var)),main='',ylab='variance after biwhitening')
 ```
 
 Non of true poisson lambda is 0. Variance after transformation seems to have mean around 1.
@@ -120,7 +129,7 @@ Look at some distribution.
 par(mfrow=c(3,3))
 for(i in 1:9){
   print(X[i,i])
-  hist(Y_tilde[i,i,],breaks = 20,freq = F,main=paste(i))
+  hist(Y_tilde[i,i,],breaks = 50,freq = FALSE,main=paste(i))
   x = seq(range(Y_tilde[i,i,])[1],range(Y_tilde[i,i,])[2],length.out = 100)
   curve(dnorm(x,mean=mean(Y_tilde[i,i,]),sd=sd(Y_tilde[i,i,])), add=TRUE)
 }
@@ -128,7 +137,7 @@ for(i in 1:9){
 for(i in 1:9){
   r = 30
   print(X[r,i])
-  hist(Y_tilde[r,i,],breaks = 20,freq = F,main=paste(i))
+  hist(Y_tilde[r,i,],breaks = 20,freq = FALSE,main=paste(i))
   x = seq(range(Y_tilde[r,i,])[1],range(Y_tilde[r,i,])[2],length.out = 100)
   curve(dnorm(x,mean=mean(Y_tilde[r,i,]),sd=sd(Y_tilde[r,i,])), add=TRUE)
 }
@@ -136,7 +145,7 @@ for(i in 1:9){
 for(i in 1:9){
   r = 40
   print(X[r,i])
-  hist(Y_tilde[r,i,],breaks = 20,freq = F,main=paste(i))
+  hist(Y_tilde[r,i,],breaks = 20,freq = FALSE,main=paste(i))
   x = seq(range(Y_tilde[r,i,])[1],range(Y_tilde[r,i,])[2],length.out = 100)
   curve(dnorm(x,mean=mean(Y_tilde[r,i,]),sd=sd(Y_tilde[r,i,])), add=TRUE)
 }
@@ -144,7 +153,20 @@ for(i in 1:9){
 
 
 
-
+```{r}
+idx = rbind(c(20,55),c(7,10),c(8,4),c(44,100),c(2,6),c(10,6),c(8,5),c(39,71))
+par(mfrow=c(4,2))
+for(i in 1:8){
+  ii = idx[i,]
+  if(i%in%c(7,8)){
+    hist(Y_tilde[ii[1],ii[2],],breaks = 50,freq = FALSE,main=paste('x =',round(X[ii[1],ii[2]],2)),xlab=expression(tilde(y)))
+  }else{
+    hist(Y_tilde[ii[1],ii[2],],breaks = 50,freq = FALSE,main=paste('x =',round(X[ii[1],ii[2]],2)),xlab='')
+  }
+  x = seq(range(Y_tilde[ii[1],ii[2],])[1],range(Y_tilde[ii[1],ii[2],])[2],length.out = 100)
+  curve(dnorm(x,mean=mean(Y_tilde[ii[1],ii[2],]),sd=sd(Y_tilde[ii[1],ii[2],])), add=TRUE)
+}
+```
 
 
 
