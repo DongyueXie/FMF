@@ -11,7 +11,7 @@ editor_options:
 
 One of the feature we'd like to add to Topic model is to induce sparsity on loadings, and factors, for better interpretability.
 
-Directly adding such constraint is non-trivial, and has not been shown to perform well.
+Directly adding such constraint is non-trivial, and has not been shown to perform well, especialy using empirical Bayes approach.
 
 Here I took an approach of combining [biwhitening](biwhitening.html), and EBNMF(a scaled version, and I wrote the code and is available in `funflash` package). In this analysis, we show how the method performs well on simple examples, and can acutally induce sparsity on L, and F.
 
@@ -80,8 +80,6 @@ This is a harder example because there's a background now, and we see that topic
 However, biwhitening + ebnmf gives the sparse recovery, and also estimates the correct K.
 
 ```{r}
-
-
 #################
 set.seed(12345)
 n = 99
@@ -104,13 +102,17 @@ F[,4]= 1+mfac*runif(p)
 lambda = L %*% t(F)
 X = matrix(rpois(n=length(lambda),lambda),nrow=n)
 image(X)
+```
 
+```{r}
 fit_tm = fastTopics::fit_poisson_nmf(X,4)
 plot(fit_tm$L[,1],main="Topic model, estimated loadings 1")
 plot(fit_tm$L[,2],main="Topic model, estimated loadings 2")
 plot(fit_tm$L[,3],main="Topic model, estimated loadings 3")
 plot(fit_tm$L[,4],main="Topic model, estimated loadings 4")
+```
 
+```{r}
 Y_tilde = biwhitening(X)
 fit_sf = scaledflash(Y_tilde$Y,Y_tilde$u,Y_tilde$v,
                      S2 = NULL,
@@ -129,5 +131,134 @@ plot(fit_sf$ldf$l[,1],main="biwhitening+flash, estimated loadings 1")
 plot(fit_sf$ldf$l[,2],main="biwhitening+flash, estimated loadings 2")
 plot(fit_sf$ldf$l[,3],main="biwhitening+flash, estimated loadings 3")
 plot(fit_sf$ldf$l[,4],main="biwhitening+flash, estimated loadings 4")
+```
+
+```{r}
+library(RcppML)
+library(NMF)
+```
+
+```{r}
+fitted_rcppml_nmf = function(fit){
+  fit$w%*%diag(fit$d)%*%fit$h
+}
+n_try = 10
+fit_nmf1_best = RcppML::nmf(X,4,L1=c(0.99,0.99),seed=0)
+error_best = sum((X-fitted_rcppml_nmf(fit_nmf1_best))^2)
+for(i in 1:n_try){
+  fit_nmf1 = RcppML::nmf(X,4,L1=c(0.99,0.99),seed=i)
+  error = sum((X-fitted_rcppml_nmf(fit_nmf1))^2)
+  if(error<error_best){
+    fit_nmf1_best = fit_nmf1
+    error_best = error
+  }
+}
 
 ```
+
+```{r}
+fitted_nmf2 = function(fit){
+  fit@fit@W%*%fit@fit@H
+}
+beta = 0.5
+fit_nmf2_best = NMF::nmf(X,4,'snmf/l',beta = beta,seed=0)
+error_best = sum((X-fitted_nmf2(fit_nmf2_best))^2)
+for(i in 1:n_try){
+  fit_nmf2 = NMF::nmf(X,4,'snmf/l',beta = beta,seed=i)
+  error = sum((X-fitted_nmf2(fit_nmf2))^2)
+  if(error<error_best){
+    fit_nmf2_best = fit_nmf2
+    error_best = error
+  }
+}
+```
+
+```{r}
+my_ldf = function(Lhat,Fhat){
+  dl = apply(Lhat,2,norm,type='2')
+  df = apply(Fhat,2,norm,type='2')
+  return(list(l = apply(Lhat,2,function(z){z/norm(z,'2')}),
+              f = apply(Fhat,2,function(z){z/norm(z,'2')}),
+              d = dl*df))
+}
+library(ggplot2)
+library(gridExtra)
+library(grid)
+plots = list()
+for(i in 1:4){
+  temp = my_ldf(L,F)
+  data <- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("True L"))))
+
+for(i in 1:4){
+  temp = my_ldf(fit_tm$L,fit_tm$F)
+  data <- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("fastTopics::fit_poisson_nmf"))))
+
+for(i in 1:4){
+  temp = my_ldf(fit_sf$ldf$l,fit_sf$ldf$f)
+  data <- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("Biwhitening EBNMF"))))
+
+for(i in 1:4){
+  temp = my_ldf(fit_nmf1_best$w,t(fit_nmf1_best$h))
+  data <- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("RcppML::nmf"))))
+
+for(i in 1:4){
+  temp = my_ldf(fit_nmf2_best@fit@W,t(fit_nmf2_best@fit@H))
+  data <- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("NMF::nmf"))))
+```
+
+
+plot F
+
+```{r}
+plots = list()
+for(i in 1:4){
+  temp = my_ldf(L,F)
+  data <- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("True F"))))
+
+for(i in 1:4){
+  temp = my_ldf(fit_tm$L,fit_tm$F)
+  data <- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("fastTopics::fit_poisson_nmf"))))
+
+for(i in 1:4){
+  temp = my_ldf(fit_sf$ldf$l,fit_sf$ldf$f)
+  data <- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("Biwhitening EBNMF"))))
+
+for(i in 1:4){
+  temp = my_ldf(fit_nmf1_best$w,t(fit_nmf1_best$h))
+  data <- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("RcppML::nmf"))))
+
+for(i in 1:4){
+  temp = my_ldf(fit_nmf2_best@fit@W,t(fit_nmf2_best@fit@H))
+  data <- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] <- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob("NMF::nmf"))))
+```
+
