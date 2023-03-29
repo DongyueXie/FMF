@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="DongyueXie" />
@@ -15,12 +15,22 @@
 
 <title>biwhitening</title>
 
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -38,12 +48,18 @@ div.section {
 }
 </style>
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -56,32 +72,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -92,13 +83,8 @@ h6 {
   margin-left: auto;
   margin-right: auto;
 }
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -112,40 +98,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -173,7 +132,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -185,7 +144,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -196,10 +155,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -211,7 +183,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -247,6 +218,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -259,48 +231,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -314,6 +247,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -369,7 +308,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -415,7 +354,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -428,7 +367,9 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -437,7 +378,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -446,17 +389,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-18
+<strong>Last updated:</strong> 2023-03-28
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>SMF/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>SMF/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version
+1.6.2). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -465,91 +418,138 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190719code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190719)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190719code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20190719)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20190719code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20190719code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20190719)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20190719)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree6624dcad493c8aca539da80f6d7447aa00e52cd9targetblank6624dcaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/DongyueXie/SMF/tree/6624dcad493c8aca539da80f6d7447aa00e52cd9" target="_blank">6624dca</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree1768c8705adf1e5f3a11cbb657db21bf3ddac5a7targetblank1768c87a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/DongyueXie/SMF/tree/1768c8705adf1e5f3a11cbb657db21bf3ddac5a7" target="_blank">1768c87</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree6624dcad493c8aca539da80f6d7447aa00e52cd9targetblank6624dcaa" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree1768c8705adf1e5f3a11cbb657db21bf3ddac5a7targetblank1768c87a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/DongyueXie/SMF/tree/6624dcad493c8aca539da80f6d7447aa00e52cd9" target="_blank">6624dca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/DongyueXie/SMF/tree/1768c8705adf1e5f3a11cbb657db21bf3ddac5a7" target="_blank">1768c87</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -557,74 +557,20 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  analysis/logistic_bound.Rmd
     Untracked:  data/count_files.RData
     Untracked:  data/lowgene/
     Untracked:  data/stmGTEx/
     Untracked:  output/luis/
+    Untracked:  output/plots/
 
 Unstaged changes:
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/stmGTEx.Rmd
-    Modified:   code/wave_ebmf_ndwt.R
-    Deleted:    data/GPX3_NMF_mkl_scd_K3.RData
-    Deleted:    data/GPX3_NMF_mkl_scd_K3_base10.RData
-    Deleted:    data/GPX3_NMF_mkl_scd_K3_base5.RData
-    Deleted:    data/GPX3_hals_runmed_K3.RData
-    Deleted:    data/GPX3_hals_runmed_K3_base10.RData
-    Deleted:    data/GPX3_hals_runmed_K3_base5.RData
-    Deleted:    data/GPX3_hals_wavelet_K3.RData
-    Deleted:    data/GPX3_hals_wavelet_K3_base10.RData
-    Deleted:    data/GPX3_hals_wavelet_K3_base5.RData
-    Deleted:    data/GPX3_stm_bmsm_K3.RData
-    Deleted:    data/GPX3_stm_bmsm_K3_base10.RData
-    Deleted:    data/GPX3_stm_bmsm_K3_base5.RData
-    Deleted:    data/GPX3_stm_nugget_K3.RData
-    Deleted:    data/GPX3_stm_nugget_K3_base10.RData
-    Deleted:    data/GPX3_stm_nugget_K3_base5.RData
-    Deleted:    data/GPX3_stm_nugget_robust_K3.RData
-    Deleted:    data/GPX3_stm_nugget_robust_K3_base10.RData
-    Deleted:    data/GPX3_stm_nugget_robust_K3_base5.RData
-    Deleted:    data/PSAP_NMF_mkl_scd_K3.RData
-    Deleted:    data/PSAP_NMF_mkl_scd_K3_base10.RData
-    Deleted:    data/PSAP_NMF_mkl_scd_K3_base5.RData
-    Deleted:    data/PSAP_hals_runmed_K3.RData
-    Deleted:    data/PSAP_hals_runmed_K3_base10.RData
-    Deleted:    data/PSAP_hals_runmed_K3_base5.RData
-    Deleted:    data/PSAP_hals_wavelet_K3.RData
-    Deleted:    data/PSAP_hals_wavelet_K3_base10.RData
-    Deleted:    data/PSAP_hals_wavelet_K3_base5.RData
-    Deleted:    data/PSAP_stm_bmsm_K3.RData
-    Deleted:    data/PSAP_stm_bmsm_K3_base10.RData
-    Deleted:    data/PSAP_stm_bmsm_K3_base5.RData
-    Deleted:    data/PSAP_stm_nugget_K3.RData
-    Deleted:    data/PSAP_stm_nugget_K3_base10.RData
-    Deleted:    data/PSAP_stm_nugget_K3_base5.RData
-    Deleted:    data/PSAP_stm_nugget_robust_K3.RData
-    Deleted:    data/PSAP_stm_nugget_robust_K3_base10.RData
-    Deleted:    data/PSAP_stm_nugget_robust_K3_base5.RData
-    Deleted:    data/RPS13_NMF_mkl_scd_K3.RData
-    Deleted:    data/RPS13_NMF_mkl_scd_K3_base10.RData
-    Deleted:    data/RPS13_NMF_mkl_scd_K3_base5.RData
-    Deleted:    data/RPS13_hals_runmed_K3.RData
-    Deleted:    data/RPS13_hals_runmed_K3_base10.RData
-    Deleted:    data/RPS13_hals_runmed_K3_base5.RData
-    Deleted:    data/RPS13_hals_wavelet_K3.RData
-    Deleted:    data/RPS13_hals_wavelet_K3_base10.RData
-    Deleted:    data/RPS13_hals_wavelet_K3_base5.RData
-    Deleted:    data/RPS13_stm_bmsm_K3.RData
-    Deleted:    data/RPS13_stm_bmsm_K3_base10.RData
-    Deleted:    data/RPS13_stm_bmsm_K3_base5.RData
-    Deleted:    data/RPS13_stm_nugget_K3.RData
-    Deleted:    data/RPS13_stm_nugget_K3_base10.RData
-    Deleted:    data/RPS13_stm_nugget_K3_base5.RData
-    Deleted:    data/RPS13_stm_nugget_robust_K3.RData
-    Deleted:    data/RPS13_stm_nugget_robust_K3_base10.RData
-    Deleted:    data/RPS13_stm_nugget_robust_K3_base5.RData
+    Modified:   analysis/biwhitening_PMF.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -635,7 +581,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/biwhitening.Rmd</code>) and HTML (<code>docs/biwhitening.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/biwhitening.Rmd</code>) and HTML
+(<code>docs/biwhitening.html</code>) files. If you’ve configured a
+remote Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -664,6 +615,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/1768c8705adf1e5f3a11cbb657db21bf3ddac5a7/analysis/biwhitening.Rmd" target="_blank">1768c87</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-28
+</td>
+<td>
+wflow_publish("analysis/biwhitening.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/35d9064e440289517e52ff9d68ed321825ee7eb7/docs/biwhitening.html" target="_blank">35d9064</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2022-04-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/6624dcad493c8aca539da80f6d7447aa00e52cd9/analysis/biwhitening.Rmd" target="_blank">6624dca</a>
 </td>
 <td>
@@ -673,7 +658,7 @@ DongyueXie
 2022-04-18
 </td>
 <td>
-wflow_publish(“analysis/biwhitening.Rmd”)
+wflow_publish("analysis/biwhitening.Rmd")
 </td>
 </tr>
 </tbody>
@@ -685,13 +670,26 @@ wflow_publish(“analysis/biwhitening.Rmd”)
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>Let <span class="math inline">\(Y = X + E\)</span>, the biwhitening method proposed by <a href="https://arxiv.org/abs/2103.13840">Landa et al 2021</a> transforms <span class="math inline">\(Y\)</span> to</p>
-<p><span class="math inline">\(\tilde Y = D(u) Y D(v) = \tilde X + \tilde E\)</span> such that</p>
-<p><span class="math display">\[\mathbb{E}(\tilde E\tilde E^T/n) = I_m,\mathbb{E}(\tilde E^T \tilde E/m) = I_n.\]</span></p>
-<p>That is, the average variance in each row and column of <span class="math inline">\(\tilde E\)</span> is 1. When <span class="math inline">\(Y\)</span> is Poisson distributed, this says <span class="math display">\[\sum_i^m u_i^2 X_{ij} v_j^2 = m, \sum_j^n u_i^2X_{ij}v_j^2 = n.\]</span></p>
-<p>To find <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>, the algorithm 2 in the paper presents the Sinkhorn-Knopp algorithm.</p>
-<p><strong>Input</strong>: Nonnegative matrix <span class="math inline">\(A\)</span>, target row sums <span class="math inline">\(\boldsymbol r\)</span>, and target column sums <span class="math inline">\(\boldsymbol c\)</span>, tolerance <span class="math inline">\(\delta&gt;0\)</span>.</p>
-
+<p>Let <span class="math inline">\(Y = X + E\)</span>, the biwhitening
+method proposed by <a href="https://arxiv.org/abs/2103.13840">Landa et
+al 2021</a> transforms <span class="math inline">\(Y\)</span> to</p>
+<p><span class="math inline">\(\tilde Y = D(u) Y D(v) = \tilde X +
+\tilde E\)</span> such that</p>
+<p><span class="math display">\[\mathbb{E}(\tilde E\tilde E^T/n) =
+I_m,\mathbb{E}(\tilde E^T \tilde E/m) = I_n.\]</span></p>
+<p>That is, the average variance in each row and column of <span
+class="math inline">\(\tilde E\)</span> is 1. When <span
+class="math inline">\(Y\)</span> is Poisson distributed, this says <span
+class="math display">\[\sum_i^m u_i^2 X_{ij} v_j^2 = m, \sum_j^n
+u_i^2X_{ij}v_j^2 = n.\]</span></p>
+<p>To find <span class="math inline">\(u\)</span> and <span
+class="math inline">\(v\)</span>, the algorithm 2 in the paper presents
+the Sinkhorn-Knopp algorithm.</p>
+<p><strong>Input</strong>: Nonnegative matrix <span
+class="math inline">\(A\)</span>, target row sums <span
+class="math inline">\(\boldsymbol r\)</span>, and target column sums
+<span class="math inline">\(\boldsymbol c\)</span>, tolerance <span
+class="math inline">\(\delta&gt;0\)</span>.</p>
 <p>Code below:</p>
 <pre class="r"><code>#&#39;@param A nonnegative matrix
 #&#39;@param rs target row sums, a vector of length m
@@ -730,9 +728,9 @@ Sinkhorn_Knopp = function(A,rs=NULL,cs=NULL,tol=1e-5,maxiter=100){
   
   return(list(x=x,y=y))
   
-}
-
-# example in Appendix C.2
+}</code></pre>
+<pre class="r"><code># example in Appendix C.2
+set.seed(12345)
 m = 50
 n = 100
 X = matrix(runif(m*n,1,2),nrow=m,ncol=n)
@@ -742,107 +740,203 @@ Y = matrix(rpois(m*n,X),nrow=m,ncol=n)
 out = Sinkhorn_Knopp(Y,tol=1e-11)
 d = diag(c((out$x)))%*%Y%*%diag(c((out$y)))
 rowSums(d)</code></pre>
-<pre><code> [1] 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100
-[18] 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100
-[35] 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100</code></pre>
+<pre><code> [1] 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100
+[20] 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100
+[39] 100 100 100 100 100 100 100 100 100 100 100 100</code></pre>
 <pre class="r"><code>colSums(d)</code></pre>
-<pre><code>  [1] 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50
- [24] 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50
- [47] 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50
- [70] 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50
- [93] 50 50 50 50 50 50 50 50</code></pre>
-<p>The u, v in the Poisson case would be <span class="math inline">\(u = sqrt(x), v = sqrt(y)\)</span>. The transformed matrix is then</p>
+<pre><code>  [1] 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50
+ [26] 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50
+ [51] 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50
+ [76] 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50</code></pre>
+<p>The u, v in the Poisson case would be <span class="math inline">\(u =
+sqrt(x), v = sqrt(y)\)</span>. The transformed matrix is then</p>
 <pre class="r"><code>Y_tilde = diag(c(sqrt(out$x)))%*%Y%*%diag(c(sqrt(out$y)))
 plot(rowMeans(Y),rowMeans(Y_tilde))</code></pre>
-<p><img src="figure/biwhitening.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/biwhitening.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(colMeans(Y),colMeans(Y_tilde))</code></pre>
-<p><img src="figure/biwhitening.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Maybe we can simulate data 100 times, and calculate the variance of each entry, plot the distribution and see how the transforamtion works(on variance and distribution).</p>
+<p><img src="figure/biwhitening.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Maybe we can simulate data 100 times, and calculate the variance of
+each entry, plot the distribution and see how the transforamtion
+works(on variance and distribution).</p>
 <pre class="r"><code>set.seed(12345)
-Y_tilde = array(dim=c(m,n,100))
-for(i in 1:100){
-  Y = matrix(rpois(m*n,X),nrow=m,ncol=n)
-  out = Sinkhorn_Knopp(Y,tol=1e-11)
-  Y_tilde[,,i] = diag(c(sqrt(out$x)))%*%Y%*%diag(c(sqrt(out$y)))
+n_rep = 1000
+Y_tilde = array(dim=c(m,n,n_rep))
+Y = array(dim=c(m,n,n_rep))
+for(i in 1:n_rep){
+  Y[,,i] = matrix(rpois(m*n,X),nrow=m,ncol=n)
+  out = Sinkhorn_Knopp(Y[,,i],tol=1e-11)
+  Y_tilde[,,i] = diag(c(sqrt(out$x)))%*%Y[,,i]%*%diag(c(sqrt(out$y)))
 }</code></pre>
 <p>Look at the variance before and after transformation</p>
-<pre class="r"><code>plot(X,apply(Y_tilde,c(1,2),var),xlab = &#39;Poisson variance&#39;, ylab = &#39;variance after transformation&#39;,pch=&#39;.&#39;)</code></pre>
-<p><img src="figure/biwhitening.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Non of true poisson lambda is 0. Variance after transformation seems to have mean around 1.</p>
+<pre class="r"><code>plot(X,apply(Y_tilde,c(1,2),var),xlab = &#39;Poisson variance&#39;, ylab = &#39;variance after biwhitening&#39;,pch=&#39;.&#39;,cex=1,col=&#39;grey60&#39;)</code></pre>
+<p><img src="figure/biwhitening.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/35d9064e440289517e52ff9d68ed321825ee7eb7/docs/figure/biwhitening.Rmd/unnamed-chunk-5-1.png" target="_blank">35d9064</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2022-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>par(mfrow=c(1,2))
+hist(apply(Y_tilde,c(1,2),var),breaks = 100,main=&#39;&#39;,xlab=&#39;variance after biwhitening&#39;)
+boxplot(c(apply(Y_tilde,c(1,2),var)),main=&#39;&#39;,ylab=&#39;variance after biwhitening&#39;)</code></pre>
+<p><img src="figure/biwhitening.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/35d9064e440289517e52ff9d68ed321825ee7eb7/docs/figure/biwhitening.Rmd/unnamed-chunk-5-2.png" target="_blank">35d9064</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2022-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Non of true poisson lambda is 0. Variance after transformation seems
+to have mean around 1.</p>
 <p>Look at some distribution.</p>
 <pre class="r"><code>par(mfrow=c(3,3))
 for(i in 1:9){
   print(X[i,i])
-  hist(Y_tilde[i,i,],breaks = 20,freq = F,main=paste(i))
+  hist(Y_tilde[i,i,],breaks = 50,freq = FALSE,main=paste(i))
   x = seq(range(Y_tilde[i,i,])[1],range(Y_tilde[i,i,])[2],length.out = 100)
   curve(dnorm(x,mean=mean(Y_tilde[i,i,]),sd=sd(Y_tilde[i,i,])), add=TRUE)
 }</code></pre>
-<pre><code>[1] 0.1235297</code></pre>
-<pre><code>[1] 3.432289</code></pre>
-<pre><code>[1] 0.3169518</code></pre>
-<pre><code>[1] 0.9965551</code></pre>
-<pre><code>[1] 2.883686</code></pre>
-<pre><code>[1] 0.05751489</code></pre>
-<pre><code>[1] 1.254434</code></pre>
-<pre><code>[1] 0.9455535</code></pre>
-<pre><code>[1] 2.423233</code></pre>
-<p><img src="figure/biwhitening.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] 2.328184</code></pre>
+<pre><code>[1] 0.2150417</code></pre>
+<pre><code>[1] 20.36863</code></pre>
+<pre><code>[1] 0.0281371</code></pre>
+<pre><code>[1] 8.214323</code></pre>
+<pre><code>[1] 26.26458</code></pre>
+<pre><code>[1] 0.07391752</code></pre>
+<pre><code>[1] 4.298053</code></pre>
+<pre><code>[1] 0.7949581</code></pre>
+<p><img src="figure/biwhitening.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>for(i in 1:9){
   r = 30
   print(X[r,i])
-  hist(Y_tilde[r,i,],breaks = 20,freq = F,main=paste(i))
+  hist(Y_tilde[r,i,],breaks = 20,freq = FALSE,main=paste(i))
   x = seq(range(Y_tilde[r,i,])[1],range(Y_tilde[r,i,])[2],length.out = 100)
   curve(dnorm(x,mean=mean(Y_tilde[r,i,]),sd=sd(Y_tilde[r,i,])), add=TRUE)
 }</code></pre>
-<pre><code>[1] 1.247927</code></pre>
-<pre><code>[1] 7.775659</code></pre>
-<pre><code>[1] 4.022688</code></pre>
-<pre><code>[1] 9.411281</code></pre>
-<pre><code>[1] 21.68875</code></pre>
-<pre><code>[1] 0.5035125</code></pre>
-<pre><code>[1] 1.144283</code></pre>
-<pre><code>[1] 1.213926</code></pre>
-<pre><code>[1] 4.635854</code></pre>
-<p><img src="figure/biwhitening.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] 11.09687</code></pre>
+<pre><code>[1] 0.7245544</code></pre>
+<pre><code>[1] 11.38213</code></pre>
+<pre><code>[1] 0.383629</code></pre>
+<pre><code>[1] 8.670353</code></pre>
+<pre><code>[1] 14.99803</code></pre>
+<pre><code>[1] 0.6120885</code></pre>
+<pre><code>[1] 2.394462</code></pre>
+<pre><code>[1] 3.502384</code></pre>
+<p><img src="figure/biwhitening.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>for(i in 1:9){
   r = 40
   print(X[r,i])
-  hist(Y_tilde[r,i,],breaks = 20,freq = F,main=paste(i))
+  hist(Y_tilde[r,i,],breaks = 20,freq = FALSE,main=paste(i))
   x = seq(range(Y_tilde[r,i,])[1],range(Y_tilde[r,i,])[2],length.out = 100)
   curve(dnorm(x,mean=mean(Y_tilde[r,i,]),sd=sd(Y_tilde[r,i,])), add=TRUE)
 }</code></pre>
-<pre><code>[1] 0.1795379</code></pre>
-<pre><code>[1] 0.9683171</code></pre>
-<pre><code>[1] 0.6913017</code></pre>
-<pre><code>[1] 1.375498</code></pre>
-<pre><code>[1] 2.627167</code></pre>
-<pre><code>[1] 0.05977647</code></pre>
-<pre><code>[1] 0.1481736</code></pre>
-<pre><code>[1] 0.2411086</code></pre>
-<pre><code>[1] 0.54314</code></pre>
-<p><img src="figure/biwhitening.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] 3.905036</code></pre>
+<pre><code>[1] 0.3078226</code></pre>
+<pre><code>[1] 5.342475</code></pre>
+<pre><code>[1] 0.1117732</code></pre>
+<pre><code>[1] 3.450644</code></pre>
+<pre><code>[1] 5.646072</code></pre>
+<pre><code>[1] 0.4314669</code></pre>
+<pre><code>[1] 0.7812951</code></pre>
+<pre><code>[1] 1.102982</code></pre>
+<p><img src="figure/biwhitening.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>idx = rbind(c(20,55),c(7,10),c(8,4),c(44,100),c(2,6),c(10,6),c(8,5),c(39,71))
+par(mfrow=c(4,2))
+for(i in 1:8){
+  ii = idx[i,]
+  if(i%in%c(7,8)){
+    hist(Y_tilde[ii[1],ii[2],],breaks = 50,freq = FALSE,main=paste(&#39;x =&#39;,round(X[ii[1],ii[2]],2)),xlab=expression(tilde(y)))
+  }else{
+    hist(Y_tilde[ii[1],ii[2],],breaks = 50,freq = FALSE,main=paste(&#39;x =&#39;,round(X[ii[1],ii[2]],2)),xlab=&#39;&#39;)
+  }
+  x = seq(range(Y_tilde[ii[1],ii[2],])[1],range(Y_tilde[ii[1],ii[2],])[2],length.out = 100)
+  curve(dnorm(x,mean=mean(Y_tilde[ii[1],ii[2],]),sd=sd(Y_tilde[ii[1],ii[2],])), add=TRUE)
+}</code></pre>
+<p><img src="figure/biwhitening.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.6.1 (2019-07-05)
+<pre><code>R version 4.1.0 (2021-05-18)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Scientific Linux 7.4 (Nitrogen)
+Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS/LAPACK: /software/openblas-0.2.19-el7-x86_64/lib/libopenblas_haswellp-r0.2.19.so
+BLAS:   /software/R-4.1.0-no-openblas-el7-x86_64/lib64/R/lib/libRblas.so
+LAPACK: /software/R-4.1.0-no-openblas-el7-x86_64/lib64/R/lib/libRlapack.so
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=en_US.UTF-8 LC_NUMERIC=C         LC_TIME=C           
+ [4] LC_COLLATE=C         LC_MONETARY=C        LC_MESSAGES=C       
+ [7] LC_PAPER=C           LC_NAME=C            LC_ADDRESS=C        
+[10] LC_TELEPHONE=C       LC_MEASUREMENT=C     LC_IDENTIFICATION=C 
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -851,12 +945,16 @@ other attached packages:
 [1] workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.5      rprojroot_2.0.2 digest_0.6.20   later_0.8.0    
- [5] R6_2.4.0        git2r_0.26.1    magrittr_1.5    evaluate_0.14  
- [9] stringi_1.4.3   fs_1.3.1        promises_1.0.1  whisker_0.3-2  
-[13] rmarkdown_1.13  tools_3.6.1     stringr_1.4.0   glue_1.3.1     
-[17] httpuv_1.5.1    xfun_0.8        yaml_2.2.0      compiler_3.6.1 
-[21] htmltools_0.3.6 knitr_1.23     </code></pre>
+ [1] Rcpp_1.0.10      rstudioapi_0.13  whisker_0.4      knitr_1.33      
+ [5] magrittr_2.0.3   R6_2.5.1         rlang_1.0.6      fastmap_1.1.0   
+ [9] fansi_1.0.4      highr_0.9        stringr_1.5.0    tools_4.1.0     
+[13] xfun_0.24        utf8_1.2.3       cli_3.6.0        git2r_0.28.0    
+[17] jquerylib_0.1.4  htmltools_0.5.4  rprojroot_2.0.2  yaml_2.3.7      
+[21] digest_0.6.31    tibble_3.1.8     lifecycle_1.0.3  later_1.3.0     
+[25] sass_0.4.0       vctrs_0.5.2      promises_1.2.0.1 fs_1.5.0        
+[29] glue_1.6.2       evaluate_0.14    rmarkdown_2.9    stringi_1.6.2   
+[33] bslib_0.2.5.1    compiler_4.1.0   pillar_1.8.1     jsonlite_1.8.4  
+[37] httpuv_1.6.1     pkgconfig_2.0.3 </code></pre>
 </div>
 </div>
 
@@ -874,6 +972,8 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
+
+
 </div>
 </div>
 
@@ -883,13 +983,59 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
