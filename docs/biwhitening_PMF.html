@@ -389,7 +389,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-18
+<strong>Last updated:</strong> 2023-03-28
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -520,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree206e141d2957f839f5598265e198f3b9fac60f18targetblank206e141a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreebcea2b3b3b4ce2e64c10910644b1bcfcecbfc2c2targetblankbcea2b3a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/DongyueXie/SMF/tree/206e141d2957f839f5598265e198f3b9fac60f18" target="_blank">206e141</a>
+<a href="https://github.com/DongyueXie/SMF/tree/bcea2b3b3b4ce2e64c10910644b1bcfcecbfc2c2" target="_blank">bcea2b3</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree206e141d2957f839f5598265e198f3b9fac60f18targetblank206e141a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreebcea2b3b3b4ce2e64c10910644b1bcfcecbfc2c2targetblankbcea2b3a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -538,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/DongyueXie/SMF/tree/206e141d2957f839f5598265e198f3b9fac60f18" target="_blank">206e141</a>.
+<a href="https://github.com/DongyueXie/SMF/tree/bcea2b3b3b4ce2e64c10910644b1bcfcecbfc2c2" target="_blank">bcea2b3</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -555,16 +555,14 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  analysis/logistic_bound.Rmd
     Untracked:  data/count_files.RData
     Untracked:  data/lowgene/
     Untracked:  data/stmGTEx/
     Untracked:  output/luis/
-
-Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Untracked:  output/plots/
 
 </code></pre>
 <p>
@@ -615,6 +613,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/bcea2b3b3b4ce2e64c10910644b1bcfcecbfc2c2/analysis/biwhitening_PMF.Rmd" target="_blank">bcea2b3</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-28
+</td>
+<td>
+wflow_publish("analysis/biwhitening_PMF.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/de0e45497e2341183599541121943dbf77ff7d4e/docs/biwhitening_PMF.html" target="_blank">de0e454</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/206e141d2957f839f5598265e198f3b9fac60f18/analysis/biwhitening_PMF.Rmd" target="_blank">206e141</a>
 </td>
 <td>
@@ -639,7 +671,7 @@ wflow_publish("analysis/biwhitening_PMF.Rmd")
 <p>One of the feature we’d like to add to Topic model is to induce
 sparsity on loadings, and factors, for better interpretability.</p>
 <p>Directly adding such constraint is non-trivial, and has not been
-shown to perform well.</p>
+shown to perform well, especialy using empirical Bayes approach.</p>
 <p>Here I took an approach of combining <a
 href="biwhitening.html">biwhitening</a>, and EBNMF(a scaled version, and
 I wrote the code and is available in <code>funflash</code> package). In
@@ -676,6 +708,43 @@ lambda = L %*% t(F)
 X = matrix(rpois(n=length(lambda),lambda),nrow=n)
 image(X)</code></pre>
 <p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/de0e45497e2341183599541121943dbf77ff7d4e/docs/figure/biwhitening_PMF.Rmd/unnamed-chunk-2-1.png" target="_blank">de0e454</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fit_tm = fastTopics::fit_poisson_nmf(X,3)</code></pre>
 <pre><code>Initializing factors using Topic SCORE algorithm.
 Initializing loadings by running 10 SCD updates.
@@ -683,10 +752,121 @@ Fitting rank-3 Poisson NMF to 99 x 300 dense matrix.
 Running 100 SCD updates, without extrapolation (fastTopics 0.6-142).</code></pre>
 <pre class="r"><code>plot(fit_tm$L[,1],main=&quot;Topic model, estimated loadings 1&quot;)</code></pre>
 <p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/de0e45497e2341183599541121943dbf77ff7d4e/docs/figure/biwhitening_PMF.Rmd/unnamed-chunk-2-2.png" target="_blank">de0e454</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(fit_tm$L[,2],main=&quot;Topic model, estimated loadings 2&quot;)</code></pre>
 <p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-3">
+Past versions of unnamed-chunk-2-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/de0e45497e2341183599541121943dbf77ff7d4e/docs/figure/biwhitening_PMF.Rmd/unnamed-chunk-2-3.png" target="_blank">de0e454</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(fit_tm$L[,3],main=&quot;Topic model, estimated loadings 3&quot;)</code></pre>
 <p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-2-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-4">
+Past versions of unnamed-chunk-2-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/de0e45497e2341183599541121943dbf77ff7d4e/docs/figure/biwhitening_PMF.Rmd/unnamed-chunk-2-4.png" target="_blank">de0e454</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Y_tilde = biwhitening(X)
 fit_sf = scaledflash(Y_tilde$Y,Y_tilde$u,Y_tilde$v,
                      S2 = NULL,
@@ -848,10 +1028,121 @@ fit_sf = scaledflash(Y_tilde$Y,Y_tilde$u,Y_tilde$v,
 [1] &quot;Deleting factor  10  increases objective by  0.014&quot;</code></pre>
 <pre class="r"><code>plot(fit_sf$ldf$l[,1],main=&quot;biwhitening+flash, estimated loadings 1&quot;)</code></pre>
 <p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-2-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-5">
+Past versions of unnamed-chunk-2-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/de0e45497e2341183599541121943dbf77ff7d4e/docs/figure/biwhitening_PMF.Rmd/unnamed-chunk-2-5.png" target="_blank">de0e454</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(fit_sf$ldf$l[,2],main=&quot;biwhitening+flash, estimated loadings 1&quot;)</code></pre>
 <p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-2-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-6">
+Past versions of unnamed-chunk-2-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/de0e45497e2341183599541121943dbf77ff7d4e/docs/figure/biwhitening_PMF.Rmd/unnamed-chunk-2-6.png" target="_blank">de0e454</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(fit_sf$ldf$l[,3],main=&quot;biwhitening+flash, estimated loadings 1&quot;)</code></pre>
 <p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-2-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-7">
+Past versions of unnamed-chunk-2-7.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/de0e45497e2341183599541121943dbf77ff7d4e/docs/figure/biwhitening_PMF.Rmd/unnamed-chunk-2-7.png" target="_blank">de0e454</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fit_sf$pve</code></pre>
 <pre><code>[1] 0.3444512531 0.3032855662 0.2955528179 0.0002778274 0.0005363181
 [6] 0.0005213643 0.0007272142 0.0004340449 0.0005863254</code></pre>
@@ -885,19 +1176,56 @@ lambda = L %*% t(F)
 X = matrix(rpois(n=length(lambda),lambda),nrow=n)
 image(X)</code></pre>
 <p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/de0e45497e2341183599541121943dbf77ff7d4e/docs/figure/biwhitening_PMF.Rmd/unnamed-chunk-3-1.png" target="_blank">de0e454</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fit_tm = fastTopics::fit_poisson_nmf(X,4)</code></pre>
 <pre><code>Initializing factors using Topic SCORE algorithm.
 Initializing loadings by running 10 SCD updates.
 Fitting rank-4 Poisson NMF to 99 x 300 dense matrix.
 Running 100 SCD updates, without extrapolation (fastTopics 0.6-142).</code></pre>
 <pre class="r"><code>plot(fit_tm$L[,1],main=&quot;Topic model, estimated loadings 1&quot;)</code></pre>
-<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(fit_tm$L[,2],main=&quot;Topic model, estimated loadings 2&quot;)</code></pre>
-<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(fit_tm$L[,3],main=&quot;Topic model, estimated loadings 3&quot;)</code></pre>
-<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(fit_tm$L[,4],main=&quot;Topic model, estimated loadings 4&quot;)</code></pre>
-<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-3-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-4-4.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>Y_tilde = biwhitening(X)
 fit_sf = scaledflash(Y_tilde$Y,Y_tilde$u,Y_tilde$v,
                      S2 = NULL,
@@ -943,13 +1271,404 @@ fit_sf = scaledflash(Y_tilde$Y,Y_tilde$u,Y_tilde$v,
 [1] &quot;Performing nullcheck&quot;
 [1] &quot;Deleting factor  5  increases objective by  15.974&quot;</code></pre>
 <pre class="r"><code>plot(fit_sf$ldf$l[,1],main=&quot;biwhitening+flash, estimated loadings 1&quot;)</code></pre>
-<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-3-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(fit_sf$ldf$l[,2],main=&quot;biwhitening+flash, estimated loadings 2&quot;)</code></pre>
-<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-3-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(fit_sf$ldf$l[,3],main=&quot;biwhitening+flash, estimated loadings 3&quot;)</code></pre>
-<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-3-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(fit_sf$ldf$l[,4],main=&quot;biwhitening+flash, estimated loadings 4&quot;)</code></pre>
-<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-3-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-5-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(RcppML)
+library(NMF)</code></pre>
+<pre><code>Loading required package: registry</code></pre>
+<pre><code>Loading required package: rngtools</code></pre>
+<pre><code>Loading required package: cluster</code></pre>
+<pre><code>NMF - BioConductor layer [OK] | Shared memory capabilities [NO: bigmemory] | Cores 27/28</code></pre>
+<pre><code>  To enable shared memory capabilities, try: install.extras(&#39;
+NMF
+&#39;)</code></pre>
+<pre><code>
+Attaching package: &#39;NMF&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:RcppML&#39;:
+
+    nmf</code></pre>
+<pre class="r"><code>fitted_rcppml_nmf = function(fit){
+  fit$w%*%diag(fit$d)%*%fit$h
+}
+n_try = 10
+fit_nmf1_best = RcppML::nmf(X,4,L1=c(0.99,0.99),seed=0)</code></pre>
+<pre><code>
+iter |      tol 
+---------------
+   1 | 8.09e-01
+   2 | 2.71e-02
+   3 | 4.40e-03
+   4 | 2.23e-03
+   5 | 1.19e-03
+   6 | 6.44e-04
+   7 | 3.55e-04
+   8 | 2.08e-04
+   9 | 1.28e-04
+  10 | 7.98e-05</code></pre>
+<pre class="r"><code>error_best = sum((X-fitted_rcppml_nmf(fit_nmf1_best))^2)
+for(i in 1:n_try){
+  fit_nmf1 = RcppML::nmf(X,4,L1=c(0.99,0.99),seed=i)
+  error = sum((X-fitted_rcppml_nmf(fit_nmf1))^2)
+  if(error&lt;error_best){
+    fit_nmf1_best = fit_nmf1
+    error_best = error
+  }
+}</code></pre>
+<pre><code>
+iter |      tol 
+---------------
+   1 | 6.07e-01
+   2 | 1.69e-01
+   3 | 1.12e-02
+   4 | 4.37e-03
+   5 | 2.08e-03
+   6 | 1.07e-03
+   7 | 6.09e-04
+   8 | 3.67e-04
+   9 | 2.31e-04
+  10 | 1.52e-04
+  11 | 1.05e-04
+  12 | 7.60e-05
+
+iter |      tol 
+---------------
+   1 | 7.79e-01
+   2 | 1.52e-02
+   3 | 5.08e-03
+   4 | 2.30e-03
+   5 | 1.07e-03
+   6 | 5.71e-04
+   7 | 3.49e-04
+   8 | 2.28e-04
+   9 | 1.53e-04
+  10 | 1.12e-04
+  11 | 8.42e-05
+
+iter |      tol 
+---------------
+   1 | 7.68e-01
+   2 | 2.03e-02
+   3 | 5.41e-03
+   4 | 2.06e-03
+   5 | 1.14e-03
+   6 | 7.65e-04
+   7 | 5.40e-04
+   8 | 4.00e-04
+   9 | 3.09e-04
+  10 | 2.40e-04
+  11 | 1.88e-04
+  12 | 1.46e-04
+  13 | 1.14e-04
+  14 | 9.07e-05
+
+iter |      tol 
+---------------
+   1 | 8.17e-01
+   2 | 4.12e-02
+   3 | 3.62e-03
+   4 | 2.29e-03
+   5 | 1.80e-03
+   6 | 1.50e-03
+   7 | 1.44e-03
+   8 | 1.37e-03
+   9 | 1.27e-03
+  10 | 1.13e-03
+  11 | 9.70e-04
+  12 | 8.48e-04
+  13 | 7.20e-04
+  14 | 6.00e-04
+  15 | 4.88e-04
+  16 | 3.91e-04
+  17 | 3.15e-04
+  18 | 2.56e-04
+  19 | 2.07e-04
+  20 | 1.73e-04
+  21 | 1.51e-04
+  22 | 1.36e-04
+  23 | 1.26e-04
+  24 | 1.20e-04
+  25 | 1.16e-04
+  26 | 1.13e-04
+  27 | 1.10e-04
+  28 | 1.06e-04
+  29 | 1.03e-04
+  30 | 9.99e-05
+
+iter |      tol 
+---------------
+   1 | 7.34e-01
+   2 | 1.93e-02
+   3 | 6.65e-03
+   4 | 3.30e-03
+   5 | 1.76e-03
+   6 | 1.02e-03
+   7 | 7.06e-04
+   8 | 5.46e-04
+   9 | 4.44e-04
+  10 | 3.61e-04
+  11 | 2.94e-04
+  12 | 2.40e-04
+  13 | 1.97e-04
+  14 | 1.63e-04
+  15 | 1.37e-04
+  16 | 1.20e-04
+  17 | 1.09e-04
+  18 | 1.00e-04
+  19 | 9.23e-05
+
+iter |      tol 
+---------------
+   1 | 7.68e-01
+   2 | 4.48e-02
+   3 | 4.29e-03
+   4 | 2.70e-03
+   5 | 1.85e-03
+   6 | 1.31e-03
+   7 | 8.84e-04
+   8 | 6.19e-04
+   9 | 4.66e-04
+  10 | 3.68e-04
+  11 | 3.00e-04
+  12 | 2.56e-04
+  13 | 2.21e-04
+  14 | 1.89e-04
+  15 | 1.58e-04
+  16 | 1.32e-04
+  17 | 1.07e-04
+  18 | 8.61e-05
+
+iter |      tol 
+---------------
+   1 | 7.99e-01
+   2 | 5.48e-02
+   3 | 6.56e-03
+   4 | 3.81e-03
+   5 | 2.63e-03
+   6 | 1.97e-03
+   7 | 1.63e-03
+   8 | 1.49e-03
+   9 | 1.43e-03
+  10 | 1.39e-03
+  11 | 1.36e-03
+  12 | 1.32e-03
+  13 | 1.23e-03
+  14 | 1.16e-03
+  15 | 1.08e-03
+  16 | 1.01e-03
+  17 | 9.11e-04
+  18 | 7.99e-04
+  19 | 6.81e-04
+  20 | 5.79e-04
+  21 | 4.86e-04
+  22 | 4.05e-04
+  23 | 3.27e-04
+  24 | 2.65e-04
+  25 | 2.19e-04
+  26 | 1.85e-04
+  27 | 1.58e-04
+  28 | 1.36e-04
+  29 | 1.17e-04
+  30 | 1.01e-04
+  31 | 9.15e-05
+
+iter |      tol 
+---------------
+   1 | 5.89e-01
+   2 | 2.00e-01
+   3 | 8.29e-03
+   4 | 4.02e-03
+   5 | 2.04e-03
+   6 | 1.18e-03
+   7 | 7.62e-04
+   8 | 5.30e-04
+   9 | 3.98e-04
+  10 | 3.17e-04
+  11 | 2.61e-04
+  12 | 2.20e-04
+  13 | 1.84e-04
+  14 | 1.54e-04
+  15 | 1.31e-04
+  16 | 1.12e-04
+  17 | 9.48e-05
+
+iter |      tol 
+---------------
+   1 | 7.77e-01
+   2 | 2.56e-02
+   3 | 5.42e-03
+   4 | 3.41e-03
+   5 | 2.58e-03
+   6 | 1.92e-03
+   7 | 1.29e-03
+   8 | 8.46e-04
+   9 | 5.83e-04
+  10 | 4.25e-04
+  11 | 3.26e-04
+  12 | 2.59e-04
+  13 | 2.09e-04
+  14 | 1.75e-04
+  15 | 1.50e-04
+  16 | 1.33e-04
+  17 | 1.20e-04
+  18 | 1.10e-04
+  19 | 1.02e-04
+  20 | 9.43e-05
+
+iter |      tol 
+---------------
+   1 | 7.34e-01
+   2 | 1.55e-02
+   3 | 2.40e-03
+   4 | 1.02e-03
+   5 | 5.00e-04
+   6 | 2.80e-04
+   7 | 1.80e-04
+   8 | 1.26e-04
+   9 | 9.25e-05</code></pre>
+<pre class="r"><code>fitted_nmf2 = function(fit){
+  fit@fit@W%*%fit@fit@H
+}
+beta = 0.5
+fit_nmf2_best = NMF::nmf(X,4,&#39;snmf/l&#39;,beta = beta,seed=0)</code></pre>
+<pre><code>Warning in nmf_snmf(beta = 0.5, A = y, x = x, version = &quot;L&quot;, verbose = FALSE):
+NMF::snmf - Too many restarts due to too big &#39;beta&#39; value [Computation stopped
+after the 9th restart]</code></pre>
+<pre class="r"><code>error_best = sum((X-fitted_nmf2(fit_nmf2_best))^2)
+for(i in 1:n_try){
+  fit_nmf2 = NMF::nmf(X,4,&#39;snmf/l&#39;,beta = beta,seed=i)
+  error = sum((X-fitted_nmf2(fit_nmf2))^2)
+  if(error&lt;error_best){
+    fit_nmf2_best = fit_nmf2
+    error_best = error
+  }
+}</code></pre>
+<pre><code>Warning in nmf_snmf(beta = 0.5, A = y, x = x, version = &quot;L&quot;, verbose = FALSE):
+NMF::snmf - Too many restarts due to too big &#39;beta&#39; value [Computation stopped
+after the 9th restart]
+
+Warning in nmf_snmf(beta = 0.5, A = y, x = x, version = &quot;L&quot;, verbose = FALSE):
+NMF::snmf - Too many restarts due to too big &#39;beta&#39; value [Computation stopped
+after the 9th restart]
+
+Warning in nmf_snmf(beta = 0.5, A = y, x = x, version = &quot;L&quot;, verbose = FALSE):
+NMF::snmf - Too many restarts due to too big &#39;beta&#39; value [Computation stopped
+after the 9th restart]
+
+Warning in nmf_snmf(beta = 0.5, A = y, x = x, version = &quot;L&quot;, verbose = FALSE):
+NMF::snmf - Too many restarts due to too big &#39;beta&#39; value [Computation stopped
+after the 9th restart]
+
+Warning in nmf_snmf(beta = 0.5, A = y, x = x, version = &quot;L&quot;, verbose = FALSE):
+NMF::snmf - Too many restarts due to too big &#39;beta&#39; value [Computation stopped
+after the 9th restart]
+
+Warning in nmf_snmf(beta = 0.5, A = y, x = x, version = &quot;L&quot;, verbose = FALSE):
+NMF::snmf - Too many restarts due to too big &#39;beta&#39; value [Computation stopped
+after the 9th restart]
+
+Warning in nmf_snmf(beta = 0.5, A = y, x = x, version = &quot;L&quot;, verbose = FALSE):
+NMF::snmf - Too many restarts due to too big &#39;beta&#39; value [Computation stopped
+after the 9th restart]
+
+Warning in nmf_snmf(beta = 0.5, A = y, x = x, version = &quot;L&quot;, verbose = FALSE):
+NMF::snmf - Too many restarts due to too big &#39;beta&#39; value [Computation stopped
+after the 9th restart]</code></pre>
+<pre class="r"><code>my_ldf = function(Lhat,Fhat){
+  dl = apply(Lhat,2,norm,type=&#39;2&#39;)
+  df = apply(Fhat,2,norm,type=&#39;2&#39;)
+  return(list(l = apply(Lhat,2,function(z){z/norm(z,&#39;2&#39;)}),
+              f = apply(Fhat,2,function(z){z/norm(z,&#39;2&#39;)}),
+              d = dl*df))
+}
+library(ggplot2)
+library(gridExtra)</code></pre>
+<pre><code>
+Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:Biobase&#39;:
+
+    combine</code></pre>
+<pre><code>The following object is masked from &#39;package:BiocGenerics&#39;:
+
+    combine</code></pre>
+<pre class="r"><code>library(grid)
+plots = list()
+for(i in 1:4){
+  temp = my_ldf(L,F)
+  data &lt;- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;True L&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(i in 1:4){
+  temp = my_ldf(fit_tm$L,fit_tm$F)
+  data &lt;- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;fastTopics::fit_poisson_nmf&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(i in 1:4){
+  temp = my_ldf(fit_sf$ldf$l,fit_sf$ldf$f)
+  data &lt;- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;Biwhitening EBNMF&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(i in 1:4){
+  temp = my_ldf(fit_nmf1_best$w,t(fit_nmf1_best$h))
+  data &lt;- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;RcppML::nmf&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-9-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(i in 1:4){
+  temp = my_ldf(fit_nmf2_best@fit@W,t(fit_nmf2_best@fit@H))
+  data &lt;- data.frame(x=1:99,y =temp$l[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;NMF::nmf&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-9-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>plot F</p>
+<pre class="r"><code>plots = list()
+for(i in 1:4){
+  temp = my_ldf(L,F)
+  data &lt;- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;True F&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(i in 1:4){
+  temp = my_ldf(fit_tm$L,fit_tm$F)
+  data &lt;- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;fastTopics::fit_poisson_nmf&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(i in 1:4){
+  temp = my_ldf(fit_sf$ldf$l,fit_sf$ldf$f)
+  data &lt;- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;Biwhitening EBNMF&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(i in 1:4){
+  temp = my_ldf(fit_nmf1_best$w,t(fit_nmf1_best$h))
+  data &lt;- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;RcppML::nmf&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-10-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for(i in 1:4){
+  temp = my_ldf(fit_nmf2_best@fit@W,t(fit_nmf2_best@fit@H))
+  data &lt;- data.frame(x=1:300,y =temp$f[,i])
+  plots[[i]] &lt;- ggplot(data, aes(x = x,y=y)) + geom_point() + theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+}
+do.call(grid.arrange,c(plots,list(nrow=2,bottom=textGrob(&quot;NMF::nmf&quot;))))</code></pre>
+<p><img src="figure/biwhitening_PMF.Rmd/unnamed-chunk-10-5.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -974,37 +1693,52 @@ locale:
 [10] LC_TELEPHONE=C       LC_MEASUREMENT=C     LC_IDENTIFICATION=C 
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
-[1] funflash_0.1.2  workflowr_1.6.2
+ [1] gridExtra_2.3       ggplot2_3.4.1       NMF_0.25           
+ [4] Biobase_2.54.0      BiocGenerics_0.40.0 cluster_2.1.2      
+ [7] rngtools_1.5        registry_0.5-1      RcppML_0.3.7       
+[10] funflash_0.1.2      workflowr_1.6.2    
 
 loaded via a namespace (and not attached):
- [1] mcmc_0.9-7         bitops_1.0-7       fs_1.5.0           progress_1.2.2    
- [5] httr_1.4.5         rprojroot_2.0.2    flashr_0.6-8       tools_4.1.0       
- [9] bslib_0.2.5.1      utf8_1.2.3         R6_2.5.1           irlba_2.3.5.1     
-[13] uwot_0.1.14        lazyeval_0.2.2     colorspace_2.1-0   wavethresh_4.7.2  
-[17] prettyunits_1.1.1  tidyselect_1.2.0   compiler_4.1.0     git2r_0.28.0      
-[21] cli_3.6.0          quantreg_5.94      SparseM_1.81       plotly_4.10.1     
-[25] horseshoe_0.2.0    sass_0.4.0         caTools_1.18.2     scales_1.2.1      
-[29] SQUAREM_2021.1     quadprog_1.5-8     pbapply_1.7-0      mixsqp_0.3-48     
-[33] stringr_1.5.0      digest_0.6.31      rmarkdown_2.9      MCMCpack_1.6-3    
-[37] deconvolveR_1.2-1  pkgconfig_2.0.3    htmltools_0.5.4    fastTopics_0.6-142
-[41] highr_0.9          fastmap_1.1.0      invgamma_1.1       htmlwidgets_1.6.1 
-[45] rlang_1.0.6        rstudioapi_0.13    jquerylib_0.1.4    generics_0.1.3    
-[49] jsonlite_1.8.4     dplyr_1.1.0        magrittr_2.0.3     smashr_1.3-6      
-[53] Matrix_1.5-3       Rcpp_1.0.10        munsell_0.5.0      fansi_1.0.4       
-[57] lifecycle_1.0.3    stringi_1.6.2      whisker_0.4        yaml_2.3.7        
-[61] MASS_7.3-54        Rtsne_0.16         plyr_1.8.6         grid_4.1.0        
-[65] parallel_4.1.0     promises_1.2.0.1   ggrepel_0.9.3      crayon_1.5.2      
-[69] lattice_0.20-44    cowplot_1.1.1      splines_4.1.0      hms_1.1.2         
-[73] knitr_1.33         pillar_1.8.1       softImpute_1.4-1   reshape2_1.4.4    
-[77] glue_1.6.2         evaluate_0.14      trust_0.1-8        data.table_1.14.8 
-[81] RcppParallel_5.1.7 vctrs_0.5.2        httpuv_1.6.1       MatrixModels_0.5-1
-[85] gtable_0.3.1       purrr_1.0.1        ebnm_1.0-11        tidyr_1.3.0       
-[89] ashr_2.2-54        ggplot2_3.4.1      xfun_0.24          NNLM_0.4.4        
-[93] coda_0.19-4        later_1.3.0        survival_3.2-11    viridisLite_0.4.1 
-[97] truncnorm_1.0-8    tibble_3.1.8       ellipsis_0.3.2    </code></pre>
+  [1] Rtsne_0.16          colorspace_2.1-0    smashr_1.3-6       
+  [4] ellipsis_0.3.2      rprojroot_2.0.2     fastTopics_0.6-142 
+  [7] fs_1.5.0            rstudioapi_0.13     farver_2.1.1       
+ [10] MatrixModels_0.5-1  ggrepel_0.9.3       fansi_1.0.4        
+ [13] codetools_0.2-18    splines_4.1.0       doParallel_1.0.17  
+ [16] knitr_1.33          jsonlite_1.8.4      mcmc_0.9-7         
+ [19] gridBase_0.4-7      ashr_2.2-54         flashr_0.6-8       
+ [22] uwot_0.1.14         BiocManager_1.30.20 compiler_4.1.0     
+ [25] httr_1.4.5          Matrix_1.5-3        fastmap_1.1.0      
+ [28] lazyeval_0.2.2      cli_3.6.0           later_1.3.0        
+ [31] htmltools_0.5.4     quantreg_5.94       prettyunits_1.1.1  
+ [34] tools_4.1.0         coda_0.19-4         gtable_0.3.1       
+ [37] glue_1.6.2          reshape2_1.4.4      dplyr_1.1.0        
+ [40] Rcpp_1.0.10         softImpute_1.4-1    jquerylib_0.1.4    
+ [43] vctrs_0.5.2         iterators_1.0.13    wavethresh_4.7.2   
+ [46] xfun_0.24           stringr_1.5.0       trust_0.1-8        
+ [49] lifecycle_1.0.3     irlba_2.3.5.1       NNLM_0.4.4         
+ [52] MASS_7.3-54         scales_1.2.1        hms_1.1.2          
+ [55] promises_1.2.0.1    parallel_4.1.0      SparseM_1.81       
+ [58] RColorBrewer_1.1-3  yaml_2.3.7          pbapply_1.7-0      
+ [61] sass_0.4.0          stringi_1.6.2       SQUAREM_2021.1     
+ [64] highr_0.9           deconvolveR_1.2-1   foreach_1.5.1      
+ [67] caTools_1.18.2      truncnorm_1.0-8     horseshoe_0.2.0    
+ [70] rlang_1.0.6         pkgconfig_2.0.3     bitops_1.0-7       
+ [73] ebnm_1.0-11         evaluate_0.14       lattice_0.20-44    
+ [76] invgamma_1.1        purrr_1.0.1         labeling_0.4.2     
+ [79] htmlwidgets_1.6.1   cowplot_1.1.1       tidyselect_1.2.0   
+ [82] plyr_1.8.6          magrittr_2.0.3      R6_2.5.1           
+ [85] generics_0.1.3      DBI_1.1.1           withr_2.5.0        
+ [88] pillar_1.8.1        whisker_0.4         survival_3.2-11    
+ [91] mixsqp_0.3-48       tibble_3.1.8        crayon_1.5.2       
+ [94] utf8_1.2.3          plotly_4.10.1       rmarkdown_2.9      
+ [97] progress_1.2.2      data.table_1.14.8   git2r_0.28.0       
+[100] digest_0.6.31       tidyr_1.3.0         httpuv_1.6.1       
+[103] MCMCpack_1.6-3      RcppParallel_5.1.7  munsell_0.5.0      
+[106] viridisLite_0.4.1   bslib_0.2.5.1       quadprog_1.5-8     </code></pre>
 </div>
 </div>
 
