@@ -53,9 +53,10 @@ summary_study = function(fit,K,gene=NULL){
   }
   fit_list     <- list(L = Lhat,F = Fhat)
   class(fit_list) <- c("multinom_topic_model_fit", "list")
-  structure_plot(fit_list,grouping = labels,
+  p <- structure_plot(fit_list,grouping = labels,
                         n = 2000,gap = 4,verbose=F) +
       labs(y = "loading",color = "dim",fill = "dim") + ggtitle(gene)
+  print(p)
   
 }
 ```
