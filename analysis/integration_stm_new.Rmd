@@ -1,0 +1,99 @@
+---
+title: "integration of RNA, ATACseq and Chipseq"
+author: "DongyueXie"
+date: "2023-03-19"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(workflowr)
+library(fastTopics)
+library(ggplot2)
+library(Matrix)
+#'@param EF a p by K factor matrix
+#'@param k #factors to be plot 
+plot_factor = function(EF,k,main=NULL){
+  plot(EF[,1],type='l',ylab='',xlab='base',main=main,ylim=range(EF))
+  if(k>1){
+    for(i in 2:k){
+    lines(EF[,i],col=i,lty=i)
+  }
+  }
+}
+#'@param K number of factors to be plot
+summary_study = function(fit,K,gene=NULL){
+  # plot factors 
+  p = nrow(fit$fit_stm$EF)
+  idx1 = 1:(p/3)
+  idx2 = (p/3+1):(p/3*2)
+  idx3 = (p/3*2+1):(p)
+  EF = fit$fit_stm$EF
+  x_idx = seq(1,length(fit$locus),by=fit$merge_len)
+  x_axis_label = fit$locus[x_idx]
+  par(mfrow=c(3,1))
+  for(k in 1:K){
+    plot(EF[idx1,k],type='l',ylab='',xlab='',main=c(paste(gene, 'factor',k),'RNA'),col=2,xaxt = "n")
+    axis(1, at=seq(1,length(x_axis_label),length.out = 5), labels=x_axis_label[seq(1,length(x_axis_label),length.out = 5)])
+    plot(EF[idx2,k],col=3,xlab='',ylab='',type='l',main='H3K4me1',xaxt = "n")
+    axis(1, at=seq(1,length(x_axis_label),length.out = 5), labels=x_axis_label[seq(1,length(x_axis_label),length.out = 5)])
+    plot(EF[idx3,k],col=4,xlab='',ylab='',type='l',main='ATAC',xaxt = "n")
+    axis(1, at=seq(1,length(x_axis_label),length.out = 5), labels=x_axis_label[seq(1,length(x_axis_label),length.out = 5)])
+  }
+  labels = rownames(fit$fit_stm$EL)
+  labels = sapply(labels,function(x){strsplit(x,split='_')[[1]][2]})
+  labels = as.factor(as.character(labels))
+  Lhat = fit$fit_stm$EL
+  Fhat = matrix(1,nrow=3,ncol=ncol(Lhat))
+  if(is.null(colnames(Lhat))){
+    colnames(Lhat) <- paste0("k",1:ncol(Lhat))
+  }
+  fit_list     <- list(L = Lhat,F = Fhat)
+  class(fit_list) <- c("multinom_topic_model_fit", "list")
+  structure_plot(fit_list,grouping = labels,
+                        n = 2000,gap = 4,verbose=F) +
+      labs(y = "loading",color = "dim",fill = "dim") + ggtitle(gene)
+  
+}
+```
+
+```{r,get_gene}
+files = list.files('/project2/mstephens/dongyue/luis/assays/')
+genes = c()
+for(i in 1:length(files)){
+  genes[i] = strsplit(files[i],split = '_')[[1]][1]
+}
+genes = unique(genes)
+#genes = genes[-which(genes=='MRPL18')]
+```
+
+## STM fit, K = 5, merge every 100 bases
+
+
+I sum the read counts every 100 bases.
+
+```{r,fig.width=8,fig.height=5}
+for(gene in genes){
+  print(gene)
+  fit = readRDS(paste('output/luis/',gene,'_K5_merge100base_stm.rds',sep=''))
+  summary_study(fit,K = 5,gene=gene)
+}
+```
+
+
+## STM fit, K = 5, merge every 10 bases
+
+I sum the read counts every 10 bases.
+
+```{r,stm,fig.width=8,fig.height=5}
+for(gene in genes){
+  print(gene)
+  fit = readRDS(paste('output/luis/',gene,'_K5_merge10base_stm.rds',sep=''))
+  summary_study(fit,K = 5,gene=gene)
+}
+```
+
+
