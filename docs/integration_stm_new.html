@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree38b7244dd09ba594e473b63895a98cf48d2bb05ftargetblank38b7244a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreeac2d2b9a9b94de346c5577a90051a864cc840784targetblankac2d2b9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/DongyueXie/SMF/tree/38b7244dd09ba594e473b63895a98cf48d2bb05f" target="_blank">38b7244</a>
+<a href="https://github.com/DongyueXie/SMF/tree/ac2d2b9a9b94de346c5577a90051a864cc840784" target="_blank">ac2d2b9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtree38b7244dd09ba594e473b63895a98cf48d2bb05ftargetblank38b7244a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomDongyueXieSMFtreeac2d2b9a9b94de346c5577a90051a864cc840784targetblankac2d2b9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/DongyueXie/SMF/tree/38b7244dd09ba594e473b63895a98cf48d2bb05f" target="_blank">38b7244</a>.
+<a href="https://github.com/DongyueXie/SMF/tree/ac2d2b9a9b94de346c5577a90051a864cc840784" target="_blank">ac2d2b9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -617,6 +617,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/DongyueXie/SMF/blob/ac2d2b9a9b94de346c5577a90051a864cc840784/analysis/integration_stm_new.Rmd" target="_blank">ac2d2b9</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+<td>
+wflow_publish("analysis/integration_stm_new.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/DongyueXie/SMF/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/integration_stm_new.html" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/DongyueXie/SMF/blob/38b7244dd09ba594e473b63895a98cf48d2bb05f/analysis/integration_stm_new.Rmd" target="_blank">38b7244</a>
 </td>
 <td>
@@ -681,9 +715,10 @@ summary_study = function(fit,K,gene=NULL){
   }
   fit_list     &lt;- list(L = Lhat,F = Fhat)
   class(fit_list) &lt;- c(&quot;multinom_topic_model_fit&quot;, &quot;list&quot;)
-  structure_plot(fit_list,grouping = labels,
+  p &lt;- structure_plot(fit_list,grouping = labels,
                         n = 2000,gap = 4,verbose=F) +
       labs(y = &quot;loading&quot;,color = &quot;dim&quot;,fill = &quot;dim&quot;) + ggtitle(gene)
+  print(p)
   
 }</code></pre>
 <pre class="r"><code>files = list.files(&#39;/project2/mstephens/dongyue/luis/assays/&#39;)
@@ -703,55 +738,1939 @@ genes = unique(genes)
   summary_study(fit,K = 5,gene=gene)
 }</code></pre>
 <pre><code>[1] &quot;CMC2&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-2.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-3.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-4.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-1.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-2.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-2.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-3.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-3">
+Past versions of unnamed-chunk-2-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-3.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-4.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-4">
+Past versions of unnamed-chunk-2-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-4.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-5.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-5">
+Past versions of unnamed-chunk-2-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-5.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-6.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-6">
+Past versions of unnamed-chunk-2-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-6.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] &quot;FAM220A&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-6.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-7.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-8.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-9.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-7.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-7">
+Past versions of unnamed-chunk-2-7.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-7.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-8.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-8">
+Past versions of unnamed-chunk-2-8.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-8.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-9.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-9">
+Past versions of unnamed-chunk-2-9.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-9.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-10.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-10">
+Past versions of unnamed-chunk-2-10.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-10.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-11.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-11">
+Past versions of unnamed-chunk-2-11.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-11.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-12.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-12">
+Past versions of unnamed-chunk-2-12.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-12.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] &quot;GTF3C6&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-11.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-12.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-13.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-14.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-13.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-13">
+Past versions of unnamed-chunk-2-13.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-13.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-14.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-14">
+Past versions of unnamed-chunk-2-14.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-14" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-14.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-15.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-15">
+Past versions of unnamed-chunk-2-15.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-15" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-15.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-16.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-16">
+Past versions of unnamed-chunk-2-16.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-16.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-17.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-17">
+Past versions of unnamed-chunk-2-17.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-17" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-17.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-18.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-18">
+Past versions of unnamed-chunk-2-18.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-18" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-18.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] &quot;HDDC2&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-16.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-17.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-18.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-19.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-19.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-19">
+Past versions of unnamed-chunk-2-19.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-19" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-19.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-20.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-20">
+Past versions of unnamed-chunk-2-20.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-20" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-20.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-21.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-21">
+Past versions of unnamed-chunk-2-21.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-21" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-21.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-22.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-22">
+Past versions of unnamed-chunk-2-22.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-22.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-23.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-23">
+Past versions of unnamed-chunk-2-23.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-23.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-24.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-24">
+Past versions of unnamed-chunk-2-24.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-24.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] &quot;HLA-DRB5&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-21.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-22.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-23.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-24.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-25.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;IRF2&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-26.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-27.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-28.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-29.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-25">
+Past versions of unnamed-chunk-2-25.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-25.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-26.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-26">
+Past versions of unnamed-chunk-2-26.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-26.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-27.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-27">
+Past versions of unnamed-chunk-2-27.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-27.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-28.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-28">
+Past versions of unnamed-chunk-2-28.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-28.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-29.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-29">
+Past versions of unnamed-chunk-2-29.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-29.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-30.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;MRPL18&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-31.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-32.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-33.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-34.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-30">
+Past versions of unnamed-chunk-2-30.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-30.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] &quot;IRF2&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-31.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-31">
+Past versions of unnamed-chunk-2-31.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-31.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-32.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-32">
+Past versions of unnamed-chunk-2-32.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-32.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-33.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-33">
+Past versions of unnamed-chunk-2-33.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-33" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-33.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-34.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-34">
+Past versions of unnamed-chunk-2-34.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-34" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-34.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-35.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;RP11-661A12.5&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-36.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-37.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-38.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-39.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-35">
+Past versions of unnamed-chunk-2-35.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-35" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-35.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-36.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-36">
+Past versions of unnamed-chunk-2-36.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-36" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-36.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] &quot;MRPL18&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-37.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-37">
+Past versions of unnamed-chunk-2-37.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-37" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-37.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-38.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-38">
+Past versions of unnamed-chunk-2-38.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-38" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-38.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-39.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-39">
+Past versions of unnamed-chunk-2-39.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-39" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-39.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-40.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;YBEY&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-41.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-42.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-43.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-44.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-40">
+Past versions of unnamed-chunk-2-40.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-40" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-40.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-41.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-41">
+Past versions of unnamed-chunk-2-41.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-41" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-41.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-42.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-42">
+Past versions of unnamed-chunk-2-42.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-42" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-42.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] &quot;RP11-661A12.5&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-43.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-43">
+Past versions of unnamed-chunk-2-43.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-43" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-43.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-44.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-44">
+Past versions of unnamed-chunk-2-44.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-44" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-44.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-45.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;ZFAND2A&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-46.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-47.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-48.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-49.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-45">
+Past versions of unnamed-chunk-2-45.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-45" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-45.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-46.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-46">
+Past versions of unnamed-chunk-2-46.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-46" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-46.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-47.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-47">
+Past versions of unnamed-chunk-2-47.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-47" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-47.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-48.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-48">
+Past versions of unnamed-chunk-2-48.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-48" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-48.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] &quot;YBEY&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-49.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-49">
+Past versions of unnamed-chunk-2-49.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-49" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-49.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-50.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-50">
+Past versions of unnamed-chunk-2-50.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-50" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/unnamed-chunk-2-50.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-51.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-52.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-53.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-54.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;ZFAND2A&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-55.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-56.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-57.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-58.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-59.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/unnamed-chunk-2-60.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="stm-fit-k-5-merge-every-10-bases" class="section level2">
 <h2>STM fit, K = 5, merge every 10 bases</h2>
@@ -762,55 +2681,1939 @@ Running tsne on 27 x 5 matrix.</code></pre>
   summary_study(fit,K = 5,gene=gene)
 }</code></pre>
 <pre><code>[1] &quot;CMC2&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-1.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-2.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-3.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-4.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/integration_stm_new.Rmd/stm-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-1">
+Past versions of stm-1.png
+</button>
+</p>
+<div id="fig-stm-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-1.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-2.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-2">
+Past versions of stm-2.png
+</button>
+</p>
+<div id="fig-stm-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-2.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-3.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-3">
+Past versions of stm-3.png
+</button>
+</p>
+<div id="fig-stm-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-3.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-4.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-4">
+Past versions of stm-4.png
+</button>
+</p>
+<div id="fig-stm-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-4.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
 <p><img src="figure/integration_stm_new.Rmd/stm-5.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-5">
+Past versions of stm-5.png
+</button>
+</p>
+<div id="fig-stm-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-5.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-6.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-6">
+Past versions of stm-6.png
+</button>
+</p>
+<div id="fig-stm-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-6.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] &quot;FAM220A&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-6.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-7.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-8.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-9.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-7.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-7">
+Past versions of stm-7.png
+</button>
+</p>
+<div id="fig-stm-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-7.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-8.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-8">
+Past versions of stm-8.png
+</button>
+</p>
+<div id="fig-stm-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-8.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-9.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-9">
+Past versions of stm-9.png
+</button>
+</p>
+<div id="fig-stm-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-9.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/stm-10.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-10">
+Past versions of stm-10.png
+</button>
+</p>
+<div id="fig-stm-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-10.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-11.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-11">
+Past versions of stm-11.png
+</button>
+</p>
+<div id="fig-stm-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-11.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-12.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-12">
+Past versions of stm-12.png
+</button>
+</p>
+<div id="fig-stm-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-12.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] &quot;GTF3C6&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-11.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-12.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-13.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-14.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-13.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-13">
+Past versions of stm-13.png
+</button>
+</p>
+<div id="fig-stm-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-13.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-14.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-14">
+Past versions of stm-14.png
+</button>
+</p>
+<div id="fig-stm-14" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-14.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/stm-15.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-15">
+Past versions of stm-15.png
+</button>
+</p>
+<div id="fig-stm-15" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-15.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-16.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-16">
+Past versions of stm-16.png
+</button>
+</p>
+<div id="fig-stm-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-16.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-17.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-17">
+Past versions of stm-17.png
+</button>
+</p>
+<div id="fig-stm-17" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-17.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-18.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-18">
+Past versions of stm-18.png
+</button>
+</p>
+<div id="fig-stm-18" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-18.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] &quot;HDDC2&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-16.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-17.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-18.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-19.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-19.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-19">
+Past versions of stm-19.png
+</button>
+</p>
+<div id="fig-stm-19" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-19.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/stm-20.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-20">
+Past versions of stm-20.png
+</button>
+</p>
+<div id="fig-stm-20" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-20.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-21.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-21">
+Past versions of stm-21.png
+</button>
+</p>
+<div id="fig-stm-21" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-21.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-22.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-22">
+Past versions of stm-22.png
+</button>
+</p>
+<div id="fig-stm-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-22.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-23.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-23">
+Past versions of stm-23.png
+</button>
+</p>
+<div id="fig-stm-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-23.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-24.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-24">
+Past versions of stm-24.png
+</button>
+</p>
+<div id="fig-stm-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-24.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] &quot;HLA-DRB5&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-21.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-22.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-23.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-24.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
 <p><img src="figure/integration_stm_new.Rmd/stm-25.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;IRF2&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-26.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-27.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-28.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-29.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-25">
+Past versions of stm-25.png
+</button>
+</p>
+<div id="fig-stm-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-25.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-26.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-26">
+Past versions of stm-26.png
+</button>
+</p>
+<div id="fig-stm-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-26.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-27.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-27">
+Past versions of stm-27.png
+</button>
+</p>
+<div id="fig-stm-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-27.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-28.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-28">
+Past versions of stm-28.png
+</button>
+</p>
+<div id="fig-stm-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-28.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-29.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-29">
+Past versions of stm-29.png
+</button>
+</p>
+<div id="fig-stm-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-29.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/stm-30.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;MRPL18&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-31.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-32.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-33.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-34.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-30">
+Past versions of stm-30.png
+</button>
+</p>
+<div id="fig-stm-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-30.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] &quot;IRF2&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-31.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-31">
+Past versions of stm-31.png
+</button>
+</p>
+<div id="fig-stm-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-31.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-32.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-32">
+Past versions of stm-32.png
+</button>
+</p>
+<div id="fig-stm-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-32.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-33.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-33">
+Past versions of stm-33.png
+</button>
+</p>
+<div id="fig-stm-33" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-33.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-34.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-34">
+Past versions of stm-34.png
+</button>
+</p>
+<div id="fig-stm-34" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-34.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
 <p><img src="figure/integration_stm_new.Rmd/stm-35.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;RP11-661A12.5&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-36.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-37.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-38.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-39.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>Running tsne on 27 x 5 matrix.
-Running tsne on 27 x 5 matrix.</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-35">
+Past versions of stm-35.png
+</button>
+</p>
+<div id="fig-stm-35" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-35.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-36.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-36">
+Past versions of stm-36.png
+</button>
+</p>
+<div id="fig-stm-36" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-36.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] &quot;MRPL18&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-37.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-37">
+Past versions of stm-37.png
+</button>
+</p>
+<div id="fig-stm-37" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-37.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-38.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-38">
+Past versions of stm-38.png
+</button>
+</p>
+<div id="fig-stm-38" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-38.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-39.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-39">
+Past versions of stm-39.png
+</button>
+</p>
+<div id="fig-stm-39" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-39.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/stm-40.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;YBEY&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-41.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-42.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-43.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-44.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-40">
+Past versions of stm-40.png
+</button>
+</p>
+<div id="fig-stm-40" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-40.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-41.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-41">
+Past versions of stm-41.png
+</button>
+</p>
+<div id="fig-stm-41" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-41.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-42.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-42">
+Past versions of stm-42.png
+</button>
+</p>
+<div id="fig-stm-42" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-42.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] &quot;RP11-661A12.5&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-43.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-43">
+Past versions of stm-43.png
+</button>
+</p>
+<div id="fig-stm-43" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-43.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-44.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-44">
+Past versions of stm-44.png
+</button>
+</p>
+<div id="fig-stm-44" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-44.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/stm-45.png" width="768" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;ZFAND2A&quot;</code></pre>
-<p><img src="figure/integration_stm_new.Rmd/stm-46.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-47.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-48.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-49.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-45">
+Past versions of stm-45.png
+</button>
+</p>
+<div id="fig-stm-45" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-45.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-46.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-46">
+Past versions of stm-46.png
+</button>
+</p>
+<div id="fig-stm-46" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-46.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Running tsne on 27 x 5 matrix.
 Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-47.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-47">
+Past versions of stm-47.png
+</button>
+</p>
+<div id="fig-stm-47" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-47.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-48.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-48">
+Past versions of stm-48.png
+</button>
+</p>
+<div id="fig-stm-48" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-48.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>[1] &quot;YBEY&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-49.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-49">
+Past versions of stm-49.png
+</button>
+</p>
+<div id="fig-stm-49" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-49.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><img src="figure/integration_stm_new.Rmd/stm-50.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-stm-50">
+Past versions of stm-50.png
+</button>
+</p>
+<div id="fig-stm-50" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/DongyueXie/SMF/blob/69bd51b7261e9fdef1d1688b2a758471016b3c0b/docs/figure/integration_stm_new.Rmd/stm-50.png" target="_blank">69bd51b</a>
+</td>
+<td>
+DongyueXie
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/integration_stm_new.Rmd/stm-51.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-52.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-53.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-54.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;ZFAND2A&quot;</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-55.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-56.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-57.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-58.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>Running tsne on 27 x 5 matrix.
+Running tsne on 27 x 5 matrix.</code></pre>
+<p><img src="figure/integration_stm_new.Rmd/stm-59.png" width="768" style="display: block; margin: auto;" /><img src="figure/integration_stm_new.Rmd/stm-60.png" width="768" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -849,20 +4652,20 @@ loaded via a namespace (and not attached):
 [21] colorspace_2.1-0   cowplot_1.1.1      htmltools_0.5.4    httpuv_1.6.1      
 [25] pkgconfig_2.0.3    invgamma_1.1       SparseM_1.81       purrr_1.0.1       
 [29] scales_1.2.1       whisker_0.4        later_1.3.0        Rtsne_0.16        
-[33] MatrixModels_0.5-1 git2r_0.28.0       tibble_3.1.8       generics_0.1.3    
-[37] ellipsis_0.3.2     withr_2.5.0        cachem_1.0.5       ashr_2.2-54       
-[41] pbapply_1.7-0      lazyeval_0.2.2     cli_3.6.0          crayon_1.5.2      
-[45] survival_3.2-11    magrittr_2.0.3     mcmc_0.9-7         evaluate_0.14     
-[49] fs_1.5.0           fansi_1.0.4        MASS_7.3-54        truncnorm_1.0-8   
-[53] prettyunits_1.1.1  tools_4.1.0        data.table_1.14.8  hms_1.1.2         
-[57] lifecycle_1.0.3    stringr_1.5.0      MCMCpack_1.6-3     plotly_4.10.1     
-[61] munsell_0.5.0      irlba_2.3.5.1      compiler_4.1.0     jquerylib_0.1.4   
-[65] rlang_1.0.6        grid_4.1.0         rstudioapi_0.13    htmlwidgets_1.6.1 
-[69] rmarkdown_2.9      gtable_0.3.1       R6_2.5.1           knitr_1.33        
-[73] dplyr_1.1.0        uwot_0.1.14        fastmap_1.1.0      utf8_1.2.3        
-[77] rprojroot_2.0.2    stringi_1.6.2      parallel_4.1.0     SQUAREM_2021.1    
-[81] Rcpp_1.0.10        vctrs_0.5.2        tidyselect_1.2.0   xfun_0.24         
-[85] coda_0.19-4       </code></pre>
+[33] MatrixModels_0.5-1 git2r_0.28.0       tibble_3.1.8       farver_2.1.1      
+[37] generics_0.1.3     ellipsis_0.3.2     withr_2.5.0        cachem_1.0.5      
+[41] ashr_2.2-54        pbapply_1.7-0      lazyeval_0.2.2     cli_3.6.0         
+[45] crayon_1.5.2       survival_3.2-11    magrittr_2.0.3     mcmc_0.9-7        
+[49] evaluate_0.14      fs_1.5.0           fansi_1.0.4        MASS_7.3-54       
+[53] truncnorm_1.0-8    prettyunits_1.1.1  tools_4.1.0        data.table_1.14.8 
+[57] hms_1.1.2          lifecycle_1.0.3    stringr_1.5.0      MCMCpack_1.6-3    
+[61] plotly_4.10.1      munsell_0.5.0      irlba_2.3.5.1      compiler_4.1.0    
+[65] jquerylib_0.1.4    rlang_1.0.6        grid_4.1.0         rstudioapi_0.13   
+[69] htmlwidgets_1.6.1  labeling_0.4.2     rmarkdown_2.9      gtable_0.3.1      
+[73] R6_2.5.1           knitr_1.33         dplyr_1.1.0        uwot_0.1.14       
+[77] fastmap_1.1.0      utf8_1.2.3         rprojroot_2.0.2    stringi_1.6.2     
+[81] parallel_4.1.0     SQUAREM_2021.1     Rcpp_1.0.10        vctrs_0.5.2       
+[85] tidyselect_1.2.0   xfun_0.24          coda_0.19-4       </code></pre>
 </div>
 </div>
 
