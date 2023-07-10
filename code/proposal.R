@@ -98,16 +98,43 @@ ploter2(fit.dwt$ldf$f,main=NULL)
 ###########################
 ###########################
 ###### Poisson case #######
-library(stm)
+library(ebpmf)
 
-ploter2 = function(EF,main){
+# ploter2 = function(EF,main){
+#   p = nrow(EF)
+#   par(mfrow=c(ncol(EF),1))
+#   for(k in 1:ncol(EF)){
+#     plot(EF[1:(p/2),k],type='l',ylim = range(EF[,k]),ylab='',xlab='',main=main,col=2)
+#     lines(EF[(p/2+1):(p),k],type='l',col=3)
+#
+#   }
+# }
+
+ploter2 = function(EF,main=NULL){
   p = nrow(EF)
-  par(mfrow=c(ncol(EF),1))
-  for(k in 1:ncol(EF)){
-    plot(EF[1:(p/2),k],type='l',ylim = range(EF[,k]),ylab='',xlab='',main=main,col=2)
-    lines(EF[(p/2+1):(p),k],type='l',col=3)
+  library(ggplot2)
+  library(tidyr)
 
-  }
+  # Convert the matrix EF to a data frame and gather the columns
+  EF_df <- as.data.frame(EF) %>%
+    mutate(row_number = 1:n()) %>%
+    pivot_longer(cols = -row_number, names_to = "column", values_to = "value")
+
+  # Create the ggplot2 plot
+  pp <- ggplot(EF_df, aes(x = row_number, y = value)) +
+    geom_line(color = 2, size = 1) +
+    facet_wrap(~column, ncol = 1, scales = "free_y") +
+    labs(x = "", y = "") +
+    theme_minimal() +
+    theme(
+      strip.text = element_blank(),
+      strip.background = element_blank(),
+      #axis.text.y = element_blank()  # Remove y-axis numbers
+    )+
+    ggtitle(main)
+
+  # Print the plot
+  print(pp)
 }
 
 K = 2
@@ -134,14 +161,14 @@ FF2[(p/8*3+10):(p/8*4-10),2] = f1
 FF2[(p/8*5):(p/8*7),3] = f2
 
 FFF = cbind(c(FF[,1],FF2[,3]),c(FF[,2],FF2[,2]),c(FF[,3],FF2[,1]))
-
-
-par(mfrow=c(K,1),tcl=-0.5,mai=c(0.5,1,0.2,0.3))
-for(k in 1:K){
-  plot(FFF[1:p,k],type='l',ylim = range(FFF),ylab=paste('f',k,sep=''),xlab='',lwd=2,col=2)
-  lines(FFF[(p+1):(2*p),k],type='l',col=3,lwd=2)
-
-}
+FFFn = exp(log(FFF)+matrix(rnorm(nrow(FFF)*ncol(FFF),0,0.1),nrow=nrow(FFF)))
+#
+# par(mfrow=c(K,1),tcl=-0.5,mai=c(0.5,1,0.2,0.3))
+# for(k in 1:K){
+#   plot(FFF[1:p,k],type='l',ylim = range(FFF),ylab=paste('f',k,sep=''),xlab='',lwd=2,col=2)
+#   lines(FFF[(p+1):(2*p),k],type='l',col=3,lwd=2)
+#
+# }
 
 set.seed(12345)
 
@@ -157,22 +184,20 @@ while(sum(rowSums(L)==0)>0){
 }
 
 y = matrix(rpois(n*p*2,tcrossprod(L,FFF[,1:K])),nrow=n)
-kmeans.init = kmeans(y, K, nstart = 20)
-L0 = rep(1, n) %o% (as.vector(table(kmeans.init$cluster)))
-F0 = t(kmeans.init$centers)
-
-fit.nmf = NNLM::nnmf(y,k=K,method = 'lee',loss='mkl',init = list(W=L0,H=t(F0)))
-temp = poisson2multinom(t(fit.nmf$H),fit.nmf$W)
+fit.nmf = fastTopics::fit_poisson_nmf(y,k=K)
+temp = poisson_to_multinom(fit.nmf$F,fit.nmf$L)
 ploter2(temp$FF,main=NULL)
 
-fit.stm5 = stm(y,K=K,nugget = F,init = list(L_init=L0,F_init=F0),tol=1e-5)
+fit.stm5 = ebpmf_identity(y,K=K)
 ploter2(fit.stm5$EF,main=NULL)
 
+L_true_scaled = poisson_to_multinom(FFF[,1:K],L)
+ploter2(L_true_scaled$FF,main=NULL)
 
 
 
+set.seed(2023)
 f0 = 0.5
-
 FF = matrix(f0, nrow=p, ncol=3)
 f1 = 5
 f2 = 1
@@ -186,41 +211,38 @@ FF2[(p/8*3+10):(p/8*4-10),2] = f1
 FF2[(p/8*5):(p/8*7),3] = f2
 
 FFF = cbind(c(FF[,1],FF2[,3]),c(FF[,2],FF2[,2]),c(FF[,3],FF2[,1]))
+FFFn = exp(log(FFF)+matrix(rnorm(nrow(FFF)*ncol(FFF),0,0.1),nrow=nrow(FFF)))
 
-
-par(mfrow=c(K,1),tcl=-0.5,mai=c(0.5,1,0.2,0.3))
-for(k in 1:K){
-  plot(FFF[1:p,k],type='l',ylim = range(FFF),ylab=paste('f',k,sep=''),xlab='',lwd=2,col=2)
-  lines(FFF[(p+1):(2*p),k],type='l',col=3,lwd=2)
+L = matrix(0,nrow=n,ncol=K)
+pi0=1/3
+while(sum(rowSums(L)==0)>0){
+  for(k in 1:K){
+    l1 = c(rexp(n*pi0,10),
+           rexp(n*(1-pi0)/2,5),
+           rexp(n*(1-pi0)/2,1))
+    L[,k] =  l1[sample(1:n)]
+  }
 }
 
-set.seed(12345)
+y = matrix(rpois(n*p*2,tcrossprod(L,FFFn[,1:K])),nrow=n)
+# kmeans.init = kmeans(y, K, nstart = 20)
+# L0 = rep(1, n) %o% (as.vector(table(kmeans.init$cluster)))
+# F0 = t(kmeans.init$centers)
 
-# L = matrix(0,nrow=n,ncol=K)
-# pi0=1/3
-# while(sum(rowSums(L)==0)>0){
-#   for(k in 1:K){
-#     l1 = c(rexp(n*pi0,10),
-#            rexp(n*(1-pi0)/2,5),
-#            rexp(n*(1-pi0)/2,1))
-#     L[,k] =  l1[sample(1:n)]
-#   }
-# }
-
-y = matrix(rpois(n*p*2,tcrossprod(L,FFF[,1:K])),nrow=n)
-kmeans.init = kmeans(y, K, nstart = 20)
-L0 = rep(1, n) %o% (as.vector(table(kmeans.init$cluster)))
-F0 = t(kmeans.init$centers)
-
-fit.nmf = NNLM::nnmf(y,k=K,method = 'lee',loss='mkl',init = list(W=L0,H=t(F0)))
-temp = poisson2multinom(t(fit.nmf$H),fit.nmf$W)
+fit.nmf = fastTopics::fit_poisson_nmf(y,k=K)
+temp = poisson_to_multinom(fit.nmf$F,fit.nmf$L)
 ploter2(temp$FF,main=NULL)
 
-fit.stm5 = stm(y,K=K,nugget = F,init = list(L_init=L0,F_init=F0),tol=1e-5)
+fit.stm5 = ebpmf_identity(y,K=K)
 ploter2(fit.stm5$EF,main=NULL)
 
+L_true_scaled = poisson_to_multinom(FFF[,1:K],L)
+ploter2(L_true_scaled$FF,main=NULL)
 
-
-
+#
+# plot(fit.stm5$EL[,2],L_true_scaled$L[,1])
+# plot(fit.stm5$EL[,1],L_true_scaled$L[,2])
+#
+# plot(temp$L[,1],L_true_scaled$L[,1])
 
 

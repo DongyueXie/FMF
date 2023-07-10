@@ -2,6 +2,15 @@ library(ebpmf)
 library(NNLM)
 library(Matrix)
 
+# take a look at the data
+id01_rna = read.csv('/project2/mstephens/cfbuenabadn/multiomics-ebpmf/code/coverage/counts/rnaseq/IDO1.csv.gz')
+rownames(id01_rna) = id01_rna[,1]
+id01_rna = id01_rna[,-1]
+summary(rowSums(id01_rna))
+id01_rna[1:5,1:5]
+hist(rowSums(id01_rna),breaks = 100)
+
+
 files = list.files('/project2/mstephens/dongyue/luis/assays')
 genes = c()
 for(i in 1:length(files)){
