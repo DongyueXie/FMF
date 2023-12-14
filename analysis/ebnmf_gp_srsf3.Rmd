@@ -1,0 +1,114 @@
+---
+title: "RUn smoothed ebnmf with gaussian process on srsf3 data"
+author: "DongyueXie"
+date: "2023-12-13"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Code to run the experiment:
+
+```{r,eval=FALSE}
+datax = read.csv('/project2/mstephens/cfbuenabadn/SRSF3.Counts.csv.gz')
+rownames(datax)=datax[,1]
+datax[1:5,1:5]
+datax = datax[,-1]
+dim(datax)
+datax = as.matrix(datax)
+sum(datax==0)/prod(dim(datax))
+
+library(ebnmf)
+
+#datax = Matrix(datax,sparse=T)
+set.seed(12345)
+K = 5
+m = 100
+init = 'fasttopics'
+fit = ebnmf(datax,K,ebpm.fn = c(ebpm::ebpm_gamma,smashrgen::ebpm_pois_sgp),
+            smooth_F = T,tol=1e-5,maxiter = 50,warm_start = T,init = init,
+            smooth_control = list(m=m),printevery = 1)
+
+saveRDS(fit,file=paste('output/ebnmf_K',K,'_m',m,'_init=',init,'_warmstart_SRSF3.rds',sep=''))
+
+init = 'kmeans'
+fit = ebnmf(datax,K,ebpm.fn = c(ebpm::ebpm_gamma,smashrgen::ebpm_pois_sgp),
+            smooth_F = T,tol=1e-5,maxiter = 50,warm_start = T,init = init,
+            smooth_control = list(m=m),printevery = 1)
+
+saveRDS(fit,file=paste('output/ebnmf_K',K,'_m',m,'_init=',init,'_warmstart_SRSF3.rds',sep=''))
+
+for(k in 1:K){
+  plot(fit$EF[,k],type='l')
+}
+
+
+```
+
+We fix K = 5
+
+```{r}
+K=5
+```
+
+## Initialize using fasttopics
+
+### m = 50
+
+```{r}
+res <- readRDS("output/ebnmf_K5_m50_init=fasttopics_warmstart_SRSF3.rds")
+res$elbo
+```
+
+```{r,fig.width=9,fig.height=12}
+par(mfrow=c(5,1))
+for(k in 1:K){
+  plot(res$EF[,k],type='l')
+}
+```
+
+### m = 100
+
+```{r,fig.width=9,fig.height=12}
+res <- readRDS("output/ebnmf_K5_m100_init=fasttopics_warmstart_SRSF3.rds")
+res$elbo
+```
+
+```{r,fig.width=9,fig.height=12}
+par(mfrow=c(5,1))
+for(k in 1:K){
+  plot(res$EF[,k],type='l')
+}
+```
+
+## Initialize using kmeans
+
+### m = 50
+
+```{r,fig.width=9,fig.height=12}
+res <- readRDS("output/ebnmf_K5_m50_init=kmeans_warmstart_SRSF3.rds")
+res$elbo
+```
+
+```{r,fig.width=9,fig.height=12}
+par(mfrow=c(5,1))
+for(k in 1:K){
+  plot(res$EF[,k],type='l')
+}
+```
+
+### m = 100
+
+```{r}
+res <- readRDS("output/ebnmf_K5_m100_init=kmeans_warmstart_SRSF3.rds")
+res$elbo
+```
+
+```{r,fig.width=9,fig.height=12}
+par(mfrow=c(5,1))
+for(k in 1:K){
+  plot(res$EF[,k],type='l')
+}
+```
